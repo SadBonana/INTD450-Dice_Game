@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dxvj75cw3wclu"]
+
+[ext_resource type="Script" path="res://src/BaseEnemy.gd" id="1_8i37b"]
+[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="2_lwaki"]
+
+[resource]
+script = ExtResource("1_8i37b")
+name = "Red Godot Logo"
+texture = ExtResource("2_lwaki")
+health = 45
+damage = 15
