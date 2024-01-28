@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="I Ntd 450"
+run/main_scene="res://d4_roll.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 

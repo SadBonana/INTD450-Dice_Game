@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3lbeir6kyyg6"]
+
+[ext_resource type="Script" path="res://D4_rolling.gd" id="1_utafo"]
+[ext_resource type="PackedScene" uid="uid://btmewtjeyfwns" path="res://models/d4.glb" id="2_ncygw"]
+[ext_resource type="PackedScene" uid="uid://bqfea2cgpm0xs" path="res://d4_raycast.tscn" id="3_pmuy5"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bm8aw"]
+points = PackedVector3Array(1.03251, -0.375152, -0.61073, 0.0125901, -0.380065, 1.19956, -1.04516, -0.382893, -0.588934, -0.000222564, 1.13794, -9.39369e-05)
+
+[node name="D4" type="RigidBody3D"]
+gravity_scale = 2.0
+freeze = true
+script = ExtResource("1_utafo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0656205, 0.394401, 0.502923)
+shape = SubResource("ConvexPolygonShape3D_bm8aw")
+
+[node name="d4" parent="." instance=ExtResource("2_ncygw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0772209, 0, 0.217241)
+
+[node name="D4" parent="d4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0681977, 0.394401, -0.206836)
+
+[node name="Raycasts" type="Node3D" parent="."]
+
+[node name="D4Raycast1" parent="Raycasts" instance=ExtResource("3_pmuy5")]
+
+[editable path="d4"]
