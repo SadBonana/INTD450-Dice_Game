@@ -25,5 +25,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0681977, 0.394401, -0.2068
 [node name="Raycasts" type="Node3D" parent="."]
 
 [node name="D4Raycast1" parent="Raycasts" instance=ExtResource("3_pmuy5")]
+transform = Transform3D(0.967951, 0.238647, 0.0782233, -0.25114, 0.9198, 0.30149, 0, -0.311473, 0.950255, 0, 0, 0)
 
 [editable path="d4"]
