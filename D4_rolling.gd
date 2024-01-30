@@ -14,7 +14,7 @@ func _ready():
 
 
 func _input(event):
-	if event.is_action_pressed("ui_accept") && !is_rolling:
+	if event.is_action_pressed("ui_accept"): #&& !is_rolling:
 		_roll()
 
 

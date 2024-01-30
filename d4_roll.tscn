@@ -13,7 +13,7 @@ freeze = true
 script = ExtResource("1_utafo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0656205, 0.394401, 0.502923)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00305448, 0.394401, -0.00277764)
 shape = SubResource("ConvexPolygonShape3D_bm8aw")
 
 [node name="d4" parent="." instance=ExtResource("2_ncygw")]
