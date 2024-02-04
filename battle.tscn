@@ -78,7 +78,7 @@ _data = {
 "enemy_damaged": SubResource("Animation_redou")
 }
 
-[node name="Battle" type="Control"]
+[node name="Battle" type="Control" node_paths=PackedStringArray("playerHealthBar", "playerStatusContainer", "textbox", "textboxLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -87,6 +87,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5jfo4")
 enemy = ExtResource("2_yokuy")
+playerHealthBar = NodePath("PlayerPanel/HBoxContainer/Player Status/Player Health and Name/Player Health Bar")
+playerStatusContainer = NodePath("PlayerPanel/HBoxContainer/Player Status/Player Health and Name")
+textbox = NodePath("Textbox")
+textboxLabel = NodePath("Textbox/Label")
 
 [node name="Background" type="TextureRect" parent="."]
 modulate = Color(0.04, 0.04, 0.04, 1)
@@ -106,10 +110,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -254.0
-offset_top = -109.0
-offset_right = -62.0
-offset_bottom = 110.0
+offset_left = -245.0
+offset_top = -202.0
+offset_right = -53.0
+offset_bottom = 17.0
 grow_horizontal = 0
 grow_vertical = 2
 
@@ -151,32 +155,37 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -103.0
+offset_top = -223.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_idclm")
 
-[node name="PlayerData" type="HBoxContainer" parent="PlayerPanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerPanel"]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
-offset_right = -16.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Player Status" type="VBoxContainer" parent="PlayerPanel/HBoxContainer"]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Player Health and Name" type="HBoxContainer" parent="PlayerPanel/HBoxContainer/Player Status"]
+layout_mode = 2
 theme_override_constants/separation = 17
 alignment = 1
 
-[node name="Label" type="Label" parent="PlayerPanel/PlayerData"]
+[node name="Player Name" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Player Health and Name"]
 layout_mode = 2
-size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_kwukf")
 theme_override_font_sizes/font_size = 32
 text = "Player"
 horizontal_alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="PlayerPanel/PlayerData"]
+[node name="Player Health Bar" type="ProgressBar" parent="PlayerPanel/HBoxContainer/Player Status/Player Health and Name"]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -187,7 +196,7 @@ step = 1.0
 value = 50.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="PlayerPanel/PlayerData/ProgressBar"]
+[node name="Label" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Player Health and Name/Player Health Bar"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -199,6 +208,81 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_kwukf")
 theme_override_font_sizes/font_size = 32
 text = "HP: 25/50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Reroll Status" type="HBoxContainer" parent="PlayerPanel/HBoxContainer/Player Status"]
+layout_mode = 2
+
+[node name="Rerolls" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Reroll Status"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Rerolls:"
+
+[node name="Rerolls Left" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Reroll Status"]
+layout_mode = 2
+text = "3"
+
+[node name="Deck Status" type="HBoxContainer" parent="PlayerPanel/HBoxContainer/Player Status"]
+layout_mode = 2
+
+[node name="Dice Bag" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Deck Status"]
+layout_mode = 2
+text = "Dice Bag:"
+
+[node name="Num Dice Left" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Deck Status"]
+layout_mode = 2
+text = "12"
+
+[node name="Separator" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Deck Status"]
+layout_mode = 2
+text = "/"
+
+[node name="Num Dice Total" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Deck Status"]
+layout_mode = 2
+text = "20"
+
+[node name="Bag Sprite" type="TextureRect" parent="PlayerPanel/HBoxContainer/Player Status"]
+modulate = Color(0.113725, 0.0588235, 0, 1)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_iltai")
+stretch_mode = 4
+
+[node name="Die Action Menu" type="VBoxContainer" parent="PlayerPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Die Actions" type="ItemList" parent="PlayerPanel/HBoxContainer/Die Action Menu"]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 3
+item_0/text = "Attack"
+item_1/text = "Defend"
+item_2/text = "Reroll"
+
+[node name="Die Sprite" type="TextureRect" parent="PlayerPanel/HBoxContainer/Die Action Menu"]
+self_modulate = Color(0.168627, 0.196078, 0.917647, 1)
+layout_mode = 2
+texture = ExtResource("1_iltai")
+stretch_mode = 4
+
+[node name="Roll" type="Label" parent="PlayerPanel/HBoxContainer/Die Action Menu/Die Sprite"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -51.0
+offset_right = 56.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 70
+text = "5
+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -258,6 +342,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
 text = "RUN"
 
 [node name="Textbox" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
