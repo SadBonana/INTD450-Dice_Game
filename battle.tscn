@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bvlkj1mhba582"]
+[gd_scene load_steps=16 format=3 uid="uid://bvlkj1mhba582"]
 
 [ext_resource type="Script" path="res://src/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
 [ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="2_kwukf"]
 [ext_resource type="Resource" uid="uid://dxvj75cw3wclu" path="res://src/HostileRedGodotLogo.tres" id="2_yokuy"]
+[ext_resource type="PackedScene" uid="uid://4pckrotnlies" path="res://die_action_menu.tscn" id="5_co5hi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qcar4"]
 bg_color = Color(0.627451, 0, 0, 1)
@@ -78,7 +79,7 @@ _data = {
 "enemy_damaged": SubResource("Animation_redou")
 }
 
-[node name="Battle" type="Control" node_paths=PackedStringArray("playerHealthBar", "playerStatusContainer", "textbox", "textboxLabel")]
+[node name="Battle" type="Control" node_paths=PackedStringArray("playerHealthBar", "playerStatusContainer", "dieActionMenu", "statusAndHandMenu", "textbox", "textboxLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -87,8 +88,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5jfo4")
 enemy = ExtResource("2_yokuy")
-playerHealthBar = NodePath("PlayerPanel/HBoxContainer/Player Status/Player Health and Name/Player Health Bar")
-playerStatusContainer = NodePath("PlayerPanel/HBoxContainer/Player Status/Player Health and Name")
+playerHealthBar = NodePath("PlayerPanel/Player Status and Hand/Player Status/Player Health and Name/Player Health Bar")
+playerStatusContainer = NodePath("PlayerPanel/Player Status and Hand/Player Status/Player Health and Name")
+dieActionMenu = NodePath("PlayerPanel/Player Status and Hand/Die Action Menu")
+statusAndHandMenu = NodePath("PlayerPanel/Player Status and Hand")
 textbox = NodePath("Textbox")
 textboxLabel = NodePath("Textbox/Label")
 
@@ -160,7 +163,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_idclm")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PlayerPanel"]
+[node name="Player Status and Hand" type="HBoxContainer" parent="PlayerPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -168,24 +171,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Player Status" type="VBoxContainer" parent="PlayerPanel/HBoxContainer"]
+[node name="Player Status" type="VBoxContainer" parent="PlayerPanel/Player Status and Hand"]
 custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="Player Health and Name" type="HBoxContainer" parent="PlayerPanel/HBoxContainer/Player Status"]
+[node name="Player Health and Name" type="HBoxContainer" parent="PlayerPanel/Player Status and Hand/Player Status"]
 layout_mode = 2
 theme_override_constants/separation = 17
 alignment = 1
 
-[node name="Player Name" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Player Health and Name"]
+[node name="Player Name" type="Label" parent="PlayerPanel/Player Status and Hand/Player Status/Player Health and Name"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_kwukf")
 theme_override_font_sizes/font_size = 32
 text = "Player"
 horizontal_alignment = 1
 
-[node name="Player Health Bar" type="ProgressBar" parent="PlayerPanel/HBoxContainer/Player Status/Player Health and Name"]
+[node name="Player Health Bar" type="ProgressBar" parent="PlayerPanel/Player Status and Hand/Player Status/Player Health and Name"]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -196,7 +199,7 @@ step = 1.0
 value = 50.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Player Health and Name/Player Health Bar"]
+[node name="Label" type="Label" parent="PlayerPanel/Player Status and Hand/Player Status/Player Health and Name/Player Health Bar"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -211,80 +214,46 @@ text = "HP: 25/50"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Reroll Status" type="HBoxContainer" parent="PlayerPanel/HBoxContainer/Player Status"]
+[node name="Reroll Status" type="HBoxContainer" parent="PlayerPanel/Player Status and Hand/Player Status"]
 layout_mode = 2
 
-[node name="Rerolls" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Reroll Status"]
+[node name="Rerolls" type="Label" parent="PlayerPanel/Player Status and Hand/Player Status/Reroll Status"]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Rerolls:"
 
-[node name="Rerolls Left" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Reroll Status"]
+[node name="Rerolls Left" type="Label" parent="PlayerPanel/Player Status and Hand/Player Status/Reroll Status"]
 layout_mode = 2
 text = "3"
 
-[node name="Deck Status" type="HBoxContainer" parent="PlayerPanel/HBoxContainer/Player Status"]
+[node name="Deck Status" type="HBoxContainer" parent="PlayerPanel/Player Status and Hand/Player Status"]
 layout_mode = 2
 
-[node name="Dice Bag" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Deck Status"]
+[node name="Dice Bag" type="Label" parent="PlayerPanel/Player Status and Hand/Player Status/Deck Status"]
 layout_mode = 2
 text = "Dice Bag:"
 
-[node name="Num Dice Left" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Deck Status"]
+[node name="Num Dice Left" type="Label" parent="PlayerPanel/Player Status and Hand/Player Status/Deck Status"]
 layout_mode = 2
 text = "12"
 
-[node name="Separator" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Deck Status"]
+[node name="Separator" type="Label" parent="PlayerPanel/Player Status and Hand/Player Status/Deck Status"]
 layout_mode = 2
 text = "/"
 
-[node name="Num Dice Total" type="Label" parent="PlayerPanel/HBoxContainer/Player Status/Deck Status"]
+[node name="Num Dice Total" type="Label" parent="PlayerPanel/Player Status and Hand/Player Status/Deck Status"]
 layout_mode = 2
 text = "20"
 
-[node name="Bag Sprite" type="TextureRect" parent="PlayerPanel/HBoxContainer/Player Status"]
+[node name="Bag Sprite" type="TextureRect" parent="PlayerPanel/Player Status and Hand/Player Status"]
 modulate = Color(0.113725, 0.0588235, 0, 1)
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("1_iltai")
 stretch_mode = 4
 
-[node name="Die Action Menu" type="VBoxContainer" parent="PlayerPanel/HBoxContainer"]
+[node name="Die Action Menu" parent="PlayerPanel/Player Status and Hand" instance=ExtResource("5_co5hi")]
 layout_mode = 2
-size_flags_horizontal = 2
-
-[node name="Die Actions" type="ItemList" parent="PlayerPanel/HBoxContainer/Die Action Menu"]
-layout_mode = 2
-size_flags_vertical = 3
-item_count = 3
-item_0/text = "Attack"
-item_1/text = "Defend"
-item_2/text = "Reroll"
-
-[node name="Die Sprite" type="TextureRect" parent="PlayerPanel/HBoxContainer/Die Action Menu"]
-self_modulate = Color(0.168627, 0.196078, 0.917647, 1)
-layout_mode = 2
-texture = ExtResource("1_iltai")
-stretch_mode = 4
-
-[node name="Roll" type="Label" parent="PlayerPanel/HBoxContainer/Die Action Menu/Die Sprite"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -53.0
-offset_top = -51.0
-offset_right = 56.0
-offset_bottom = 55.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 70
-text = "5
-"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="ActionsPanel" type="Panel" parent="."]
 layout_mode = 1

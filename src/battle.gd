@@ -5,15 +5,25 @@ extends Control
 # Player Panel
 @export var playerHealthBar: ProgressBar
 @export var playerStatusContainer: HBoxContainer
+@export var dieActionMenu: VBoxContainer
+@export var statusAndHandMenu: HBoxContainer
 
 # Textbox
 @export var textbox: Panel
 @export var textboxLabel: Label
 
+
+var dieActionMenuPath = load("res://die_action_menu.tscn")
+
+
 signal textbox_closed
 
 var player_health = 0
 var enemy_health = 0
+
+var player_dice_bag = []
+var player_used_dice = []
+var player_dice_hand = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,17 +34,40 @@ func _ready():
 	player_health = State.player_health
 	enemy_health = enemy.health
 	
+	player_dice_bag = State.player_dice_bag.duplicate() # shallow copy
+	player_dice_bag.shuffle()
+	
 	textbox.hide()
 	$ActionsPanel.hide()
+	dieActionMenu.hide()
 	
 	display_text("A wild %s appears!" % enemy.name.to_upper())
 	await textbox_closed
 	$ActionsPanel.show()
 	
+	draw_dice()
+	
 func _input(event):
 	if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and $Textbox.visible:
 		textbox.hide()
 		emit_signal("textbox_closed")
+	
+func draw_dice():
+	for i in range(3): # Hardcoded temp hand size of 3
+		var d = player_dice_bag.pop_back() # Draw die from bag
+		player_dice_hand.append(roll_die(d)) # Roll die and add to hand
+		player_used_dice.append(d) # Discard used die
+		var die = dieActionMenuPath.instantiate()
+		die.find_child("Roll").text = "%d" % d
+		statusAndHandMenu.add_child(die)
+		
+		
+# Prolly shouldn't be here. Also this is prolly a bad way to do this.
+# If we use rng for rolls, we'll want to use a normal dist with mean set to what
+# you would expect it to be for the given die.
+# This method only exists for prototyping purposes. FIXME
+func roll_die(max_roll):
+	return (randi() % max_roll) + 1
 	
 func display_text(text):
 	textbox.show()

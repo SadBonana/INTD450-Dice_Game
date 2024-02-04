@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://4pckrotnlies"]
+
+[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_g22em"]
+
+[node name="Die Action Menu" type="VBoxContainer"]
+size_flags_horizontal = 2
+
+[node name="Die Actions" type="ItemList" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 3
+item_0/text = "Attack"
+item_1/text = "Defend"
+item_2/text = "Reroll"
+
+[node name="Die Sprite" type="TextureRect" parent="."]
+self_modulate = Color(0.168627, 0.196078, 0.917647, 1)
+layout_mode = 2
+texture = ExtResource("1_g22em")
+stretch_mode = 4
+
+[node name="Roll" type="Label" parent="Die Sprite"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -51.0
+offset_right = 56.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 70
+text = "5
+"
+horizontal_alignment = 1
+vertical_alignment = 1
