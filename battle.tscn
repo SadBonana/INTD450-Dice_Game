@@ -79,7 +79,7 @@ _data = {
 "enemy_damaged": SubResource("Animation_redou")
 }
 
-[node name="Battle" type="Control" node_paths=PackedStringArray("playerHealthBar", "playerStatusContainer", "dieActionMenu", "statusAndHandMenu", "textbox", "textboxLabel")]
+[node name="Battle" type="Control" node_paths=PackedStringArray("playerHealthBar", "playerStatusContainer", "dieActionMenu", "statusAndHandMenu", "diceRemaining", "diceMax", "enemyContainer1", "enemyContainer2", "enemyContainer3", "textbox", "textboxLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -92,6 +92,11 @@ playerHealthBar = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/P
 playerStatusContainer = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Player Health and Name")
 dieActionMenu = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu")
 statusAndHandMenu = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice")
+diceRemaining = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Deck Status/Num Dice Left")
+diceMax = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Deck Status/Num Dice Total")
+enemyContainer1 = NodePath("EnemyContainer")
+enemyContainer2 = NodePath("EnemyContainer2")
+enemyContainer3 = NodePath("EnemyContainer3")
 textbox = NodePath("Textbox")
 textboxLabel = NodePath("Textbox/Label")
 
@@ -113,12 +118,13 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -245.0
-offset_top = -202.0
-offset_right = -53.0
-offset_bottom = 17.0
+offset_left = -426.0
+offset_top = -207.0
+offset_right = -234.0
+offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
+scale = Vector2(0.5, 0.5)
 
 [node name="ProgressBar" type="ProgressBar" parent="EnemyContainer"]
 custom_minimum_size = Vector2(0, 24)
@@ -147,6 +153,121 @@ vertical_alignment = 1
 
 [node name="Enemy" type="TextureRect" parent="EnemyContainer"]
 modulate = Color(1, 0.0705882, 0.231373, 1)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_iltai")
+stretch_mode = 4
+
+[node name="EnemyContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -353.0
+offset_top = -175.0
+offset_right = -161.0
+offset_bottom = 44.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+
+[node name="ProgressBar" type="ProgressBar" parent="EnemyContainer2"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_qcar4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lpb05")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="EnemyContainer2/ProgressBar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kwukf")
+theme_override_font_sizes/font_size = 32
+text = "HP: 25/50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Enemy" type="TextureRect" parent="EnemyContainer2"]
+modulate = Color(1, 0.0705882, 0.231373, 1)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_iltai")
+stretch_mode = 4
+
+[node name="EnemyContainer3" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -232.0
+offset_top = -140.0
+offset_right = -40.0
+offset_bottom = 79.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="EnemyContainer3"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_qcar4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lpb05")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="EnemyContainer3/ProgressBar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kwukf")
+theme_override_font_sizes/font_size = 32
+text = "HP: 25/50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Enemy" type="TextureRect" parent="EnemyContainer3"]
+modulate = Color(1, 0.0705882, 0.231373, 1)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_iltai")
+stretch_mode = 4
+
+[node name="PlayerContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1107.0
+offset_top = -136.0
+offset_right = -915.0
+offset_bottom = 83.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+
+[node name="PlayerSprite" type="TextureRect" parent="PlayerContainer"]
+modulate = Color(0.541176, 0.866667, 1, 1)
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("1_iltai")
