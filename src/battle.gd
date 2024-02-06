@@ -40,15 +40,25 @@ var player_dice_hand = []
 
 var targetingEnemies = false
 
+# NOTE: I suspect that the better way to do this is to make the enemies their own scene, and this
+# class basically as the script attached to the scene. Same with drawn dice, though it already has
+# a scene, just no script.
 class Enemy:
 	var res: Resource
 	var cont: VBoxContainer
 	var healthBar: ProgressBar
 	var texRect: TextureRect
+	var rollLabel: Label    # FIXME: Displaying the enemy's roll over their sprite is prolly not what we want the final game to look like. I thought the empty top panel was where we'd show that info, but I'm running out of energy now so...
 	var health
 	var maxHealth
 	var damage
 	var name
+	
+	# FIXME: Ideally the enemies also have dice bags and hands and the player can see all their
+	# dice... maybe... that's how we platested it on paper anyways. Dunno how to handle running out
+	# of dice yet but anyways. For now just setting to a single d6 cuz I'm running out of steam.
+	# Also the dice need to be added to the resource script, similar to how it is with the hp.
+	var maxRoll = 6    # Hardcoded and done the dumbest way possible.
 	
 	var _on_focus_entered: Callable
 	var _on_focus_exited: Callable
@@ -59,9 +69,10 @@ class Enemy:
 		cont = container
 		healthBar = cont.find_child("ProgressBar")
 		texRect = cont.find_child("Enemy")
+		rollLabel = texRect.find_child("Roll")
+		rollLabel.hide()
 		health = res.health
 		maxHealth = res.health
-		damage = res.damage
 		name = res.name
 		
 		# set health bar
@@ -199,6 +210,12 @@ func _input(event):
 
 
 func draw_dice():
+	# Enemy draws their dice and displays their rolls first so the player has more info.
+	for enemy in enemies:
+		enemy.damage = roll_die(enemy.maxRoll)
+		enemy.rollLabel.show()
+		enemy.rollLabel.text = "%d" % enemy.damage
+	
 	for i in range(3): # Hardcoded temp hand size of 3
 		if not player_dice_bag.size() > 0:
 			display_text("Uh oh, all out of dice. Guess you're fucked.")
@@ -290,7 +307,8 @@ func damageEnemy(damage, enemy: Enemy):
 	if enemy.health == 0:
 		display_text("%s was defeated!" % enemy.name)
 		await textbox_closed
-		# TODO: temp enemy death anim. 
+		# TODO: temp enemy death anim.
+		enemy.cont.queue_free()
 		enemies.erase(enemy)
 		if enemies.size() == 0:
 			display_text("You won you cheater! This is bullshit! I'm not playing anymore! *crashes game*")
@@ -310,6 +328,9 @@ func _on_ready_pressed():
 	
 	display_text("To battle! dun dun dun!")
 	await textbox_closed
+	
+	for enemy in enemies:
+		enemy.rollLabel.hide()
 	
 	var player_defense = 0
 	for die in player_dice_hand:
