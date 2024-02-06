@@ -11,10 +11,15 @@ config_version=5
 [application]
 
 config/name="I Ntd 450"
-run/main_scene="res://d4_roll.tscn"
+run/main_scene="res://battle.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+State="*res://src/State.gd"
+
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
