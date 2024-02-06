@@ -10,16 +10,11 @@ config_version=5
 
 [application]
 
-config/name="I Ntd 450"
+config/name="Intd 450-dice Game"
 run/main_scene="res://battle.tscn"
-config/features=PackedStringArray("4.2", "Mobile")
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 State="*res://src/State.gd"
-
-[rendering]
-
-textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="mobile"
