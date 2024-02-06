@@ -87,7 +87,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5jfo4")
-enemy = ExtResource("2_yokuy")
+enemyRes = ExtResource("2_yokuy")
 playerHealthBar = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Player Health and Name/Player Health Bar")
 playerStatusContainer = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Player Health and Name")
 dieActionMenu = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu")
@@ -125,6 +125,12 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
+focus_neighbor_left = NodePath("../EnemyContainer3")
+focus_neighbor_top = NodePath("../EnemyContainer3")
+focus_neighbor_right = NodePath("../EnemyContainer2")
+focus_neighbor_bottom = NodePath("../EnemyContainer2")
+focus_next = NodePath("../EnemyContainer2")
+focus_previous = NodePath("../EnemyContainer3")
 
 [node name="ProgressBar" type="ProgressBar" parent="EnemyContainer"]
 custom_minimum_size = Vector2(0, 24)
@@ -172,6 +178,12 @@ offset_bottom = 44.0
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
+focus_neighbor_left = NodePath("../EnemyContainer")
+focus_neighbor_top = NodePath("../EnemyContainer")
+focus_neighbor_right = NodePath("../EnemyContainer3")
+focus_neighbor_bottom = NodePath("../EnemyContainer3")
+focus_next = NodePath("../EnemyContainer3")
+focus_previous = NodePath("../EnemyContainer")
 
 [node name="ProgressBar" type="ProgressBar" parent="EnemyContainer2"]
 custom_minimum_size = Vector2(0, 24)
@@ -218,6 +230,12 @@ offset_right = -40.0
 offset_bottom = 79.0
 grow_horizontal = 0
 grow_vertical = 2
+focus_neighbor_left = NodePath("../EnemyContainer2")
+focus_neighbor_top = NodePath("../EnemyContainer2")
+focus_neighbor_right = NodePath("../EnemyContainer")
+focus_neighbor_bottom = NodePath("../EnemyContainer")
+focus_next = NodePath("../EnemyContainer")
+focus_previous = NodePath("../EnemyContainer2")
 
 [node name="ProgressBar" type="ProgressBar" parent="EnemyContainer3"]
 custom_minimum_size = Vector2(0, 24)

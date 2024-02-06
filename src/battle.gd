@@ -1,6 +1,6 @@
 extends Control
 
-@export var enemy: Resource = null
+@export var enemyRes: Resource = null
 
 # Player Panel
 @export var playerHealthBar: ProgressBar
@@ -27,7 +27,7 @@ var dieActionMenuPath = load("res://die_action_menu.tscn")
 
 signal textbox_closed
 signal damage_enemy_resolved
-signal targeting_update
+signal target_selected(target)
 
 var player_health = 0
 var enemy_health = 0
@@ -39,8 +39,6 @@ var player_used_dice = []
 var player_dice_hand = []
 
 var targetingEnemies = false
-enum tc {NEXT, PREV, CONFIRM}
-var targetingCommand
 
 class Enemy:
 	var res: Resource
@@ -51,6 +49,10 @@ class Enemy:
 	var maxHealth
 	var damage
 	var name
+	
+	var _on_focus_entered: Callable
+	var _on_focus_exited: Callable
+	var _on_gui_input: Callable
 	
 	func _init(resource, container):
 		res = resource
@@ -81,8 +83,8 @@ class DrawnDie:
 	var actionMenu: ItemList
 	var dieActionMenu: VBoxContainer
 	var selectedAction: DieActions
-	# TODO: Keep track of targetted enemy for attack action
 	var target: Enemy
+	var itemSelected = false
 	
 	func _init(maxR, actual, menu):
 		maxRoll = maxR
@@ -91,6 +93,7 @@ class DrawnDie:
 		actionMenu = dieActionMenu.find_child("Die Actions")
 		
 		actionMenu.item_selected.connect(func (index):
+			itemSelected = true
 			selectedAction = index
 			if index == DieActions.ATTACK:
 				target = await targetingFunc.call()
@@ -98,16 +101,20 @@ class DrawnDie:
 			# until the player ends their turn, so the rerolled die would only be available next
 			# turn... which could be interesting but wasn't what I envisioned previously.
 		)
+	
+	func set_all_actions_selectable(selectable: bool):
+		for i in range(actionMenu.get_item_count()):
+			actionMenu.set_item_selectable(i, selectable)
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if numEnemies >= 1:
-		enemies.append(Enemy.new(enemy, enemyContainer3))
+		enemies.append(Enemy.new(enemyRes, enemyContainer3))
 	if numEnemies >= 2:
-		enemies.append(Enemy.new(enemy, enemyContainer2))
+		enemies.append(Enemy.new(enemyRes, enemyContainer2))
 	if numEnemies >= 3:
-		enemies.append(Enemy.new(enemy, enemyContainer1))
+		enemies.append(Enemy.new(enemyRes, enemyContainer1))
 	match numEnemies:
 		1:
 			enemyContainer1.hide()
@@ -115,72 +122,82 @@ func _ready():
 		2:
 			enemyContainer1.hide()
 	
-	
-	set_health($EnemyContainer/ProgressBar, enemy.health, enemy.health)
 	set_health(playerHealthBar, State.player_health, State.player_health_max)
-	$EnemyContainer/Enemy.texture = enemy.texture
-	
 	player_health = State.player_health
-	enemy_health = enemy.health
 	
 	player_dice_bag = State.player_dice_bag.duplicate() # shallow copy
 	player_dice_bag.shuffle()
 	
 	textbox.hide()
-	$ActionsPanel.hide()
 	dieActionMenu.hide()
 	
 	diceRemaining.text = "%d" % player_dice_bag.size()
 	diceMax.text = "%d" % State.player_dice_bag.size()
 	
-	display_text("A wild %s appears!" % enemy.name.to_upper())
+	display_text("Uh oh! yuv been jumped m8!")
 	await textbox_closed
-	$ActionsPanel.show()
 	
+	# This function will be called when the player selects an action that requires selecting an enemy
 	DrawnDie.targetingFunc = func ():
-		if enemies.size() == 1:
-			return enemies[0]
-		targetingEnemies = true
-		display_text("Select the enemy to attack with < and >. Confirm with enter or click.")
-		var index = await enemySelectionHelper(0)
-		targetingEnemies = false
-		return enemies[index]
+			if enemies.size() == 1:   # No need to select a target if there's only 1
+				return enemies[0]
+				
+			targetingEnemies = true
+			display_text("Select the enemy to attack. Press enter to confirm the selection.")
+			
+			# Prevent player from getting distracted and crashing teh game
+			for die in player_dice_hand:
+				die.set_all_actions_selectable(false)
+			
+			for enemy in enemies:
+				enemy.cont.modulate.a = 0.5    # NOTE: Might be a bad way to do this... what if the alpha on the enemy container was set to something other than 1 somewhere else...
+				enemy.cont.set_focus_mode(FOCUS_ALL)
+				
+				# Create and set event handlers
+				enemy._on_gui_input = func(event: InputEvent):
+						if event.is_action_pressed("ui_accept"):
+							targetingEnemies = false
+							textbox.hide()
+							target_selected.emit(enemy)
+				enemy._on_focus_entered = func ():
+						enemy.cont.gui_input.connect(enemy._on_gui_input)
+						enemy.cont.modulate.a = 1.0
+				enemy._on_focus_exited = func ():
+						disconnect_if_connected(enemy.cont.gui_input, enemy._on_gui_input)
+						enemy.cont.modulate.a = 0.5
+				enemy.cont.focus_entered.connect(enemy._on_focus_entered)
+				enemy.cont.focus_exited.connect(enemy._on_focus_exited)
+				
+			enemies[0].cont.grab_focus()
+			var target = await target_selected
+			
+			# Clean up once targeting is finished
+			for enemy in enemies:
+				enemy.cont.set_focus_mode(FOCUS_NONE)
+				disconnect_if_connected(enemy.cont.focus_entered, enemy._on_focus_entered)
+				disconnect_if_connected(enemy.cont.focus_exited, enemy._on_focus_exited)
+				enemy.cont.modulate.a = 1.0   # Set opacity back to 100%
+			for die in player_dice_hand:
+				die.set_all_actions_selectable(true)
+			
+			return target
 		
 	draw_dice()
-	
-func enemySelectionHelper(selected_i):
-# FIXME: USE GODOT'S BUILT IN CONTROL NODE FOCUS SYSTEM, ON_FOCUS(), ETC INSTEAD. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	for i in range(enemies.size()):
-		if i == selected_i:
-			enemies[i].cont.modulate.a = 1.0
-			continue
-		enemies[i].cont.modulate.a = 0.5	# NOTE: Might be a bad way to do this... what if the alpha on the enemy container was set to something other than 1 somewhere else...
-	await targeting_update
-	match targetingCommand:
-		tc.PREV:
-			return await enemySelectionHelper((selected_i - 1) % enemies.size())
-		tc.NEXT:
-			return await enemySelectionHelper((selected_i + 1) % enemies.size())
-		tc.CONFIRM:
-			for i in range(enemies.size()):
-				enemies[i].cont.modulate.a = 1.0
-			return selected_i
-	
+
+# Disconnect a function from a signal, does not throw an error if func is not connected.
+func disconnect_if_connected(sig: Signal, cal: Callable):
+	if not sig.is_connected(cal):
+		return false
+	sig.disconnect(cal)
+	return true
+
+
 func _input(event):
-	if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and $Textbox.visible and not targetingEnemies:
+	if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and $Textbox.visible:
 		textbox.hide()
 		emit_signal("textbox_closed")
-	if targetingEnemies:
-		if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_focus_prev"):
-			targetingCommand = tc.PREV
-			emit_signal("targeting_update")
-		elif Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_focus_next"):
-			targetingCommand = tc.NEXT
-			emit_signal("targeting_update")
-		elif (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
-			targetingCommand = tc.CONFIRM
-			emit_signal("targeting_update")
-	
+
+
 func draw_dice():
 	for i in range(3): # Hardcoded temp hand size of 3
 		if not player_dice_bag.size() > 0:
@@ -207,25 +224,30 @@ func draw_dice():
 # This method only exists for prototyping purposes. FIXME
 func roll_die(max_roll):
 	return (randi() % max_roll) + 1
-	
+
+
 func display_text(text):
 	textbox.show()
 	textboxLabel.text = text
-	
+
+
 func set_health(progress_bar, hp, hp_max):
 	progress_bar.value = hp
 	progress_bar.max_value = hp_max
 	progress_bar.get_node("Label").text = "hp: %d/%d" % [hp, hp_max]
-	
+
+
 func damageHelper(x, y):
 	return max(0, x - y)
-	
+
+
 func enemy_turn(playerDefense=0):
 	for enemy in enemies:
 		display_text("Oh noes! %s is coming for you!" % enemy.name)
 		await textbox_closed
 	
 		var damage = damageHelper(enemy.damage, playerDefense)
+		playerDefense = damageHelper(playerDefense, enemy.damage)
 		player_health = damageHelper(player_health, damage)
 		set_health(playerHealthBar, player_health, State.player_health_max)
 	
@@ -250,6 +272,7 @@ func _on_run_pressed():
 	await get_tree().create_timer(0.5).timeout
 	get_tree().quit()
 
+
 # TODO: make this generic to any actor
 func damageEnemy(damage, enemy: Enemy):
 	display_text("Attacking! dun dun dun!")
@@ -265,22 +288,30 @@ func damageEnemy(damage, enemy: Enemy):
 	await textbox_closed
 	
 	if enemy.health == 0:
-		display_text("%s was defeated! This is bullshit! I'm not playing anymore! *crashes game*" % enemy.name)
+		display_text("%s was defeated!" % enemy.name)
 		await textbox_closed
 		# TODO: temp enemy death anim. 
-		
-		await get_tree().create_timer(0.5).timeout
-		get_tree().quit()
+		enemies.erase(enemy)
+		if enemies.size() == 0:
+			display_text("You won you cheater! This is bullshit! I'm not playing anymore! *crashes game*")
+			await textbox_closed
+			await get_tree().create_timer(0.5).timeout
+			get_tree().quit()
 		
 	emit_signal("damage_enemy_resolved")
 
 
 func _on_ready_pressed():
-	display_text("Attacking! dun dun dun!")
+	for die in player_dice_hand:
+		if not die.itemSelected:
+			display_text("Hold your horses! You need to select what to do with each of your die first!")
+			await textbox_closed
+			return
+	
+	display_text("To battle! dun dun dun!")
 	await textbox_closed
 	
 	var player_defense = 0
-	
 	for die in player_dice_hand:
 		match die.selectedAction:
 			DieActions.ATTACK:
@@ -292,5 +323,6 @@ func _on_ready_pressed():
 				#TODO: Implement, but prolly not here. See the TODO in the connect func call in the DrawnDie class
 				pass
 		die.dieActionMenu.queue_free()
+		
 	player_dice_hand.clear()
 	enemy_turn(player_defense)
