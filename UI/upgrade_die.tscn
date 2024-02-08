@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://cvyca2p1xw30e"]
+[gd_scene format=3 uid="uid://d30parxe1f0q6"]
 
-[node name="Campfire" type="Control"]
+[node name="UpgradeDie" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

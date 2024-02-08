@@ -89,7 +89,7 @@ enum DieActions {ATTACK, DEFEND, REROLL}
 class DrawnDie:
 	static var targetingFunc: Callable
 	
-	var maxRoll: int
+	#var maxRoll: int
 	var roll: int
 	var actionMenu: ItemList
 	var dieActionMenu: VBoxContainer
@@ -97,8 +97,8 @@ class DrawnDie:
 	var target: Enemy
 	var itemSelected = false
 	
-	func _init(maxR, actual, menu):
-		maxRoll = maxR
+	func _init(actual, menu):
+		#maxRoll = maxR
 		roll = actual
 		dieActionMenu = menu
 		actionMenu = dieActionMenu.find_child("Die Actions")
@@ -221,13 +221,20 @@ func draw_dice():
 			display_text("Uh oh, all out of dice. Guess you're fucked.")
 			await textbox_closed
 			return
+		
 		var d = player_dice_bag.pop_back() # Draw die from bag
-		var roll = roll_die(d)
+		print(d.name)
+		var roll = roll_player_die(d)
+		print(roll)
+		print(" ")
 		player_used_dice.append(d) # Discard used die
+		
 		var die = dieActionMenuPath.instantiate()
 		die.find_child("Roll").text = "%d" % roll    # TODO: This doesn't tell you the kind of dice it is, juct the roll. This will need to be implemented in the die_action_menu scene
 		
-		var drawnDie = DrawnDie.new(d, roll, die)
+		#var drawnDie = DrawnDie.new(d, roll, die)
+		var drawnDie = DrawnDie.new(roll, die)
+		
 		player_dice_hand.append(drawnDie)
 		
 		statusAndHandMenu.add_child(die)
@@ -242,7 +249,11 @@ func draw_dice():
 func roll_die(max_roll):
 	return (randi() % max_roll) + 1
 
-
+func roll_player_die(die_object):
+	var roll_options = die_object.sides
+	var dice_roll = roll_options[randi() % roll_options.size()]
+	return dice_roll
+	
 func display_text(text):
 	textbox.show()
 	textboxLabel.text = text
@@ -311,10 +322,14 @@ func damageEnemy(damage, enemy: Enemy):
 		enemy.cont.queue_free()
 		enemies.erase(enemy)
 		if enemies.size() == 0:
-			display_text("You won you cheater! This is bullshit! I'm not playing anymore! *crashes game*")
-			await textbox_closed
-			await get_tree().create_timer(0.5).timeout
-			get_tree().quit()
+			#display_text("You won you cheater! This is bullshit! I'm not playing anymore! *crashes game*")
+			#await textbox_closed
+			#await get_tree().create_timer(0.5).timeout
+			#get_tree().quit()
+			
+			State.player_health = player_health
+			display_text("You won! Now go to the campfire room")
+			get_tree().change_scene_to_file("res://UI/campfire.tscn")
 		
 	emit_signal("damage_enemy_resolved")
 
