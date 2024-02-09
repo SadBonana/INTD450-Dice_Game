@@ -14,16 +14,15 @@ func _process(delta):
 
 
 func _on_heal_button_pressed():
-	print("I currently have %d health" % State.player_health)
+	# TODO: Should prolly be text box rather than a print statement
+	print("I currently have %d health" % PlayerData.hp)
 	
-	State.player_health += recover_health_by
+	PlayerData.hp += recover_health_by
 	
-	#var player_health = State.player_health
+	print("You Healed. You now have %d" % PlayerData.hp)
 	
-	print("You Healed. You now have %d" % State.player_health)
-	
-	if State.player_health > State.player_health_max:
-		State.player_health = State.player_health_max
+	if PlayerData.hp > PlayerData.hp_max:
+		PlayerData.hp = PlayerData.hp_max
 		print("Changed health to max")
 	
 	# Change the transfer scene to be the map scene once that gets made

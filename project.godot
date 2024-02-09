@@ -14,7 +14,3 @@ config/name="Intd 450-dice Game"
 run/main_scene="res://battle.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
-
-[autoload]
-
-State="*res://src/State.gd"
