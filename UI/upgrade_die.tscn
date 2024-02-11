@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://d30parxe1f0q6"]
+[gd_scene load_steps=2 format=3 uid="uid://d30parxe1f0q6"]
+
+[ext_resource type="Script" path="res://UI/upgrade_die.gd" id="1_3a5w4"]
 
 [node name="UpgradeDie" type="Control"]
 layout_mode = 3
@@ -7,3 +9,48 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_3a5w4")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "You May Only Choose 1"
+horizontal_alignment = 1
+
+[node name="Upgrade_1_Die_Container2" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 193.0
+offset_right = 488.0
+offset_bottom = 270.0
+
+[node name="Upgrade_Die_Button" type="Button" parent="Upgrade_1_Die_Container2"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Upgrade 1 Die"
+
+[node name="Proficiency_Container2" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 612.0
+offset_top = 188.0
+offset_right = 1108.0
+offset_bottom = 265.0
+
+[node name="Proficiency_Button" type="Button" parent="Proficiency_Container2"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 50
+text = "Proficiency Upgrade"
+
+[connection signal="pressed" from="Upgrade_1_Die_Container2/Upgrade_Die_Button" to="." method="_on_upgrade_die_button_pressed"]
+[connection signal="pressed" from="Proficiency_Container2/Proficiency_Button" to="." method="_on_proficiency_button_pressed"]

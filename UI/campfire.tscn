@@ -32,14 +32,14 @@ theme_override_font_sizes/font_size = 50
 text = "You May Only Choose 1"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Recover_Health_Container" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 48.0
 offset_top = 386.0
 offset_right = 497.0
 offset_bottom = 463.0
 
-[node name="HealButton" type="Button" parent="HBoxContainer"]
+[node name="HealButton" type="Button" parent="Recover_Health_Container"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 10
@@ -47,7 +47,7 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Recover 15 Health"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+[node name="Upgrade_Die_Container" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 697.0
@@ -55,7 +55,7 @@ offset_top = 379.0
 offset_right = 1051.0
 offset_bottom = 456.0
 
-[node name="UpgradeDieButton" type="Button" parent="HBoxContainer2"]
+[node name="UpgradeDieButton" type="Button" parent="Upgrade_Die_Container"]
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 10
@@ -63,5 +63,5 @@ theme_override_colors/font_color = Color(0, 0, 1, 1)
 theme_override_font_sizes/font_size = 50
 text = "Upgrade A Die"
 
-[connection signal="pressed" from="HBoxContainer/HealButton" to="." method="_on_heal_button_pressed"]
-[connection signal="pressed" from="HBoxContainer2/UpgradeDieButton" to="." method="_on_upgrade_die_button_pressed"]
+[connection signal="pressed" from="Recover_Health_Container/HealButton" to="." method="_on_heal_button_pressed"]
+[connection signal="pressed" from="Upgrade_Die_Container/UpgradeDieButton" to="." method="_on_upgrade_die_button_pressed"]

@@ -249,7 +249,10 @@ func draw_dice():
 		
 		# Draw and roll die
 		var d = player_dice_bag.pop_back() # Draw die from bag
+		print(d.name)
 		var roll = d.roll()
+		print(roll)
+		print(" ")
 		player_used_dice.append(d) # Discard used die
 		
 		# Display the rolled value in the UI
