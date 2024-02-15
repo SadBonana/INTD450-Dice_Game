@@ -1,8 +1,23 @@
 [gd_scene load_steps=17 format=3 uid="uid://dj6gqnhm2fcch"]
 
-[ext_resource type="Script" path="res://world.gd" id="1_0trjs"]
 [ext_resource type="PackedScene" uid="uid://c3lbeir6kyyg6" path="res://d4_roll.tscn" id="1_7u334"]
 [ext_resource type="PackedScene" uid="uid://vuxdrh08xtyi" path="res://d4v2_roll.tscn" id="3_s7pkb"]
+
+[sub_resource type="GDScript" id="GDScript_6qbmr"]
+script/source = "extends Node3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+
+
+#func _on_d_4_roll_finished(value):
+#	pass # Replace with function body.
+"
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hoaua"]
 
@@ -44,7 +59,7 @@ size = Vector3(29.4125, 13.7931, 1)
 [sub_resource type="Environment" id="Environment_q8wpu"]
 
 [node name="World" type="Node3D"]
-script = ExtResource("1_0trjs")
+script = SubResource("GDScript_6qbmr")
 
 [node name="Table" type="StaticBody3D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_hoaua")
