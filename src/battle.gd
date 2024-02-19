@@ -1,19 +1,22 @@
+# TODO: Consider making the battle scene paper 3D to make the multiple enemy perspective look better.
+# Prolly needed for the 3d dice anyways.
+
 extends Control
 
-@export var enemyRes: Resource = null
+# TODO: encounter resources and setting battle enemy resources using it
 
 # Player Panel
-@export var playerHealthBar: ProgressBar
-@export var playerStatusContainer: HBoxContainer
+@export var player_status: VBoxContainer 
 @export var dieActionMenu: VBoxContainer
 @export var statusAndHandMenu: HBoxContainer
-@export var diceRemaining: Label
-@export var diceMax: Label
 
 # Enemy
-@export var enemyContainer1: VBoxContainer
-@export var enemyContainer2: VBoxContainer
-@export var enemyContainer3: VBoxContainer
+@export var enemy1: BattleEnemy
+@export var enemy2: BattleEnemy
+@export var enemy3: BattleEnemy
+#@export var enemyContainer1: VBoxContainer
+#@export var enemyContainer2: VBoxContainer
+#@export var enemyContainer3: VBoxContainer
 
 # Textbox
 @export var textbox: Panel
@@ -35,75 +38,8 @@ var player_dice_bag = []
 var player_used_dice = []
 var player_dice_hand = []
 
-var targetingEnemies = false
-
-# NOTE: I suspect that the better way to do this is to make the enemies their own scene, and this
-# class basically as the script attached to the scene. Same with drawn dice, though it already has
-# a scene, just no script.
-class Enemy:
-	var res: Resource
-	var cont: VBoxContainer
-	var healthBar: ProgressBar
-	var texRect: TextureRect
-	var rollLabel: Label    # FIXME: Displaying the enemy's roll over their sprite is prolly not what we want the final game to look like. I thought the empty top panel was where we'd show that info, but I'm running out of energy now so...
-	var dice_bag = []
-	var used_dice = []
-	#var dice_hand  # For when enemies can eventually defend and use dice effects
-	var health
-	var maxHealth
-	var damage
-	var name
-	
-	# FIXME: Ideally the enemies also have dice bags and hands and the player can see all their
-	# dice... maybe... that's how we platested it on paper anyways. Dunno how to handle running out
-	# of dice yet but anyways. For now just setting to a single d6 cuz I'm running out of steam.
-	# Also the dice need to be added to the resource script, similar to how it is with the hp.
-	var maxRoll = 6    # Hardcoded and done the dumbest way possible.
-	
-	var _on_focus_entered: Callable
-	var _on_focus_exited: Callable
-	var _on_gui_input: Callable
-	
-	func _init(resource, container):
-		res = resource
-		cont = container
-		healthBar = cont.find_child("ProgressBar")
-		texRect = cont.find_child("Enemy")
-		rollLabel = texRect.find_child("Roll")
-		rollLabel.hide()
-		health = res.health
-		maxHealth = res.health
-		name = res.name
-		
-		# Initialize enemy dice bag
-		var dice_caps = res.dice_caps.duplicate()
-		dice_caps.shuffle()
-		dice_bag = Die.to_dice(dice_caps)
-		
-		# set health bar
-		healthBar.value = health
-		healthBar.max_value = maxHealth
-		healthBar.get_node("Label").text = "hp: %d/%d" % [health, maxHealth]
-		
-		# set texture
-		texRect.texture = res.texture
-	
-	# Will likely need to be rewritten once effect die and enemies defending become a thing.
-	func draw_dice(num_to_draw=2):
-		damage = 0
-		for i in range(num_to_draw):
-			# Whatever we decide to do when the enemy runs out of dice, it'll be here
-			if not dice_bag.size() > 0:
-				#display_text("Hurray! Enemies out of dice, now you can have your way with them!")
-				#await textbox_closed
-				print("enemy is out of dice, but can't use the textbox display function the way this is written.")
-				return
-			var d = dice_bag.pop_back()
-			used_dice.append(d)
-			damage += d.roll()
-		
-
 enum DieActions {ATTACK, DEFEND, REROLL}
+
 
 class DrawnDie:
 	static var targetingFunc: Callable
@@ -112,7 +48,7 @@ class DrawnDie:
 	var actionMenu: ItemList
 	var dieActionMenu: VBoxContainer
 	var selectedAction: DieActions
-	var target: Enemy
+	var target: BattleEnemy
 	var itemSelected = false
 	
 	func _init(actual, menu):
@@ -139,24 +75,24 @@ class DrawnDie:
 func _ready():
 	# Initilize enemy data and hide enemies that shouldn't show up in teh encounter
 	if numEnemies >= 1:
-		enemies.append(Enemy.new(enemyRes, enemyContainer3))
+		enemies.append(enemy3)
 	if numEnemies >= 2:
-		enemies.append(Enemy.new(enemyRes, enemyContainer2))
+		enemies.append(enemy2)
 	if numEnemies >= 3:
-		enemies.append(Enemy.new(enemyRes, enemyContainer1))
+		enemies.append(enemy1)
 	match numEnemies:
 		1:
-			enemyContainer1.hide()
-			enemyContainer2.hide()
+			enemy1.hide()
+			enemy2.hide()
 		2:
-			enemyContainer1.hide()
+			enemy1.hide()
 	
 	# Initialize player data and player UI
-	set_health(playerHealthBar, PlayerData.hp, PlayerData.hp_max)
+	#set_health(playerHealthBar, PlayerData.hp, PlayerData.hp_max)
 	player_dice_bag = PlayerData.dice_bag.duplicate() # shallow copy
 	player_dice_bag.shuffle()
-	diceRemaining.text = "%d" % player_dice_bag.size()
-	diceMax.text = "%d" % PlayerData.dice_bag.size()
+	#diceRemaining.text = "%d" % player_dice_bag.size()
+	#diceMax.text = "%d" % PlayerData.dice_bag.size()
 	
 	# Hide textbox until we need it
 	textbox.hide()
@@ -172,8 +108,7 @@ func _ready():
 	DrawnDie.targetingFunc = func ():
 			if enemies.size() == 1:   # No need to select a target if there's only 1
 				return enemies[0]
-				
-			targetingEnemies = true
+			
 			display_text("Select the enemy to attack. Press enter to confirm the selection.")
 			
 			# Prevent player from getting distracted and crashing teh game
@@ -185,46 +120,20 @@ func _ready():
 			# Modify enemy opacity to indicate selection and attach callbacks
 			# needed to select them
 			for enemy in enemies:
-				enemy.cont.modulate.a = 0.5    # NOTE: Might be a bad way to do this... what if the alpha on the enemy container was set to something other than 1 somewhere else...
-				enemy.cont.set_focus_mode(FOCUS_ALL)
-				
-				# Create and set event handlers
-				enemy._on_gui_input = func(event: InputEvent):
-						if event.is_action_pressed("ui_accept"):
-							targetingEnemies = false
-							textbox.hide()
-							target_selected.emit(enemy)
-				enemy._on_focus_entered = func ():
-						enemy.cont.gui_input.connect(enemy._on_gui_input)
-						enemy.cont.modulate.a = 1.0
-				enemy._on_focus_exited = func ():
-						disconnect_if_connected(enemy.cont.gui_input, enemy._on_gui_input)
-						enemy.cont.modulate.a = 0.5
-				enemy.cont.focus_entered.connect(enemy._on_focus_entered)
-				enemy.cont.focus_exited.connect(enemy._on_focus_exited)
-				
-			enemies[0].cont.grab_focus()
+				enemy.toggle_target_mode(true, target_selected)
+			
+			enemies[0].grab_focus()
 			var target = await target_selected
 			
 			# Clean up once targeting is finished
 			for enemy in enemies:
-				enemy.cont.set_focus_mode(FOCUS_NONE)
-				disconnect_if_connected(enemy.cont.focus_entered, enemy._on_focus_entered)
-				disconnect_if_connected(enemy.cont.focus_exited, enemy._on_focus_exited)
-				enemy.cont.modulate.a = 1.0   # Set opacity back to 100%
+				enemy.toggle_target_mode(false, target_selected)
 			for die in player_dice_hand:
 				die.set_all_actions_selectable(true)
 			
 			return target
 		
 	draw_dice()
-
-# Disconnect a function from a signal, does not throw an error if func is not connected.
-func disconnect_if_connected(sig: Signal, cal: Callable):
-	if not sig.is_connected(cal):
-		return false
-	sig.disconnect(cal)
-	return true
 
 
 func _input(event):
@@ -237,15 +146,13 @@ func draw_dice():
 	# Enemy draws their dice and displays their rolls first so the player has more info.
 	for enemy in enemies:
 		enemy.draw_dice()
-		enemy.rollLabel.show()
-		enemy.rollLabel.text = "%d" % enemy.damage
 	
 	for i in range(3): # Hardcoded temp hand size of 3
 		# Whatever we decide to do when the player runs out of dice, it'll be here
 		if not player_dice_bag.size() > 0:
 			display_text("Uh oh, all out of dice. Guess you're fucked.")
 			await textbox_closed
-			return
+			break
 		
 		# Draw and roll die
 		var d = player_dice_bag.pop_back() # Draw die from bag
@@ -259,13 +166,8 @@ func draw_dice():
 		player_dice_hand.append(drawnDie)
 		statusAndHandMenu.add_child(die)
 		
-	diceRemaining.text = "%d" % player_dice_bag.size()
-
-
-#func roll_player_die(die_object):
-	#var roll_options = die_object.sides
-	#var dice_roll = roll_options[randi() % roll_options.size()]
-	#return dice_roll
+	#diceRemaining.text = "%d" % player_dice_bag.size()
+	player_status.dice_remaining = player_dice_bag.size()
 
 
 func display_text(text):
@@ -273,28 +175,15 @@ func display_text(text):
 	textboxLabel.text = text
 
 
-# Note: this func will crash if used on an enemy that was killed by a previous die.
-# It's not good OOP to use this anyways, but if you do, make sure whatever's calling this
-# accounts for that.
-func set_health(progress_bar, hp, hp_max):
-	progress_bar.value = hp
-	progress_bar.max_value = hp_max
-	progress_bar.get_node("Label").text = "hp: %d/%d" % [hp, hp_max]
-
-
-func damageHelper(x, y):
-	return max(0, x - y)
-
-
 func enemy_turn(playerDefense=0):
 	for enemy in enemies:
 		display_text("Oh noes! %s is coming for you!" % enemy.name)
 		await textbox_closed
 	
-		var damage = damageHelper(enemy.damage, playerDefense)
-		playerDefense = damageHelper(playerDefense, enemy.damage)
-		PlayerData.hp = damageHelper(PlayerData.hp, damage)
-		set_health(playerHealthBar, PlayerData.hp, PlayerData.hp_max)
+		var damage = Helpers.clamp_damage(enemy.damage, playerDefense)
+		playerDefense = Helpers.clamp_damage(playerDefense, enemy.damage) #damageHelper(playerDefense, enemy.damage)
+		PlayerData.hp -= damage #damageHelper(PlayerData.hp, damage)
+		#set_health(playerHealthBar, PlayerData.hp, PlayerData.hp_max)
 	
 		#$AnimationPlayer.play("enemy_damaged")   #TODO: Make a temp player hurt anim... need a godot logo for the player first...
 		#await $AnimationPlayer.animation_finished
@@ -316,38 +205,33 @@ func _process(delta):
 
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
-	display_text("You coward! Execute game crash!")
+	display_text("Of the 36 strategems, running is the best.")
 	await textbox_closed
-	await get_tree().create_timer(0.5).timeout
-	get_tree().quit()
+	#await get_tree().create_timer(0.5).timeout
+	#get_tree().quit()
+	get_tree().change_scene_to_file("res://UI/campfire.tscn")
 
 
-# TODO: make this generic to any actor
-func damageEnemy(damage, enemy: Enemy):
+# TODO: make this generic to any actor? maybe even try to break this down until we dont need it.
+func damageEnemy(damage, enemy: BattleEnemy):
 	display_text("Attacking! dun dun dun!")
 	await textbox_closed
 	
-	enemy.health = damageHelper(enemy.health, damage)
-	set_health(enemy.healthBar, enemy.health, enemy.maxHealth)
+	var defeated = enemy.take_damage(damage)
 	
-	$AnimationPlayer.play("enemy_damaged") # FIXME: Probably doesnt target the right enemy. Likely best way is to make enemy container a scene with its own anim player
-	await $AnimationPlayer.animation_finished
+	#$AnimationPlayer.play("enemy_damaged") # FIXME: Probably doesnt target the right enemy. Likely best way is to make enemy container a scene with its own anim player
+	#await $AnimationPlayer.animation_finished
 	
 	display_text("Dealt %d damage!" % damage)
 	await textbox_closed
 	
-	if enemy.health == 0:
+	if defeated:
 		display_text("%s was defeated!" % enemy.name)
 		await textbox_closed
 		# TODO: temp enemy death anim.
-		enemy.cont.queue_free()
+		enemy.queue_free()
 		enemies.erase(enemy)
 		if enemies.size() == 0:
-			#display_text("You won you cheater! This is bullshit! I'm not playing anymore! *crashes game*")
-			#await textbox_closed
-			#await get_tree().create_timer(0.5).timeout
-			#get_tree().quit()
-			
 			display_text("You won! Now go to the campfire room")
 			await textbox_closed
 			get_tree().change_scene_to_file("res://UI/campfire.tscn")
@@ -366,7 +250,7 @@ func _on_ready_pressed():
 	await textbox_closed
 	
 	for enemy in enemies:
-		enemy.rollLabel.hide()
+		enemy.roll_label.hide()
 	
 	var player_defense = 0
 	for die in player_dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
@@ -385,10 +269,9 @@ func _on_ready_pressed():
 			DieActions.DEFEND:
 				player_defense += die.roll
 			DieActions.REROLL:
-				#TODO: Implement, but prolly not here. See the TODO in the connect func call in the DrawnDie class
-				# Might actually not do reroll, and do drafting instead, or both, we'll see
+				#TODO: take away rerolling. Implement dice drafting.
 				pass
-		die.dieActionMenu.queue_free()
+		die.dieActionMenu.queue_free()	# FIXME: null check
 		
 	player_dice_hand.clear()
 	enemy_turn(player_defense)

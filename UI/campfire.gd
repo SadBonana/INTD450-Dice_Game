@@ -21,10 +21,6 @@ func _on_heal_button_pressed():
 	
 	print("You Healed. You now have %d" % PlayerData.hp)
 	
-	if PlayerData.hp > PlayerData.hp_max:
-		PlayerData.hp = PlayerData.hp_max
-		print("Changed health to max")
-	
 	# Change the transfer scene to be the map scene once that gets made
 	get_tree().change_scene_to_file("res://battle.tscn")
 
