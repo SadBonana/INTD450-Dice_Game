@@ -3,7 +3,6 @@ extends Control
 # Textbox
 @export var textbox: Panel
 @export var textboxLabel: Label
-
 signal textbox_closed
 
 func display_text(text):
@@ -18,7 +17,24 @@ func _input(event):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	for die in PlayerData.dice_bag:
+	display_text("You selected the proficiency upgrade")
+	await textbox_closed
+	
+	var die = PlayerData.dice_bag[0]
+	
+	for i in range(die.num_sides):
+				# Change to 10 to test -> allows for easy identification otherwsie you need to roll a 5 to see result
+				die.sides[i] += 1
+				die.name = "D%d - prof" % die.num_sides
+				print(die.name)
+				print(die.sides[i])
+	
+	display_text("Congrats! You upgraded your D%d" % die.num_sides)
+	await textbox_closed
+	
+	get_tree().change_scene_to_file("res://battle.tscn")
+	
+	'''for die in PlayerData.dice_bag:
 		display_text(die.name)
 		await textbox_closed
 		
@@ -40,7 +56,7 @@ func _ready():
 				die.name = "D%d - prof" % die.num_sides
 				print(die.name)
 				print(die.sides[i])
-			get_tree().change_scene_to_file("res://battle.tscn")
+			get_tree().change_scene_to_file("res://battle.tscn")'''
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

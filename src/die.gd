@@ -7,7 +7,7 @@ var sides
 var name # mainly meant to distinguish e.g. 2 d10's with different effects.
 	
 	
-func _init(number_sides, actual_sides = range(1, number_sides+1), dice_name = "d%d"%number_sides):
+func _init(number_sides, actual_sides = range(1, number_sides+1), dice_name = "D%d"%number_sides):
 	num_sides = number_sides
 	sides = actual_sides
 	name = dice_name

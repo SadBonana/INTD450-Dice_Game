@@ -1,0 +1,79 @@
+[gd_scene load_steps=2 format=3 uid="uid://dulueip5bvc88"]
+
+[ext_resource type="Script" path="res://UI/Menus/start_menu.gd" id="1_fsp0p"]
+
+[node name="start_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fsp0p")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = -150.0
+offset_top = -237.0
+offset_right = 150.0
+offset_bottom = -168.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "Game Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -75.0
+offset_right = 113.0
+offset_bottom = 164.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="start_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../quit_button")
+focus_neighbor_bottom = NodePath("../controls_button")
+theme_override_font_sizes/font_size = 50
+text = "Start"
+
+[node name="controls_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../start_button")
+focus_neighbor_bottom = NodePath("../settings_button")
+theme_override_font_sizes/font_size = 50
+text = "Game Controls"
+
+[node name="settings_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../controls_button")
+focus_neighbor_bottom = NodePath("../quit_button")
+theme_override_font_sizes/font_size = 50
+text = "Settings"
+
+[node name="quit_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../settings_button")
+focus_neighbor_bottom = NodePath("../start_button")
+theme_override_font_sizes/font_size = 50
+text = "Quit"
+
+[connection signal="pressed" from="VBoxContainer/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/controls_button" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/settings_button" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]

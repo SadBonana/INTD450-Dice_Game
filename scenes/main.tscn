@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3wl544bb2ul2"]
+
+[ext_resource type="Script" path="res://src/main.gd" id="1_6hq1i"]
+[ext_resource type="PackedScene" uid="uid://cwroqm35wwu7n" path="res://UI/Menus/pause_menu.tscn" id="2_odgqq"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_6hq1i")
+
+[node name="pause_menu" parent="." instance=ExtResource("2_odgqq")]
+offset_left = 570.0
+offset_top = 328.0
+offset_right = 570.0
+offset_bottom = 328.0

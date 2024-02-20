@@ -14,5 +14,5 @@ func _on_upgrade_die_button_pressed():
 
 
 func _on_proficiency_button_pressed():
-	#State.player_dice_bag
-	get_tree().change_scene_to_file("res://UI/proficiency_upgrade.tscn")
+	#get_tree().change_scene_to_file("res://UI/proficiency_upgrade.tscn")
+	pass

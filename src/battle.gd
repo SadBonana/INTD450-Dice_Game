@@ -351,9 +351,9 @@ func damageEnemy(damage, enemy: Enemy):
 			#await get_tree().create_timer(0.5).timeout
 			#get_tree().quit()
 			
-			display_text("You won! Now go to the campfire room")
+			display_text("You won! Now aquire some dropped loot!")
 			await textbox_closed
-			get_tree().change_scene_to_file("res://UI/campfire.tscn")
+			get_tree().change_scene_to_file("res://UI/battle_item_drop.tscn")
 		
 	emit_signal("damage_enemy_resolved")
 

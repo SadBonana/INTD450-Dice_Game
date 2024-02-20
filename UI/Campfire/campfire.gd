@@ -30,4 +30,4 @@ func _on_heal_button_pressed():
 
 
 func _on_upgrade_die_button_pressed():
-	get_tree().change_scene_to_file("res://UI/upgrade_die.tscn")
+	get_tree().change_scene_to_file("res://UI/Campfire/proficiency_upgrade.tscn")
