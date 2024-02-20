@@ -8,4 +8,5 @@ script = ExtResource("1_8i37b")
 name = "Red Godot Logo"
 texture = ExtResource("2_lwaki")
 health = 18
+sprite_color = Color(1, 0.0705882, 0.231373, 1)
 dice_caps = [3, 3, 3, 3, 3, 4, 4, 6, 3, 3]

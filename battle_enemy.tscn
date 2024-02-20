@@ -1,8 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlyb2lewb1n15"]
+[gd_scene load_steps=6 format=3 uid="uid://dlyb2lewb1n15"]
 
 [ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://health_bar.tscn" id="1_pbfgf"]
 [ext_resource type="Script" path="res://battle_enemy.gd" id="1_u2vwq"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="2_xiluh"]
+
+[sub_resource type="Animation" id="Animation_ootso"]
+resource_name = "Hurt"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Enemy:self_modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"restore_sprite_color"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a231e"]
+_data = {
+"Hurt": SubResource("Animation_ootso")
+}
 
 [node name="Battle Enemy" type="VBoxContainer"]
 anchors_preset = 6
@@ -56,3 +91,9 @@ text = "5
 "
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_a231e")
+}

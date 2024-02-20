@@ -3,12 +3,12 @@ class_name BattleEnemy extends VBoxContainer
 @onready var health_bar: ProgressBar = %ProgressBar
 @onready var tex_rect: TextureRect = %Enemy
 @onready var roll_label: Label = %Roll  # FIXME: Displaying the enemy's roll over their sprite is prolly not what we want the final game to look like. I thought the empty top panel was where we'd show that info, but I'm running out of energy now so...
+@onready var animation_player = %AnimationPlayer
+
 @export var res: Resource
-@export var sprite_color: Color = Color.WHITE	# AKA no color modification by default. (it doesnt actually look "white")
 
 
 # TODO: Make variable names consistent with PlayerData, e.g. hp vs health
-
 var dice_bag = []
 var used_dice = []
 #var dice_hand  # For when enemies can eventually defend and use dice effects
@@ -28,7 +28,30 @@ var defense: int:
 	set (value):
 		defense = max(0, value)
 var enemy_name
+
 var _usual_alpha = modulate.a
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	restore_sprite_color()
+	roll_label.hide()
+	max_health = res.health
+	health = res.health
+	enemy_name = res.name
+	
+	# Initialize enemy dice bag
+	var dice_caps = res.dice_caps.duplicate()
+	dice_caps.shuffle()
+	dice_bag = Die.to_dice(dice_caps)
+	
+	# set texture
+	tex_rect.texture = res.texture
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
 
 
 # Will likely need to be rewritten once effect die and enemies defending become a thing.
@@ -46,54 +69,6 @@ func draw_dice(num_to_draw=2):
 		damage += d.roll()
 	
 	roll_label.show()
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	tex_rect.self_modulate = sprite_color
-	roll_label.hide()
-	max_health = res.health
-	health = res.health
-	enemy_name = res.name
-	
-	# Initialize enemy dice bag
-	var dice_caps = res.dice_caps.duplicate()
-	dice_caps.shuffle()
-	dice_bag = Die.to_dice(dice_caps)
-	
-	# set health bar
-	#health_bar.value = health
-	#health_bar.max_value = max_health
-	#healthBar.get_node("Label").text = "hp: %d/%d" % [health, maxHealth]
-	
-	# set texture
-	tex_rect.texture = res.texture
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
-var _on_gui_input: Callable
-
-# NOTE: The 2 callback funcs below are intentionally not connected by default
-func _on_focus_entered():
-	gui_input.connect(_on_gui_input)
-	modulate.a = _usual_alpha
-
-func _on_focus_exited():
-	Helpers.disconnect_if_connected(gui_input, _on_gui_input)
-	modulate.a = _usual_alpha / 2
-
-
-## Generates a gui_input callback that will emit the given
-## target_selected signal when the gui_input signal is received with a
-## ui_accept event.
-func _on_gui_input_factory(target_selected: Signal):
-	_on_gui_input = func (event: InputEvent):
-		if event.is_action_pressed("ui_accept"):
-			target_selected.emit(self)
 
 
 func toggle_target_mode(player_is_targeting: bool, target_selected: Signal):
@@ -131,6 +106,44 @@ func take_damage(damage: int):
 	defense -= damage
 	health -= damage_after_defense
 	
-	# TODO: animation
+	animation_player.play("Hurt")
+	await animation_player.animation_finished
 	
 	return true if health == 0 else false
+
+
+## Restore the texture rect's self_modulate property to res.sprite_color
+##
+## AnimationPlayer doesnt work well with dynamic or unknown keyframe values,
+## hence why restore_sprite_color() is needed, in case someone wants an enemy
+## with a self modulate alpha value set to something less than 1. E.g. maybe
+## they made an opaque ghost sprite and wanted to use a ghost resource file to
+## change the opacity in godot. Without restore_sprite_color(), the ghost will
+## permanently lose its transparency after the hurt animation plays. The only
+## other solution is to use Tweens, which cannot be seen in the editor like the
+## AnimationPlayer can.
+func restore_sprite_color():
+	tex_rect.self_modulate = res.sprite_color
+
+
+var _on_gui_input: Callable
+
+# NOTE: The 2 callback funcs below are intentionally not connected by default
+func _on_focus_entered():
+	gui_input.connect(_on_gui_input)
+	modulate.a = _usual_alpha
+
+func _on_focus_exited():
+	Helpers.disconnect_if_connected(gui_input, _on_gui_input)
+	modulate.a = _usual_alpha / 2
+
+## Generates a gui_input callback that will emit the given
+## target_selected signal when the gui_input signal is received with a
+## ui_accept event.
+func _on_gui_input_factory(target_selected: Signal):
+	_on_gui_input = func (event: InputEvent):
+		if event.is_action_pressed("ui_accept"):
+			target_selected.emit(self)
+
+
+

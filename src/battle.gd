@@ -14,9 +14,6 @@ extends Control
 @export var enemy1: BattleEnemy
 @export var enemy2: BattleEnemy
 @export var enemy3: BattleEnemy
-#@export var enemyContainer1: VBoxContainer
-#@export var enemyContainer2: VBoxContainer
-#@export var enemyContainer3: VBoxContainer
 
 # Textbox
 @export var textbox: Panel
@@ -61,11 +58,10 @@ class DrawnDie:
 			selectedAction = index
 			if index == DieActions.ATTACK:
 				target = await targetingFunc.call()
-			# TODO: Need different logic for reroll, as it stands none of these actions do anything
-			# until the player ends their turn, so the rerolled die would only be available next
-			# turn... which could be interesting but wasn't what I envisioned previously.
+			# TODO: Rather than reroll, implement dice drafting
 		)
 	
+	# TODO: Consider instead hiding the menus
 	func set_all_actions_selectable(selectable: bool):
 		for i in range(actionMenu.get_item_count()):
 			actionMenu.set_item_selectable(i, selectable)
@@ -88,11 +84,8 @@ func _ready():
 			enemy1.hide()
 	
 	# Initialize player data and player UI
-	#set_health(playerHealthBar, PlayerData.hp, PlayerData.hp_max)
 	player_dice_bag = PlayerData.dice_bag.duplicate() # shallow copy
 	player_dice_bag.shuffle()
-	#diceRemaining.text = "%d" % player_dice_bag.size()
-	#diceMax.text = "%d" % PlayerData.dice_bag.size()
 	
 	# Hide textbox until we need it
 	textbox.hide()
@@ -165,8 +158,7 @@ func draw_dice():
 		var drawnDie = DrawnDie.new(roll, die)
 		player_dice_hand.append(drawnDie)
 		statusAndHandMenu.add_child(die)
-		
-	#diceRemaining.text = "%d" % player_dice_bag.size()
+	
 	player_status.dice_remaining = player_dice_bag.size()
 
 
@@ -177,22 +169,19 @@ func display_text(text):
 
 func enemy_turn(playerDefense=0):
 	for enemy in enemies:
-		display_text("Oh noes! %s is coming for you!" % enemy.name)
+		display_text("Oh noes! %s is coming for you!" % enemy.enemy_name)
 		await textbox_closed
 	
 		var damage = Helpers.clamp_damage(enemy.damage, playerDefense)
 		playerDefense = Helpers.clamp_damage(playerDefense, enemy.damage) #damageHelper(playerDefense, enemy.damage)
-		PlayerData.hp -= damage #damageHelper(PlayerData.hp, damage)
-		#set_health(playerHealthBar, PlayerData.hp, PlayerData.hp_max)
+		PlayerData.hp -= damage
 	
-		#$AnimationPlayer.play("enemy_damaged")   #TODO: Make a temp player hurt anim... need a godot logo for the player first...
-		#await $AnimationPlayer.animation_finished
+		# TODO: Make a temp player hurt anim
 	
-		display_text("%s dealt %d damage!" % [enemy.name, damage])
+		display_text("%s dealt %d damage!" % [enemy.enemy_name, damage])
 		await textbox_closed
 	
-	# Enemy turn is over so player draws dice
-	draw_dice()
+	draw_dice()    # Enemy turn is over so player draws dice
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -217,16 +206,13 @@ func damageEnemy(damage, enemy: BattleEnemy):
 	display_text("Attacking! dun dun dun!")
 	await textbox_closed
 	
-	var defeated = enemy.take_damage(damage)
-	
-	#$AnimationPlayer.play("enemy_damaged") # FIXME: Probably doesnt target the right enemy. Likely best way is to make enemy container a scene with its own anim player
-	#await $AnimationPlayer.animation_finished
+	var defeated = await enemy.take_damage(damage)
 	
 	display_text("Dealt %d damage!" % damage)
 	await textbox_closed
 	
 	if defeated:
-		display_text("%s was defeated!" % enemy.name)
+		display_text("%s was defeated!" % enemy.enemy_name)
 		await textbox_closed
 		# TODO: temp enemy death anim.
 		enemy.queue_free()
@@ -271,7 +257,14 @@ func _on_ready_pressed():
 			DieActions.REROLL:
 				#TODO: take away rerolling. Implement dice drafting.
 				pass
-		die.dieActionMenu.queue_free()	# FIXME: null check
+		die.dieActionMenu.queue_free()
+		# FIXME: Disable most UI interaction until the effects of a previous interaction are resolved
+		# This will prevent numerous issues, among them, the game crashing if you press enter to dismiss
+		# a text box after pressing the to battle button (the enter goes through the textbox and also hits
+		# the to battle button again, causing it to try to access a freed drawn die object).
+		# Not all interaction should be disabled in some cases though, for example, while targeting,
+		# the players still needs to be able to click/focus the enemies, and press the to battle button
+		# that one is already implemented, but for example, the textbox doesn't disable other ui.
 		
 	player_dice_hand.clear()
 	enemy_turn(player_defense)
