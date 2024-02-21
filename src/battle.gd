@@ -41,7 +41,7 @@ enum DieActions {ATTACK, DEFEND, REROLL}
 class DrawnDie:
 	static var targetingFunc: Callable
 	
-	var roll: int
+	var roll: DieSide
 	var actionMenu: ItemList
 	var dieActionMenu: VBoxContainer
 	var selectedAction: DieActions
@@ -154,7 +154,7 @@ func draw_dice():
 		
 		# Display the rolled value in the UI
 		var die = dieActionMenuPath.instantiate()
-		die.find_child("Roll").text = "%d" % roll    # TODO: This doesn't tell you the kind of dice it is, juct the roll. This will need to be implemented in the die_action_menu scene
+		die.find_child("Roll").text = "%s" % roll    # TODO: This doesn't tell you the kind of dice it is, juct the roll. This will need to be implemented in the die_action_menu scene
 		var drawnDie = DrawnDie.new(roll, die)
 		player_dice_hand.append(drawnDie)
 		statusAndHandMenu.add_child(die)
@@ -247,7 +247,8 @@ func _on_ready_pressed():
 				# Could warn the player... or punish their stupidity by making the die just miss...
 				# Actually yeah, that sounds more fun... 
 				if die.target in enemies:
-					damageEnemy(die.roll, die.target)
+					damageEnemy(die.roll.value, die.target)
+					die.roll.element.apply_element_effect()
 					await damage_enemy_resolved
 				else:
 					display_text("You missed haha! Next time math before you attack.")

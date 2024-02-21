@@ -66,7 +66,8 @@ func draw_dice(num_to_draw=2):
 			return
 		var d = dice_bag.pop_back()
 		used_dice.append(d)
-		damage += d.roll()
+		var side = d.roll()
+		damage += side.value
 	
 	roll_label.show()
 
