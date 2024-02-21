@@ -350,7 +350,7 @@ func damageEnemy(damage, enemy: Enemy):
 			
 			display_text("You won! Now go to the campfire room")
 			await textbox_closed
-			get_tree().change_scene_to_file("res://UI/campfire.tscn")
+			get_tree().change_scene_to_file("res://map/map.tscn")
 		
 	emit_signal("damage_enemy_resolved")
 

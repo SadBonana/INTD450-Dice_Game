@@ -8,6 +8,7 @@ anchors_preset = 0
 script = ExtResource("2_gsif4")
 
 [node name="start" type="Button" parent="."]
+layout_mode = 0
 offset_left = 555.0
 offset_top = 2.0
 offset_right = 576.0
@@ -15,6 +16,7 @@ offset_bottom = 22.0
 text = "start"
 
 [node name="battle" type="Button" parent="."]
+layout_mode = 0
 offset_left = 556.0
 offset_top = 85.0
 offset_right = 577.0
@@ -22,6 +24,7 @@ offset_bottom = 105.0
 text = "battle"
 
 [node name="campfire" type="Button" parent="."]
+layout_mode = 0
 offset_left = 555.0
 offset_top = 209.0
 offset_right = 576.0
@@ -29,6 +32,7 @@ offset_bottom = 229.0
 text = "camp"
 
 [node name="boss" type="Button" parent="."]
+layout_mode = 0
 offset_left = 555.0
 offset_top = 454.0
 offset_right = 576.0
@@ -36,15 +40,16 @@ offset_bottom = 474.0
 text = "boss"
 
 [node name="quit" type="Button" parent="."]
-offset_left = 939.0
-offset_top = 12.0
-offset_right = 981.0
-offset_bottom = 43.0
+layout_mode = 0
+offset_left = 1108.0
+offset_top = 2.0
+offset_right = 1150.0
+offset_bottom = 33.0
 text = "Quit"
 
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="battle" to="." method="_on_battle_pressed"]
 [connection signal="pressed" from="campfire" to="." method="_on_campfire_pressed"]
 [connection signal="pressed" from="boss" to="." method="_on_boss_pressed"]
-[connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="quit" to="." method="_on_boss_pressed"]
+[connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
