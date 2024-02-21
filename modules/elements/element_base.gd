@@ -14,10 +14,10 @@ enum ElementType {
 }
 
 ## The element's type
-@export var element : ElementType
+var element : ElementType
 
 ## The element's inherent value
-@export var value : int
+var value : int
 
 ## Every element has a an effect that must be applied.
 ## Have your class implement this function.

@@ -1,7 +1,7 @@
 class_name Die
 
-var num_sides: int
-var sides : Array
+@export var num_sides: int
+@export var sides : Array[DieSide]
 #var effect
 #var sprite or 3d model or reference to some other thing related to the die
 var name # mainly meant to distinguish e.g. 2 d10's with different effects.

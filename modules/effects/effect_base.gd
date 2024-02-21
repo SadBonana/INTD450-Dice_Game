@@ -10,4 +10,4 @@ enum EffectType {
 }
 
 ## The effect's inherent value
-@export var value : int
+var value : int
