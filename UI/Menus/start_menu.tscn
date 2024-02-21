@@ -1,54 +1,56 @@
-[gd_scene load_steps=2 format=3 uid="uid://dulueip5bvc88"]
+[gd_scene load_steps=3 format=3 uid="uid://dulueip5bvc88"]
 
 [ext_resource type="Script" path="res://UI/Menus/start_menu.gd" id="1_fsp0p"]
+[ext_resource type="Texture2D" uid="uid://5pewgng1hruq" path="res://UI/Menus/Dice Background Image.jpg" id="2_e6cv7"]
 
 [node name="start_menu" type="Control"]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_fsp0p")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = -150.0
-offset_top = -237.0
-offset_right = 150.0
-offset_bottom = -168.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_e6cv7")
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 555.0
+offset_top = 105.0
+offset_right = 924.0
+offset_bottom = 570.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 50
-text = "Game Name"
+text = "Game Name
+
+"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -113.0
-offset_top = -75.0
-offset_right = 113.0
-offset_bottom = 164.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="start_button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../quit_button")
 focus_neighbor_bottom = NodePath("../controls_button")
+theme_override_colors/font_pressed_color = Color(1, 0.263137, 0.293668, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Start"
 
@@ -56,6 +58,8 @@ text = "Start"
 layout_mode = 2
 focus_neighbor_top = NodePath("../start_button")
 focus_neighbor_bottom = NodePath("../settings_button")
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Game Controls"
 
@@ -63,6 +67,8 @@ text = "Game Controls"
 layout_mode = 2
 focus_neighbor_top = NodePath("../controls_button")
 focus_neighbor_bottom = NodePath("../quit_button")
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Settings"
 
@@ -70,6 +76,8 @@ text = "Settings"
 layout_mode = 2
 focus_neighbor_top = NodePath("../settings_button")
 focus_neighbor_bottom = NodePath("../start_button")
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Quit"
 
