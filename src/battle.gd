@@ -16,8 +16,7 @@ extends Control
 @export var enemy3: BattleEnemy
 
 # Textbox
-@export var textbox: Panel
-@export var textboxLabel: Label
+@export var textbox_controller: TextboxController
 
 @export var numEnemies = 3 
 
@@ -53,6 +52,9 @@ class DrawnDie:
 		dieActionMenu = menu
 		actionMenu = dieActionMenu.find_child("Die Actions")
 		
+		# TODO: Find a way to do this without breaking controller support,
+		# For that matter, make kb/m, controller, and touch support better.
+		# None of them are amazing rn.
 		actionMenu.item_selected.connect(func (index):
 			itemSelected = true
 			selectedAction = index
@@ -87,22 +89,25 @@ func _ready():
 	player_dice_bag = PlayerData.dice_bag.duplicate() # shallow copy
 	player_dice_bag.shuffle()
 	
-	# Hide textbox until we need it
-	textbox.hide()
-	
 	# This will never be shown, instead, they will be instantiated as needed
 	# The die action menu here is just so designers can see what one looks like in engine.
 	dieActionMenu.hide()
 	
-	display_text("Uh oh! yuv been jumped m8!")
-	await textbox_closed
+	textbox_controller.load_dialogue_chain("battle start 1")
+	await textbox_controller.next()
+	await textbox_controller.next([
+		enemies[0].enemy_name,
+		enemies[1].enemy_name,
+		enemies[2].enemy_name,
+		])	# FIXME: won't work with other encounter sizes, only did it this way for testing purposes.
 	
 	# This function will be called when the player selects an action that requires selecting an enemy
 	DrawnDie.targetingFunc = func ():
 			if enemies.size() == 1:   # No need to select a target if there's only 1
 				return enemies[0]
 			
-			display_text("Select the enemy to attack. Press enter to confirm the selection.")
+			textbox_controller.load_dialogue_chain("targeting instructions")
+			await textbox_controller.next()
 			
 			# Prevent player from getting distracted and crashing teh game
 			# It's bad news if the player presses attack before they finish targeting
@@ -129,10 +134,10 @@ func _ready():
 	draw_dice()
 
 
-func _input(event):
-	if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and $Textbox.visible:
-		textbox.hide()
-		emit_signal("textbox_closed")
+#func _input(event):
+	#if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and $Textbox.visible:
+		#textbox.hide()
+		#emit_signal("textbox_closed")
 
 
 func draw_dice():
@@ -143,8 +148,16 @@ func draw_dice():
 	for i in range(3): # Hardcoded temp hand size of 3
 		# Whatever we decide to do when the player runs out of dice, it'll be here
 		if not player_dice_bag.size() > 0:
-			display_text("Uh oh, all out of dice. Guess you're fucked.")
-			await textbox_closed
+			textbox_controller.load_dialogue_chain("player out of dice 1",
+					func (from_beat: DialogueBeat, destination_beat: String, from_choice: int):
+						if from_beat.unique_name == "player out of dice 2":
+							match from_choice:
+								0:
+									run()
+								# If more choices are added, can be handled here.
+			)
+			for j in range(3):	# There are 3 dialogue beats in this chain.
+				await textbox_controller.next()
 			break
 		
 		# Draw and roll die
@@ -162,24 +175,18 @@ func draw_dice():
 	player_status.dice_remaining = player_dice_bag.size()
 
 
-func display_text(text):
-	textbox.show()
-	textboxLabel.text = text
-
-
 func enemy_turn(playerDefense=0):
 	for enemy in enemies:
-		display_text("Oh noes! %s is coming for you!" % enemy.enemy_name)
-		await textbox_closed
+		textbox_controller.load_dialogue_chain("enemy attack")
+		await textbox_controller.next([enemy.enemy_name])
 	
 		var damage = Helpers.clamp_damage(enemy.damage, playerDefense)
-		playerDefense = Helpers.clamp_damage(playerDefense, enemy.damage) #damageHelper(playerDefense, enemy.damage)
+		playerDefense = Helpers.clamp_damage(playerDefense, enemy.damage)
 		PlayerData.hp -= damage
 	
 		# TODO: Make a temp player hurt anim
 	
-		display_text("%s dealt %d damage!" % [enemy.enemy_name, damage])
-		await textbox_closed
+		await textbox_controller.next([enemy.enemy_name, damage])
 	
 	draw_dice()    # Enemy turn is over so player draws dice
 
@@ -192,34 +199,35 @@ func _process(delta):
 	pass
 
 
+func run():
+	get_tree().change_scene_to_file("res://UI/campfire.tscn")
+
+
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
-	display_text("Of the 36 strategems, running is the best.")
-	await textbox_closed
+	textbox_controller.load_dialogue_chain("run")
+	await textbox_controller.next()
 	#await get_tree().create_timer(0.5).timeout
 	#get_tree().quit()
-	get_tree().change_scene_to_file("res://UI/campfire.tscn")
+	run()
 
 
 # TODO: make this generic to any actor? maybe even try to break this down until we dont need it.
 func damageEnemy(damage, enemy: BattleEnemy):
-	display_text("Attacking! dun dun dun!")
-	await textbox_closed
+	textbox_controller.load_dialogue_chain("player attack")
+	await textbox_controller.next()
 	
 	var defeated = await enemy.take_damage(damage)
 	
-	display_text("Dealt %d damage!" % damage)
-	await textbox_closed
+	await textbox_controller.next(["You", damage])
 	
 	if defeated:
-		display_text("%s was defeated!" % enemy.enemy_name)
-		await textbox_closed
+		await textbox_controller.next([enemy.enemy_name + "was"])
 		# TODO: temp enemy death anim.
 		enemy.queue_free()
 		enemies.erase(enemy)
 		if enemies.size() == 0:
-			display_text("You won! Now go to the campfire room")
-			await textbox_closed
+			await textbox_controller.next()
 			get_tree().change_scene_to_file("res://UI/campfire.tscn")
 		
 	emit_signal("damage_enemy_resolved")
@@ -228,12 +236,12 @@ func damageEnemy(damage, enemy: BattleEnemy):
 func _on_ready_pressed():
 	for die in player_dice_hand:
 		if not die.itemSelected:
-			display_text("Hold your horses! You need to select what to do with each of your die first!")
-			await textbox_closed
+			textbox_controller.load_dialogue_chain("not ready")
+			await textbox_controller.next()
 			return
 	
-	display_text("To battle! dun dun dun!")
-	await textbox_closed
+	textbox_controller.load_dialogue_chain("ready")
+	await textbox_controller.next()
 	
 	for enemy in enemies:
 		enemy.roll_label.hide()
@@ -250,8 +258,8 @@ func _on_ready_pressed():
 					damageEnemy(die.roll, die.target)
 					await damage_enemy_resolved
 				else:
-					display_text("You missed haha! Next time math before you attack.")
-					await textbox_closed	# FIXME: There must be a better way to synchronize the textbox than putting a million await textbox_closed everywhere.
+					textbox_controller.load_dialogue_chain("missed")
+					await textbox_controller.next()
 			DieActions.DEFEND:
 				player_defense += die.roll
 			DieActions.REROLL:

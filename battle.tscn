@@ -1,28 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://bvlkj1mhba582"]
+[gd_scene load_steps=14 format=3 uid="uid://bvlkj1mhba582"]
 
 [ext_resource type="Script" path="res://src/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
 [ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="2_kwukf"]
 [ext_resource type="Resource" uid="uid://dxvj75cw3wclu" path="res://src/HostileRedGodotLogo.tres" id="2_yokuy"]
-[ext_resource type="PackedScene" uid="uid://re2do8b61bal" path="res://enemy_container.tscn" id="4_0wk1x"]
 [ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle_enemy.tscn" id="4_w871o"]
 [ext_resource type="PackedScene" uid="uid://4pckrotnlies" path="res://die_action_menu.tscn" id="5_co5hi"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://player_status.tscn" id="6_0lq60"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qcar4"]
-bg_color = Color(0.627451, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lpb05"]
-bg_color = Color(0.117647, 0.678431, 0, 1)
+[ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox.tscn" id="8_11wq8"]
+[ext_resource type="Resource" uid="uid://git3m0aftj0o" path="res://Textbox Stuff/battle_textbox_test.tres" id="9_5yvlh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idclm"]
 bg_color = Color(0.227451, 0.0823529, 0, 1)
@@ -38,51 +24,7 @@ border_width_bottom = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0c1a"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ig7nh"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-
-[sub_resource type="Animation" id="Animation_7d4j4"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("EnemyContainer/Enemy:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_redou"]
-resource_name = "enemy_damaged"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("EnemyContainer/Enemy:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 0.0705882, 0.231373, 1), Color(1, 1, 1, 0), Color(1, 0.0705882, 0.231373, 1), Color(1, 1, 1, 0), Color(1, 0.0705882, 0.231373, 1), Color(1, 1, 1, 0), Color(1, 0.0705882, 0.231373, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ftcli"]
-_data = {
-"RESET": SubResource("Animation_7d4j4"),
-"enemy_damaged": SubResource("Animation_redou")
-}
-
-[node name="Battle" type="Control" node_paths=PackedStringArray("player_status", "dieActionMenu", "statusAndHandMenu", "enemy1", "enemy2", "enemy3", "textbox", "textboxLabel")]
+[node name="Battle" type="Control" node_paths=PackedStringArray("player_status", "dieActionMenu", "statusAndHandMenu", "enemy1", "enemy2", "enemy3", "textbox_controller")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -96,8 +38,7 @@ statusAndHandMenu = NodePath("PlayerPanel/MarginContainer/Player Status and Hand
 enemy1 = NodePath("Battle Enemy")
 enemy2 = NodePath("Battle Enemy2")
 enemy3 = NodePath("Battle Enemy3")
-textbox = NodePath("Textbox")
-textboxLabel = NodePath("Textbox/Label")
+textbox_controller = NodePath("Textbox Controller")
 
 [node name="Background" type="TextureRect" parent="."]
 modulate = Color(0.04, 0.04, 0.04, 1)
@@ -155,166 +96,6 @@ focus_neighbor_bottom = NodePath("../Battle Enemy")
 focus_next = NodePath("../Battle Enemy")
 focus_previous = NodePath("../Battle Enemy2")
 res = ExtResource("2_yokuy")
-
-[node name="EnemyContainer" parent="." instance=ExtResource("4_0wk1x")]
-visible = false
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 739.0
-offset_top = 122.0
-offset_right = 931.0
-offset_bottom = 341.0
-grow_horizontal = 1
-grow_vertical = 1
-
-[node name="EnemyContainer2" type="VBoxContainer" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -353.0
-offset_top = -175.0
-offset_right = -161.0
-offset_bottom = 44.0
-grow_horizontal = 0
-grow_vertical = 2
-scale = Vector2(0.75, 0.75)
-focus_neighbor_left = NodePath("../EnemyContainer")
-focus_neighbor_top = NodePath("../EnemyContainer")
-focus_neighbor_right = NodePath("../EnemyContainer3")
-focus_neighbor_bottom = NodePath("../EnemyContainer3")
-focus_next = NodePath("../EnemyContainer3")
-focus_previous = NodePath("../EnemyContainer")
-
-[node name="ProgressBar" type="ProgressBar" parent="EnemyContainer2"]
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_qcar4")
-theme_override_styles/fill = SubResource("StyleBoxFlat_lpb05")
-step = 1.0
-value = 50.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="EnemyContainer2/ProgressBar"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_kwukf")
-theme_override_font_sizes/font_size = 32
-text = "HP: 25/50"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Enemy" type="TextureRect" parent="EnemyContainer2"]
-self_modulate = Color(1, 0.0705882, 0.231373, 1)
-layout_mode = 2
-size_flags_vertical = 3
-texture = ExtResource("1_iltai")
-stretch_mode = 4
-
-[node name="Roll" type="Label" parent="EnemyContainer2/Enemy"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -53.0
-offset_top = -51.0
-offset_right = 56.0
-offset_bottom = 55.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 70
-text = "5
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="EnemyContainer3" type="VBoxContainer" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -232.0
-offset_top = -140.0
-offset_right = -40.0
-offset_bottom = 79.0
-grow_horizontal = 0
-grow_vertical = 2
-focus_neighbor_left = NodePath("../EnemyContainer2")
-focus_neighbor_top = NodePath("../EnemyContainer2")
-focus_neighbor_right = NodePath("../EnemyContainer")
-focus_neighbor_bottom = NodePath("../EnemyContainer")
-focus_next = NodePath("../EnemyContainer")
-focus_previous = NodePath("../EnemyContainer2")
-
-[node name="ProgressBar" type="ProgressBar" parent="EnemyContainer3"]
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_qcar4")
-theme_override_styles/fill = SubResource("StyleBoxFlat_lpb05")
-step = 1.0
-value = 50.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="EnemyContainer3/ProgressBar"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_kwukf")
-theme_override_font_sizes/font_size = 32
-text = "HP: 25/50"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Enemy" type="TextureRect" parent="EnemyContainer3"]
-self_modulate = Color(1, 0.0705882, 0.231373, 1)
-layout_mode = 2
-size_flags_vertical = 3
-texture = ExtResource("1_iltai")
-stretch_mode = 4
-
-[node name="Roll" type="Label" parent="EnemyContainer3/Enemy"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -53.0
-offset_top = -51.0
-offset_right = 56.0
-offset_bottom = 55.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 70
-text = "5
-"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="PlayerContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -409,62 +190,14 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
 text = "RUN"
 
-[node name="ActionsPanel" type="Panel" parent="."]
-visible = false
+[node name="Textbox Controller" parent="." instance=ExtResource("8_11wq8")]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 108.0
-grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_idclm")
-
-[node name="Textbox" type="Panel" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-offset_left = 245.0
-offset_top = 423.0
-offset_right = -17.0
-offset_bottom = 637.0
-grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ig7nh")
-
-[node name="Label" type="Label" parent="Textbox"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = -16.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_kwukf")
-theme_override_font_sizes/font_size = 32
-text = "A GODOT LOGO Appears"
-
-[node name="Ticker" type="Label" parent="Textbox"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -17.0
-offset_top = -32.0
-offset_right = -4.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_kwukf")
-theme_override_font_sizes/font_size = 32
-text = ">"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_ftcli")
-}
+offset_left = 246.0
+offset_top = 421.0
+offset_right = -12.0
+offset_bottom = -13.0
+mouse_filter = 2
+dialogue_res = ExtResource("9_5yvlh")
 
 [connection signal="pressed" from="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
 [connection signal="pressed" from="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Run" to="." method="_on_run_pressed"]
@@ -472,3 +205,4 @@ libraries = {
 [editable path="Battle Enemy"]
 [editable path="Battle Enemy2"]
 [editable path="Battle Enemy3"]
+[editable path="Textbox Controller"]
