@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogueRes" load_steps=18 format=3 uid="uid://git3m0aftj0o"]
+[gd_resource type="Resource" script_class="DialogueRes" load_steps=19 format=3 uid="uid://git3m0aftj0o"]
 
 [ext_resource type="Script" path="res://Textbox Stuff/dialogue_beat.gd" id="1_xi6j0"]
 [ext_resource type="Script" path="res://Textbox Stuff/dialogue_res.gd" id="2_qjl25"]
@@ -124,6 +124,14 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
+[sub_resource type="Resource" id="Resource_1m16p"]
+script = ExtResource("1_xi6j0")
+unique_name = "enemy out of dice"
+text = "%s is out of dice! They're helpless!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
 [resource]
 script = ExtResource("2_qjl25")
-beats = Array[ExtResource("1_xi6j0")]([SubResource("Resource_ay5xx"), SubResource("Resource_g8uys"), SubResource("Resource_i4j1c"), SubResource("Resource_oobqt"), SubResource("Resource_lji7h"), SubResource("Resource_1ddtv"), SubResource("Resource_jf5ht"), SubResource("Resource_nn2dg"), SubResource("Resource_pvm66"), SubResource("Resource_j0yr3"), SubResource("Resource_4y2yx"), SubResource("Resource_cpjfn"), SubResource("Resource_ytg4d"), SubResource("Resource_wl3bi"), SubResource("Resource_ylaaj")])
+beats = Array[ExtResource("1_xi6j0")]([SubResource("Resource_ay5xx"), SubResource("Resource_g8uys"), SubResource("Resource_i4j1c"), SubResource("Resource_oobqt"), SubResource("Resource_lji7h"), SubResource("Resource_1ddtv"), SubResource("Resource_jf5ht"), SubResource("Resource_nn2dg"), SubResource("Resource_pvm66"), SubResource("Resource_j0yr3"), SubResource("Resource_4y2yx"), SubResource("Resource_cpjfn"), SubResource("Resource_ytg4d"), SubResource("Resource_wl3bi"), SubResource("Resource_ylaaj"), SubResource("Resource_1m16p")])

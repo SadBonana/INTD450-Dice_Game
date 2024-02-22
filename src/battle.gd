@@ -134,16 +134,10 @@ func _ready():
 	draw_dice()
 
 
-#func _input(event):
-	#if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and $Textbox.visible:
-		#textbox.hide()
-		#emit_signal("textbox_closed")
-
-
 func draw_dice():
 	# Enemy draws their dice and displays their rolls first so the player has more info.
 	for enemy in enemies:
-		enemy.draw_dice()
+		enemy.draw_dice(2, textbox_controller)
 	
 	for i in range(3): # Hardcoded temp hand size of 3
 		# Whatever we decide to do when the player runs out of dice, it'll be here

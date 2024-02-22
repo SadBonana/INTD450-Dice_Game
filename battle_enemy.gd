@@ -55,14 +55,16 @@ func _process(delta):
 
 
 # Will likely need to be rewritten once effect die and enemies defending become a thing.
-func draw_dice(num_to_draw=2):
+func draw_dice(num_to_draw, textbox: TextboxController):
 	damage = 0
 	for i in range(num_to_draw):
 		# Whatever we decide to do when the enemy runs out of dice, it'll be here
 		if not dice_bag.size() > 0:
 			#display_text("Hurray! Enemies out of dice, now you can have your way with them!")
 			#await textbox_closed
-			print("enemy is out of dice, but can't use the textbox display function the way this is written.")
+			textbox.load_dialogue_chain('enemy out of dice')
+			textbox.next([enemy_name])
+			#print("enemy is out of dice, but can't use the textbox display function the way this is written.")
 			return
 		var d = dice_bag.pop_back()
 		used_dice.append(d)

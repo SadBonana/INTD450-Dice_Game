@@ -133,6 +133,7 @@ func next(string_replacements = []):
 		
 		# TODO: Find a way to allow activating a list item by single-clicking without breaking controller support
 		choices.item_activated.connect(_on_choice_chosen)
+		choices.grab_focus()
 	
 	# Yeet the text the textbox
 	if string_replacements.size() > 0:
@@ -171,7 +172,7 @@ func transition(from_beat: DialogueBeat, destination_beat: String, from_choice:=
 # The following 2 callbacks are intentionally not connected to a signal by
 # default
 func _on_textbox_gui_input(event: InputEvent):
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("ui_accept") or event.is_action_released("click"):
 		transition(_current_beat, _next_beat)
 
 func _on_choice_chosen(index: int):
