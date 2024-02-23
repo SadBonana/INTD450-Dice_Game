@@ -146,6 +146,7 @@ func draw_dice():
 						if from_beat.unique_name == "player out of dice 2":
 							match from_choice:
 								0:
+									await textbox_controller.next()
 									run()
 								# If more choices are added, can be handled here.
 			)
