@@ -1,75 +1,43 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgag7rr64v1m7"]
+[gd_scene load_steps=5 format=3 uid="uid://bgag7rr64v1m7"]
 
 [ext_resource type="Script" path="res://src/player_status.gd" id="1_kpf4t"]
-[ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="1_qecls"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="2_f10bn"]
+[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_wrn3c"]
 [ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://health_bar.tscn" id="3_5jrpy"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qcar4"]
-bg_color = Color(0.627451, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lpb05"]
-bg_color = Color(0.117647, 0.678431, 0, 1)
-
 [node name="Player Status" type="VBoxContainer" node_paths=PackedStringArray("health_bar", "deck_status")]
-custom_minimum_size = Vector2(225, 0)
-size_flags_horizontal = 2
+anchors_preset = -1
+anchor_right = 0.192
+anchor_bottom = 0.375
+offset_right = 0.119995
+offset_bottom = -1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
 script = ExtResource("1_kpf4t")
 health_bar = NodePath("Player Health and Name/Health Bar")
-deck_status = NodePath("Deck Status2")
+deck_status = NodePath("Bag Sprite/Deck Status")
 
 [node name="Player Health and Name" type="HBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 17
+size_flags_vertical = 8
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Player Name" type="Label" parent="Player Health and Name"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_qecls")
-theme_override_font_sizes/font_size = 32
-text = "Player"
+theme_override_fonts/font = ExtResource("2_wrn3c")
+theme_override_font_sizes/font_size = 8
+text = "Me"
 horizontal_alignment = 1
-
-[node name="Player Health Bar" type="ProgressBar" parent="Player Health and Name"]
-visible = false
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_styles/background = SubResource("StyleBoxFlat_qcar4")
-theme_override_styles/fill = SubResource("StyleBoxFlat_lpb05")
-step = 1.0
-value = 50.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="Player Health and Name/Player Health Bar"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_qecls")
-theme_override_font_sizes/font_size = 32
-text = "HP: 25/50"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Health Bar" parent="Player Health and Name" instance=ExtResource("3_5jrpy")]
 layout_mode = 2
+size_flags_vertical = 1
 
 [node name="Reroll Status" type="HBoxContainer" parent="."]
+visible = false
 layout_mode = 2
 
 [node name="Rerolls" type="Label" parent="Reroll Status"]
@@ -81,33 +49,24 @@ text = "Rerolls:"
 layout_mode = 2
 text = "3"
 
-[node name="Deck Status" type="HBoxContainer" parent="."]
-visible = false
-layout_mode = 2
-
-[node name="Dice Bag" type="Label" parent="Deck Status"]
-layout_mode = 2
-text = "Dice Bag:"
-
-[node name="Num Dice Left" type="Label" parent="Deck Status"]
-layout_mode = 2
-text = "12"
-
-[node name="Separator" type="Label" parent="Deck Status"]
-layout_mode = 2
-text = "/"
-
-[node name="Num Dice Total" type="Label" parent="Deck Status"]
-layout_mode = 2
-text = "20"
-
-[node name="Deck Status2" type="Label" parent="."]
-layout_mode = 2
-text = "Dice Bag: 12/20"
-
 [node name="Bag Sprite" type="TextureRect" parent="."]
-modulate = Color(0.113725, 0.0588235, 0, 1)
+self_modulate = Color(0.113725, 0.0588235, 0, 1)
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 texture = ExtResource("2_f10bn")
+expand_mode = 5
 stretch_mode = 4
+
+[node name="Deck Status" type="Label" parent="Bag Sprite"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.13
+offset_bottom = 0.00999832
+grow_horizontal = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_wrn3c")
+theme_override_font_sizes/font_size = 8
+text = "Dice: 12/20"
+vertical_alignment = 1

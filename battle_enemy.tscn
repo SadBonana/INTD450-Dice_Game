@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlyb2lewb1n15"]
+[gd_scene load_steps=7 format=3 uid="uid://dlyb2lewb1n15"]
 
 [ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://health_bar.tscn" id="1_pbfgf"]
 [ext_resource type="Script" path="res://battle_enemy.gd" id="1_u2vwq"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="2_xiluh"]
+[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="4_4kj7r"]
 
 [sub_resource type="Animation" id="Animation_ootso"]
 resource_name = "Hurt"
@@ -40,18 +41,13 @@ _data = {
 }
 
 [node name="Battle Enemy" type="VBoxContainer"]
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -426.0
-offset_top = -207.0
-offset_right = -234.0
-offset_bottom = 12.0
-grow_horizontal = 0
+anchors_preset = -1
+anchor_right = 0.162
+anchor_bottom = 0.342
+offset_right = 0.32
+offset_bottom = -0.120003
+grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.5, 0.5)
 focus_neighbor_left = NodePath("../EnemyContainer3")
 focus_neighbor_top = NodePath("../EnemyContainer3")
 focus_neighbor_right = NodePath("../EnemyContainer2")
@@ -63,13 +59,14 @@ script = ExtResource("1_u2vwq")
 [node name="ProgressBar" parent="." instance=ExtResource("1_pbfgf")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 1
 
 [node name="Enemy" type="TextureRect" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 7.0
 texture = ExtResource("2_xiluh")
+expand_mode = 5
 stretch_mode = 4
 
 [node name="Roll" type="Label" parent="Enemy"]
@@ -80,13 +77,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -53.0
-offset_top = -51.0
-offset_right = 56.0
-offset_bottom = 55.0
+offset_left = -54.5
+offset_top = -53.0
+offset_right = 54.5
+offset_bottom = 53.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 70
+theme_override_fonts/font = ExtResource("4_4kj7r")
+theme_override_font_sizes/font_size = 40
 text = "5
 "
 horizontal_alignment = 1

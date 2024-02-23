@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://src/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
-[ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="2_kwukf"]
 [ext_resource type="Resource" uid="uid://dxvj75cw3wclu" path="res://src/HostileRedGodotLogo.tres" id="2_yokuy"]
 [ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle_enemy.tscn" id="4_w871o"]
 [ext_resource type="PackedScene" uid="uid://4pckrotnlies" path="res://die_action_menu.tscn" id="5_co5hi"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://player_status.tscn" id="6_0lq60"]
+[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="7_iw7i2"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox.tscn" id="8_11wq8"]
 [ext_resource type="Resource" uid="uid://git3m0aftj0o" path="res://Textbox Stuff/battle_textbox_test.tres" id="9_5yvlh"]
 
@@ -38,7 +38,7 @@ statusAndHandMenu = NodePath("PlayerPanel/MarginContainer/Player Status and Hand
 enemy1 = NodePath("Battle Enemy")
 enemy2 = NodePath("Battle Enemy2")
 enemy3 = NodePath("Battle Enemy3")
-textbox_controller = NodePath("Textbox Controller")
+textbox_controller = NodePath("PlayerPanel/MarginContainer/Textbox Controller")
 
 [node name="Background" type="TextureRect" parent="."]
 modulate = Color(0.04, 0.04, 0.04, 1)
@@ -53,10 +53,14 @@ stretch_mode = 1
 
 [node name="Battle Enemy" parent="." instance=ExtResource("4_w871o")]
 layout_mode = 1
-offset_left = -501.0
-offset_top = -285.0
-offset_right = -309.0
-offset_bottom = -66.0
+anchor_left = 0.503
+anchor_top = 0.033
+anchor_right = 0.653
+anchor_bottom = 0.347
+offset_left = 0.0799866
+offset_top = 0.12
+offset_right = 0.0799561
+offset_bottom = 0.0800018
 size_flags_horizontal = 0
 size_flags_vertical = 0
 focus_neighbor_left = NodePath("../Battle Enemy3")
@@ -69,11 +73,14 @@ res = ExtResource("2_yokuy")
 
 [node name="Battle Enemy2" parent="." instance=ExtResource("4_w871o")]
 layout_mode = 1
-offset_left = -392.0
-offset_top = -232.0
-offset_right = -200.0
-offset_bottom = -13.0
-scale = Vector2(0.75, 0.75)
+anchor_left = 0.669
+anchor_top = 0.167
+anchor_right = 0.819
+anchor_bottom = 0.475
+offset_left = -0.160034
+offset_top = -0.120003
+offset_right = -0.160034
+offset_bottom = -1.52588e-05
 focus_neighbor_left = NodePath("../Battle Enemy")
 focus_neighbor_top = NodePath("../Battle Enemy")
 focus_neighbor_right = NodePath("../Battle Enemy3")
@@ -84,11 +91,13 @@ res = ExtResource("2_yokuy")
 
 [node name="Battle Enemy3" parent="." instance=ExtResource("4_w871o")]
 layout_mode = 1
-offset_left = -239.0
-offset_top = -143.0
-offset_right = -47.0
-offset_bottom = 76.0
-scale = Vector2(1, 1)
+anchor_left = 0.831
+anchor_top = 0.275
+anchor_right = 0.981
+anchor_bottom = 0.585
+offset_left = 0.159973
+offset_right = 0.159973
+offset_bottom = 1.39999
 focus_neighbor_left = NodePath("../Battle Enemy2")
 focus_neighbor_top = NodePath("../Battle Enemy2")
 focus_neighbor_right = NodePath("../Battle Enemy")
@@ -100,14 +109,14 @@ res = ExtResource("2_yokuy")
 [node name="PlayerContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.065
-anchor_top = 0.181
-anchor_right = 0.19
-anchor_bottom = 0.434
-offset_left = 0.119995
-offset_top = -0.28801
-offset_right = 48.12
-offset_bottom = 54.768
+anchor_left = 0.023
+anchor_top = 0.311
+anchor_right = 0.173
+anchor_bottom = 0.585
+offset_left = 0.279999
+offset_top = 1.03999
+offset_right = 32.28
+offset_bottom = 33.312
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -125,20 +134,22 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -223.0
+offset_top = -144.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_idclm")
 
 [node name="MarginContainer" type="MarginContainer" parent="PlayerPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+size_flags_vertical = 8
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="Player Status and Hand" type="HBoxContainer" parent="PlayerPanel/MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 8
 theme_override_constants/separation = 10
 
 [node name="Player Status" parent="PlayerPanel/MarginContainer/Player Status and Hand" instance=ExtResource("6_0lq60")]
@@ -156,14 +167,14 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="Player Action Menu" type="VBoxContainer" parent="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Ready" type="Button" parent="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu"]
@@ -171,8 +182,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
-theme_override_fonts/font = ExtResource("2_kwukf")
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("7_iw7i2")
+theme_override_font_sizes/font_size = 8
 theme_override_styles/normal = SubResource("StyleBoxFlat_prgvx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
@@ -183,26 +194,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
-theme_override_fonts/font = ExtResource("2_kwukf")
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("7_iw7i2")
+theme_override_font_sizes/font_size = 8
 theme_override_styles/normal = SubResource("StyleBoxFlat_prgvx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
 text = "RUN"
 
-[node name="Textbox Controller" parent="." instance=ExtResource("8_11wq8")]
-layout_mode = 1
-offset_left = 246.0
-offset_top = 421.0
-offset_right = -12.0
-offset_bottom = -13.0
+[node name="Textbox Controller" parent="PlayerPanel/MarginContainer" instance=ExtResource("8_11wq8")]
+layout_mode = 2
 mouse_filter = 2
 dialogue_res = ExtResource("9_5yvlh")
 
 [connection signal="pressed" from="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
 [connection signal="pressed" from="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Run" to="." method="_on_run_pressed"]
 
-[editable path="Battle Enemy"]
-[editable path="Battle Enemy2"]
-[editable path="Battle Enemy3"]
-[editable path="Textbox Controller"]
+[editable path="PlayerPanel/MarginContainer/Textbox Controller"]

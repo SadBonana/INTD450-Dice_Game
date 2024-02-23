@@ -62,7 +62,14 @@ func _ready():
 	for beat in dialogue_res.beats:
 		# CAUTION, FIXME: Probably does not enforce uniqueness
 		# (will likely overwrite instead of throw an error). Test this later.
+		# On a related note, see if you can set the resource instance's
+		# name with the neame variable and have it show up in the editor
+		# so designers can tell their dialogue beats appart without
+		# expanding them. 
 		dialogue_dict[beat.unique_name] = beat
+		
+		# TODO: after testing the enforcement of uniquesness,
+		# erase this print statement.
 		print(dialogue_dict[beat.unique_name].unique_name)
 	
 	textbox.hide()
@@ -92,7 +99,15 @@ func _set_choice_visibility(show_choices: bool):
 # so people dont use it for normal text
 
 
-# TODO: (must do): func quick_beat(dialogue_key, string_replacements, on_transitioned_from)
+## Loads dialogue chain and calls next once
+##
+## Intended to be used for one-off dialogue beats but you can continue calling next
+## afterwards too
+##
+## TODO: the documentation for this func is still incomplete.
+func quick_beat(dialogue_key: String, string_replacements = [], on_transitioned_from := func (): return):
+	load_dialogue_chain(dialogue_key, on_transitioned_from)
+	return await next(string_replacements)
 
 
 ## 
@@ -170,7 +185,7 @@ func transition(from_beat: DialogueBeat, destination_beat: String, from_choice:=
 
 
 # The following 2 callbacks are intentionally not connected to a signal by
-# default
+# default.
 func _on_textbox_gui_input(event: InputEvent):
 	if event.is_action_pressed("ui_accept") or event.is_action_released("click"):
 		transition(_current_beat, _next_beat)

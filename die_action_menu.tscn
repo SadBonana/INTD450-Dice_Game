@@ -1,38 +1,48 @@
-[gd_scene load_steps=2 format=3 uid="uid://4pckrotnlies"]
+[gd_scene load_steps=3 format=3 uid="uid://4pckrotnlies"]
 
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_g22em"]
+[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_4xoiv"]
 
 [node name="Die Action Menu" type="VBoxContainer"]
-size_flags_horizontal = 2
-
-[node name="Die Actions" type="ItemList" parent="."]
-layout_mode = 2
-size_flags_vertical = 3
-item_count = 3
-item_0/text = "Attack"
-item_1/text = "Defend"
-item_2/text = "Reroll"
+anchors_preset = -1
+anchor_right = 0.2
+anchor_bottom = 0.356
+offset_bottom = -0.160004
+size_flags_vertical = 8
 
 [node name="Die Sprite" type="TextureRect" parent="."]
 self_modulate = Color(0.168627, 0.196078, 0.917647, 1)
 layout_mode = 2
+size_flags_vertical = 3
 texture = ExtResource("1_g22em")
 stretch_mode = 4
 
+[node name="Die Actions" type="ItemList" parent="Die Sprite"]
+clip_contents = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.375
+grow_horizontal = 2
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("2_4xoiv")
+auto_height = true
+item_count = 2
+item_0/text = "Attack"
+item_1/text = "Defend"
+
 [node name="Roll" type="Label" parent="Die Sprite"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -53.0
-offset_top = -51.0
-offset_right = 56.0
-offset_bottom = 55.0
+anchors_preset = -1
+anchor_top = 0.379
+anchor_right = 1.0
+anchor_bottom = 0.691
+offset_top = 17.488
+offset_bottom = -17.448
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 70
+theme_override_fonts/font = ExtResource("2_4xoiv")
+theme_override_font_sizes/font_size = 40
 text = "5
 "
 horizontal_alignment = 1

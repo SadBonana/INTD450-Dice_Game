@@ -106,8 +106,7 @@ func _ready():
 			if enemies.size() == 1:   # No need to select a target if there's only 1
 				return enemies[0]
 			
-			textbox_controller.load_dialogue_chain("targeting instructions")
-			await textbox_controller.next()
+			await textbox_controller.quick_beat("targeting instructions")
 			
 			# Prevent player from getting distracted and crashing teh game
 			# It's bad news if the player presses attack before they finish targeting
@@ -199,8 +198,7 @@ func run():
 
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
-	textbox_controller.load_dialogue_chain("run")
-	await textbox_controller.next()
+	await textbox_controller.quick_beat("run")
 	#await get_tree().create_timer(0.5).timeout
 	#get_tree().quit()
 	run()
@@ -230,12 +228,10 @@ func damageEnemy(damage, enemy: BattleEnemy):
 func _on_ready_pressed():
 	for die in player_dice_hand:
 		if not die.itemSelected:
-			textbox_controller.load_dialogue_chain("not ready")
-			await textbox_controller.next()
+			await textbox_controller.quick_beat("not ready")
 			return
 	
-	textbox_controller.load_dialogue_chain("ready")
-	await textbox_controller.next()
+	await textbox_controller.quick_beat("ready")
 	
 	for enemy in enemies:
 		enemy.roll_label.hide()
@@ -252,8 +248,7 @@ func _on_ready_pressed():
 					damageEnemy(die.roll, die.target)
 					await damage_enemy_resolved
 				else:
-					textbox_controller.load_dialogue_chain("missed")
-					await textbox_controller.next()
+					await textbox_controller.quick_beat("missed")
 			DieActions.DEFEND:
 				player_defense += die.roll
 			DieActions.REROLL:
