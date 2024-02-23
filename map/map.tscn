@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bx1wovv0p182j"]
+[gd_scene load_steps=3 format=3 uid="uid://bx1wovv0p182j"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="2_gsif4"]
+[ext_resource type="Resource" uid="uid://dhfxnqlknsfuc" path="res://map/map_resource.tres" id="2_xlpbv"]
 
 [node name="map" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("2_gsif4")
+map_data = ExtResource("2_xlpbv")
 
 [node name="start" type="Button" parent="."]
 layout_mode = 0
@@ -47,9 +49,22 @@ offset_right = 1150.0
 offset_bottom = 33.0
 text = "Quit"
 
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(64, 12)
+points = PackedVector2Array(512, 22, 514, 47, 514, 77)
+
+[node name="Line2D2" type="Line2D" parent="."]
+position = Vector2(70, 95)
+points = PackedVector2Array(512, 22, 514, 47, 515, 115)
+
+[node name="Line2D2" type="Line2D" parent="Line2D2"]
+position = Vector2(68.4783, 128.487)
+scale = Vector2(0.869565, 0.876106)
+points = PackedVector2Array(512, 22, 514, 47, 514.384, 73.0946, 511.2, 259.687)
+
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="battle" to="." method="_on_battle_pressed"]
 [connection signal="pressed" from="campfire" to="." method="_on_campfire_pressed"]
 [connection signal="pressed" from="boss" to="." method="_on_boss_pressed"]
-[connection signal="pressed" from="quit" to="." method="_on_boss_pressed"]
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="quit" to="." method="_on_boss_pressed"]

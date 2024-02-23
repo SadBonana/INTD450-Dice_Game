@@ -3,6 +3,10 @@ extends Node
 const d = 6
 const b = [0,3]
 var leafnodes = []
+var nodes
+
+@export var map_resource: Resource
+map_resource.num_nodes = nodes
 
 func populate(path,root,depth,max_d):
 	var node = root
@@ -10,6 +14,7 @@ func populate(path,root,depth,max_d):
 		var num_children = randi_range(1,3)
 	
 		for c in range(num_children):
+			nodes += 1 
 			var child = path.create_item(node)
 			populate(path,child,depth+1,max_d)
 			if depth == max_d:
