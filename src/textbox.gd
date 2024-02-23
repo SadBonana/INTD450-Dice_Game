@@ -1,18 +1,42 @@
 class_name TextboxController extends Control
 
-# TODO: Full on documentation. This thing will def need it to be useable by others.
+## Controls when and what a textbox will display.
+##
+## To use, make a .tres file using dialogue_res.gd, then use the inspector panel
+## to add dialogue beats to the array. Make sure to give each dialogue beat a
+## unique name. See dialogue_beat.gd for descriptions of what each property does.
+## Here's a rundown: Jumps contains a list of beat's unique names to jump to,
+## you can leave it blank if you just want to go to the next dialogue beat in
+## the dialogue_res array, or if you want to skip a few beats or assign differnt
+## jumps to different choices, you can to the jumps array. Choices is an array
+## containing the text to display for each choice. Leave it blank if you don't
+## want choices. If end conversation is checked, then you won't go to the next
+## dialogue beat by accident when you call next(). Once the .tres file with all
+## the dialogue is made, add a TextboxController node to the scene you want the
+## textbox in and position it where you want the textbox to appear. After,
+## click the TextboxController node you just added in the scene hierarchy, then
+## click and drag the .tres file you made over to the Dialogue Res field in the
+## inspector. Now, in your scene's main script, call
+## TextboxController.load_dialogue_chain() and pass it the name of the first
+## beat you want it to narrate, then call next() to narrate it.
 
-
-@export var dialogue_res: DialogueRes
-
-@onready var textbox := %Textbox
-@onready var text := %Text
-@onready var choices := %Choices
-@onready var ticker := %Ticker
-
+## Emitted after a dialogue beat is dismissed.
+##
+## from_beat:
+##		The dialogue beat just dismissed
+## destination_beat:
+##		The name of the beat to be narrated on the next call to next()
+## from_choice:
+##		The index of the choice taken on the beat that was just dismissed.
+##		-1 if there were no choices in the last dialogue beat.
 signal transitioned_from(from_beat: DialogueBeat, destination_beat: String, from_choice: int)
 
-var dialogue_dict: Dictionary = {}
+## Contains all the dialogue beats that will show up in a given textbox. Different
+## textboxes will have different dialogue resources. 
+@export var dialogue_res: DialogueRes
+
+
+
 
 ## Holds a reference to the dialogue beat being narrated.
 ##
@@ -22,7 +46,7 @@ var dialogue_dict: Dictionary = {}
 ## is marked as the end of the conversation, there is no next beat. If
 ## the current beat defines exactly one jump, then the next beat is the
 ## one with its unique_name given by the jump. If the number of jumps matches
-## the number of choices, then _next_beat is set to "unknown" to signify
+## the number of choices, then _next_beat is set to "_unknown" to signify
 ## that the next beat will be determined later (depending on the choice
 ## that gets clicked). Otherwise, the next beat is the next one in the
 ## array of beats in the resource file.
@@ -34,12 +58,12 @@ var _current_beat: DialogueBeat:
 		elif beat.jumps.size() == 1:
 			_next_beat = beat.jumps[0]
 		elif beat.jumps.size() != 0 and beat.jumps.size() == beat.choices.size():
-			# Realistically, transition() should never be passed unknown.
-			# the next beat should be known before transition is called,
+			# Realistically, _transition() should never be passed _unknown.
+			# the next beat should be known before _transition is called,
 			# even if _next_beat doesn't get updated as such.
-			_next_beat = "unknown"
+			_next_beat = "_unknown"
 		else:
-			var keys = dialogue_dict.keys()
+			var keys = _dialogue_dict.keys()
 			var pos = keys.find(beat.unique_name)
 			if pos != -1 and pos != keys.size() - 1:
 				_next_beat = keys[pos + 1]
@@ -54,6 +78,14 @@ var _next_beat: String
 ## Temp variable to allow the callback to be disconnected later.
 var _on_transitioned_from: Callable
 
+## Maps the unique_name property of each dialogue beat to itself.
+var _dialogue_dict: Dictionary = {}
+
+# References to children in the hierarchy
+@onready var textbox := %Textbox
+@onready var text := %Text
+@onready var choices := %Choices
+@onready var ticker := %Ticker
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -66,28 +98,13 @@ func _ready():
 		# name with the neame variable and have it show up in the editor
 		# so designers can tell their dialogue beats appart without
 		# expanding them. 
-		dialogue_dict[beat.unique_name] = beat
+		_dialogue_dict[beat.unique_name] = beat
 		
 		# TODO: after testing the enforcement of uniquesness,
 		# erase this print statement.
-		print(dialogue_dict[beat.unique_name].unique_name)
+		print(_dialogue_dict[beat.unique_name].unique_name)
 	
 	textbox.hide()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
-## Ensures that the ticker is not shown when choices are, and vice versa.
-func _set_choice_visibility(show_choices: bool):
-	if show_choices:
-		choices.show()
-		ticker.hide()
-	else:
-		choices.hide()
-		ticker.show()
 
 
 # TODO: Consider making a func that will automatically decide the number of beats
@@ -99,36 +116,46 @@ func _set_choice_visibility(show_choices: bool):
 # so people dont use it for normal text
 
 
-## Loads dialogue chain and calls next once
+## Set the beat to display on the next call to next()
+## 
+## This usually only needs to be called once for a given dialogue chain.
+## A dialogue chain is several dialogue beats starting from the beat loaded by
+## this function, and ending with the dialogue beat with end_conversation set
+## to true. See he documentation of _current_beat to understand how the beats in
+## a chain are connected.
 ##
-## Intended to be used for one-off dialogue beats but you can continue calling next
-## afterwards too
-##
-## TODO: the documentation for this func is still incomplete.
-func quick_beat(dialogue_key: String, string_replacements = [], on_transitioned_from := func (): return):
-	load_dialogue_chain(dialogue_key, on_transitioned_from)
-	return await next(string_replacements)
-
-
-## 
-## 
-## 
+## dialogue_key:
+##		The unique_name of the dialogue beat to narrate
+## on_transitioned_from:
+##		Callback that will be connected to the transitioned_from signal.
+##		The signal will carry info about what beat it was emitted from,
+##		what the next beat will be, and what choice was selected. This
+##		info can be matched in the callback to determine what to do
+##		when a certain choice is chosen on a certain beat.
 func load_dialogue_chain(dialogue_key: String, on_transitioned_from: Callable = func (): return):
 	_next_beat = dialogue_key
 	_on_transitioned_from = on_transitioned_from
 	transitioned_from.connect(on_transitioned_from)
 
 
+## Narrate the next dialogue beat.
 ## 
-## 
-## TODO: consider making this return the name of the beat it displayed.
+## Unhides the textbox and fills it with the text and choices in the DialogueBeat
+## given by the _next_beat property. When narrating, any replacement fields will
+## get replaced with whatever is in string_replacements.
+##
+## string_replacements:
+##		E.g. "%s dealt %d damage!" % ["Joey", 5] -> "Joey dealt 5 damage!"
+##		["Joey", 5] is the string replacements.
+##
+## Return the unique_name of the dialogue beat that got displayed.
 func next(string_replacements = []):
 	# Handle when there is no next dialogue beat.
 	if not _next_beat:	#if _next_beat == "":
-		return false
+		return _next_beat
 	
 	# NOTE: Setting _current_beat also sets the next _next_beat
-	_current_beat = dialogue_dict[_next_beat]
+	_current_beat = _dialogue_dict[_next_beat]
 	textbox.show()
 	
 	# Configure textbox without choices
@@ -164,20 +191,60 @@ func next(string_replacements = []):
 	if _current_beat.end_conversation:
 		Helpers.disconnect_if_connected(transitioned_from, _on_transitioned_from)
 	
-	return true
+	return _current_beat.unique_name
 
 
+## Loads dialogue chain and calls next once
+##
+## Intended to be used for one-off dialogue beats but you can continue calling next
+## afterwards too
+##
+## dialogue_key:
+##		The unique_name of the dialogue beat to narrate
+## string_replacements:
+##		E.g. "%s dealt %d damage!" % ["Joey", 5] -> "Joey dealt 5 damage!"
+##		["Joey", 5] is the string replacements.
+## on_transitioned_from:
+##		Callback that will be connected to the transitioned_from signal.
+##		The signal will carry info about what beat it was emitted from,
+##		what the next beat will be, and what choice was selected. This
+##		info can be matched in the callback to determine what to do
+##		when a certain choice is chosen on a certain beat.
+##
+## Return the unique_name of the dialogue beat that got displayed.
+func quick_beat(dialogue_key: String, string_replacements = [], on_transitioned_from := func (): return):
+	load_dialogue_chain(dialogue_key, on_transitioned_from)
+	return await next(string_replacements)
+
+
+## Ensures that the ticker is not shown when choices are, and vice versa.
+func _set_choice_visibility(show_choices: bool):
+	if show_choices:
+		choices.show()
+		ticker.hide()
+	else:
+		choices.hide()
+		ticker.show()
+
+
+## Emits the transitioned_from signal. Is called when the player chooses a
+## choice or dismisses a textbox.
 ## 
-## 
-## 
-func transition(from_beat: DialogueBeat, destination_beat: String, from_choice:=-1):
+## from_beat:
+##		The dialogue beat transitioned from.
+## destination_beat:
+##		The name of the beat to be narrated on the next call to next().
+##		AKA the dialogue beat to transition to.
+## from_choice:
+##		The index of the choice taken on the beat that was transitioned from.
+##		-1 if there were no choices in the last dialogue beat.
+func _transition(from_beat: DialogueBeat, destination_beat: String, from_choice:=-1):
 	textbox.hide()
-	assert(destination_beat != "unknown")	# FIXME: Someone might want to call their beat unknown. maybe add an _ or something
-	#assert(not from_choice == -1 and )		# TODO: Document somewhere what -1 means
+	assert(destination_beat != "_unknown")
 	
 	# We have no destination beat if we came from the last beat.
 	if not from_beat.end_conversation:
-		assert(destination_beat in dialogue_dict)
+		assert(destination_beat in _dialogue_dict)
 	else:
 		destination_beat = ""
 	
@@ -186,11 +253,13 @@ func transition(from_beat: DialogueBeat, destination_beat: String, from_choice:=
 
 # The following 2 callbacks are intentionally not connected to a signal by
 # default.
+## Called when the player interacts with the textbox when there are no choices.
 func _on_textbox_gui_input(event: InputEvent):
 	if event.is_action_pressed("ui_accept") or event.is_action_released("click"):
-		transition(_current_beat, _next_beat)
+		_transition(_current_beat, _next_beat)
 
+## Called when teh player double clicks or presses enter on a choice.
 func _on_choice_chosen(index: int):
-	if _next_beat == "unknown":
+	if _next_beat == "_unknown":
 		_next_beat = _current_beat.jumps[index]
-	transition(_current_beat, _next_beat, index)
+	_transition(_current_beat, _next_beat, index)
