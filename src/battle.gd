@@ -7,19 +7,25 @@ extends Control
 
 @export_file("*.tscn") var drawn_die_path
 
+
+@onready var player_status := %"Player Status"
+#@export var player_status: VBoxContainer 
+#@export var dieActionMenu: VBoxContainer
+@onready var drawn_die_placeholder := %"Die Action Menu"
+#@export var statusAndHandMenu: HBoxContainer
+@onready var drawn_die_container := %"Hand of Dice"
+
 # TODO: Convert these to @onready var x = %y format
 # Player Panel
-@export var player_status: VBoxContainer 
-@export var dieActionMenu: VBoxContainer
-@export var statusAndHandMenu: HBoxContainer
-
 # Enemy
 @export var enemy1: BattleEnemy
 @export var enemy2: BattleEnemy
 @export var enemy3: BattleEnemy
 
 # Textbox
-@export var textbox_controller: TextboxController
+@onready var textbox_controller := %"Textbox Controller"
+#@export var textbox_controller: TextboxController
+
 
 @export var numEnemies = 3
 
@@ -60,7 +66,7 @@ func _ready():
 	# The die action menu here is just so designers can see what one looks like in engine.
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
 	# line of code
-	dieActionMenu.hide()
+	drawn_die_placeholder.hide()
 	
 	# uh oh, yuv been jumped m8!
 	await textbox_controller.quick_beat("battle start")
@@ -96,7 +102,7 @@ func draw_dice():
 	
 	# It's the player's turn so show the things they'll need
 	# to interact with to take their turn.
-	statusAndHandMenu.show()
+	drawn_die_container.show()
 	action_menu.show()
 	
 	for i in range(3): # Hardcoded temp hand size of 3
@@ -118,7 +124,7 @@ func draw_dice():
 		# Draw and roll die
 		var d = player_dice_bag.pop_back() # Draw die from bag
 		player_used_dice.append(d) # Discard used die # TODO: put this somewhere else, like, after the die is actually used.
-		var die = DrawnDie.instantiate(drawn_die_path, statusAndHandMenu, d)
+		var die = DrawnDie.instantiate(drawn_die_path, drawn_die_container, d)
 		player_dice_hand.append(die)
 	
 	player_status.dice_remaining = player_dice_bag.size()
@@ -176,7 +182,7 @@ func _on_ready_pressed():
 	
 	# Hide things we don't want the player to be able to mess
 	# with after they've ended their turn
-	statusAndHandMenu.hide()
+	drawn_die_container.hide()
 	action_menu.hide()
 	
 	await textbox_controller.quick_beat("ready")

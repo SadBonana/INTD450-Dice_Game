@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
 [ext_resource type="Resource" uid="uid://dxvj75cw3wclu" path="res://src/HostileRedGodotLogo.tres" id="2_yokuy"]
 [ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle_enemy.tscn" id="4_w871o"]
-[ext_resource type="PackedScene" uid="uid://4pckrotnlies" path="res://die_action_menu.tscn" id="5_co5hi"]
+[ext_resource type="PackedScene" uid="uid://4pckrotnlies" path="res://drawn_die.tscn" id="5_co5hi"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://player_status.tscn" id="6_0lq60"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="7_iw7i2"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox.tscn" id="8_11wq8"]
@@ -24,7 +24,7 @@ border_width_bottom = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0c1a"]
 
-[node name="Battle" type="Control" node_paths=PackedStringArray("player_status", "dieActionMenu", "statusAndHandMenu", "enemy1", "enemy2", "enemy3", "textbox_controller")]
+[node name="Battle" type="Control" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,14 +32,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5jfo4")
-drawn_die_path = "res://die_action_menu.tscn"
-player_status = NodePath("VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Player Status")
-dieActionMenu = NodePath("VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu")
-statusAndHandMenu = NodePath("VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice")
+drawn_die_path = "res://drawn_die.tscn"
 enemy1 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy")
 enemy2 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy2")
 enemy3 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy3")
-textbox_controller = NodePath("VBoxContainer/PlayerPanel/MarginContainer/Textbox Controller")
 
 [node name="Background" type="TextureRect" parent="."]
 modulate = Color(0.04, 0.04, 0.04, 1)
@@ -136,10 +132,12 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="Player Status" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand" instance=ExtResource("6_0lq60")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
 
 [node name="Hand of Dice" type="HBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
@@ -147,6 +145,7 @@ theme_override_constants/separation = 20
 alignment = 1
 
 [node name="Die Action Menu" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice" instance=ExtResource("5_co5hi")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
 
@@ -190,6 +189,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
 text = "RUN"
 
 [node name="Textbox Controller" parent="VBoxContainer/PlayerPanel/MarginContainer" instance=ExtResource("8_11wq8")]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 dialogue_res = ExtResource("9_5yvlh")
