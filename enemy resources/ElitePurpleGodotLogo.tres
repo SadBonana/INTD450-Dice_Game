@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BaseEnemy" load_steps=3 format=3 uid="uid://bwqrtqlv7t7ln"]
+
+[ext_resource type="Script" path="res://enemy resources/BaseEnemy.gd" id="1_g4nds"]
+[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="2_x3d36"]
+
+[resource]
+script = ExtResource("1_g4nds")
+name = "Elite Purple Godot Logo"
+texture = ExtResource("2_x3d36")
+health = 30
+sprite_color = Color(0.611765, 0, 0.643137, 1)
+dice_caps = [4, 4, 4, 4, 4, 6, 6, 8, 4, 4]

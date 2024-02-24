@@ -3,18 +3,31 @@
 
 extends Control
 
-# TODO: encounter resources and setting battle enemy resources using it
+signal textbox_closed
+signal damage_enemy_resolved
+signal target_selected(target)
 
+# File paths for scene changes and sub-scene instantiations.
 @export_file("*.tscn") var drawn_die_path
 @export_file("*.tscn") var campfire_path
 
 # Enemy
-@export var numEnemies = 3
+# If given an EncounterTable, will randomly choose a BaseEncounter based on the difficulty setting.
+@export var encounter_res: BaseEncounter
 
-# TODO: Convert these to @onready var x = %y format
+# TODO: Convert these to @onready var x = %y format.
+# Don't do this unless you plan on making encounter loading
+# better too, because making these @onready when they're being
+# referenced in _enter_tree() will cause a crash.
 @export var enemy1: BattleEnemy
 @export var enemy2: BattleEnemy
 @export var enemy3: BattleEnemy
+
+var enemies = []
+
+var player_dice_bag = []
+var player_used_dice = []
+var player_dice_hand = []
 
 # Textbox
 @onready var textbox_controller := %"Textbox Controller"
@@ -23,37 +36,33 @@ extends Control
 @onready var player_status := %"Player Status"
 @onready var drawn_die_placeholder := %"Die Action Menu"
 @onready var drawn_die_container := %"Hand of Dice"
-
-
-signal textbox_closed
-signal damage_enemy_resolved
-signal target_selected(target)
-
-var enemies = []
-
-var player_dice_bag = []
-var player_used_dice = []
-var player_dice_hand = []
-
 @onready var action_menu := %"Player Action Menu"
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
+func _enter_tree():
+	# Slight HACK: The better way is probably to load and instantiate the enemies
+	# similar to how it is done for the DrawnDie.
 	# Initilize enemy data and hide enemies that shouldn't show up in teh encounter
-	if numEnemies >= 1:
+	var enemy_resources = encounter_res.enemies
+	if enemy_resources.size() >= 1:
+		enemy3.res = enemy_resources[0]
 		enemies.append(enemy3)
-	if numEnemies >= 2:
+	if enemy_resources.size() >= 2:
+		enemy2.res = enemy_resources[1]
 		enemies.append(enemy2)
-	if numEnemies >= 3:
+	if enemy_resources.size() >= 3:
+		enemy1.res = enemy_resources[2]
 		enemies.append(enemy1)
-	match numEnemies:
+	match enemy_resources.size():
 		1:
 			enemy1.hide()
 			enemy2.hide()
 		2:
 			enemy1.hide()
-	
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
 	# Initialize player data and player UI
 	player_dice_bag = PlayerData.dice_bag.duplicate() # shallow copy
 	player_dice_bag.shuffle()
@@ -92,6 +101,8 @@ func _ready():
 
 
 func draw_dice():
+	# TODO: Invoke status effects on enemies and player
+	
 	# Enemy draws their dice and displays their rolls first so the player has more info.
 	for enemy in enemies:
 		enemy.draw_dice(2, textbox_controller)
@@ -103,6 +114,8 @@ func draw_dice():
 	
 	for i in range(3): # Hardcoded temp hand size of 3
 		# Whatever we decide to do when the player runs out of dice, it'll be here
+		# TODO: reshuffle the dice back into the deck, maybe make it take a turn
+		# to do. Also do this for the enemies.
 		if not player_dice_bag.size() > 0:
 			textbox_controller.load_dialogue_chain("player out of dice 1",
 					func (from_beat: DialogueBeat, destination_beat: String, from_choice: int):

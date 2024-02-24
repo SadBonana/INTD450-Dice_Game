@@ -1,4 +1,4 @@
-extends Resource
+class_name BaseEnemy extends Resource
 
 @export var name: String = "Enemy"	# NOTE: Could be confused with the godot built in name property, consider renaming.
 @export var texture: Texture = null

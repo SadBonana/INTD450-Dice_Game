@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://bvlkj1mhba582"]
+[gd_scene load_steps=15 format=3 uid="uid://bvlkj1mhba582"]
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
+[ext_resource type="Resource" uid="uid://bh8sa74vyv8n7" path="res://encounter resources/mid_game_encounters.tres" id="2_6ad1h"]
 [ext_resource type="Resource" uid="uid://dxvj75cw3wclu" path="res://enemy resources/HostileRedGodotLogo.tres" id="2_yokuy"]
 [ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle/battle_enemy.tscn" id="4_w871o"]
 [ext_resource type="PackedScene" uid="uid://4pckrotnlies" path="res://battle/drawn_die.tscn" id="5_co5hi"]
@@ -34,6 +35,7 @@ grow_vertical = 2
 script = ExtResource("1_5jfo4")
 drawn_die_path = "res://battle/drawn_die.tscn"
 campfire_path = "res://campfire/campfire.tscn"
+encounter_res = ExtResource("2_6ad1h")
 enemy1 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy")
 enemy2 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy2")
 enemy3 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy3")

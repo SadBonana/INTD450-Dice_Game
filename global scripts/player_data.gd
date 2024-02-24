@@ -2,6 +2,8 @@
 # a resource in a player scene to inlude ui and sprite and stuff.
 class_name PlayerData extends Node
 
+enum Difficulty {NOVICE, STANDARD, EXPERT}
+
 # Use signals to notify the UI when the player's health changes
 # Dunno if this is the best way to make sure health bars get updated,
 # but at least it allows PlayerData to be decoupled from the UI.
@@ -17,6 +19,7 @@ static var hp_max_changed: Signal:
 		return _instance._hp_max_changed
 	# set: # raise an error, prolly unnecessary
 
+static var difficulty := Difficulty.STANDARD
 
 static var hp = 75:
 	set (value):
