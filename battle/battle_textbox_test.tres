@@ -1,0 +1,120 @@
+[gd_resource type="Resource" script_class="DialogueRes" load_steps=17 format=3 uid="uid://git3m0aftj0o"]
+
+[ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="1_xi6j0"]
+[ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="2_qjl25"]
+
+[sub_resource type="Resource" id="Resource_ay5xx"]
+script = ExtResource("1_xi6j0")
+unique_name = "battle start"
+text = "Uh oh! yuv been jumped m8!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_i4j1c"]
+script = ExtResource("1_xi6j0")
+unique_name = "targeting instructions"
+text = "Select the enemy to attack. Press enter or release the mouse button to confirm the selection. (cancel a mouse selection with the arrow keys)."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_oobqt"]
+script = ExtResource("1_xi6j0")
+unique_name = "player out of dice 1"
+text = "Uh oh, all out of dice. Guess you're fucked."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_lji7h"]
+script = ExtResource("1_xi6j0")
+unique_name = "player out of dice 2"
+text = "What will you do?"
+jumps = Array[String](["run", "await death"])
+choices = Array[String](["run", "await death"])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_1ddtv"]
+script = ExtResource("1_xi6j0")
+unique_name = "run"
+text = "Of the 36 strategems, running is the best."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_jf5ht"]
+script = ExtResource("1_xi6j0")
+unique_name = "await death"
+text = "Then die then."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_pvm66"]
+script = ExtResource("1_xi6j0")
+unique_name = "enemy attack"
+text = "Oh noes! they're coming for you!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_j0yr3"]
+script = ExtResource("1_xi6j0")
+unique_name = "deal damage"
+text = "%s dealt %d damage!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_4y2yx"]
+script = ExtResource("1_xi6j0")
+unique_name = "actor defeated"
+text = "%s defeated!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_cpjfn"]
+script = ExtResource("1_xi6j0")
+unique_name = "victory"
+text = "You won! Now go to the campfire room."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_ytg4d"]
+script = ExtResource("1_xi6j0")
+unique_name = "not ready"
+text = "Hold your horses! You need to select what to do with each of your die first!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_wl3bi"]
+script = ExtResource("1_xi6j0")
+unique_name = "ready"
+text = "To battle! dun dun dun!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_ylaaj"]
+script = ExtResource("1_xi6j0")
+unique_name = "missed"
+text = "You missed haha! Next time math before you attack."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_1m16p"]
+script = ExtResource("1_xi6j0")
+unique_name = "enemy out of dice"
+text = "%s is out of dice! They're helpless!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[resource]
+script = ExtResource("2_qjl25")
+beats = Array[ExtResource("1_xi6j0")]([SubResource("Resource_ay5xx"), SubResource("Resource_i4j1c"), SubResource("Resource_oobqt"), SubResource("Resource_lji7h"), SubResource("Resource_1ddtv"), SubResource("Resource_jf5ht"), SubResource("Resource_pvm66"), SubResource("Resource_j0yr3"), SubResource("Resource_4y2yx"), SubResource("Resource_cpjfn"), SubResource("Resource_ytg4d"), SubResource("Resource_wl3bi"), SubResource("Resource_ylaaj"), SubResource("Resource_1m16p")])

@@ -7,7 +7,7 @@ extends VBoxContainer
 @export var health_bar: ProgressBar
 @export var deck_status: Label
 
-static var deck_f_string = "Dice Bag: %d/%d"
+static var deck_f_string = "Dice: %d/%d"
 
 # I wonder if it would be better to have a class for the in-battle dice bag so we can just do .size() for dice remaining as well and then use callbacks for when dice are added or removed...
 var dice_remaining: int:

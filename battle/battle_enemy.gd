@@ -4,6 +4,7 @@ class_name BattleEnemy extends VBoxContainer
 @onready var tex_rect: TextureRect = %Enemy
 @onready var roll_label: Label = %Roll  # FIXME: Displaying the enemy's roll over their sprite is prolly not what we want the final game to look like. I thought the empty top panel was where we'd show that info, but I'm running out of energy now so...
 @onready var animation_player = %AnimationPlayer
+@onready var textbox_controller = %"Textbox Controller"
 
 @export var res: Resource
 
@@ -55,14 +56,16 @@ func _process(delta):
 
 
 # Will likely need to be rewritten once effect die and enemies defending become a thing.
-func draw_dice(num_to_draw=2):
+func draw_dice(num_to_draw, textbox: TextboxController):
 	damage = 0
 	for i in range(num_to_draw):
 		# Whatever we decide to do when the enemy runs out of dice, it'll be here
 		if not dice_bag.size() > 0:
 			#display_text("Hurray! Enemies out of dice, now you can have your way with them!")
 			#await textbox_closed
-			print("enemy is out of dice, but can't use the textbox display function the way this is written.")
+			textbox.load_dialogue_chain('enemy out of dice')
+			textbox.next([enemy_name])
+			#print("enemy is out of dice, but can't use the textbox display function the way this is written.")
 			return
 		var d = dice_bag.pop_back()
 		used_dice.append(d)
@@ -143,7 +146,7 @@ func _on_focus_exited():
 ## ui_accept event.
 func _on_gui_input_factory(target_selected: Signal):
 	_on_gui_input = func (event: InputEvent):
-		if event.is_action_pressed("ui_accept"):
+		if event.is_action_pressed("ui_accept") or event.is_action_released("click"):
 			target_selected.emit(self)
 
 

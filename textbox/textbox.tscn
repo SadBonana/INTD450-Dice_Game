@@ -1,0 +1,85 @@
+[gd_scene load_steps=4 format=3 uid="uid://c80it7gqiqtxv"]
+
+[ext_resource type="Script" path="res://textbox/textbox.gd" id="1_iu64e"]
+[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_tr7lq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bsvrk"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[node name="Textbox Controller" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iu64e")
+
+[node name="Textbox" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bsvrk")
+
+[node name="MarginContainer" type="MarginContainer" parent="Textbox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Textbox/MarginContainer"]
+layout_mode = 2
+
+[node name="Text" type="RichTextLabel" parent="Textbox/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("2_tr7lq")
+theme_override_font_sizes/normal_font_size = 8
+text = "A GODOT LOGO Appears"
+
+[node name="Choices" type="ItemList" parent="Textbox/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 10
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+theme_override_fonts/font = ExtResource("2_tr7lq")
+theme_override_font_sizes/font_size = 8
+auto_height = true
+item_count = 2
+item_0/text = "test 1"
+item_1/text = "test 2"
+
+[node name="Ticker" type="Label" parent="Textbox/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("2_tr7lq")
+theme_override_font_sizes/font_size = 8
+text = ">"

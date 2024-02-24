@@ -1,5 +1,8 @@
 extends Control
 
+@export_file("*.tscn") var battle_path
+@export_file("*.tscn") var upgrade_path
+
 var recover_health_by = 15
 
 
@@ -22,8 +25,8 @@ func _on_heal_button_pressed():
 	print("You Healed. You now have %d" % PlayerData.hp)
 	
 	# Change the transfer scene to be the map scene once that gets made
-	get_tree().change_scene_to_file("res://battle.tscn")
+	get_tree().change_scene_to_file(battle_path)
 
 
 func _on_upgrade_die_button_pressed():
-	get_tree().change_scene_to_file("res://UI/upgrade_die.tscn")
+	get_tree().change_scene_to_file(upgrade_path)

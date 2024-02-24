@@ -269,3 +269,4 @@ func _on_ready_pressed():
 		
 	player_dice_hand.clear()
 	enemy_turn(player_defense)
+

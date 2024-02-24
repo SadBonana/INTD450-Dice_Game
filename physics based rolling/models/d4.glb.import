@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cv01k05v6s0kf"
-path="res://.godot/imported/d4v2.glb-be61ef484a6f663ff41e3d3520bd3e15.scn"
+uid="uid://btmewtjeyfwns"
+path="res://.godot/imported/d4.glb-082331a68c4bba2f898c730b5ebf84c0.scn"
 
 [deps]
 
-source_file="res://models/d4v2.glb"
-dest_files=["res://.godot/imported/d4v2.glb-be61ef484a6f663ff41e3d3520bd3e15.scn"]
+source_file="res://physics based rolling/models/d4.glb"
+dest_files=["res://.godot/imported/d4.glb-082331a68c4bba2f898c730b5ebf84c0.scn"]
 
 [params]
 
