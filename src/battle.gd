@@ -5,6 +5,8 @@ extends Control
 
 # TODO: encounter resources and setting battle enemy resources using it
 
+@export_file("*.tscn") var drawn_die_path
+
 # TODO: Convert these to @onready var x = %y format
 # Player Panel
 @export var player_status: VBoxContainer 
@@ -21,12 +23,6 @@ extends Control
 
 @export var numEnemies = 3
 
-@onready var action_menu := %"Player Action Menu"
-
-
-var dieActionMenuPath = load("res://die_action_menu.tscn")
-
-
 signal textbox_closed
 signal damage_enemy_resolved
 signal target_selected(target)
@@ -37,39 +33,7 @@ var player_dice_bag = []
 var player_used_dice = []
 var player_dice_hand = []
 
-enum DieActions {ATTACK, DEFEND, REROLL}
-
-
-class DrawnDie:
-	static var targetingFunc: Callable
-	
-	var roll: int
-	var actionMenu: ItemList
-	var dieActionMenu: VBoxContainer
-	var selectedAction: DieActions
-	var target: BattleEnemy
-	var itemSelected = false
-	
-	func _init(actual, menu):
-		roll = actual
-		dieActionMenu = menu
-		actionMenu = dieActionMenu.find_child("Die Actions")
-		
-		# TODO: Find a way to do this without breaking controller support,
-		# For that matter, make kb/m, controller, and touch support better.
-		# None of them are amazing rn.
-		actionMenu.item_selected.connect(func (index):
-			itemSelected = true
-			selectedAction = index
-			if index == DieActions.ATTACK:
-				target = await targetingFunc.call()
-			# TODO: Rather than reroll, implement dice drafting
-		)
-	
-	# TODO: Consider instead hiding the menus
-	func set_all_actions_selectable(selectable: bool):
-		for i in range(actionMenu.get_item_count()):
-			actionMenu.set_item_selectable(i, selectable)
+@onready var action_menu := %"Player Action Menu"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -102,17 +66,11 @@ func _ready():
 	await textbox_controller.quick_beat("battle start")
 	
 	# This function will be called when the player selects an action that requires selecting an enemy
-	DrawnDie.targetingFunc = func ():
+	DrawnDie.targeting_func = func ():
 			if enemies.size() == 1:   # No need to select a target if there's only 1
 				return enemies[0]
 			
 			await textbox_controller.quick_beat("targeting instructions")
-			
-			# Prevent player from getting distracted and crashing teh game
-			# It's bad news if the player presses attack before they finish targeting
-			# TODO: press esc to cancel targeting
-			for die in player_dice_hand:
-				die.set_all_actions_selectable(false)
 			
 			# Modify enemy opacity to indicate selection and attach callbacks
 			# needed to select them
@@ -125,8 +83,6 @@ func _ready():
 			# Clean up once targeting is finished
 			for enemy in enemies:
 				enemy.toggle_target_mode(false, target_selected)
-			for die in player_dice_hand:
-				die.set_all_actions_selectable(true)
 			
 			return target
 		
@@ -161,15 +117,9 @@ func draw_dice():
 		
 		# Draw and roll die
 		var d = player_dice_bag.pop_back() # Draw die from bag
-		var roll = d.roll()
-		player_used_dice.append(d) # Discard used die
-		
-		# Display the rolled value in the UI
-		var die = dieActionMenuPath.instantiate()
-		die.find_child("Roll").text = "%d" % roll    # TODO: This doesn't tell you the kind of dice it is, juct the roll. This will need to be implemented in the die_action_menu scene
-		var drawnDie = DrawnDie.new(roll, die)
-		player_dice_hand.append(drawnDie)
-		statusAndHandMenu.add_child(die)
+		player_used_dice.append(d) # Discard used die # TODO: put this somewhere else, like, after the die is actually used.
+		var die = DrawnDie.instantiate(drawn_die_path, statusAndHandMenu, d)
+		player_dice_hand.append(die)
 	
 	player_status.dice_remaining = player_dice_bag.size()
 
@@ -220,7 +170,7 @@ func damageEnemy(damage, enemy: BattleEnemy):
 
 func _on_ready_pressed():
 	for die in player_dice_hand:
-		if not die.itemSelected:
+		if not die.item_selected:
 			await textbox_controller.quick_beat("not ready")
 			return
 	
@@ -236,8 +186,8 @@ func _on_ready_pressed():
 	
 	var player_defense = 0
 	for die in player_dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
-		match die.selectedAction:
-			DieActions.ATTACK:
+		match die.selected_action:
+			DrawnDie.ATTACK:
 				# Account for if a previous die killed the enemy.
 				# e.g. used 3 dice when the first 2 will kill the enemy
 				# Could warn the player... or punish their stupidity by making the die just miss...
@@ -247,9 +197,9 @@ func _on_ready_pressed():
 					await damage_enemy_resolved
 				else:
 					await textbox_controller.quick_beat("missed")
-			DieActions.DEFEND:
+			DrawnDie.DEFEND:
 				player_defense += die.roll
-		die.dieActionMenu.queue_free()
+		die.queue_free()
 		
 	player_dice_hand.clear()
 	enemy_turn(player_defense)
