@@ -94,15 +94,12 @@ func _ready():
 	
 	# This will never be shown, instead, they will be instantiated as needed
 	# The die action menu here is just so designers can see what one looks like in engine.
+	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
+	# line of code
 	dieActionMenu.hide()
 	
-	textbox_controller.load_dialogue_chain("battle start 1")
-	await textbox_controller.next()
-	await textbox_controller.next([
-		enemies[0].enemy_name,
-		enemies[1].enemy_name,
-		enemies[2].enemy_name,
-		])	# FIXME: won't work with other encounter sizes, only did it this way for testing purposes.
+	# uh oh, yuv been jumped m8!
+	await textbox_controller.quick_beat("battle start")
 	
 	# This function will be called when the player selects an action that requires selecting an enemy
 	DrawnDie.targetingFunc = func ():
@@ -178,27 +175,17 @@ func draw_dice():
 
 
 func enemy_turn(playerDefense=0):
+	await textbox_controller.quick_beat("enemy attack")
 	for enemy in enemies:
-		textbox_controller.load_dialogue_chain("enemy attack")
-		await textbox_controller.next([enemy.enemy_name])
-	
 		var damage = Helpers.clamp_damage(enemy.damage, playerDefense)
 		playerDefense = Helpers.clamp_damage(playerDefense, enemy.damage)
 		PlayerData.hp -= damage
 	
 		# TODO: Make a temp player hurt anim
 	
-		await textbox_controller.next([enemy.enemy_name, damage])
+		await textbox_controller.quick_beat("deal damage", [enemy.enemy_name, damage])
 	
 	draw_dice()    # Enemy turn is over so player draws dice
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-# Rather than just deleting this, might need to disable processing for this
-# thing or something, otherwise it'll be called even thought we're not using it.
-# TODO
-func _process(delta):
-	pass
 
 
 func run():
@@ -213,17 +200,14 @@ func _on_run_pressed():
 	run()
 
 
-# TODO: make this generic to any actor? maybe even try to break this down until we dont need it.
+# TODO: try to break this down until we dont need it.
 func damageEnemy(damage, enemy: BattleEnemy):
-	textbox_controller.load_dialogue_chain("player attack")
-	await textbox_controller.next()
-	
 	var defeated = await enemy.take_damage(damage)
 	
-	await textbox_controller.next(["You", damage])
+	await textbox_controller.quick_beat("deal damage", ["You", damage])
 	
 	if defeated:
-		await textbox_controller.next([enemy.enemy_name + "was"])
+		await textbox_controller.next([enemy.enemy_name + " was"])
 		# TODO: temp enemy death anim.
 		enemy.queue_free()
 		enemies.erase(enemy)
@@ -265,17 +249,7 @@ func _on_ready_pressed():
 					await textbox_controller.quick_beat("missed")
 			DieActions.DEFEND:
 				player_defense += die.roll
-			DieActions.REROLL:
-				#TODO: take away rerolling. Implement dice drafting.
-				pass
 		die.dieActionMenu.queue_free()
-		# FIXME: Disable most UI interaction until the effects of a previous interaction are resolved
-		# This will prevent numerous issues, among them, the game crashing if you press enter to dismiss
-		# a text box after pressing the to battle button (the enter goes through the textbox and also hits
-		# the to battle button again, causing it to try to access a freed drawn die object).
-		# Not all interaction should be disabled in some cases though, for example, while targeting,
-		# the players still needs to be able to click/focus the enemies, and press the to battle button
-		# that one is already implemented, but for example, the textbox doesn't disable other ui.
 		
 	player_dice_hand.clear()
 	enemy_turn(player_defense)
