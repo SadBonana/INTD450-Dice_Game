@@ -1,8 +1,8 @@
 [gd_scene load_steps=17 format=3 uid="uid://dj6gqnhm2fcch"]
 
-[ext_resource type="Script" path="res://src/world.gd" id="1_0trjs"]
-[ext_resource type="PackedScene" uid="uid://c3lbeir6kyyg6" path="res://d4_roll.tscn" id="1_7u334"]
-[ext_resource type="PackedScene" uid="uid://vuxdrh08xtyi" path="res://d4v2_roll.tscn" id="3_s7pkb"]
+[ext_resource type="Script" path="res://physics based rolling/world.gd" id="1_0trjs"]
+[ext_resource type="PackedScene" uid="uid://c3lbeir6kyyg6" path="res://physics based rolling/d4_roll.tscn" id="1_7u334"]
+[ext_resource type="PackedScene" uid="uid://vuxdrh08xtyi" path="res://physics based rolling/d4v2_roll.tscn" id="3_s7pkb"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hoaua"]
 

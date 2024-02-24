@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cvyca2p1xw30e"]
 
-[ext_resource type="Script" path="res://UI/campfire.gd" id="1_n73dc"]
-[ext_resource type="Texture2D" uid="uid://bbxogtam2oqwp" path="res://UI/Choose 1 Image.jpg" id="2_v1g0y"]
+[ext_resource type="Script" path="res://campfire/campfire.gd" id="1_n73dc"]
+[ext_resource type="Texture2D" uid="uid://bbxogtam2oqwp" path="res://campfire/Choose 1 Image.jpg" id="2_v1g0y"]
 
 [node name="Campfire" type="Control"]
 layout_mode = 3
@@ -11,6 +11,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n73dc")
+battle_path = "res://battle/battle.tscn"
+upgrade_path = "res://campfire/upgrade_die.tscn"
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://vuxdrh08xtyi"]
 
-[ext_resource type="PackedScene" uid="uid://cv01k05v6s0kf" path="res://models/d4v2.glb" id="1_pd6me"]
-[ext_resource type="Script" path="res://d4v2_roll.gd" id="1_rfk8p"]
+[ext_resource type="PackedScene" uid="uid://cv01k05v6s0kf" path="res://physics based rolling/models/d4v2.glb" id="1_pd6me"]
+[ext_resource type="Script" path="res://physics based rolling/d4v2_roll.gd" id="1_rfk8p"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_521jk"]
 points = PackedVector3Array(0.614363, 0.617722, 0.617725, 1.46177, -0.000124633, -0.000117421, 0.614363, 0.617722, -0.617718, -0.62115, 0.617722, 0.617725, 0.614363, -0.61773, 0.617725, 0.614363, -0.61773, -0.617718, -0.62115, 0.617722, -0.617718, -1.4365, -3.69549e-06, -0.000117421, -0.62115, -0.61773, 0.617725, -0.62115, -0.61773, -0.617718)

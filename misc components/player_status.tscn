@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bgag7rr64v1m7"]
 
-[ext_resource type="Script" path="res://src/player_status.gd" id="1_kpf4t"]
+[ext_resource type="Script" path="res://misc components/player_status.gd" id="1_kpf4t"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="2_f10bn"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_wrn3c"]
-[ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://health_bar.tscn" id="3_5jrpy"]
+[ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://misc components/health_bar.tscn" id="3_5jrpy"]
 
 [node name="Player Status" type="VBoxContainer" node_paths=PackedStringArray("health_bar", "deck_status")]
 anchors_preset = -1

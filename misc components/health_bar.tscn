@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://xs6m6nv7m5ly"]
 
-[ext_resource type="Script" path="res://src/health_bar.gd" id="1_yd44n"]
+[ext_resource type="Script" path="res://misc components/health_bar.gd" id="1_yd44n"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_4nmse"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qcar4"]

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Intd 450-dice Game"
-run/main_scene="res://battle.tscn"
+run/main_scene="res://battle/battle.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 

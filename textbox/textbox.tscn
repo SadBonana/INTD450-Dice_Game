@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c80it7gqiqtxv"]
 
-[ext_resource type="Script" path="res://src/textbox.gd" id="1_iu64e"]
+[ext_resource type="Script" path="res://textbox/textbox.gd" id="1_iu64e"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_tr7lq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bsvrk"]

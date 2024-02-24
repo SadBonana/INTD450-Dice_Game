@@ -6,28 +6,24 @@ extends Control
 # TODO: encounter resources and setting battle enemy resources using it
 
 @export_file("*.tscn") var drawn_die_path
+@export_file("*.tscn") var campfire_path
 
-
-@onready var player_status := %"Player Status"
-#@export var player_status: VBoxContainer 
-#@export var dieActionMenu: VBoxContainer
-@onready var drawn_die_placeholder := %"Die Action Menu"
-#@export var statusAndHandMenu: HBoxContainer
-@onready var drawn_die_container := %"Hand of Dice"
+# Enemy
+@export var numEnemies = 3
 
 # TODO: Convert these to @onready var x = %y format
-# Player Panel
-# Enemy
 @export var enemy1: BattleEnemy
 @export var enemy2: BattleEnemy
 @export var enemy3: BattleEnemy
 
 # Textbox
 @onready var textbox_controller := %"Textbox Controller"
-#@export var textbox_controller: TextboxController
 
+# Player Panel
+@onready var player_status := %"Player Status"
+@onready var drawn_die_placeholder := %"Die Action Menu"
+@onready var drawn_die_container := %"Hand of Dice"
 
-@export var numEnemies = 3
 
 signal textbox_closed
 signal damage_enemy_resolved
@@ -145,7 +141,7 @@ func enemy_turn(playerDefense=0):
 
 
 func run():
-	get_tree().change_scene_to_file("res://UI/campfire.tscn")
+	get_tree().change_scene_to_file(campfire_path)
 
 
 # Might not have a run button, it's just here... because... for now.
@@ -169,7 +165,7 @@ func damageEnemy(damage, enemy: BattleEnemy):
 		enemies.erase(enemy)
 		if enemies.size() == 0:
 			await textbox_controller.next()
-			get_tree().change_scene_to_file("res://UI/campfire.tscn")
+			get_tree().change_scene_to_file(campfire_path)
 		
 	emit_signal("damage_enemy_resolved")
 
