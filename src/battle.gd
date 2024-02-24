@@ -5,6 +5,7 @@ extends Control
 
 # TODO: encounter resources and setting battle enemy resources using it
 
+# TODO: Convert these to @onready var x = %y format
 # Player Panel
 @export var player_status: VBoxContainer 
 @export var dieActionMenu: VBoxContainer
@@ -18,7 +19,9 @@ extends Control
 # Textbox
 @export var textbox_controller: TextboxController
 
-@export var numEnemies = 3 
+@export var numEnemies = 3
+
+@onready var action_menu := %"Player Action Menu"
 
 
 var dieActionMenuPath = load("res://die_action_menu.tscn")
@@ -138,6 +141,11 @@ func draw_dice():
 	for enemy in enemies:
 		enemy.draw_dice(2, textbox_controller)
 	
+	# It's the player's turn so show the things they'll need
+	# to interact with to take their turn.
+	statusAndHandMenu.show()
+	action_menu.show()
+	
 	for i in range(3): # Hardcoded temp hand size of 3
 		# Whatever we decide to do when the player runs out of dice, it'll be here
 		if not player_dice_bag.size() > 0:
@@ -231,6 +239,11 @@ func _on_ready_pressed():
 		if not die.itemSelected:
 			await textbox_controller.quick_beat("not ready")
 			return
+	
+	# Hide things we don't want the player to be able to mess
+	# with after they've ended their turn
+	statusAndHandMenu.hide()
+	action_menu.hide()
 	
 	await textbox_controller.quick_beat("ready")
 	

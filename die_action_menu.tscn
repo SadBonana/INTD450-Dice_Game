@@ -8,13 +8,14 @@ anchors_preset = -1
 anchor_right = 0.2
 anchor_bottom = 0.356
 offset_bottom = -0.160004
-size_flags_vertical = 8
+size_flags_vertical = 3
 
 [node name="Die Sprite" type="TextureRect" parent="."]
 self_modulate = Color(0.168627, 0.196078, 0.917647, 1)
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("1_g22em")
+expand_mode = 3
 stretch_mode = 4
 
 [node name="Die Actions" type="ItemList" parent="Die Sprite"]

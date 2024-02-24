@@ -32,13 +32,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5jfo4")
-player_status = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Player Status")
-dieActionMenu = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu")
-statusAndHandMenu = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice")
-enemy1 = NodePath("Battle Enemy")
-enemy2 = NodePath("Battle Enemy2")
-enemy3 = NodePath("Battle Enemy3")
-textbox_controller = NodePath("PlayerPanel/MarginContainer/Textbox Controller")
+player_status = NodePath("VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Player Status")
+dieActionMenu = NodePath("VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu")
+statusAndHandMenu = NodePath("VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice")
+enemy1 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy")
+enemy2 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy2")
+enemy3 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy3")
+textbox_controller = NodePath("VBoxContainer/PlayerPanel/MarginContainer/Textbox Controller")
 
 [node name="Background" type="TextureRect" parent="."]
 modulate = Color(0.04, 0.04, 0.04, 1)
@@ -51,17 +51,42 @@ grow_vertical = 2
 texture = ExtResource("1_iltai")
 stretch_mode = 1
 
-[node name="Battle Enemy" parent="." instance=ExtResource("4_w871o")]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchor_left = 0.503
-anchor_top = 0.033
-anchor_right = 0.653
-anchor_bottom = 0.347
-offset_left = 0.0799866
-offset_top = 0.12
-offset_right = 0.0799561
-offset_bottom = 0.0800018
-size_flags_horizontal = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+size_flags_stretch_ratio = 3.0
+
+[node name="PlayerSprite" type="TextureRect" parent="VBoxContainer/MarginContainer/HBoxContainer/PlayerContainer"]
+modulate = Color(0.541176, 0.866667, 1, 1)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_iltai")
+stretch_mode = 4
+
+[node name="Battle Enemy" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
+layout_mode = 2
 size_flags_vertical = 0
 focus_neighbor_left = NodePath("../Battle Enemy3")
 focus_neighbor_top = NodePath("../Battle Enemy3")
@@ -71,16 +96,9 @@ focus_next = NodePath("../Battle Enemy2")
 focus_previous = NodePath("../Battle Enemy3")
 res = ExtResource("2_yokuy")
 
-[node name="Battle Enemy2" parent="." instance=ExtResource("4_w871o")]
-layout_mode = 1
-anchor_left = 0.669
-anchor_top = 0.167
-anchor_right = 0.819
-anchor_bottom = 0.475
-offset_left = -0.160034
-offset_top = -0.120003
-offset_right = -0.160034
-offset_bottom = -1.52588e-05
+[node name="Battle Enemy2" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
+layout_mode = 2
+size_flags_vertical = 4
 focus_neighbor_left = NodePath("../Battle Enemy")
 focus_neighbor_top = NodePath("../Battle Enemy")
 focus_neighbor_right = NodePath("../Battle Enemy3")
@@ -89,15 +107,9 @@ focus_next = NodePath("../Battle Enemy3")
 focus_previous = NodePath("../Battle Enemy")
 res = ExtResource("2_yokuy")
 
-[node name="Battle Enemy3" parent="." instance=ExtResource("4_w871o")]
-layout_mode = 1
-anchor_left = 0.831
-anchor_top = 0.275
-anchor_right = 0.981
-anchor_bottom = 0.585
-offset_left = 0.159973
-offset_right = 0.159973
-offset_bottom = 1.39999
+[node name="Battle Enemy3" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
+layout_mode = 2
+size_flags_vertical = 8
 focus_neighbor_left = NodePath("../Battle Enemy2")
 focus_neighbor_top = NodePath("../Battle Enemy2")
 focus_neighbor_right = NodePath("../Battle Enemy")
@@ -106,64 +118,38 @@ focus_next = NodePath("../Battle Enemy")
 focus_previous = NodePath("../Battle Enemy2")
 res = ExtResource("2_yokuy")
 
-[node name="PlayerContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.023
-anchor_top = 0.311
-anchor_right = 0.173
-anchor_bottom = 0.585
-offset_left = 0.279999
-offset_top = 1.03999
-offset_right = 32.28
-offset_bottom = 33.312
-grow_horizontal = 0
-grow_vertical = 2
-scale = Vector2(0.75, 0.75)
-
-[node name="PlayerSprite" type="TextureRect" parent="PlayerContainer"]
-modulate = Color(0.541176, 0.866667, 1, 1)
+[node name="PlayerPanel" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("1_iltai")
-stretch_mode = 4
-
-[node name="PlayerPanel" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -144.0
-grow_horizontal = 2
-grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_idclm")
 
-[node name="MarginContainer" type="MarginContainer" parent="PlayerPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PlayerPanel"]
 layout_mode = 2
-size_flags_vertical = 8
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Player Status and Hand" type="HBoxContainer" parent="PlayerPanel/MarginContainer"]
+[node name="Player Status and Hand" type="HBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 8
 theme_override_constants/separation = 10
 
-[node name="Player Status" parent="PlayerPanel/MarginContainer/Player Status and Hand" instance=ExtResource("6_0lq60")]
+[node name="Player Status" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand" instance=ExtResource("6_0lq60")]
 layout_mode = 2
+size_flags_vertical = 1
 
-[node name="Hand of Dice" type="HBoxContainer" parent="PlayerPanel/MarginContainer/Player Status and Hand"]
+[node name="Hand of Dice" type="HBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
+theme_override_constants/separation = 20
+alignment = 1
 
-[node name="Die Action Menu" parent="PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice" instance=ExtResource("5_co5hi")]
+[node name="Die Action Menu" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice" instance=ExtResource("5_co5hi")]
 layout_mode = 2
+size_flags_vertical = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="PlayerPanel/MarginContainer/Player Status and Hand"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -172,12 +158,13 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Player Action Menu" type="VBoxContainer" parent="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer"]
+[node name="Player Action Menu" type="VBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Ready" type="Button" parent="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu"]
+[node name="Ready" type="Button" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -189,7 +176,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
 text = "TO BATTLE! "
 
-[node name="Run" type="Button" parent="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu"]
+[node name="Run" type="Button" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -201,12 +188,12 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
 text = "RUN"
 
-[node name="Textbox Controller" parent="PlayerPanel/MarginContainer" instance=ExtResource("8_11wq8")]
+[node name="Textbox Controller" parent="VBoxContainer/PlayerPanel/MarginContainer" instance=ExtResource("8_11wq8")]
 layout_mode = 2
 mouse_filter = 2
 dialogue_res = ExtResource("9_5yvlh")
 
-[connection signal="pressed" from="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
-[connection signal="pressed" from="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Run" to="." method="_on_run_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Run" to="." method="_on_run_pressed"]
 
-[editable path="PlayerPanel/MarginContainer/Textbox Controller"]
+[editable path="VBoxContainer/PlayerPanel/MarginContainer/Textbox Controller"]

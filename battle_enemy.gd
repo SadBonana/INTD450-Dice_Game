@@ -4,6 +4,7 @@ class_name BattleEnemy extends VBoxContainer
 @onready var tex_rect: TextureRect = %Enemy
 @onready var roll_label: Label = %Roll  # FIXME: Displaying the enemy's roll over their sprite is prolly not what we want the final game to look like. I thought the empty top panel was where we'd show that info, but I'm running out of energy now so...
 @onready var animation_player = %AnimationPlayer
+@onready var textbox_controller = %"Textbox Controller"
 
 @export var res: Resource
 
@@ -144,7 +145,7 @@ func _on_focus_exited():
 ## ui_accept event.
 func _on_gui_input_factory(target_selected: Signal):
 	_on_gui_input = func (event: InputEvent):
-		if event.is_action_pressed("ui_accept"):
+		if event.is_action_pressed("ui_accept") or event.is_action_released("click"):
 			target_selected.emit(self)
 
 
