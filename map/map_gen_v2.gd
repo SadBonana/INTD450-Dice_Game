@@ -1,5 +1,8 @@
 extends Node
 
+# IGNORE THIS FILE
+# NOT IN WORKING STATE AND NOT FOR PLAYABLE DEMO BUILD
+
 const d = 6
 const b = [0,3]
 var leafnodes = []

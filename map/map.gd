@@ -2,6 +2,9 @@ extends Control
 
 @export var map_data : map_resource
 
+# initializing node variables, any additional nodes will need to be added here
+# eventually will need to do this in an _init func with a loop.
+# the null value gets replaced with reference to the node, the first value is that nodes index in completion
 var start =    [0, null]
 var battle =   [1, null]
 var campfire = [2, null]
@@ -9,22 +12,19 @@ var boss =     [3, null]
 var root =     [4, null]
 
 func save():
-	#var map = preload("map_resource.gd")
-	
-	#map_data = map_resource.New()
-	#var root = get_tree().get_root()
+	#the save() function will save the resource file with any updates to the values
 	var file_path = "res://map/map_resource.tres"
-	#var scene = PackedScene.new()
-	#scene.pack(root)
 	ResourceSaver.save(map_data,file_path)
-	#pass
 
 func _ready():
 	#map_data = map_data_load.new()
-	print(map_data.completion)
+	print(map_data.completion) #check save state
 	
+	#following code should be self-explanatory
 	root[1] = get_node("/root")
 	start[1] = get_node("start")
+	if map_data.completion[start[0]] == 1:
+		start[1].disabled = true
 	
 	battle[1] = get_node("battle")
 	if map_data.completion[start[0]] == 0 or map_data.completion[battle[0]] == 1:
@@ -44,8 +44,7 @@ func _on_start_pressed():
 	start[1].disabled = true
 	map_data.completion[start[0]] = 1
 	battle[1].disabled = false
-	save()
-	#pass # Replace with function body.
+	save() #have to save every time a button is pressed if we are swapping scenes.
 
 func _on_battle_pressed():
 	#save()
@@ -76,6 +75,7 @@ func _on_boss_pressed():
 
 func _on_quit_pressed():
 	for i in range(map_data.num_nodes):
-		map_data.completion[i] = 0
+		map_data.completion[i] = 0 #resetting the save state to the initial one
+		#we will likely need a more nuanced reset in the future, but this works for now.
 	get_tree().quit() #quits the game rn
 	
