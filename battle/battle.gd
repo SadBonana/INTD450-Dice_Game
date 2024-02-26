@@ -24,10 +24,7 @@ signal target_selected(target)
 @export var enemy3: BattleEnemy
 
 var enemies = []
-
-var player_dice_bag = []
-var player_used_dice = []
-var player_dice_hand = []
+var defeated_enemies = []
 
 # Textbox
 @onready var textbox_controller := %"Textbox Controller"
@@ -37,6 +34,8 @@ var player_dice_hand = []
 @onready var drawn_die_placeholder := %"Die Action Menu"
 @onready var drawn_die_container := %"Hand of Dice"
 @onready var action_menu := %"Player Action Menu"
+
+@onready var player := %"Battle Player"
 
 
 func _enter_tree():
@@ -63,10 +62,6 @@ func _enter_tree():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Initialize player data and player UI
-	player_dice_bag = PlayerData.dice_bag.duplicate() # shallow copy
-	player_dice_bag.shuffle()
-	
 	# This will never be shown, instead, they will be instantiated as needed
 	# The die action menu here is just so designers can see what one looks like in engine.
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
@@ -76,10 +71,39 @@ func _ready():
 	# uh oh, yuv been jumped m8!
 	await textbox_controller.quick_beat("battle start")
 	
+	for enemy in enemies:
+		enemy.textbox = textbox_controller
+		enemy.on_defeat = func ():
+				# this code will run when the enemy is defeated
+				await textbox_controller.quick_beat("actor defeated", [enemy.actor_name + " was"])
+				# TODO: temp enemy death anim.
+				if enemy != null:
+					enemy.hide()	# Seems like queue_free isn't always instant so this is to coverup until it happens.
+				if not enemy in defeated_enemies:
+					defeated_enemies.append(enemy)
+					enemies.erase(enemy)
+				if enemies.size() == 0:
+					await textbox_controller.next()
+					get_tree().change_scene_to_file(campfire_path)
+	
+	player.textbox = textbox_controller
+	player.on_defeat = func ():
+			# this code will run when the player is defeated
+			await textbox_controller.quick_beat('game over')
+			await get_tree().create_timer(0.5).timeout
+			get_tree().quit()
+			# TODO: Might be better to have this stuff in the setter for PlayerData.hp instead
+	
 	# This function will be called when the player selects an action that requires selecting an enemy
 	DrawnDie.targeting_func = func ():
+			var effect_wrapper = []
+			await textbox_controller.quick_beat("temp pick effect", [],
+					func (from_beat: DialogueBeat, destination_beat: String, from_choice: int):
+						effect_wrapper.append(from_choice)
+			)
+		
 			if enemies.size() == 1:   # No need to select a target if there's only 1
-				return enemies[0]
+				return [enemies[0], effect_wrapper[0]]
 			
 			await textbox_controller.quick_beat("targeting instructions")
 			
@@ -95,60 +119,65 @@ func _ready():
 			for enemy in enemies:
 				enemy.toggle_target_mode(false, target_selected)
 			
-			return target
+			return [target, effect_wrapper[0]]
 		
 	draw_dice()
 
 
 func draw_dice():
-	# TODO: Invoke status effects on enemies and player
-	
 	# Enemy draws their dice and displays their rolls first so the player has more info.
 	for enemy in enemies:
-		enemy.draw_dice(2, textbox_controller)
+		await enemy.draw_dice()
 	
 	# It's the player's turn so show the things they'll need
 	# to interact with to take their turn.
 	drawn_die_container.show()
 	action_menu.show()
 	
-	for i in range(3): # Hardcoded temp hand size of 3
-		# Whatever we decide to do when the player runs out of dice, it'll be here
-		# TODO: reshuffle the dice back into the deck, maybe make it take a turn
-		# to do. Also do this for the enemies.
-		if not player_dice_bag.size() > 0:
-			textbox_controller.load_dialogue_chain("player out of dice 1",
-					func (from_beat: DialogueBeat, destination_beat: String, from_choice: int):
-						if from_beat.unique_name == "player out of dice 2":
-							match from_choice:
-								0:
-									await textbox_controller.next()
-									run()
-								# If more choices are added, can be handled here.
-			)
-			for j in range(3):	# There are 3 dialogue beats in this chain.
-				await textbox_controller.next()
-			break
-		
-		# Draw and roll die
-		var d = player_dice_bag.pop_back() # Draw die from bag
-		player_used_dice.append(d) # Discard used die # TODO: put this somewhere else, like, after the die is actually used.
+	# Player draws dice
+	for d in await player.draw_dice():
 		var die = DrawnDie.instantiate(drawn_die_path, drawn_die_container, d)
-		player_dice_hand.append(die)
+		player.dice_hand.append(die)
+	player_status.dice_remaining = player.dice_bag.size()
 	
-	player_status.dice_remaining = player_dice_bag.size()
+	# Reset any defense given in the previous turn
+	player.defense = 0
+	for enemy in enemies:
+		enemy.defense = 0
+	
+	# Invoke status effects on enemies and player
+	# NOTE: order of effect invocation matters a lot.
+		# buffs before debuffs -> poison and such get mitigated by autodefense, makes debuff immunity effects easy to implement
+		# order of application
+	for enemy in enemies:
+		for effect in enemy.status_effects:
+			if enemy != null:
+				await effect.invoke()
+		enemy.update_status_effects()
+	
+	cleanup_enemies()
+	
+	for effect in player.status_effects:
+		await effect.invoke()
+	player.update_status_effects()
+	
+	
+	
+	# MAYBE TODO: change the name of this func to start_turn() or something, then await ready_pressed or whatever, then call enemy turn. might make things clearer.
+		# could potentially take most of the logic out of _on_ready_pressed and put it in a player_turn() function, whcih gets called here after ready gets pressed.
 
 
-func enemy_turn(playerDefense=0):
+func cleanup_enemies():
+	for enemy in defeated_enemies:
+		enemy.hide()
+		enemy.queue_free()
+	defeated_enemies.clear()
+
+
+func enemy_turn():
 	await textbox_controller.quick_beat("enemy attack")
 	for enemy in enemies:
-		var damage = Helpers.clamp_damage(enemy.damage, playerDefense)
-		playerDefense = Helpers.clamp_damage(playerDefense, enemy.damage)
-		PlayerData.hp -= damage
-	
-		# TODO: Make a temp player hurt anim
-	
-		await textbox_controller.quick_beat("deal damage", [enemy.enemy_name, damage])
+		await player.take_damage(enemy.damage, enemy.actor_name)
 	
 	draw_dice()    # Enemy turn is over so player draws dice
 
@@ -160,31 +189,11 @@ func run():
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
 	await textbox_controller.quick_beat("run")
-	#await get_tree().create_timer(0.5).timeout
-	#get_tree().quit()
 	run()
 
 
-# TODO: try to break this down until we dont need it.
-func damageEnemy(damage, enemy: BattleEnemy):
-	var defeated = await enemy.take_damage(damage)
-	
-	await textbox_controller.quick_beat("deal damage", ["You", damage])
-	
-	if defeated:
-		await textbox_controller.next([enemy.enemy_name + " was"])
-		# TODO: temp enemy death anim.
-		enemy.queue_free()
-		enemies.erase(enemy)
-		if enemies.size() == 0:
-			await textbox_controller.next()
-			get_tree().change_scene_to_file(campfire_path)
-		
-	emit_signal("damage_enemy_resolved")
-
-
 func _on_ready_pressed():
-	for die in player_dice_hand:
+	for die in player.dice_hand:
 		if not die.item_selected:
 			await textbox_controller.quick_beat("not ready")
 			return
@@ -199,8 +208,8 @@ func _on_ready_pressed():
 	for enemy in enemies:
 		enemy.roll_label.hide()
 	
-	var player_defense = 0
-	for die in player_dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
+	#var player_defense = 0
+	for die in player.dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
 		match die.selected_action:
 			DrawnDie.ATTACK:
 				# Account for if a previous die killed the enemy.
@@ -208,13 +217,30 @@ func _on_ready_pressed():
 				# Could warn the player... or punish their stupidity by making the die just miss...
 				# Actually yeah, that sounds more fun... 
 				if die.target in enemies:
-					damageEnemy(die.roll, die.target)
-					await damage_enemy_resolved
+					
+					# TODO: Temp status effect stuff. remove/revise
+					var do_damage := true
+					match die.effect:
+						StatusEffect.EffectType.PARALYSIS:
+							await StatusEffect.Paralysis.new(textbox_controller, die.target).apply()
+						StatusEffect.EffectType.AUTODEFENSE:
+							await StatusEffect.Autodefense.new(textbox_controller, player).apply()
+							do_damage = false
+						StatusEffect.EffectType.IGNITED:
+							if die.roll == die.die.sides[0]:	# Small, but configurable chance to inflict ignited.
+								await StatusEffect.Ignited.new(textbox_controller, die.target, enemies).apply()
+						StatusEffect.EffectType.POISONED:
+							await StatusEffect.Poisoned.new(textbox_controller, die.target, die.roll).apply()
+							do_damage = false
+					if do_damage:
+						await die.target.take_damage(die.roll, player.actor_name)
+					
 				else:
 					await textbox_controller.quick_beat("missed")
 			DrawnDie.DEFEND:
-				player_defense += die.roll
+				player.defense += die.roll
 		die.queue_free()
 		
-	player_dice_hand.clear()
-	enemy_turn(player_defense)
+	cleanup_enemies()
+	player.dice_hand.clear()
+	enemy_turn()

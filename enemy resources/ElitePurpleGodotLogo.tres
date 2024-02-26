@@ -8,5 +8,6 @@ script = ExtResource("1_g4nds")
 name = "Elite Purple Godot Logo"
 texture = ExtResource("2_x3d36")
 health = 30
+dice_draws = 3
 sprite_color = Color(0.611765, 0, 0.643137, 1)
-dice_caps = [4, 4, 4, 4, 4, 6, 6, 8, 4, 4]
+dice_caps = Array[int]([4, 4, 4, 4, 4, 6, 6, 8, 4, 4, 6, 6, 8])

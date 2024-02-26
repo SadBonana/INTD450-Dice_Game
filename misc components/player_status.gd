@@ -24,11 +24,6 @@ func _ready():
 	PlayerData.hp_max_changed.connect(_on_hp_max_changed)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_hp_changed(value):
 	health_bar.value = value
 

@@ -34,5 +34,6 @@ static var dice_bag = Die.to_dice([4, 6, 8, 4, 4, 4, 6, 6, 4, 4, 4, 8, 6, 4, 6, 
 #var inventory # which may include dice not in the bag if that's what we want later.
 #status_effects or whatever
 
-
+# How many dice to draw from bag each turn during battle
+static var dice_draws := 3
 

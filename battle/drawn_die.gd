@@ -1,5 +1,7 @@
 class_name DrawnDie extends VBoxContainer
 
+# TODO: Would be ideal if BattleEnemy also used this class later so that letting them target things
+# and decide whether to attack or defend or whatever could be done smoother.
 
 enum DieActions {ATTACK, DEFEND}
 
@@ -27,6 +29,7 @@ var roll: int:
 var die: Die	# Could later be accessed to provide the player with die info and such
 var selected_action: DieActions
 var target: BattleEnemy
+var effect: StatusEffect.EffectType
 var item_selected = false
 
 
@@ -55,7 +58,14 @@ func _ready():
 			action_menu.hide()
 			
 			if index == DieActions.ATTACK:
-				target = await targeting_func.call()
+				# TODO: Below 3 lines are temp stuff
+				var temp = await targeting_func.call()
+				if temp is Array:
+					effect = temp[1]
+					target = temp[0]
+				else:
+					target = temp
+				
 			# TODO: Rather than reroll, implement dice drafting
 			
 			action_menu.show()

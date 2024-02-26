@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bvlkj1mhba582"]
+[gd_scene load_steps=16 format=3 uid="uid://bvlkj1mhba582"]
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
 [ext_resource type="Resource" uid="uid://bh8sa74vyv8n7" path="res://encounter resources/mid_game_encounters.tres" id="2_6ad1h"]
 [ext_resource type="Resource" uid="uid://dxvj75cw3wclu" path="res://enemy resources/HostileRedGodotLogo.tres" id="2_yokuy"]
+[ext_resource type="PackedScene" uid="uid://ck3aqqaxesp6p" path="res://battle/battle_player.tscn" id="4_5lfpt"]
 [ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle/battle_enemy.tscn" id="4_w871o"]
 [ext_resource type="PackedScene" uid="uid://4pckrotnlies" path="res://battle/drawn_die.tscn" id="5_co5hi"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_0lq60"]
@@ -73,6 +74,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="PlayerContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 8
@@ -85,6 +87,15 @@ size_flags_vertical = 3
 texture = ExtResource("1_iltai")
 stretch_mode = 4
 
+[node name="Battle Player" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_5lfpt")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+size_flags_stretch_ratio = 3.0
+texture = ExtResource("1_iltai")
+status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
+
 [node name="Battle Enemy" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
 size_flags_vertical = 0
@@ -95,6 +106,7 @@ focus_neighbor_bottom = NodePath("../Battle Enemy2")
 focus_next = NodePath("../Battle Enemy2")
 focus_previous = NodePath("../Battle Enemy3")
 res = ExtResource("2_yokuy")
+status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
 [node name="Battle Enemy2" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
@@ -106,6 +118,7 @@ focus_neighbor_bottom = NodePath("../Battle Enemy3")
 focus_next = NodePath("../Battle Enemy3")
 focus_previous = NodePath("../Battle Enemy")
 res = ExtResource("2_yokuy")
+status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
 [node name="Battle Enemy3" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
@@ -117,6 +130,7 @@ focus_neighbor_bottom = NodePath("../Battle Enemy")
 focus_next = NodePath("../Battle Enemy")
 focus_previous = NodePath("../Battle Enemy2")
 res = ExtResource("2_yokuy")
+status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
 [node name="PlayerPanel" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -200,4 +214,5 @@ dialogue_res = ExtResource("9_5yvlh")
 [connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
 [connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Run" to="." method="_on_run_pressed"]
 
+[editable path="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu"]
 [editable path="VBoxContainer/PlayerPanel/MarginContainer/Textbox Controller"]

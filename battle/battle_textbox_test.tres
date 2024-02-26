@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogueRes" load_steps=17 format=3 uid="uid://git3m0aftj0o"]
+[gd_resource type="Resource" script_class="DialogueRes" load_steps=31 format=3 uid="uid://git3m0aftj0o"]
 
 [ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="1_xi6j0"]
 [ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="2_qjl25"]
@@ -115,6 +115,122 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
+[sub_resource type="Resource" id="Resource_dr7yj"]
+script = ExtResource("1_xi6j0")
+unique_name = "temp pick effect"
+text = "TEMP CHEAT: Pick an effect to apply"
+jumps = Array[String]([])
+choices = Array[String](["No Effect", "Paralysis", "Autodefense", "Ignited", "Poison"])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_cx0kr"]
+script = ExtResource("1_xi6j0")
+unique_name = "game over"
+text = "you lose"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_uha2h"]
+script = ExtResource("1_xi6j0")
+unique_name = "already paralyzed"
+text = "the target is already paralyzed"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_ttgcs"]
+script = ExtResource("1_xi6j0")
+unique_name = "paralyzed"
+text = "The target is paralyzed, %d / %d of their dice are unusable."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_vu3in"]
+script = ExtResource("1_xi6j0")
+unique_name = "paralyzed invoke"
+text = "%s is paralyzed, only %d of their dice are usable this turn!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_6d0bx"]
+script = ExtResource("1_xi6j0")
+unique_name = "autodefense"
+text = "The target has gained auto defense, they start their turn with free defense!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_32wr3"]
+script = ExtResource("1_xi6j0")
+unique_name = "on fire"
+text = "The fire spreads."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_1o6re"]
+script = ExtResource("1_xi6j0")
+unique_name = "ignited invoke"
+text = "The conflagration is fueled by the target's dice. %d of their dice have caught fire, causing burns."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_7hifd"]
+script = ExtResource("1_xi6j0")
+unique_name = "poisoned"
+text = "The target has accumulated toxic substances in their body."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_dqxlm"]
+script = ExtResource("1_xi6j0")
+unique_name = "poison invoke"
+text = "The target suffers from the toxins in their body."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_bsuvg"]
+script = ExtResource("1_xi6j0")
+unique_name = "paralysis description"
+text = "Paralysis:
+Disables one of the target's dice for each paralysis level. Does not stack, stronger effects overwrite the existing effect, weaker effects miss."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_qk0l1"]
+script = ExtResource("1_xi6j0")
+unique_name = "autodefense description"
+text = "Autodefense.
+Each turn the target gains defense equal to the autodefense level. Stacks, but the duration of existing stacks does not refresh. Defense does not carry over to the next turn if it is not depleted by attacks."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_mdolo"]
+script = ExtResource("1_xi6j0")
+unique_name = "ignited description"
+text = "Ignited.
+At the start of each turn, for each level of ignition, one of the target's dice is rerolled, the target then takes damage equal to the reroll, and if the roll was low, there is a chance for to either spread the ignition to other targets, or increase the ignition level."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_sk6li"]
+script = ExtResource("1_xi6j0")
+unique_name = "poisoned description"
+text = "Poisoned.
+The target takes 1 damage for each level of poison they have accumulated. Stacking poison effects refresh the duration and increase the poison level."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
 [resource]
 script = ExtResource("2_qjl25")
-beats = Array[ExtResource("1_xi6j0")]([SubResource("Resource_ay5xx"), SubResource("Resource_i4j1c"), SubResource("Resource_oobqt"), SubResource("Resource_lji7h"), SubResource("Resource_1ddtv"), SubResource("Resource_jf5ht"), SubResource("Resource_pvm66"), SubResource("Resource_j0yr3"), SubResource("Resource_4y2yx"), SubResource("Resource_cpjfn"), SubResource("Resource_ytg4d"), SubResource("Resource_wl3bi"), SubResource("Resource_ylaaj"), SubResource("Resource_1m16p")])
+beats = Array[ExtResource("1_xi6j0")]([SubResource("Resource_ay5xx"), SubResource("Resource_i4j1c"), SubResource("Resource_oobqt"), SubResource("Resource_lji7h"), SubResource("Resource_1ddtv"), SubResource("Resource_jf5ht"), SubResource("Resource_pvm66"), SubResource("Resource_j0yr3"), SubResource("Resource_4y2yx"), SubResource("Resource_cpjfn"), SubResource("Resource_ytg4d"), SubResource("Resource_wl3bi"), SubResource("Resource_ylaaj"), SubResource("Resource_1m16p"), SubResource("Resource_dr7yj"), SubResource("Resource_cx0kr"), SubResource("Resource_uha2h"), SubResource("Resource_ttgcs"), SubResource("Resource_vu3in"), SubResource("Resource_6d0bx"), SubResource("Resource_32wr3"), SubResource("Resource_1o6re"), SubResource("Resource_7hifd"), SubResource("Resource_dqxlm"), SubResource("Resource_bsuvg"), SubResource("Resource_qk0l1"), SubResource("Resource_mdolo"), SubResource("Resource_sk6li")])
