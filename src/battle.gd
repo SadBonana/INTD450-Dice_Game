@@ -318,8 +318,9 @@ func _process(delta):
 func _on_run_pressed():
 	display_text("You coward! Execute game crash!")
 	await textbox_closed
-	await get_tree().create_timer(0.5).timeout
-	get_tree().quit()
+	#await get_tree().create_timer(0.5).timeout
+	#get_tree().quit()
+	get_tree().change_scene_to_file("res://map/map.tscn")
 
 
 # TODO: make this generic to any actor
@@ -350,7 +351,7 @@ func damageEnemy(damage, enemy: Enemy):
 			
 			display_text("You won! Now go to the campfire room")
 			await textbox_closed
-			get_tree().change_scene_to_file("res://UI/campfire.tscn")
+			get_tree().change_scene_to_file("res://map/map2.tscn")
 		
 	emit_signal("damage_enemy_resolved")
 

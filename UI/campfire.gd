@@ -26,7 +26,7 @@ func _on_heal_button_pressed():
 		print("Changed health to max")
 	
 	# Change the transfer scene to be the map scene once that gets made
-	get_tree().change_scene_to_file("res://battle.tscn")
+	get_tree().change_scene_to_file("res://map/map.tscn")
 
 
 func _on_upgrade_die_button_pressed():

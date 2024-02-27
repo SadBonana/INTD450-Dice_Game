@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://c3lbeir6kyyg6"]
 
-[ext_resource type="Script" path="res://D4_rolling.gd" id="1_utafo"]
+[ext_resource type="Script" path="res://models/D4_rolling.gd" id="1_utafo"]
 [ext_resource type="PackedScene" uid="uid://btmewtjeyfwns" path="res://models/d4.glb" id="2_ncygw"]
-[ext_resource type="PackedScene" uid="uid://bqfea2cgpm0xs" path="res://d4_raycast.tscn" id="3_pmuy5"]
+[ext_resource type="PackedScene" uid="uid://bqfea2cgpm0xs" path="res://models/d4_raycast.tscn" id="3_pmuy5"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bm8aw"]
 points = PackedVector3Array(1.03251, -0.375152, -0.61073, 0.0125901, -0.380065, 1.19956, -1.04516, -0.382893, -0.588934, -0.000222564, 1.13794, -9.39369e-05)
