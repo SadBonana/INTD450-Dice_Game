@@ -29,7 +29,7 @@ func _ready():
 	print(map_data.completion) #check save state
 	
 	#following code should be self-explanatory
-	root[1] = get_node("/root")
+	#root[1] = get_node("/root")
 	start[1] = start_button
 	if map_data.completion[start[0]] == 1:
 		start[1].disabled = true
@@ -88,6 +88,7 @@ func _on_boss_pressed():
 func _on_quit_pressed():
 	for i in range(map_data.num_nodes):
 		map_data.completion[i] = 0 #resetting the save state to the initial one
+	save()
 		#we will likely need a more nuanced reset in the future, but this works for now.
 	get_tree().quit() #quits the game rn
 	

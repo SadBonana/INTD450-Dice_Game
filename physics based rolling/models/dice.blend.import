@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c0pc43cswlbci"
-path="res://.godot/imported/dice.blend-3791d306504a18d0832c474456dd42de.scn"
+path="res://.godot/imported/dice.blend-2f4cc042166675ff0bced6a502cca77a.scn"
 
 [deps]
 
-source_file="res://models/dice.blend"
-dest_files=["res://.godot/imported/dice.blend-3791d306504a18d0832c474456dd42de.scn"]
+source_file="res://physics based rolling/models/dice.blend"
+dest_files=["res://.godot/imported/dice.blend-2f4cc042166675ff0bced6a502cca77a.scn"]
 
 [params]
 

@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="map_resource" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="map_resource" load_steps=2 format=3 uid="uid://b678kjxq1cp1t"]
 
 [ext_resource type="Script" path="res://map/map_resource.gd" id="1_vhd01"]
 
 [resource]
 script = ExtResource("1_vhd01")
-completion = [1, 1, 1, 1, 0]
+completion = [0, 0, 0, 1, 0]
 num_nodes = 5

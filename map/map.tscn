@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://bx1wovv0p182j"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="2_gsif4"]
-[ext_resource type="Resource" uid="uid://dhfxnqlknsfuc" path="res://map/map_resource.tres" id="2_xlpbv"]
+[ext_resource type="Resource" uid="uid://b678kjxq1cp1t" path="res://map/map_resource.tres" id="2_xlpbv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ih5t2"]
-bg_color = Color(0.862745, 0.890196, 0.780392, 1)
+bg_color = Color(0.886275, 0.878431, 0.796078, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_iqo7b"]
 center_offset = Vector3(0, 0, -10)
