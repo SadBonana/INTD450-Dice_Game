@@ -2,6 +2,14 @@ extends Control
 
 @export var map_data : map_resource
 
+@export_file('*.tscn') var battle_path: String
+@export_file('*.tscn') var campfire_path: String
+
+@onready var start_button := %start
+@onready var battle_button := %battle
+@onready var campfire_button := %campfire
+@onready var boss_button := %boss
+
 # initializing node variables, any additional nodes will need to be added here
 # eventually will need to do this in an _init func with a loop.
 # the null value gets replaced with reference to the node, the first value is that nodes index in completion
@@ -22,20 +30,20 @@ func _ready():
 	
 	#following code should be self-explanatory
 	root[1] = get_node("/root")
-	start[1] = get_node("start")
+	start[1] = start_button
 	if map_data.completion[start[0]] == 1:
 		start[1].disabled = true
 	
-	battle[1] = get_node("battle")
+	battle[1] = battle_button
 	if map_data.completion[start[0]] == 0 or map_data.completion[battle[0]] == 1:
 		battle[1].disabled = true
 	
-	campfire[1] = get_node("campfire")
+	campfire[1] = campfire_button
 	
 	if map_data.completion[battle[0]] == 0 or map_data.completion[campfire[0]] == 1:
 		campfire[1].disabled = true
 	
-	boss[1] = get_node("boss")
+	boss[1] = boss_button
 	if map_data.completion[campfire[0]] == 0:
 		boss[1].disabled = true
 
@@ -52,7 +60,8 @@ func _on_battle_pressed():
 	map_data.completion[battle[0]] = 1
 	campfire[1].disabled = false
 	save()
-	get_tree().change_scene_to_file("res://battle.tscn") #switch to battle scene
+	#get_tree().change_scene_to_file("res://battle.tscn") #switch to battle scene
+	get_tree().change_scene_to_file(battle_path) #switch to battle battle_path scene
 
 
 func _on_campfire_pressed():
@@ -61,7 +70,8 @@ func _on_campfire_pressed():
 	map_data.completion[campfire[0]] = 1
 	boss[1].disabled = false
 	save()
-	get_tree().change_scene_to_file("res://UI/campfire.tscn") #switch to campfire scene
+	#get_tree().change_scene_to_file("res://UI/campfire.tscn") #switch to campfire scene
+	get_tree().change_scene_to_file(campfire_path) #switch to campfire scene
 	#pass
 
 
@@ -70,6 +80,8 @@ func _on_boss_pressed():
 	map_data.completion[boss[0]] = 1
 	save()
 	#get_tree().change_scene_to_file("") insert path to boss scene here
+	# TODO: make a boss encounter and make the scene use it.
+	get_tree().change_scene_to_file(battle_path) #switch to battle battle_path scene
 	#pass
 
 

@@ -9,7 +9,7 @@ signal target_selected(target)
 
 # File paths for scene changes and sub-scene instantiations.
 @export_file("*.tscn") var drawn_die_path
-@export_file("*.tscn") var campfire_path
+@export_file("*.tscn") var map_path
 
 # Enemy
 # If given an EncounterTable, will randomly choose a BaseEncounter based on the difficulty setting.
@@ -85,7 +85,7 @@ func _ready():
 					enemies.erase(enemy)
 				if enemies.size() == 0:
 					await textbox_controller.next()
-					get_tree().change_scene_to_file(campfire_path)
+					get_tree().change_scene_to_file(map_path)
 	player.textbox = textbox_controller
 	player.on_defeat = func ():
 			# this code will run when the player is defeated
@@ -190,14 +190,10 @@ func enemy_turn():
 	draw_dice()    # Enemy turn is over so player draws dice
 
 
-func run():
-	get_tree().change_scene_to_file(campfire_path)
-
-
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
 	await textbox_controller.quick_beat("run")
-	run()
+	get_tree().change_scene_to_file(map_path)
 
 
 func _on_ready_pressed():

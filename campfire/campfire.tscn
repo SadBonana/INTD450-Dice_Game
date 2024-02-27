@@ -11,7 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n73dc")
-battle_path = "res://battle/battle.tscn"
+map_path = "res://map/map.tscn"
 upgrade_path = "res://campfire/upgrade_die.tscn"
 
 [node name="Background" type="TextureRect" parent="."]
