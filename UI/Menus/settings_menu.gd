@@ -22,6 +22,8 @@ extends Popup
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	visible = false
+	
 	'''display_options_button.select(1 if SaveSettings.game_data.fullscreen_on else 0)
 	GlobalSettings.toggle_fullscreen(SaveSettings.game_data.fullscreen_on)
 	vsync_button.pressed = SaveSettings.game_data.vsync_on
@@ -36,7 +38,6 @@ func _ready():
 	
 	fov_slider.value = SaveSettings.game_data.fov
 	mouse_sensitivity_slider.value = SaveSettings.game_data.mouse_sens'''
-	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

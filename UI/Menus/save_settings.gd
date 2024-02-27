@@ -34,7 +34,7 @@ func load_data():
 	#var file = FileAccess.new()
 	var file = FileAccess.open(SAVEFILE, FileAccess.READ)
 	
-	if FileAccess.file_exists(SAVEFILE) == false:
+	if not file.file_exists(SAVEFILE):
 		
 		game_data = {
 			"fullscreen_on": false,
@@ -47,7 +47,7 @@ func load_data():
 			"music_vol": -10,
 			"sfx_vol": -10,
 			"fov": 70,
-			"mouse_sens": .1,
+			"mouse_sens": 0.1,
 		}
 		
 		save_data()
@@ -59,6 +59,8 @@ func load_data():
 	game_data = file.get_var()
 	
 	file.close()
+	
+	#ResourceSaver.save(game_data, SAVEFILE)
 	print("opened data")
 	
 func save_data():

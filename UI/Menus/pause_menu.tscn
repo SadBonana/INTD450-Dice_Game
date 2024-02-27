@@ -75,6 +75,7 @@ theme_override_font_sizes/font_size = 50
 text = "Quit"
 
 [node name="settings_menu" parent="." instance=ExtResource("2_85j6y")]
+visible = false
 
 [connection signal="pressed" from="VBoxContainer/resume_button" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/controls_button" to="." method="_on_controls_button_pressed"]

@@ -4,6 +4,7 @@
 
 [node name="settings_menu" type="Popup"]
 size = Vector2i(920, 590)
+visible = true
 min_size = Vector2i(920, 590)
 script = ExtResource("1_nfjqp")
 

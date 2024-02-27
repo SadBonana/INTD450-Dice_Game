@@ -24,9 +24,12 @@ func set_paused(value:bool) -> void:
 	get_tree().paused = _is_paused
 	visible = _is_paused
 	
-'''func _input(event):
-	if (Input.is_action_just_pressed()):
+func _input(event):
+	'''if (Input.is_action_just_pressed()):
 		get_tree().change_scene_to_file("res://UI/Menus/pause_menu.tscn")'''
+	'''if InputEvent.is_action_pressed("pause"):
+		_is_paused = !_is_paused'''
+	pass
 
 func _on_resume_button_pressed():
 	_is_paused = false
