@@ -26,6 +26,7 @@ func save():
 
 func _ready():
 	#map_data = map_data_load.new()
+	map_data = ResourceLoader.load("res://map/map_resource.tres")
 	print(map_data.completion) #check save state
 	
 	#following code should be self-explanatory
