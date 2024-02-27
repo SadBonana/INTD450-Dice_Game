@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://xs6m6nv7m5ly"]
+
+[ext_resource type="Script" path="res://misc components/health_bar.gd" id="1_yd44n"]
+[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_4nmse"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qcar4"]
+bg_color = Color(0.627451, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lpb05"]
+bg_color = Color(0.117647, 0.678431, 0, 1)
+
+[node name="HealthBar" type="ProgressBar" node_paths=PackedStringArray("label")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_qcar4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lpb05")
+step = 1.0
+value = 50.0
+show_percentage = false
+script = ExtResource("1_yd44n")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_4nmse")
+theme_override_font_sizes/font_size = 8
+text = "HP: 25/50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="changed" from="." to="." method="_on_changed"]
+[connection signal="value_changed" from="." to="." method="_on_value_changed"]
