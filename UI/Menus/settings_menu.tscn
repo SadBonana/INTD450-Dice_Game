@@ -3,8 +3,7 @@
 [ext_resource type="Script" path="res://UI/Menus/settings_menu.gd" id="1_nfjqp"]
 
 [node name="settings_menu" type="Popup"]
-size = Vector2i(1152, 648)
-visible = true
+size = Vector2i(920, 590)
 min_size = Vector2i(920, 590)
 script = ExtResource("1_nfjqp")
 
@@ -22,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 6
 
 [node name="Video" type="TabBar" parent="settings_tabs"]
 layout_mode = 2

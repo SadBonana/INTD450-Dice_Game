@@ -24,7 +24,6 @@ func _on_settings_button_pressed():
 	#get_tree().current_scene.add_child(options)
 	
 	#get_tree().change_scene_to_file("res://UI/Menus/settings_menu.tscn")
-	
 	settings_menu.popup_centered()
 	
 func _on_quit_button_pressed():
