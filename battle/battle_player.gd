@@ -22,9 +22,7 @@ func _get_health():
 func draw_dice():
 	var dice = []
 	for i in range(dice_draws):
-		# Whatever we decide to do when the player runs out of dice, it'll be here
-		# TODO: reshuffle the dice back into the deck, maybe make it take a turn
-		# to do. Also do this for the enemies.
+		# Handle when the player is out of dice
 		if not dice_bag.size() > 0:
 			textbox.load_dialogue_chain("player out of dice 1",
 					func (from_beat: DialogueBeat, destination_beat: String, from_choice: int):
@@ -32,7 +30,14 @@ func draw_dice():
 							match from_choice:
 								0:
 									await textbox.next()
-									#run()	# FIXME: Idea: give TextboxController a dictionary of callbacks.
+									
+									# Reshuffle dice into bag
+									dice_bag = used_dice
+									used_dice = []
+									dice_bag.shuffle()
+									for die in dice_hand:
+										die.queue_free()
+									dice_hand.clear()
 								# If more choices are added, can be handled here.
 			)
 			for j in range(3):	# There are 3 dialogue beats in this chain.

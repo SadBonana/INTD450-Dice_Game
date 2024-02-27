@@ -73,20 +73,6 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PlayerContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 8
-size_flags_stretch_ratio = 3.0
-
-[node name="PlayerSprite" type="TextureRect" parent="VBoxContainer/MarginContainer/HBoxContainer/PlayerContainer"]
-modulate = Color(0.541176, 0.866667, 1, 1)
-layout_mode = 2
-size_flags_vertical = 3
-texture = ExtResource("1_iltai")
-stretch_mode = 4
-
 [node name="Battle Player" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_5lfpt")]
 unique_name_in_owner = true
 layout_mode = 2

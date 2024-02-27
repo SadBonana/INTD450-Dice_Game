@@ -54,17 +54,13 @@ func remove_status_effect(effect: StatusEffect):
 			effect_icon.queue_free()
 	if status_effects.size() == 0:
 		status_backdrop.hide()
-	#else:
-		#update_status_effects()	# Mainly for sorting
 
 
 # called when status effects have changed and we want to display the changed values to the player
 # If the remaining turns, strength/stacks changes... maybe if the sorting should change too...
 func update_status_effects():
-	# TODO: call this in the status effect script
-	for effect_icon in status_container.get_children():
-		effect_icon.update()
-	# TODO: sort the icons: buffs first, then debuffs, effects with the least remaining turns first, then tie break by strength
+	# Sort the icons: buffs first, then debuffs, effects with the least remaining
+	# turns first, then tie break by strength
 	status_effects.sort_custom(func (effect1, effect2):
 		if effect1.beneficial and not effect2.beneficial:
 			return true
@@ -78,11 +74,16 @@ func update_status_effects():
 			return true
 		return false
 	)
+	for effect_icon in status_container.get_children():
+		var index = status_effects.find(effect_icon.effect)
+		status_container.move_child(effect_icon, index)
+		effect_icon.update()
 	
-	# DEBUG:	TODO: remove:
-	print("effect order:")
-	for effect in status_effects:
-		print("type:", effect._type, "turns:", effect.remaining_turns, "strength:", effect.strength)
+	
+	## DEBUG:	TODO: remove:
+	#print("effect order:")
+	#for effect in status_effects:
+		#print("type:", effect._type, "turns:", effect.remaining_turns, "strength:", effect.strength)
 
 
 ## All logic involved with taking damage
@@ -105,7 +106,7 @@ func take_damage(damage: int, beligerent_name: String) -> int:
 	await textbox.quick_beat("deal damage", [beligerent_name, damage_after_defense])
 	
 	if health == 0 and prev_health != 0:
-		on_defeat.call()
+		await on_defeat.call()
 	
 	return damage_after_defense
 

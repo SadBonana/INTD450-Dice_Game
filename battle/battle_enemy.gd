@@ -64,6 +64,11 @@ func draw_dice():
 		# Whatever we decide to do when the enemy runs out of dice, it'll be here
 		if not dice_bag.size() > 0:
 			await textbox.quick_beat('enemy out of dice', [actor_name])
+			# Reshuffle dice into bag
+			dice_bag = used_dice
+			used_dice = []
+			dice_bag.shuffle()
+			dice_hand.clear()
 			break
 		
 		# Draw the actual die from the bag, roll it, add it to hand, and consider

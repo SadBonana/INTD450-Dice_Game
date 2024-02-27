@@ -52,11 +52,16 @@ class Paralysis extends StatusEffect:
 				if effect.strength >= strength and effect.remaining_turns > 0:
 					await textbox.quick_beat("already paralyzed")
 					return false
-				effect.remaining_turns = 0	# Force the weaker effect to expire then add our new stronger version
+				# Replace the weaker effect with the stronger one.
+				effect.remaining_turns = remaining_turns
+				effect.strength = strength
+				target.update_status_effects()
+				await textbox.quick_beat("paralyzed", [strength, target.dice_draws])
+				_invoke_helper()	# We expect this one to take effect immediately
+				return true
 		target.add_status_effect(self)
 		await textbox.quick_beat("paralyzed", [strength, target.dice_draws])
-		# We expect this one to take effect immediately
-		_invoke_helper()
+		_invoke_helper()	# We expect this one to take effect immediately
 		return true
 	
 	
@@ -64,12 +69,12 @@ class Paralysis extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
-		if remaining_turns == 0:
-			target.remove_status_effect(self)
-			return true
 		_invoke_helper()
 		await textbox.quick_beat("paralyzed invoke", [target.actor_name, target.dice_hand.size()])
 		remaining_turns -= 1
+		if remaining_turns == 0:
+			target.remove_status_effect(self)
+			return true
 		return false
 		
 		
@@ -78,13 +83,15 @@ class Paralysis extends StatusEffect:
 		# target discards a die from their hand every turn.
 		for i in range(strength):
 			if target.dice_hand.size() > 0:
-				target.dice_hand.pop_back()		# TODO: may need to queue_free the die in the player's hand
+				var die = target.dice_hand.pop_back()
+				if target is BattlePlayer:
+					die.queue_free()
 				target.commit_dice()
 
 
 
 class Autodefense extends StatusEffect:
-	func _init(_textbox: TextboxController, _target: BattleActor, turns:=5, _strength:=2):
+	func _init(_textbox: TextboxController, _target: BattleActor, turns: int, _strength:=2):
 		super(_textbox, _target, turns, _strength)
 		_type = EffectType.AUTODEFENSE
 		beneficial = true
@@ -95,7 +102,8 @@ class Autodefense extends StatusEffect:
 	## Return whether the effect landed succesfully or not.
 	func apply():
 		# Does not refresh duration of existing stacks, but adds new stacks with
-		# durations based on the roll (this will need to be implemented in new())
+		# durations based on the roll (this is controlled buring initialization,
+		# so it could also be a constant or abritrary duration)
 		target.add_status_effect(self)
 		await textbox.quick_beat("autodefense")
 		target.defense += strength		# We expect buffs to activate the turn they are used.
@@ -106,11 +114,11 @@ class Autodefense extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
+		target.defense += strength
+		remaining_turns -= 1
 		if remaining_turns == 0:
 			target.remove_status_effect(self)
 			return true
-		target.defense += strength
-		remaining_turns -= 1
 		return false
 
 
@@ -154,9 +162,6 @@ class Ignited extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
-		if remaining_turns == 0:
-			target.remove_status_effect(self)
-			return true
 		var burning_dice = min(strength, target.dice_hand.size())
 		if burning_dice > 0:
 			await textbox.quick_beat("ignited invoke", [burning_dice])
@@ -173,6 +178,9 @@ class Ignited extends StatusEffect:
 			target.dice_hand[i].roll = roll
 			target.commit_dice()
 		remaining_turns -= 1	# NOTE: if high ignited stacks is too overpowered, can nerf it by indenting this line by one. Discovered thanks to a bug lol.
+		if remaining_turns == 0:
+			target.remove_status_effect(self)
+			return true
 		return false
 
 
@@ -203,10 +211,10 @@ class Poisoned extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
-		if remaining_turns == 0:
-			target.remove_status_effect(self)
-			return true
 		await textbox.quick_beat("poison invoke")
 		await target.take_damage(strength, "poison")
 		remaining_turns -= 1
+		if remaining_turns == 0:
+			target.remove_status_effect(self)
+			return true
 		return false
