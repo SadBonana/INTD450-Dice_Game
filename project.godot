@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="Intd 450-dice Game"
-run/main_scene="res://UI/Menus/settings_menu.tscn"
+run/main_scene="res://UI/Menus/start_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
+SaveSettings="*res://UI/Menus/save_settings.gd"
 GlobalSettings="*res://UI/Menus/global_settings.gd"
 
 [input]

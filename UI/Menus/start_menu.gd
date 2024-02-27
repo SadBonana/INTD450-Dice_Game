@@ -1,5 +1,6 @@
 extends Control
 
+@onready var settings_menu = $settings_menu
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,7 +23,9 @@ func _on_settings_button_pressed():
 	#var options = load("res://UI/settings_menu.tscn").instance()
 	#get_tree().current_scene.add_child(options)
 	
-	get_tree().change_scene_to_file("res://UI/Menus/settings_menu.tscn")
+	#get_tree().change_scene_to_file("res://UI/Menus/settings_menu.tscn")
+	
+	settings_menu.popup_centered()
 	
 func _on_quit_button_pressed():
 	get_tree().quit()
