@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dulueip5bvc88"]
+[gd_scene load_steps=4 format=3 uid="uid://dulueip5bvc88"]
 
 [ext_resource type="Script" path="res://UI/Menus/start_menu.gd" id="1_fsp0p"]
 [ext_resource type="Texture2D" uid="uid://5pewgng1hruq" path="res://UI/Menus/Dice Background Image.jpg" id="2_e6cv7"]
+[ext_resource type="PackedScene" uid="uid://c3ardwyvsttr1" path="res://UI/Menus/fps_label.tscn" id="3_smo4h"]
 
 [node name="start_menu" type="Control"]
 layout_mode = 3
@@ -80,6 +81,9 @@ theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Quit"
+
+[node name="fps_label" parent="." instance=ExtResource("3_smo4h")]
+layout_mode = 0
 
 [connection signal="pressed" from="VBoxContainer/start_button" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/controls_button" to="." method="_on_controls_button_pressed"]

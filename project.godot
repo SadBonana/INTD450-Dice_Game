@@ -15,6 +15,10 @@ run/main_scene="res://UI/Menus/settings_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalSettings="*res://UI/Menus/global_settings.gd"
+
 [input]
 
 pause={

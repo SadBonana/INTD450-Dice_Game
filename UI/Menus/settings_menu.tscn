@@ -26,7 +26,7 @@ grow_vertical = 2
 [node name="Video" type="TabBar" parent="settings_tabs"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="settings_tabs/Video"]
+[node name="video_margin_container" type="MarginContainer" parent="settings_tabs/Video"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,17 +38,17 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="video_settings" type="GridContainer" parent="settings_tabs/Video/MarginContainer"]
+[node name="video_settings" type="GridContainer" parent="settings_tabs/Video/video_margin_container"]
 layout_mode = 2
 theme_override_constants/v_separation = 20
 columns = 2
 
-[node name="display_mode_label" type="Label" parent="settings_tabs/Video/MarginContainer/video_settings"]
+[node name="display_mode_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Display Mode"
 
-[node name="display_option_button" type="OptionButton" parent="settings_tabs/Video/MarginContainer/video_settings"]
+[node name="display_options_button" type="OptionButton" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_font_sizes/font_size = 50
@@ -59,39 +59,39 @@ popup/item_0/id = 0
 popup/item_1/text = "Fullscreen"
 popup/item_1/id = 1
 
-[node name="vsync_label" type="Label" parent="settings_tabs/Video/MarginContainer/video_settings"]
+[node name="vsync_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Vsync"
 
-[node name="vsync_button" type="CheckButton" parent="settings_tabs/Video/MarginContainer/video_settings"]
+[node name="vsync_button" type="CheckButton" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="display_fps_label" type="Label" parent="settings_tabs/Video/MarginContainer/video_settings"]
+[node name="display_fps_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Display FPS"
 
-[node name="display_fps_button" type="CheckButton" parent="settings_tabs/Video/MarginContainer/video_settings"]
+[node name="display_fps_button" type="CheckButton" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="max_fps_label" type="Label" parent="settings_tabs/Video/MarginContainer/video_settings"]
+[node name="max_fps_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Max FPS"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="settings_tabs/Video/MarginContainer/video_settings"]
+[node name="max_fps_box_container" type="HBoxContainer" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="max_fps_value" type="Label" parent="settings_tabs/Video/MarginContainer/video_settings/HBoxContainer"]
+[node name="max_fps_value" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings/max_fps_box_container"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Max"
 
-[node name="max_fps_slider" type="HSlider" parent="settings_tabs/Video/MarginContainer/video_settings/HBoxContainer"]
+[node name="max_fps_slider" type="HSlider" parent="settings_tabs/Video/video_margin_container/video_settings/max_fps_box_container"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -100,21 +100,21 @@ min_value = 30.0
 max_value = 500.0
 value = 500.0
 
-[node name="bloom_label" type="Label" parent="settings_tabs/Video/MarginContainer/video_settings"]
+[node name="bloom_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Bloom"
 
-[node name="bloom_button" type="CheckButton" parent="settings_tabs/Video/MarginContainer/video_settings"]
+[node name="bloom_button" type="CheckButton" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="brightness_label" type="Label" parent="settings_tabs/Video/MarginContainer/video_settings"]
+[node name="brightness_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Brightness"
 
-[node name="brightness_slider" type="HSlider" parent="settings_tabs/Video/MarginContainer/video_settings"]
+[node name="brightness_slider" type="HSlider" parent="settings_tabs/Video/video_margin_container/video_settings"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -122,3 +122,145 @@ size_flags_vertical = 1
 max_value = 2.0
 step = 0.1
 value = 1.0
+
+[node name="Audio" type="TabBar" parent="settings_tabs"]
+visible = false
+layout_mode = 2
+
+[node name="audio_margin_container" type="MarginContainer" parent="settings_tabs/Audio"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="audio_settings" type="GridContainer" parent="settings_tabs/Audio/audio_margin_container"]
+layout_mode = 2
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="master_volume_label" type="Label" parent="settings_tabs/Audio/audio_margin_container/audio_settings"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Master Volume"
+
+[node name="master_volume_slider" type="HSlider" parent="settings_tabs/Audio/audio_margin_container/audio_settings"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 1
+min_value = -50.0
+max_value = 0.0
+value = -10.0
+
+[node name="music_volume_label" type="Label" parent="settings_tabs/Audio/audio_margin_container/audio_settings"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Music Volume"
+
+[node name="music_volume_slider" type="HSlider" parent="settings_tabs/Audio/audio_margin_container/audio_settings"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 1
+min_value = -50.0
+max_value = 0.0
+value = -10.0
+
+[node name="sfx_volume_label" type="Label" parent="settings_tabs/Audio/audio_margin_container/audio_settings"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "SFX Volume"
+
+[node name="sfx_volume_slider" type="HSlider" parent="settings_tabs/Audio/audio_margin_container/audio_settings"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 1
+min_value = -50.0
+max_value = 0.0
+value = -10.0
+
+[node name="Gameplay" type="TabBar" parent="settings_tabs"]
+visible = false
+layout_mode = 2
+
+[node name="gameplay_margin_container" type="MarginContainer" parent="settings_tabs/Gameplay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="gameplay_settings" type="GridContainer" parent="settings_tabs/Gameplay/gameplay_margin_container"]
+layout_mode = 2
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="fov_label" type="Label" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "FOV"
+
+[node name="fov_box_container" type="HBoxContainer" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="fov_value" type="Label" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings/fov_box_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "70"
+
+[node name="fov_slider" type="HSlider" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings/fov_box_container"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 1
+min_value = 30.0
+value = 70.0
+
+[node name="mouse_sensitivity_label" type="Label" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Mouse Sensitivity"
+
+[node name="mouse_sensitivity_box_container" type="HBoxContainer" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="mouse_sensitivity_value" type="Label" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings/mouse_sensitivity_box_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "0.1"
+
+[node name="mouse_sensitivity_slider" type="HSlider" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings/mouse_sensitivity_box_container"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 1
+min_value = 0.05
+max_value = 3.0
+step = 0.01
+value = 0.1
+
+[connection signal="item_selected" from="settings_tabs/Video/video_margin_container/video_settings/display_options_button" to="." method="_on_display_options_button_item_selected"]
+[connection signal="toggled" from="settings_tabs/Video/video_margin_container/video_settings/vsync_button" to="." method="_on_vsync_button_toggled"]
+[connection signal="toggled" from="settings_tabs/Video/video_margin_container/video_settings/display_fps_button" to="." method="_on_display_fps_button_toggled"]
+[connection signal="value_changed" from="settings_tabs/Video/video_margin_container/video_settings/max_fps_box_container/max_fps_slider" to="." method="_on_max_fps_slider_value_changed"]
+[connection signal="toggled" from="settings_tabs/Video/video_margin_container/video_settings/bloom_button" to="." method="_on_bloom_button_toggled"]
+[connection signal="value_changed" from="settings_tabs/Video/video_margin_container/video_settings/brightness_slider" to="." method="_on_brightness_slider_value_changed"]
+[connection signal="value_changed" from="settings_tabs/Audio/audio_margin_container/audio_settings/master_volume_slider" to="." method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="settings_tabs/Audio/audio_margin_container/audio_settings/music_volume_slider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="settings_tabs/Audio/audio_margin_container/audio_settings/sfx_volume_slider" to="." method="_on_sfx_volume_slider_value_changed"]
+[connection signal="value_changed" from="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings/fov_box_container/fov_slider" to="." method="_on_fov_slider_value_changed"]
+[connection signal="value_changed" from="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings/mouse_sensitivity_box_container/mouse_sensitivity_slider" to="." method="_on_mouse_sensitivity_slider_value_changed"]
