@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BaseEncounter" load_steps=3 format=3 uid="uid://cqhu2r0vajdnv"]
+
+[ext_resource type="Resource" uid="uid://dxvj75cw3wclu" path="res://enemy resources/HostileRedGodotLogo.tres" id="1_vo2w8"]
+[ext_resource type="Script" path="res://encounter resources/base_encounter.gd" id="2_6s45i"]
+
+[resource]
+script = ExtResource("2_6s45i")
+enemies = Array[Resource("res://enemy resources/BaseEnemy.gd")]([ExtResource("1_vo2w8"), ExtResource("1_vo2w8")])

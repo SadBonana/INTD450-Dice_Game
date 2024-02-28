@@ -1,22 +1,11 @@
-class_name BattleEnemy extends VBoxContainer
+class_name BattleEnemy extends BattleActor
 
-@onready var health_bar: ProgressBar = %ProgressBar
-@onready var tex_rect: TextureRect = %Enemy
+@onready var health_bar: HealthBar = %HealthBar
 @onready var roll_label: Label = %Roll  # FIXME: Displaying the enemy's roll over their sprite is prolly not what we want the final game to look like. I thought the empty top panel was where we'd show that info, but I'm running out of energy now so...
-@onready var animation_player = %AnimationPlayer
-@onready var textbox_controller = %"Textbox Controller"
 
 @export var res: Resource
 
 
-# TODO: Make variable names consistent with PlayerData, e.g. hp vs health
-var dice_bag = []
-var used_dice = []
-#var dice_hand  # For when enemies can eventually defend and use dice effects
-var health: int:
-	set (value):
-		health = clamp(value, 0, max_health)
-		health_bar.value = health
 var max_health: int:
 	set (value):
 		max_health = value
@@ -25,12 +14,23 @@ var damage: int:
 	set (value):
 		damage = value
 		roll_label.text = "%d" % damage
-var defense: int:
-	set (value):
-		defense = max(0, value)
-var enemy_name
 
-var _usual_alpha = modulate.a
+func _set_health(value):
+	health = clamp(value, 0, max_health)
+	health_bar.value = health
+func _get_health():
+	return health
+
+
+# HACK: Ideally this could be the same DrawnDie used by the player, but that's troublesome right now.
+# This is needed for certain status effects.
+class EnemyDrawnDie:
+	var roll: int
+	var die: Die
+	
+	func _init(die: Die):
+		self.die = die
+		self.roll = die.roll()
 
 
 # Called when the node enters the scene tree for the first time.
@@ -39,7 +39,8 @@ func _ready():
 	roll_label.hide()
 	max_health = res.health
 	health = res.health
-	enemy_name = res.name
+	dice_draws = res.dice_draws
+	actor_name = res.name
 	
 	# Initialize enemy dice bag
 	var dice_caps = res.dice_caps.duplicate()
@@ -50,27 +51,34 @@ func _ready():
 	tex_rect.texture = res.texture
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+# Can be used later for fancier enemy decision making
+## Commit dice in dice hand to a particular action. For now, just uses all dice for attacking.
+func commit_dice():
+	damage = dice_hand.reduce(func (accum, die): return accum + die.roll, 0)	# damage = sum of rolls in dice hand
 
 
 # Will likely need to be rewritten once effect die and enemies defending become a thing.
-func draw_dice(num_to_draw, textbox: TextboxController):
-	damage = 0
-	for i in range(num_to_draw):
+func draw_dice():
+	dice_hand = []	# Reset the hand so we don't use the values from last turn
+	for i in range(dice_draws):
 		# Whatever we decide to do when the enemy runs out of dice, it'll be here
 		if not dice_bag.size() > 0:
-			#display_text("Hurray! Enemies out of dice, now you can have your way with them!")
-			#await textbox_closed
-			textbox.load_dialogue_chain('enemy out of dice')
-			textbox.next([enemy_name])
-			#print("enemy is out of dice, but can't use the textbox display function the way this is written.")
-			return
+			await textbox.quick_beat('enemy out of dice', [actor_name])
+			# Reshuffle dice into bag
+			dice_bag = used_dice
+			used_dice = []
+			dice_bag.shuffle()
+			dice_hand.clear()
+			break
+		
+		# Draw the actual die from the bag, roll it, add it to hand, and consider
+		# it a used die (aka discard it but not really)
 		var d = dice_bag.pop_back()
-		used_dice.append(d)
-		var side = d.roll()
-		damage += side.value
+		used_dice.append(d)		# TODO: make this happen after the die actually gets used
+		var die = EnemyDrawnDie.new(d)
+		dice_hand.append(die)
+		
+	commit_dice()
 	
 	roll_label.show()
 
@@ -97,23 +105,6 @@ func toggle_target_mode(player_is_targeting: bool, target_selected: Signal):
 		Helpers.disconnect_if_connected(focus_exited, _on_focus_exited)
 		
 		modulate.a = _usual_alpha	# Restore alpha
-
-
-## All logic involved with taking damage
-##
-## Adjusts damage based on defense, adjusts defense, plays animation,
-## reduces health.
-##
-## Return whether the enemy is killed after taking damage.
-func take_damage(damage: int):
-	var damage_after_defense = Helpers.clamp_damage(damage, defense)
-	defense -= damage
-	health -= damage_after_defense
-	
-	animation_player.play("Hurt")
-	await animation_player.animation_finished
-	
-	return true if health == 0 else false
 
 
 ## Restore the texture rect's self_modulate property to res.sprite_color
