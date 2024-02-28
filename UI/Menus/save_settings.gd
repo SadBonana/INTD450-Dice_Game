@@ -16,11 +16,24 @@ var game_data = {}
 	"music_vol": -10,
 	"sfx_vol": -10,
 	"fov": 70,
-	"mouse_sens": .1,
+	"mouse_sens": 0.1,
 }'''
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	game_data = {
+		"fullscreen_on": false,
+		"vsync_on": false,
+		"display_fps": false,
+		"max_fps": 0,
+		"bloom_on": false,
+		"brightness": 1,
+		"master_vol": -10,
+		"music_vol": -10,
+		"sfx_vol": -10,
+		"fov": 70,
+		"mouse_sens": 0.1,
+		}
 	load_data()
 	print("pros...")
 	print(game_data)
@@ -31,12 +44,15 @@ func _process(delta):
 	pass
 
 func load_data():
-	#var file = FileAccess.new()
-	var file = FileAccess.open(SAVEFILE, FileAccess.READ)
-	
-	if not file.file_exists(SAVEFILE):
+	if FileAccess.file_exists(SAVEFILE):
+		var file = FileAccess.open(SAVEFILE, FileAccess.READ)
+		game_data = file.get_var()
+		#file.close()
+		print(file)
+	else:
+		print("empty file")
 		
-		game_data = {
+		'''game_data = {
 			"fullscreen_on": false,
 			"vsync_on": false,
 			"display_fps": false,
@@ -48,7 +64,7 @@ func load_data():
 			"sfx_vol": -10,
 			"fov": 70,
 			"mouse_sens": 0.1,
-		}
+		}'''
 		
 		save_data()
 		
@@ -56,9 +72,9 @@ func load_data():
 	#file = FileAccess.open(SAVEFILE, FileAccess.READ)
 	
 	#game_data = file.get_as_text()
-	game_data = file.get_var()
+	#game_data = file.get_var()
 	
-	file.close()
+	#file.close()
 	
 	#ResourceSaver.save(game_data, SAVEFILE)
 	print("opened data")
@@ -72,5 +88,5 @@ func save_data():
 	#file.store_string(game_data)
 	file.store_var(game_data)
 	
-	file.close()
+	#file.close()
 	print("saved data")
