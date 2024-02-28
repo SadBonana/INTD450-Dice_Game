@@ -15,7 +15,8 @@ static func instantiate(node_path: String, parent: Node, _die: Die):
 	var scene = load(node_path).instantiate()
 	scene.die = _die
 	parent.add_child(scene)
-	scene.roll = _die.roll()
+	var dieside = _die.roll()
+	scene.roll = dieside.value
 	
 	return scene
 

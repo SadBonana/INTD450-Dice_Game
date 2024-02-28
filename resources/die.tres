@@ -1,25 +1,9 @@
-[gd_resource type="Resource" script_class="Die" load_steps=8 format=3 uid="uid://rxfggdisd0j2"]
+[gd_resource type="Resource" script_class="Die" load_steps=3 format=3 uid="uid://rxfggdisd0j2"]
 
 [ext_resource type="Script" path="res://modules/dice/die.gd" id="1_xp1dm"]
-[ext_resource type="Script" path="res://modules/effects/effect_base.gd" id="2_3wotd"]
-[ext_resource type="Script" path="res://modules/dice/die_side.gd" id="2_qaef1"]
-[ext_resource type="Script" path="res://modules/elements/fire_element.gd" id="3_diym7"]
-
-[sub_resource type="Resource" id="Resource_sbv7y"]
-script = ExtResource("2_3wotd")
-
-[sub_resource type="Resource" id="Resource_oqbrc"]
-script = ExtResource("3_diym7")
-
-[sub_resource type="Resource" id="Resource_0nryg"]
-script = ExtResource("2_qaef1")
-power = 0
-custom_power = false
-element = SubResource("Resource_oqbrc")
-value = 2
-effects = Array[ExtResource("2_3wotd")]([SubResource("Resource_sbv7y")])
+[ext_resource type="Resource" uid="uid://dycvmhjbthgda" path="res://resources/DieSide.tres" id="2_gr2eu"]
 
 [resource]
 script = ExtResource("1_xp1dm")
-num_sides = 2
-sides = Array[ExtResource("2_qaef1")]([SubResource("Resource_0nryg"), null, null, null, null])
+num_sides = 5
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_gr2eu")])
