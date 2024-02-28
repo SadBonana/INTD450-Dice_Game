@@ -26,11 +26,13 @@ func _get_health():
 # This is needed for certain status effects.
 class EnemyDrawnDie:
 	var roll: int
+	var side: DieSide
 	var die: Die
 	
 	func _init(die: Die):
 		self.die = die
-		self.roll = die.roll()
+		self.side = die.roll()
+		self.roll = side.value
 
 
 # Called when the node enters the scene tree for the first time.

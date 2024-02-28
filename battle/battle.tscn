@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bvlkj1mhba582"]
+[gd_scene load_steps=17 format=3 uid="uid://bvlkj1mhba582"]
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
