@@ -1,5 +1,9 @@
 extends Control
 
+@export var loot_table: LootTable
+
+@export_file("*.tscn") var map_path
+
 # Textbox
 @export var textbox: Panel
 @export var textboxLabel: Label
@@ -19,7 +23,7 @@ func _ready():
 	await textbox_closed
 	
 	# Change to map once done
-	get_tree().change_scene_to_file("res://Battle/battle.tscn")
+	get_tree().change_scene_to_file(map_path)
 
 func _input(event):
 	if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and $Textbox.visible:
@@ -43,7 +47,11 @@ func item_generation():
 		else:
 			rarity_roll -= item_dict[item]
 	
-	var drop = Die.new( int(new_item_rarity.get_slice("D", 1)) )
+	#var drop = Die.new( int(new_item_rarity.get_slice("D", 1)) )
+	# FIXME: Die.new() doesnt and won't ever work. now we have LootTable,
+	# but the rest of this code hasn't been adapted to use it, so this is
+	# currently a very half assed fix:
+	var drop = loot_table.pick_loot()
 	PlayerData.dice_bag.append(drop)
 	print("Drop is D%s" % new_item_rarity.get_slice("D", 1))
 	
@@ -73,7 +81,3 @@ func item_generation():
 		print("Drop is D%d" % 20)'''
 	
 	return new_item_rarity
-		
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bbu8nn2jqun2j"]
 
-[ext_resource type="Script" path="res://battle/battle_actor.gd" id="1_k0mx3"]
+[ext_resource type="Script" path="res://battle_x/battle_actor.gd" id="1_k0mx3"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_tuuc8"]
 
 [sub_resource type="Animation" id="Animation_ootso"]
