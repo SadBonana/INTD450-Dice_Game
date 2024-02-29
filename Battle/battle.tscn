@@ -1,0 +1,556 @@
+[gd_scene load_steps=16 format=3 uid="uid://bvlkj1mhba582"]
+
+[ext_resource type="Script" path="res://Battle/battle.gd" id="1_5jfo4"]
+[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
+[ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="2_kwukf"]
+[ext_resource type="Resource" uid="uid://dxvj75cw3wclu" path="res://src/HostileRedGodotLogo.tres" id="2_yokuy"]
+[ext_resource type="PackedScene" uid="uid://4pckrotnlies" path="res://die_action_menu.tscn" id="5_co5hi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qcar4"]
+bg_color = Color(0.627451, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lpb05"]
+bg_color = Color(0.117647, 0.678431, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idclm"]
+bg_color = Color(0.227451, 0.0823529, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prgvx"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lira"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0c1a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ig7nh"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="Animation" id="Animation_7d4j4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemyContainer/Enemy:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_redou"]
+resource_name = "enemy_damaged"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemyContainer/Enemy:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.0705882, 0.231373, 1), Color(1, 1, 1, 0), Color(1, 0.0705882, 0.231373, 1), Color(1, 1, 1, 0), Color(1, 0.0705882, 0.231373, 1), Color(1, 1, 1, 0), Color(1, 0.0705882, 0.231373, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ftcli"]
+_data = {
+"RESET": SubResource("Animation_7d4j4"),
+"enemy_damaged": SubResource("Animation_redou")
+}
+
+[node name="Battle" type="Control" node_paths=PackedStringArray("playerHealthBar", "playerStatusContainer", "dieActionMenu", "statusAndHandMenu", "diceRemaining", "diceMax", "enemyContainer1", "enemyContainer2", "enemyContainer3", "textbox", "textboxLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5jfo4")
+enemyRes = ExtResource("2_yokuy")
+playerHealthBar = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Player Health and Name/Player Health Bar")
+playerStatusContainer = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Player Health and Name")
+dieActionMenu = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu")
+statusAndHandMenu = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice")
+diceRemaining = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Deck Status/Num Dice Left")
+diceMax = NodePath("PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Deck Status/Num Dice Total")
+enemyContainer1 = NodePath("EnemyContainer")
+enemyContainer2 = NodePath("EnemyContainer2")
+enemyContainer3 = NodePath("EnemyContainer3")
+textbox = NodePath("Textbox")
+textboxLabel = NodePath("Textbox/Label")
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(0.04, 0.04, 0.04, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_iltai")
+stretch_mode = 1
+
+[node name="EnemyContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -426.0
+offset_top = -207.0
+offset_right = -234.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+focus_neighbor_left = NodePath("../EnemyContainer3")
+focus_neighbor_top = NodePath("../EnemyContainer3")
+focus_neighbor_right = NodePath("../EnemyContainer2")
+focus_neighbor_bottom = NodePath("../EnemyContainer2")
+focus_next = NodePath("../EnemyContainer2")
+focus_previous = NodePath("../EnemyContainer3")
+
+[node name="ProgressBar" type="ProgressBar" parent="EnemyContainer"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_qcar4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lpb05")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="EnemyContainer/ProgressBar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kwukf")
+theme_override_font_sizes/font_size = 32
+text = "HP: 25/50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Enemy" type="TextureRect" parent="EnemyContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_iltai")
+stretch_mode = 4
+
+[node name="Roll" type="Label" parent="EnemyContainer/Enemy"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -51.0
+offset_right = 56.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 70
+text = "5
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -353.0
+offset_top = -175.0
+offset_right = -161.0
+offset_bottom = 44.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+focus_neighbor_left = NodePath("../EnemyContainer")
+focus_neighbor_top = NodePath("../EnemyContainer")
+focus_neighbor_right = NodePath("../EnemyContainer3")
+focus_neighbor_bottom = NodePath("../EnemyContainer3")
+focus_next = NodePath("../EnemyContainer3")
+focus_previous = NodePath("../EnemyContainer")
+
+[node name="ProgressBar" type="ProgressBar" parent="EnemyContainer2"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_qcar4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lpb05")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="EnemyContainer2/ProgressBar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kwukf")
+theme_override_font_sizes/font_size = 32
+text = "HP: 25/50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Enemy" type="TextureRect" parent="EnemyContainer2"]
+self_modulate = Color(1, 0.0705882, 0.231373, 1)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_iltai")
+stretch_mode = 4
+
+[node name="Roll" type="Label" parent="EnemyContainer2/Enemy"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -51.0
+offset_right = 56.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 70
+text = "5
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyContainer3" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -232.0
+offset_top = -140.0
+offset_right = -40.0
+offset_bottom = 79.0
+grow_horizontal = 0
+grow_vertical = 2
+focus_neighbor_left = NodePath("../EnemyContainer2")
+focus_neighbor_top = NodePath("../EnemyContainer2")
+focus_neighbor_right = NodePath("../EnemyContainer")
+focus_neighbor_bottom = NodePath("../EnemyContainer")
+focus_next = NodePath("../EnemyContainer")
+focus_previous = NodePath("../EnemyContainer2")
+
+[node name="ProgressBar" type="ProgressBar" parent="EnemyContainer3"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_qcar4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lpb05")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="EnemyContainer3/ProgressBar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kwukf")
+theme_override_font_sizes/font_size = 32
+text = "HP: 25/50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Enemy" type="TextureRect" parent="EnemyContainer3"]
+self_modulate = Color(1, 0.0705882, 0.231373, 1)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_iltai")
+stretch_mode = 4
+
+[node name="Roll" type="Label" parent="EnemyContainer3/Enemy"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -51.0
+offset_right = 56.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 70
+text = "5
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1107.0
+offset_top = -136.0
+offset_right = -915.0
+offset_bottom = 83.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+
+[node name="PlayerSprite" type="TextureRect" parent="PlayerContainer"]
+modulate = Color(0.541176, 0.866667, 1, 1)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_iltai")
+stretch_mode = 4
+
+[node name="PlayerPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -223.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_idclm")
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Player Status and Hand" type="HBoxContainer" parent="PlayerPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Player Status" type="VBoxContainer" parent="PlayerPanel/MarginContainer/Player Status and Hand"]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Player Health and Name" type="HBoxContainer" parent="PlayerPanel/MarginContainer/Player Status and Hand/Player Status"]
+layout_mode = 2
+theme_override_constants/separation = 17
+alignment = 1
+
+[node name="Player Name" type="Label" parent="PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Player Health and Name"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kwukf")
+theme_override_font_sizes/font_size = 32
+text = "Player"
+horizontal_alignment = 1
+
+[node name="Player Health Bar" type="ProgressBar" parent="PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Player Health and Name"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_qcar4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lpb05")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Player Health and Name/Player Health Bar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kwukf")
+theme_override_font_sizes/font_size = 32
+text = "HP: 25/50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Reroll Status" type="HBoxContainer" parent="PlayerPanel/MarginContainer/Player Status and Hand/Player Status"]
+layout_mode = 2
+
+[node name="Rerolls" type="Label" parent="PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Reroll Status"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Rerolls:"
+
+[node name="Rerolls Left" type="Label" parent="PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Reroll Status"]
+layout_mode = 2
+text = "3"
+
+[node name="Deck Status" type="HBoxContainer" parent="PlayerPanel/MarginContainer/Player Status and Hand/Player Status"]
+layout_mode = 2
+
+[node name="Dice Bag" type="Label" parent="PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Deck Status"]
+layout_mode = 2
+text = "Dice Bag:"
+
+[node name="Num Dice Left" type="Label" parent="PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Deck Status"]
+layout_mode = 2
+text = "12"
+
+[node name="Separator" type="Label" parent="PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Deck Status"]
+layout_mode = 2
+text = "/"
+
+[node name="Num Dice Total" type="Label" parent="PlayerPanel/MarginContainer/Player Status and Hand/Player Status/Deck Status"]
+layout_mode = 2
+text = "20"
+
+[node name="Bag Sprite" type="TextureRect" parent="PlayerPanel/MarginContainer/Player Status and Hand/Player Status"]
+modulate = Color(0.113725, 0.0588235, 0, 1)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_iltai")
+stretch_mode = 4
+
+[node name="Hand of Dice" type="HBoxContainer" parent="PlayerPanel/MarginContainer/Player Status and Hand"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Die Action Menu" parent="PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice" instance=ExtResource("5_co5hi")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerPanel/MarginContainer/Player Status and Hand"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Player Action Menu" type="VBoxContainer" parent="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Ready" type="Button" parent="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("2_kwukf")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_prgvx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
+text = "TO BATTLE! "
+
+[node name="Run" type="Button" parent="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("2_kwukf")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_prgvx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
+text = "RUN"
+
+[node name="ActionsPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 108.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_idclm")
+
+[node name="Textbox" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 91.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ig7nh")
+
+[node name="Label" type="Label" parent="Textbox"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_kwukf")
+theme_override_font_sizes/font_size = 32
+text = "A GODOT LOGO Appears"
+
+[node name="Ticker" type="Label" parent="Textbox"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -17.0
+offset_top = -32.0
+offset_right = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_kwukf")
+theme_override_font_sizes/font_size = 32
+text = ">"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ftcli")
+}
+
+[connection signal="pressed" from="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
+[connection signal="pressed" from="PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Run" to="." method="_on_run_pressed"]
