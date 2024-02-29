@@ -28,35 +28,35 @@ func _ready():
 	
 	GlobalSettings.toggle_fullscreen(SaveSettings.game_data.fullscreen_on)
 	
-	#vsync_button.pressed = SaveSettings.game_data.vsync_on
-	GlobalSettings.toggle_vsync(SaveSettings.game_data.vsync_on)
+	vsync_button.button_pressed = SaveSettings.game_data.vsync_on
+	#GlobalSettings.toggle_vsync(SaveSettings.game_data.vsync_on)
 	
-	#display_fps_button.pressed = SaveSettings.game_data.display_fps
-	GlobalSettings.toggle_fps_display(SaveSettings.game_data.display_fps)
+	display_fps_button.button_pressed = SaveSettings.game_data.display_fps
+	#GlobalSettings.toggle_fps_display(SaveSettings.game_data.display_fps)
 	
-	#max_fps_slider.value = SaveSettings.game_data.max_fps
-	GlobalSettings.set_max_fps(SaveSettings.game_data.max_fps)
+	max_fps_slider.value = SaveSettings.game_data.max_fps
+	#GlobalSettings.set_max_fps(SaveSettings.game_data.max_fps)
 	
-	#bloom_button.pressed = SaveSettings.game_data.bloom_on
-	GlobalSettings.toggle_bloom(SaveSettings.game_data.bloom_on)
+	bloom_button.button_pressed = SaveSettings.game_data.bloom_on
+	#GlobalSettings.toggle_bloom(SaveSettings.game_data.bloom_on)
 	
-	#brightness_slider.value = SaveSettings.game_data.brightness
-	GlobalSettings.update_brightness(SaveSettings.game_data.brightness)
+	brightness_slider.value = SaveSettings.game_data.brightness
+	#GlobalSettings.update_brightness(SaveSettings.game_data.brightness)
 	
-	#master_volume_slider.value = SaveSettings.game_data.master_vol
-	GlobalSettings.update_master_vol(SaveSettings.game_data.master_vol)
+	master_volume_slider.value = SaveSettings.game_data.master_vol
+	#GlobalSettings.update_master_vol(SaveSettings.game_data.master_vol)
 	
-	#music_volume_slider.value = SaveSettings.game_data.music_vol
-	GlobalSettings.update_music_vol(SaveSettings.game_data.music_vol)
+	music_volume_slider.value = SaveSettings.game_data.music_vol
+	#GlobalSettings.update_music_vol(SaveSettings.game_data.music_vol)
 	
-	#sfx_volume_slider.value = SaveSettings.game_data.sfx_vol
-	GlobalSettings.update_sfx_vol(SaveSettings.game_data.sfx_vol)
+	sfx_volume_slider.value = SaveSettings.game_data.sfx_vol
+	#GlobalSettings.update_sfx_vol(SaveSettings.game_data.sfx_vol)
 	
-	#fov_slider.value = SaveSettings.game_data.fov
-	GlobalSettings.update_fov(SaveSettings.game_data.fov)
+	fov_slider.value = SaveSettings.game_data.fov
+	#GlobalSettings.update_fov(SaveSettings.game_data.fov)
 	
-	#mouse_sensitivity_slider.value = SaveSettings.game_data.mouse_sens
-	GlobalSettings.update_mouse_sensitivity(SaveSettings.game_data.mouse_sens)
+	mouse_sensitivity_slider.value = SaveSettings.game_data.mouse_sens
+	#GlobalSettings.update_mouse_sensitivity(SaveSettings.game_data.mouse_sens)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -81,7 +81,7 @@ func _on_display_fps_button_toggled(toggled_on):
 func _on_max_fps_slider_value_changed(value):
 	GlobalSettings.set_max_fps(value)
 	# Display the max FPS value
-	max_fps_value.text = str(value) if value < max_fps_slider.max_value else "max"
+	max_fps_value.text = str(value) if value < max_fps_slider.max_value else "Max"
 
 
 func _on_bloom_button_toggled(toggled_on):

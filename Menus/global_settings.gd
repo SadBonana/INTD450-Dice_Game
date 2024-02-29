@@ -99,12 +99,18 @@ func update_master_vol(master_volume):
 func update_music_vol(music_volume):
 	# Access audio server, then access the music bus volume (index 1) and change it's volume to the specified amount
 	AudioServer.set_bus_volume_db(1, music_volume)
+	
+	SaveSettings.game_data.music_vol = music_volume
+	SaveSettings.save_data()
 
 
 # sfx_volume is the value passed in the settings menu
 func update_sfx_vol(sfx_volume):
 	# Access audio server, then access the SFX bus volume (index 2) and change it's volume to the specified amount
 	AudioServer.set_bus_volume_db(2, sfx_volume)
+	
+	SaveSettings.game_data.sfx_vol = sfx_volume
+	SaveSettings.save_data()
 
 
 # fov_value is the value passed in the settings menu
