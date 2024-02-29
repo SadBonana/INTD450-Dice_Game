@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxjxc4rkswbhf"]
+
+[ext_resource type="PackedScene" uid="uid://c0pc43cswlbci" path="res://models/dice.blend" id="1_pe5vi"]
+
+[node name="dice" instance=ExtResource("1_pe5vi")]
+
+[node name="D8" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.83896, -0.429415, 0.279553)

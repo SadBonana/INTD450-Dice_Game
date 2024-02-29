@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlyb2lewb1n15"]
+
+[ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://misc components/health_bar.tscn" id="1_pbfgf"]
+[ext_resource type="Script" path="res://battle/battle_enemy.gd" id="1_u2vwq"]
+[ext_resource type="PackedScene" uid="uid://bbu8nn2jqun2j" path="res://battle/battle_actor.tscn" id="3_vc0kg"]
+[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="4_4kj7r"]
+
+[node name="Battle Enemy" instance=ExtResource("3_vc0kg")]
+anchors_preset = -1
+anchor_right = 0.12
+anchor_bottom = 0.278
+offset_right = 0.199997
+offset_bottom = -0.0800095
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_u2vwq")
+res = null
+
+[node name="HealthBar" parent="." index="0" instance=ExtResource("1_pbfgf")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Roll" type="Label" parent="Actor Sprite" index="0"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_4kj7r")
+theme_override_font_sizes/font_size = 40
+text = "5
+"
+horizontal_alignment = 1
+vertical_alignment = 1

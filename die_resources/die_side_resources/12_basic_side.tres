@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DieSide" load_steps=2 format=3 uid="uid://s2rerngyd2ao"]
+
+[ext_resource type="Script" path="res://modules/dice/die_side.gd" id="1_iriqd"]
+
+[resource]
+script = ExtResource("1_iriqd")
+power = 0
+custom_power = false
+value = 12
+effects = Array[Resource("res://modules/effects/effect_base.gd")]([])

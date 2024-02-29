@@ -13,16 +13,16 @@ dest_files=["res://.godot/imported/VT323-Regular.ttf-d708e6f8a12d95574b2cc5d2342
 [params]
 
 Rendering=null
-antialiasing=1
+antialiasing=0
 generate_mipmaps=false
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
-msdf_size=48
+msdf_size=128
 allow_system_fallback=true
 force_autohinter=false
-hinting=1
-subpixel_positioning=1
-oversampling=10.0
+hinting=0
+subpixel_positioning=0
+oversampling=0.0
 Fallbacks=null
 fallbacks=[]
 Compress=null

@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgag7rr64v1m7"]
+
+[ext_resource type="Script" path="res://misc components/player_status.gd" id="1_kpf4t"]
+[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="2_f10bn"]
+[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_wrn3c"]
+[ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://misc components/health_bar.tscn" id="3_5jrpy"]
+
+[node name="Player Status" type="VBoxContainer" node_paths=PackedStringArray("health_bar", "deck_status")]
+anchors_preset = -1
+anchor_right = 0.192
+anchor_bottom = 0.375
+offset_right = 0.119995
+offset_bottom = -1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 8
+script = ExtResource("1_kpf4t")
+health_bar = NodePath("Player Health and Name/Health Bar")
+deck_status = NodePath("Bag Sprite/Deck Status")
+
+[node name="Player Health and Name" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Player Name" type="Label" parent="Player Health and Name"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_wrn3c")
+theme_override_font_sizes/font_size = 8
+text = "Me"
+horizontal_alignment = 1
+
+[node name="Health Bar" parent="Player Health and Name" instance=ExtResource("3_5jrpy")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Reroll Status" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="Rerolls" type="Label" parent="Reroll Status"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Rerolls:"
+
+[node name="Rerolls Left" type="Label" parent="Reroll Status"]
+layout_mode = 2
+text = "3"
+
+[node name="Bag Sprite" type="TextureRect" parent="."]
+self_modulate = Color(0.113725, 0.0588235, 0, 1)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+texture = ExtResource("2_f10bn")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Deck Status" type="Label" parent="Bag Sprite"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.13
+offset_bottom = 0.00999832
+grow_horizontal = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_wrn3c")
+theme_override_font_sizes/font_size = 8
+text = "Dice: 12/20"
+vertical_alignment = 1

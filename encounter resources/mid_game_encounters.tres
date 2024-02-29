@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EncounterTable" load_steps=8 format=3 uid="uid://bh8sa74vyv8n7"]
+
+[ext_resource type="Resource" uid="uid://qgg4nn3isijv" path="res://encounter resources/red_purple_red.tres" id="1_vyuan"]
+[ext_resource type="Resource" uid="uid://bdjiqdt74tv37" path="res://encounter resources/purple_purple.tres" id="2_5wt0l"]
+[ext_resource type="Resource" uid="uid://cqhu2r0vajdnv" path="res://encounter resources/red_red.tres" id="3_oiopp"]
+[ext_resource type="Resource" uid="uid://b2jgwkenv3yxu" path="res://encounter resources/red_red_red.tres" id="4_insug"]
+[ext_resource type="Resource" uid="uid://bis0oitkr4h6s" path="res://encounter resources/purple.tres" id="5_y3h5f"]
+[ext_resource type="Script" path="res://encounter resources/encounter_table.gd" id="6_3yvef"]
+[ext_resource type="Resource" uid="uid://4byr5vo3bivx" path="res://encounter resources/red_purple.tres" id="7_gi01f"]
+
+[resource]
+script = ExtResource("6_3yvef")
+novice_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([ExtResource("3_oiopp"), ExtResource("4_insug"), ExtResource("5_y3h5f")])
+standard_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([ExtResource("4_insug"), ExtResource("7_gi01f"), ExtResource("1_vyuan")])
+expert_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([ExtResource("1_vyuan"), ExtResource("2_5wt0l")])
+enemies = Array[Resource("res://enemy resources/BaseEnemy.gd")]([])
