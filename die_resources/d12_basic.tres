@@ -19,4 +19,4 @@
 script = ExtResource("1_iaqch")
 sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_mq3ih"), ExtResource("3_bmd2d"), ExtResource("4_rodcj"), ExtResource("5_kkxra"), ExtResource("6_t4c3s"), ExtResource("7_y0xkh"), ExtResource("8_8j7s1"), ExtResource("9_28yrv"), ExtResource("10_0bca1"), ExtResource("11_eyl86"), ExtResource("12_w0hry"), ExtResource("13_ql870")])
 texture = ExtResource("14_1e485")
-name = ""
+name = "d12"

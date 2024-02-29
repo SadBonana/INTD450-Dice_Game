@@ -63,7 +63,7 @@ func _enter_tree():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# This will never be shown, instead, they will be instantiated as needed
-	# The die actsion menu here is just so designers can see what one looks like in engine.
+	# The die action menu here is just so designers can see what one looks like in engine.
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
 	# line of code
 	drawn_die_placeholder.hide()
