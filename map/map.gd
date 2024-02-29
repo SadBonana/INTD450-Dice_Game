@@ -10,6 +10,8 @@ extends Control
 @onready var campfire_button := %campfire
 @onready var boss_button := %boss
 
+@onready var tree = get_tree()
+
 # initializing node variables, any additional nodes will need to be added here
 # eventually will need to do this in an _init func with a loop.
 # the null value gets replaced with reference to the node, the first value is that nodes index in completion
@@ -114,5 +116,5 @@ func _on_quit_pressed():
 		map_data.completion[i] = 0 #resetting the save state to the initial one
 	map_save()
 		#we will likely need a more nuanced reset in the future, but this works for now.
-	get_tree().quit() #quits the game rn
+	tree.quit() #quits the game rn
 	
