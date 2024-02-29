@@ -59,11 +59,6 @@ func _ready():
 	#GlobalSettings.update_mouse_sensitivity(SaveSettings.game_data.mouse_sens)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_display_options_button_item_selected(index):
 	# true means it's fullscreen (index 1 of display options)
 	GlobalSettings.toggle_fullscreen(true if index == 1 else false)

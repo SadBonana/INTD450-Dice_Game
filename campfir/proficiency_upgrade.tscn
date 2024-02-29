@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://biq23c5tqviqm"]
 
-[ext_resource type="Script" path="res://Campfire/proficiency_upgrade.gd" id="1_iw31s"]
-[ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="2_hmaw0"]
+[ext_resource type="Script" path="res://campfir/proficiency_upgrade.gd" id="1_iw31s"]
+[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_8tmam"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3f6up"]
 bg_color = Color(0, 0, 0, 1)
@@ -18,8 +18,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iw31s")
+map_path = "res://map/map.tscn"
 textbox = NodePath("Textbox")
-textboxLabel = NodePath("Textbox/Label")
+textboxLabel = NodePath("Textbox/MarginContainer/Label")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -31,7 +32,6 @@ grow_vertical = 2
 color = Color(0.984314, 0.184314, 0.109804, 1)
 
 [node name="Textbox" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -40,33 +40,33 @@ offset_top = 16.0
 offset_right = -16.0
 offset_bottom = 91.0
 grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3f6up")
 
-[node name="Label" type="Label" parent="Textbox"]
-layout_mode = 2
+[node name="MarginContainer" type="MarginContainer" parent="Textbox"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 232.0
-offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_hmaw0")
-theme_override_font_sizes/font_size = 32
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="Textbox/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_8tmam")
+theme_override_font_sizes/font_size = 8
 text = "A GODOT LOGO Appears"
 
-[node name="Ticker" type="Label" parent="Textbox"]
+[node name="Ticker" type="Label" parent="Textbox/MarginContainer"]
 layout_mode = 2
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -17.0
-offset_top = -32.0
-offset_right = -4.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_hmaw0")
-theme_override_font_sizes/font_size = 32
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("2_8tmam")
+theme_override_font_sizes/font_size = 8
 text = ">"

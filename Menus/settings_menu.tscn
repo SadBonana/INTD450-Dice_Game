@@ -3,9 +3,12 @@
 [ext_resource type="Script" path="res://Menus/settings_menu.gd" id="1_nfjqp"]
 
 [node name="settings_menu" type="Popup"]
-size = Vector2i(920, 590)
+size = Vector2i(640, 360)
 visible = true
-min_size = Vector2i(920, 590)
+unresizable = false
+content_scale_mode = 2
+content_scale_aspect = 4
+content_scale_stretch = 1
 script = ExtResource("1_nfjqp")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -14,6 +17,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 color = Color(0.498039, 0.996078, 0.701961, 1)
 
 [node name="settings_tabs" type="TabContainer" parent="."]
@@ -22,7 +27,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Video" type="TabBar" parent="settings_tabs"]
 layout_mode = 2
@@ -46,13 +52,11 @@ columns = 2
 
 [node name="display_mode_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "Display Mode"
 
 [node name="display_options_button" type="OptionButton" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
 size_flags_horizontal = 10
-theme_override_font_sizes/font_size = 50
 item_count = 2
 selected = 0
 popup/item_0/text = "Windowed"
@@ -62,7 +66,6 @@ popup/item_1/id = 1
 
 [node name="vsync_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "Vsync"
 
 [node name="vsync_button" type="CheckButton" parent="settings_tabs/Video/video_margin_container/video_settings"]
@@ -71,7 +74,6 @@ size_flags_horizontal = 10
 
 [node name="display_fps_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "Display FPS"
 
 [node name="display_fps_button" type="CheckButton" parent="settings_tabs/Video/video_margin_container/video_settings"]
@@ -80,7 +82,6 @@ size_flags_horizontal = 10
 
 [node name="max_fps_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "Max FPS"
 
 [node name="max_fps_box_container" type="HBoxContainer" parent="settings_tabs/Video/video_margin_container/video_settings"]
@@ -89,7 +90,6 @@ size_flags_horizontal = 10
 
 [node name="max_fps_value" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings/max_fps_box_container"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "Max"
 
 [node name="max_fps_slider" type="HSlider" parent="settings_tabs/Video/video_margin_container/video_settings/max_fps_box_container"]
@@ -103,7 +103,6 @@ value = 500.0
 
 [node name="bloom_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "Bloom"
 
 [node name="bloom_button" type="CheckButton" parent="settings_tabs/Video/video_margin_container/video_settings"]
@@ -112,7 +111,6 @@ size_flags_horizontal = 10
 
 [node name="brightness_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "Brightness"
 
 [node name="brightness_slider" type="HSlider" parent="settings_tabs/Video/video_margin_container/video_settings"]
@@ -133,6 +131,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 572.0
+offset_bottom = 159.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 25
@@ -147,7 +147,6 @@ columns = 2
 
 [node name="master_volume_label" type="Label" parent="settings_tabs/Audio/audio_margin_container/audio_settings"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "Master Volume"
 
 [node name="master_volume_slider" type="HSlider" parent="settings_tabs/Audio/audio_margin_container/audio_settings"]
@@ -161,7 +160,6 @@ value = -10.0
 
 [node name="music_volume_label" type="Label" parent="settings_tabs/Audio/audio_margin_container/audio_settings"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "Music Volume"
 
 [node name="music_volume_slider" type="HSlider" parent="settings_tabs/Audio/audio_margin_container/audio_settings"]
@@ -175,7 +173,6 @@ value = -10.0
 
 [node name="sfx_volume_label" type="Label" parent="settings_tabs/Audio/audio_margin_container/audio_settings"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "SFX Volume"
 
 [node name="sfx_volume_slider" type="HSlider" parent="settings_tabs/Audio/audio_margin_container/audio_settings"]
@@ -196,6 +193,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 565.0
+offset_bottom = 142.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 25
@@ -210,7 +209,6 @@ columns = 2
 
 [node name="fov_label" type="Label" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "FOV"
 
 [node name="fov_box_container" type="HBoxContainer" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings"]
@@ -219,7 +217,6 @@ size_flags_horizontal = 10
 
 [node name="fov_value" type="Label" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings/fov_box_container"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "70"
 
 [node name="fov_slider" type="HSlider" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings/fov_box_container"]
@@ -232,7 +229,6 @@ value = 70.0
 
 [node name="mouse_sensitivity_label" type="Label" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "Mouse 
 Sensitivity "
 
@@ -242,7 +238,6 @@ size_flags_horizontal = 10
 
 [node name="mouse_sensitivity_value" type="Label" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings/mouse_sensitivity_box_container"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "0.1"
 
 [node name="mouse_sensitivity_slider" type="HSlider" parent="settings_tabs/Gameplay/gameplay_margin_container/gameplay_settings/mouse_sensitivity_box_container"]

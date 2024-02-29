@@ -1,5 +1,7 @@
 extends Control
 
+@export_file("*.tscn") var map_path
+
 # Textbox
 @export var textbox: Panel
 @export var textboxLabel: Label
@@ -24,15 +26,15 @@ func _ready():
 	
 	for i in range(die.num_sides):
 				# Change to 10 to test -> allows for easy identification otherwsie you need to roll a 5 to see result
-				die.sides[i] += 1
+				die.sides[i].value += 1
 				die.name = "D%d - prof" % die.num_sides
 				print(die.name)
-				print(die.sides[i])
+				print(die.sides[i].value)
 	
 	display_text("Congrats! You upgraded your D%d" % die.num_sides)
 	await textbox_closed
 	
-	get_tree().change_scene_to_file("res://Battle/battle.tscn")
+	get_tree().change_scene_to_file(map_path)
 	
 	'''for die in PlayerData.dice_bag:
 		display_text(die.name)
@@ -57,8 +59,3 @@ func _ready():
 				print(die.name)
 				print(die.sides[i])
 			get_tree().change_scene_to_file("res://battle.tscn")'''
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
