@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://4pckrotnlies"]
 
-[ext_resource type="Script" path="res://battle_x/drawn_die.gd" id="1_35a1c"]
+[ext_resource type="Script" path="res://battle/drawn_die.gd" id="1_35a1c"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_g22em"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_4xoiv"]
 

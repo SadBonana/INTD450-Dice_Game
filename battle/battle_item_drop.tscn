@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cglfsj48akwp2"]
 
-[ext_resource type="Script" path="res://Battle/battle_item_drop.gd" id="1_1ttxf"]
-[ext_resource type="Resource" uid="uid://cugg8w1sdc2xl" path="res://die_resources/d8_to_d20_basic_loot.tres" id="2_0ysno"]
-[ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="3_k52ch"]
+[ext_resource type="Script" path="res://Battle/battle_item_drop.gd" id="1_e8830"]
+[ext_resource type="Resource" uid="uid://cugg8w1sdc2xl" path="res://die_resources/d8_to_d20_basic_loot.tres" id="2_mgoud"]
+[ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="2_n2dhy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xubwb"]
 bg_color = Color(0, 0, 0, 1)
@@ -18,8 +18,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_1ttxf")
-loot_table = ExtResource("2_0ysno")
+script = ExtResource("1_e8830")
+loot_table = ExtResource("2_mgoud")
 map_path = "res://map/map.tscn"
 textbox = NodePath("Textbox")
 textboxLabel = NodePath("Textbox/Label")
@@ -55,7 +55,7 @@ offset_right = 232.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("3_k52ch")
+theme_override_fonts/font = ExtResource("2_n2dhy")
 theme_override_font_sizes/font_size = 32
 text = "A GODOT LOGO Appears"
 
@@ -70,6 +70,6 @@ offset_top = -32.0
 offset_right = -4.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("3_k52ch")
+theme_override_fonts/font = ExtResource("2_n2dhy")
 theme_override_font_sizes/font_size = 32
 text = ">"
