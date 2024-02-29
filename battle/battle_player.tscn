@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ck3aqqaxesp6p"]
+[gd_scene load_steps=4 format=3 uid="uid://ck3aqqaxesp6p"]
 
 [ext_resource type="Script" path="res://battle/battle_player.gd" id="1_udnp1"]
 [ext_resource type="PackedScene" uid="uid://bbu8nn2jqun2j" path="res://battle/battle_actor.tscn" id="2_3c1fd"]
+[ext_resource type="Resource" uid="uid://hbrekqmqpwcq" path="res://battle/temp_player_res.tres" id="3_nmk5l"]
 
 [node name="Battle Player" instance=ExtResource("2_3c1fd")]
 anchors_preset = 8
@@ -19,6 +20,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_udnp1")
 texture = null
+temp_dice_bag_init = ExtResource("3_nmk5l")
 
 [node name="Actor Sprite" parent="." index="1"]
 expand_mode = 0

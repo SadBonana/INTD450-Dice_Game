@@ -45,9 +45,12 @@ func _ready():
 	actor_name = res.name
 	
 	# Initialize enemy dice bag
-	var dice_caps = res.dice_caps.duplicate()
-	dice_caps.shuffle()
-	dice_bag = Die.to_dice(dice_caps)
+	#var dice_caps = res.dice_caps.duplicate()
+	#dice_caps.shuffle()
+	#dice_bag = Die.to_dice(dice_caps)
+	dice_bag = res.dice.duplicate()
+	print("res.dice: ", res.dice)
+	dice_bag.shuffle()
 	
 	# set texture
 	tex_rect.texture = res.texture

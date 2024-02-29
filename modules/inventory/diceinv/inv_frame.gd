@@ -7,5 +7,5 @@ extends Panel
 ## Changes label and inventory die texture accordingly
 func update(die: Die):
 	die_type.text = die.name
-	die_visual.texture = die.sprite.texture
+	die_visual.texture = die.texture
 	die_visual.visible = true

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Die" load_steps=13 format=3 uid="uid://bp1fq8i5q8wil"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_16sg7"]
+[ext_resource type="Resource" uid="uid://fnj6cjl02yjk" path="res://die_resources/die_side_resources/1_basic_side.tres" id="2_od0rc"]
+[ext_resource type="Resource" uid="uid://bqx5d8v76pabp" path="res://die_resources/die_side_resources/2_basic_side.tres" id="3_axnhd"]
+[ext_resource type="Resource" uid="uid://dcukumvqqyc2x" path="res://die_resources/die_side_resources/3_basic_side.tres" id="4_gqkie"]
+[ext_resource type="Resource" uid="uid://qeeome5drtma" path="res://die_resources/die_side_resources/4_basic_side.tres" id="5_3uxhj"]
+[ext_resource type="Resource" uid="uid://bv8ogi6g6lcwb" path="res://die_resources/die_side_resources/5_basic_side.tres" id="6_eq342"]
+[ext_resource type="Resource" uid="uid://ltn6e15ghi3j" path="res://die_resources/die_side_resources/6_basic_side.tres" id="7_8ebqe"]
+[ext_resource type="Resource" uid="uid://cono8cryv20rv" path="res://die_resources/die_side_resources/7_basic_side.tres" id="8_060ir"]
+[ext_resource type="Resource" uid="uid://dw1gnx742jvfe" path="res://die_resources/die_side_resources/8_basic_side.tres" id="9_2bhku"]
+[ext_resource type="Resource" uid="uid://c1pe3lp4v2aoh" path="res://die_resources/die_side_resources/9_basic_side.tres" id="10_l7iya"]
+[ext_resource type="Resource" uid="uid://blngfgoy7ao8i" path="res://die_resources/die_side_resources/10_basic_side.tres" id="11_3h235"]
+[ext_resource type="Texture2D" uid="uid://c0lgyrflia307" path="res://modules/inventory/images/D10.png" id="12_qgx5c"]
+
+[resource]
+script = ExtResource("1_16sg7")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_od0rc"), ExtResource("3_axnhd"), ExtResource("4_gqkie"), ExtResource("5_3uxhj"), ExtResource("6_eq342"), ExtResource("7_8ebqe"), ExtResource("8_060ir"), ExtResource("9_2bhku"), ExtResource("10_l7iya"), ExtResource("11_3h235")])
+texture = ExtResource("12_qgx5c")
+name = ""

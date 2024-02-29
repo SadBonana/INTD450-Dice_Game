@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Die" load_steps=15 format=3 uid="uid://dewjmh5gv8igp"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_iaqch"]
+[ext_resource type="Resource" uid="uid://fnj6cjl02yjk" path="res://die_resources/die_side_resources/1_basic_side.tres" id="2_mq3ih"]
+[ext_resource type="Resource" uid="uid://bqx5d8v76pabp" path="res://die_resources/die_side_resources/2_basic_side.tres" id="3_bmd2d"]
+[ext_resource type="Resource" uid="uid://dcukumvqqyc2x" path="res://die_resources/die_side_resources/3_basic_side.tres" id="4_rodcj"]
+[ext_resource type="Resource" uid="uid://qeeome5drtma" path="res://die_resources/die_side_resources/4_basic_side.tres" id="5_kkxra"]
+[ext_resource type="Resource" uid="uid://bv8ogi6g6lcwb" path="res://die_resources/die_side_resources/5_basic_side.tres" id="6_t4c3s"]
+[ext_resource type="Resource" uid="uid://ltn6e15ghi3j" path="res://die_resources/die_side_resources/6_basic_side.tres" id="7_y0xkh"]
+[ext_resource type="Resource" uid="uid://cono8cryv20rv" path="res://die_resources/die_side_resources/7_basic_side.tres" id="8_8j7s1"]
+[ext_resource type="Resource" uid="uid://dw1gnx742jvfe" path="res://die_resources/die_side_resources/8_basic_side.tres" id="9_28yrv"]
+[ext_resource type="Resource" uid="uid://c1pe3lp4v2aoh" path="res://die_resources/die_side_resources/9_basic_side.tres" id="10_0bca1"]
+[ext_resource type="Resource" uid="uid://blngfgoy7ao8i" path="res://die_resources/die_side_resources/10_basic_side.tres" id="11_eyl86"]
+[ext_resource type="Resource" uid="uid://brvub4t7vtfam" path="res://die_resources/die_side_resources/11_basic_side.tres" id="12_w0hry"]
+[ext_resource type="Resource" uid="uid://s2rerngyd2ao" path="res://die_resources/die_side_resources/12_basic_side.tres" id="13_ql870"]
+[ext_resource type="Texture2D" uid="uid://bmp5o7v3mirc5" path="res://modules/inventory/images/D12.png" id="14_1e485"]
+
+[resource]
+script = ExtResource("1_iaqch")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_mq3ih"), ExtResource("3_bmd2d"), ExtResource("4_rodcj"), ExtResource("5_kkxra"), ExtResource("6_t4c3s"), ExtResource("7_y0xkh"), ExtResource("8_8j7s1"), ExtResource("9_28yrv"), ExtResource("10_0bca1"), ExtResource("11_eyl86"), ExtResource("12_w0hry"), ExtResource("13_ql870")])
+texture = ExtResource("14_1e485")
+name = ""

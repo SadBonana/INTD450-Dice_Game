@@ -170,7 +170,7 @@ class Ignited extends StatusEffect:
 			# NOTE: With the way things currently are, this means that if a victim's die has multiple
 			# sides with the same value as its first side, it will be much more flammable. Which
 			# could be interesting?
-			if roll == target.dice_hand[i].die.sides[0]:
+			if roll == target.dice_hand[i].die.sides[0].value:
 				# FIXME: If we ever teach enemies shadow clone jutsu, old fire won't spread to the clones this way:
 				var new_ignition = Ignited.new(textbox, spread_targets.pick_random(), spread_targets)
 				await new_ignition.apply()
