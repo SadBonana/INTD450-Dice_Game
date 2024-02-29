@@ -26,11 +26,13 @@ func _get_health():
 # This is needed for certain status effects.
 class EnemyDrawnDie:
 	var roll: int
+	var side: DieSide
 	var die: Die
 	
 	func _init(die: Die):
 		self.die = die
-		self.roll = die.roll()
+		self.side = die.roll()
+		self.roll = side.value
 
 
 # Called when the node enters the scene tree for the first time.
@@ -43,9 +45,12 @@ func _ready():
 	actor_name = res.name
 	
 	# Initialize enemy dice bag
-	var dice_caps = res.dice_caps.duplicate()
-	dice_caps.shuffle()
-	dice_bag = Die.to_dice(dice_caps)
+	#var dice_caps = res.dice_caps.duplicate()
+	#dice_caps.shuffle()
+	#dice_bag = Die.to_dice(dice_caps)
+	dice_bag = res.dice.duplicate()
+	print("res.dice: ", res.dice)
+	dice_bag.shuffle()
 	
 	# set texture
 	tex_rect.texture = res.texture

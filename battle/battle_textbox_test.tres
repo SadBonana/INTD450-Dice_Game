@@ -78,7 +78,7 @@ end_conversation = false
 [sub_resource type="Resource" id="Resource_cpjfn"]
 script = ExtResource("1_xi6j0")
 unique_name = "victory"
-text = "You won! Now go to the campfire room."
+text = "You won! Onwards!"
 jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true

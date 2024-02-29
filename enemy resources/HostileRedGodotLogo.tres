@@ -1,7 +1,10 @@
-[gd_resource type="Resource" script_class="BaseEnemy" load_steps=3 format=3 uid="uid://dxvj75cw3wclu"]
+[gd_resource type="Resource" script_class="BaseEnemy" load_steps=6 format=3 uid="uid://dxvj75cw3wclu"]
 
 [ext_resource type="Script" path="res://enemy resources/BaseEnemy.gd" id="1_44fdo"]
+[ext_resource type="Resource" uid="uid://dinkuhl73fnn" path="res://die_resources/d3_basic.tres" id="1_amsab"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="2_lwaki"]
+[ext_resource type="Resource" uid="uid://dp2q4nnem8qg8" path="res://die_resources/d4_basic.tres" id="2_qou56"]
+[ext_resource type="Resource" uid="uid://cd0ef5txxdjcq" path="res://die_resources/d6_basic.tres" id="3_4i3wk"]
 
 [resource]
 script = ExtResource("1_44fdo")
@@ -11,3 +14,4 @@ health = 18
 dice_draws = 2
 sprite_color = Color(1, 0.0705882, 0.231373, 1)
 dice_caps = Array[int]([3, 3, 3, 3, 3, 4, 4, 6, 3, 3])
+dice = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_amsab"), ExtResource("1_amsab"), ExtResource("1_amsab"), ExtResource("1_amsab"), ExtResource("1_amsab"), ExtResource("2_qou56"), ExtResource("2_qou56"), ExtResource("3_4i3wk"), ExtResource("1_amsab"), ExtResource("1_amsab")])

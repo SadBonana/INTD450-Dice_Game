@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bvlkj1mhba582"]
+[gd_scene load_steps=17 format=3 uid="uid://bvlkj1mhba582"]
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
@@ -11,6 +11,7 @@
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="7_iw7i2"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="8_11wq8"]
 [ext_resource type="Resource" uid="uid://git3m0aftj0o" path="res://battle/battle_textbox_test.tres" id="9_5yvlh"]
+[ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/inventory/diceinv/dice_bag.tscn" id="10_sbswq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idclm"]
 bg_color = Color(0.227451, 0.0823529, 0, 1)
@@ -196,6 +197,8 @@ unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 dialogue_res = ExtResource("9_5yvlh")
+
+[node name="DiceBag" parent="." instance=ExtResource("10_sbswq")]
 
 [connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
 [connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Run" to="." method="_on_run_pressed"]

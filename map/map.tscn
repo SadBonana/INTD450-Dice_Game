@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bx1wovv0p182j"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="2_gsif4"]
-[ext_resource type="Resource" uid="uid://b678kjxq1cp1t" path="res://map/map_resource.tres" id="2_xlpbv"]
+[ext_resource type="Resource" uid="uid://b88qtmr8riqpb" path="res://map/map_resource.tres" id="2_xlpbv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ih5t2"]
 bg_color = Color(0.886275, 0.878431, 0.796078, 1)
@@ -125,5 +125,5 @@ default_color = Color(0.396889, 0.396889, 0.396889, 1)
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/battle" to="." method="_on_battle_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/campfire" to="." method="_on_campfire_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/boss" to="." method="_on_boss_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/quit" to="." method="_on_boss_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/quit" to="." method="_on_quit_pressed"]
