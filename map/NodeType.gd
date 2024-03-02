@@ -1,0 +1,3 @@
+extends Node
+
+enum NodeType {START, BATTLE, CAMPFIRE, TREASURE, SMITH, BOSS}
