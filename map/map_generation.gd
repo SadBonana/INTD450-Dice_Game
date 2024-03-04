@@ -6,11 +6,14 @@ extends Node
 const d = 6
 const b = [0,3]
 var leafnodes = []
-var nodes
+var nodes #?
 
-@export var map_resource: Resource
-map_resource.num_nodes = nodes
 
+
+#@export var map_resource: Resource
+#map_resource.num_nodes = nodes
+
+'''
 func populate(path,root,depth,max_d):
 	var node = root
 	for d in range(depth,max_d):
@@ -24,6 +27,7 @@ func populate(path,root,depth,max_d):
 				leafnodes.append(child)
 	return path
 
+
 func _ready():
 	var path1 = Tree.new()
 	var path1_root = path1.create_item()
@@ -33,4 +37,4 @@ func _ready():
 	leafnodes = path1.get_children()
 	for child in leafnodes:
 		var end_child = path1.create_item(child)
-
+'''

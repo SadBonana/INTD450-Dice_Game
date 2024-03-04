@@ -2,6 +2,10 @@ extends Button
 
 class_name MapNode
 
+#@export var early_game_encounter_table: BaseEncounter
+
+const NT = NodeType.NodeType
+
 var id        = 0      #supposed to be index in complete array but might be useless now
 #var type_str  = null  #honestly not sure what i was cookin with this
 var type      = null   #type of this node
@@ -10,29 +14,48 @@ var children  = []
 var parents   = []
 var depth     = 0      #depth of this node in the tree, idk if it's necessary for each node yet
 
-#func _init():
-#	self.disabled = true
+#initialize the button as disabled
+#_init is NOT enough to set up a MapNode, set_type and set_depth MUST be ran first
+#before the button should be used, otherwise it will break things
+func _init():
+	self.disabled = true
 
+#set the depth of this node
+func set_depth(_depth:int):
+	depth = _depth
+
+#return the depth
+func get_depth() -> int:
+	return depth
+	
 #initialize the MapNode with it's destination typing
 #then find the path to that scene and store it
-func _init(_type:NodeType, _depth:int):
+func set_type(_type:NT) -> void:
+	type = _type
 	
-	self.disabled = true #disable all buttons initially
-
 	#handle different node types
 	match _type:
-		NodeType.START:
-			self.disabled = false
-		NodeType.BATTLE:
+		NT.START:
+			self.disabled = false #all buttons start disabled, so if it's a "start" node, enable it
+		NT.BATTLE:
+			#dest_path = "res://battle/battle.tscn" #set path to battle scene
 			pass
-		NodeType.CAMPFIRE:
+		NT.CAMPFIRE:
+			dest_path = "res://campfire/campfire.tscn" #set path to rest scene
+		NT.WORKSHOP:
 			pass
-		NodeType.WORKSHOP:
+		NT.TREASURE:
 			pass
-		NodeType.TREASURE:
+		NT.BOSS:
 			pass
-		NodeType.BOSS:
-			pass
+
+#return the type of the node
+func get_type() -> NT:
+	return type
+
+#return the destination path
+func get_dest() -> String:
+	return dest_path
 
 #set the parents of this node
 func set_parents(_parents:Array[MapNode]=[]) -> void:
@@ -64,5 +87,6 @@ func _pressed():
 	self.disabled = true
 	for child in children:
 		child.disabled = false
+	
 	get_tree().change_scene_to_file(dest_path)
 	

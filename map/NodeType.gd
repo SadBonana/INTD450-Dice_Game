@@ -1,3 +1,10 @@
 extends Node
 
-enum NodeType {START, BATTLE, CAMPFIRE, TREASURE, WORKSHOP, BOSS}
+enum NodeType {
+	ERROR, 
+	START, 
+	BATTLE, 
+	CAMPFIRE, 
+	TREASURE, 
+	WORKSHOP, 
+	BOSS}
