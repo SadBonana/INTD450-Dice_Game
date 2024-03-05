@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwroqm35wwu7n"]
+[gd_scene load_steps=6 format=3 uid="uid://cwroqm35wwu7n"]
 
-[ext_resource type="Script" path="res://Menus/pause_menu.gd" id="1_jr8ao"]
-[ext_resource type="PackedScene" uid="uid://b0rmrjb71troy" path="res://Menus/settings_menu.tscn" id="2_85j6y"]
+[ext_resource type="Script" path="res://menus/pause_menu.gd" id="1_jr8ao"]
+[ext_resource type="PackedScene" uid="uid://c82d0db21hh53" path="res://Menus/resume_button.tscn" id="2_npblr"]
+[ext_resource type="PackedScene" uid="uid://djhlg0x1wvmi" path="res://menus/controls_button.tscn" id="3_1n1b1"]
+[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://menus/settings_button.tscn" id="4_3fbm4"]
+[ext_resource type="PackedScene" uid="uid://c8y350efda5hk" path="res://menus/quit_button.tscn" id="5_2uw2u"]
 
 [node name="pause_menu" type="Control"]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,10 +32,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -184.5
-offset_top = -196.5
-offset_right = 184.5
-offset_bottom = 196.5
+offset_left = -72.5
+offset_top = -104.5
+offset_right = 72.5
+offset_bottom = 104.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -46,38 +48,18 @@ text = "Pause
 "
 horizontal_alignment = 1
 
-[node name="resume_button" type="Button" parent="VBoxContainer"]
+[node name="resume_button" parent="VBoxContainer" instance=ExtResource("2_npblr")]
 layout_mode = 2
-focus_neighbor_top = NodePath("../quit_button")
-focus_neighbor_bottom = NodePath("../controls_button")
-theme_override_font_sizes/font_size = 50
-text = "Resume"
+focus_neighbor_top = NodePath("")
+focus_neighbor_bottom = NodePath("")
 
-[node name="controls_button" type="Button" parent="VBoxContainer"]
+[node name="controls_button" parent="VBoxContainer" instance=ExtResource("3_1n1b1")]
 layout_mode = 2
-focus_neighbor_top = NodePath("../resume_button")
-focus_neighbor_bottom = NodePath("../settings_button")
-theme_override_font_sizes/font_size = 50
-text = "Game Controls"
 
-[node name="settings_button" type="Button" parent="VBoxContainer"]
+[node name="settings_button" parent="VBoxContainer" instance=ExtResource("4_3fbm4")]
 layout_mode = 2
-focus_neighbor_top = NodePath("../controls_button")
-focus_neighbor_bottom = NodePath("../quit_button")
-theme_override_font_sizes/font_size = 50
-text = "Settings"
 
-[node name="quit_button" type="Button" parent="VBoxContainer"]
+[node name="quit_button" parent="VBoxContainer" instance=ExtResource("5_2uw2u")]
 layout_mode = 2
-focus_neighbor_top = NodePath("../settings_button")
-focus_neighbor_bottom = NodePath("../resume_button")
-theme_override_font_sizes/font_size = 50
-text = "Quit"
-
-[node name="settings_menu" parent="." instance=ExtResource("2_85j6y")]
-visible = false
 
 [connection signal="pressed" from="VBoxContainer/resume_button" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/controls_button" to="." method="_on_controls_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/settings_button" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]

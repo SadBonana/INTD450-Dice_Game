@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c3ardwyvsttr1"]
 
-[ext_resource type="Script" path="res://Menus/fps_label.gd" id="1_lkssw"]
+[ext_resource type="Script" path="res://menus/fps_label.gd" id="1_lkssw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrxug"]
 bg_color = Color(1, 0.886275, 0.137255, 1)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dby8hjc3eqgkj"]
+[gd_scene load_steps=3 format=3 uid="uid://dby8hjc3eqgkj"]
 
-[ext_resource type="Script" path="res://Menus/controls_menu.gd" id="1_g4vo7"]
+[ext_resource type="Script" path="res://menus/controls_menu.gd" id="1_g4vo7"]
+[ext_resource type="PackedScene" path="res://Menus/quit_button.tscn" id="2_7kese"]
 
 [node name="controls_menu" type="Control"]
 layout_mode = 3
@@ -61,19 +62,12 @@ vertical_alignment = 1
 
 [node name="back_button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../quit_button")
 theme_override_colors/font_pressed_color = Color(1, 0.263137, 0.293668, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Back"
 
-[node name="quit_button" type="Button" parent="VBoxContainer"]
+[node name="quit_button" parent="VBoxContainer" instance=ExtResource("2_7kese")]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../back_button")
-theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
-theme_override_font_sizes/font_size = 50
-text = "Quit"
 
 [connection signal="pressed" from="VBoxContainer/back_button" to="." method="_on_back_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]
