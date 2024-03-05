@@ -9,5 +9,6 @@ theme_override_colors/font_pressed_color = Color(1, 0.263137, 0.293668, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
 text = "Start"
 script = ExtResource("1_sowo1")
+map_scene_path = "res://map/map.tscn"
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

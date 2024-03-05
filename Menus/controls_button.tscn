@@ -9,5 +9,6 @@ theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
 text = "Game Controls"
 script = ExtResource("1_i2kk1")
+controls_menu_scene_path = "res://menus/controls_menu.tscn"
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

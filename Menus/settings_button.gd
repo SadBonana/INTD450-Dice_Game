@@ -1,6 +1,6 @@
 extends Button
 
-@onready var settings_menu = %settings_menu
+@onready var settings_menu = $settings_menu
 
 
 # Called when the node enters the scene tree for the first time.

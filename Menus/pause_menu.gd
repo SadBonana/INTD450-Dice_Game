@@ -1,6 +1,6 @@
 extends Control
 
-@onready var settings_menu = $settings_menu
+#@onready var settings_menu = $settings_menu
 
 var _is_paused:bool = false:
 	set = set_paused
@@ -35,7 +35,7 @@ func _input(event):
 func _on_resume_button_pressed():
 	_is_paused = false
 
-func _on_controls_button_pressed():
+'''func _on_controls_button_pressed():
 	get_tree().change_scene_to_file("res://Menus/controls_menu.tscn")
 
 
@@ -43,4 +43,4 @@ func _on_settings_button_pressed():
 	settings_menu.popup_centered()
 
 func _on_quit_button_pressed():
-	get_tree().quit()
+	get_tree().quit()'''

@@ -18,62 +18,58 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_fsp0p")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 2
-offset_right = 640.0
-offset_bottom = 360.0
-color = Color(0.772549, 0.129412, 0.67451, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 2
-offset_right = 640.0
-offset_bottom = 360.0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="game_name_label" type="Label" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Dice the Dice"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="start_button" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_v1kad")]
-layout_mode = 2
-
-[node name="controls_button" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_abhdu")]
-layout_mode = 2
-
-[node name="settings_button" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_b5kma")]
-layout_mode = 2
-
-[node name="quit_button" parent="MarginContainer/VBoxContainer" instance=ExtResource("5_k2kcg")]
-layout_mode = 2
-
-[node name="team_name_label" type="Label" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-text = "Dicey Devs  "
-horizontal_alignment = 1
-
-[node name="fps_label" parent="MarginContainer" instance=ExtResource("3_smo4h")]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
 [node name="PanelContainer" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer"]
+layout_mode = 2
+color = Color(0.772549, 0.129412, 0.67451, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="game_name_label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Dice the Dice"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="start_button" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_v1kad")]
+layout_mode = 2
+
+[node name="controls_button" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_abhdu")]
+layout_mode = 2
+
+[node name="settings_button" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_b5kma")]
+layout_mode = 2
+
+[node name="quit_button" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("5_k2kcg")]
+layout_mode = 2
+
+[node name="team_name_label" type="Label" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Dicey Devs"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="fps_label" parent="PanelContainer/MarginContainer" instance=ExtResource("3_smo4h")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
