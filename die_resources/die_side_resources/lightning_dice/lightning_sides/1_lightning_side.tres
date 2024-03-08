@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DieSide" load_steps=4 format=3 uid="uid://nq0o2g57d888"]
+
+[ext_resource type="Script" path="res://modules/elements/lightning_element.gd" id="1_7gq6l"]
+[ext_resource type="Script" path="res://modules/dice/die_side.gd" id="2_q3y2m"]
+
+[sub_resource type="Resource" id="Resource_nuvbr"]
+script = ExtResource("1_7gq6l")
+
+[resource]
+script = ExtResource("2_q3y2m")
+power = 0
+custom_power = false
+element = SubResource("Resource_nuvbr")
+value = 1

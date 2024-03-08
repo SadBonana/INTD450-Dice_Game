@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Die" load_steps=11 format=3 uid="uid://xo41pqglhf05"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_2kfen"]
+[ext_resource type="Resource" uid="uid://fnj6cjl02yjk" path="res://die_resources/die_side_resources/basic_dice/basic_sides/1_basic_side.tres" id="2_sfgo3"]
+[ext_resource type="Resource" uid="uid://bqx5d8v76pabp" path="res://die_resources/die_side_resources/basic_dice/basic_sides/2_basic_side.tres" id="3_x8oe1"]
+[ext_resource type="Resource" uid="uid://dcukumvqqyc2x" path="res://die_resources/die_side_resources/basic_dice/basic_sides/3_basic_side.tres" id="4_fpcgv"]
+[ext_resource type="Resource" uid="uid://qeeome5drtma" path="res://die_resources/die_side_resources/basic_dice/basic_sides/4_basic_side.tres" id="5_hppgq"]
+[ext_resource type="Resource" uid="uid://bv8ogi6g6lcwb" path="res://die_resources/die_side_resources/basic_dice/basic_sides/5_basic_side.tres" id="6_t06pl"]
+[ext_resource type="Resource" uid="uid://ltn6e15ghi3j" path="res://die_resources/die_side_resources/basic_dice/basic_sides/6_basic_side.tres" id="7_syq6e"]
+[ext_resource type="Resource" uid="uid://cono8cryv20rv" path="res://die_resources/die_side_resources/basic_dice/basic_sides/7_basic_side.tres" id="8_m46ek"]
+[ext_resource type="Resource" uid="uid://dw1gnx742jvfe" path="res://die_resources/die_side_resources/basic_dice/basic_sides/8_basic_side.tres" id="9_ic2el"]
+[ext_resource type="Texture2D" uid="uid://s0soxu5naf0f" path="res://modules/inventory/images/D8.png" id="10_scx5x"]
+
+[resource]
+script = ExtResource("1_2kfen")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_sfgo3"), ExtResource("3_x8oe1"), ExtResource("4_fpcgv"), ExtResource("5_hppgq"), ExtResource("6_t06pl"), ExtResource("7_syq6e"), ExtResource("8_m46ek"), ExtResource("9_ic2el")])
+texture = ExtResource("10_scx5x")
+name = "d8"
