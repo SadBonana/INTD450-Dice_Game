@@ -1,7 +1,7 @@
 extends Control
 
 ## Global variables
-@onready var slots: GridContainer = $GridContainer/Slots
+@onready var slots: HFlowContainer = $ScrollContainer/HFlowContainer
 var is_open = false
 var scene = preload("res://modules/inventory/diceinv/inv_frame.tscn")
 
@@ -25,7 +25,7 @@ func add_inv_dice() -> void:
 	var invframe
 	for die in PlayerData.dice_bag:
 		invframe = scene.instantiate()
-		slots.add_child(invframe)	# Adds scene as a child to slots, the GridContainer in Dicebag
+		slots.add_child(invframe)	# Adds scene as a child to slots, the HFlowContainer in Dicebag
 		invframe.update(die)		# Adds correct die texture to the scene
 		invframe.owner = get_tree().get_current_scene()
 
