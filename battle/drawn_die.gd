@@ -17,9 +17,9 @@ static func instantiate(node_path: String, parent: Node, _die: Die):
 	var scene = load(node_path).instantiate()
 	scene.die = _die
 	parent.add_child(scene)
-	var dieside = _die.roll()
-	scene.roll = dieside.value
-	
+	scene.dieside = _die.roll()
+	scene.roll = scene.dieside.value
+	scene.effect = scene.dieside.element.effect
 	return scene
 
 
@@ -28,6 +28,7 @@ var roll: int:
 		roll = value
 		roll_label.text = "%d" % roll	 # TODO: This doesn't tell you the kind of dice it is, juct the roll.
 var die: Die	# Could later be accessed to provide the player with die info and such
+var dieside : DieSide
 var selected_action: DieActions
 var target: BattleEnemy
 var effect: StatusEffect.EffectType
@@ -62,7 +63,7 @@ func _ready():
 				# TODO: Below 3 lines are temp stuff
 				var temp = await targeting_func.call()
 				if temp is Array:
-					effect = temp[1]
+					#effect = temp[1]
 					target = temp[0]
 				else:
 					target = temp

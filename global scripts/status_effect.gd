@@ -1,3 +1,5 @@
+extends Resource
+
 class_name StatusEffect
 
 enum EffectType {BASEEFFECT, PARALYSIS, AUTODEFENSE, IGNITED, POISONED}

@@ -1,12 +1,12 @@
 extends BaseElement
-class_name Fire
+class_name Lightning
 
 ## Constructor
 func _init():
-	element = ElementType.FIRE
+	element = ElementType.LIGHTNING
 	value = 2
-	effect = StatusEffect.EffectType.IGNITED
+	effect = StatusEffect.EffectType.PARALYSIS
 	
 ## String representation of the element
 func _to_string():
-	return "Fire"
+	return "Lightning"
