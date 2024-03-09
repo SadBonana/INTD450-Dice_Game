@@ -2,6 +2,7 @@ extends Control
 
 ## Global variables
 @onready var slots: HFlowContainer = $ScrollContainer/HFlowContainer
+@onready var scrollcon: ScrollContainer = $ScrollContainer
 var is_open = false
 var scene = preload("res://modules/inventory/diceinv/inv_frame.tscn")
 
@@ -18,6 +19,7 @@ func _process(delta):
 			close()
 		else:
 			open()
+			scrollcon.grab_focus()
 		
 
 ## Adds the neccessary slots and Die texture models into our scene
