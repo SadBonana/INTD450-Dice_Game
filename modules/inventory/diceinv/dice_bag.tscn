@@ -1,61 +1,53 @@
-[gd_scene load_steps=4 format=3 uid="uid://dh8djh65x4wfj"]
+[gd_scene load_steps=3 format=3 uid="uid://dh8djh65x4wfj"]
 
 [ext_resource type="Texture2D" uid="uid://df1y7wbs1ncc8" path="res://modules/inventory/images/inventory.png" id="1_omj54"]
 [ext_resource type="Script" path="res://modules/inventory/diceinv/dice_bag.gd" id="1_wqckx"]
-[ext_resource type="Script" path="res://modules/inventory/diceinv/ScrollContainer.gd" id="2_ccdpc"]
 
 [node name="DiceBag" type="Control"]
 layout_direction = 2
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -180.0
-offset_right = 320.0
-offset_bottom = 180.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wqckx")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-custom_minimum_size = Vector2(460, 280)
-layout_direction = 2
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -226.0
-offset_top = -140.0
-offset_right = 234.0
-offset_bottom = 140.0
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_scroll_mode = 0
-script = ExtResource("2_ccdpc")
-scrollspeed = 30
-
-[node name="HFlowContainer" type="HFlowContainer" parent="ScrollContainer"]
-custom_minimum_size = Vector2(420, 280)
-layout_mode = 2
-size_flags_horizontal = 6
-theme_override_constants/h_separation = 11
-theme_override_constants/v_separation = 11
 
 [node name="TextureRect" type="TextureRect" parent="."]
 show_behind_parent = true
 custom_minimum_size = Vector2(450, 310)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_omj54")
-expand_mode = 2
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_direction = 2
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 11
+theme_override_constants/v_separation = 11
+alignment = 1
