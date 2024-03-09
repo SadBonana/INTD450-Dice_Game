@@ -19,8 +19,10 @@ var element : ElementType
 ## The element's inherent value
 var value : int
 
-## The element's basic effect
+## The color associated with the die element
+var color : Color
 
+## The element's basic effect
 var effect : StatusEffect.EffectType
 		
 ## Mandatory to give each element its own string representation
