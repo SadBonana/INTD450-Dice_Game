@@ -161,6 +161,7 @@ func next(string_replacements = []):
 	# Configure textbox without choices
 	if not _current_beat.choices.size() > 0:
 		_set_choice_visibility(false)
+		Helpers.disconnect_if_connected(choices.item_activated, _on_choice_chosen)
 		textbox.gui_input.connect(_on_textbox_gui_input)
 		textbox.grab_focus()
 	
@@ -173,6 +174,7 @@ func next(string_replacements = []):
 		for choice in _current_beat.choices:
 			choices.add_item(choice)
 		
+		Helpers.disconnect_if_connected(textbox.gui_input, _on_textbox_gui_input)
 		# TODO: Find a way to allow activating a list item by single-clicking without breaking controller support
 		choices.item_activated.connect(_on_choice_chosen)
 		choices.grab_focus()

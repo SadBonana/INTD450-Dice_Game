@@ -69,8 +69,11 @@ func _ready():
 	# line of code
 	drawn_die_placeholder.hide()
 	
-	## This makes Inventory clicks execute the following function
-	inventory.frame_clicked.connect(show_die_sides)
+	# This makes Inventory clicks execute the show_sides function
+	# NOTE: you can also connect to this signal in the node tab of the inspector,
+	# same as with built in nodes. This way is less cluttered in this case tho.
+	inventory.frame_clicked.connect(inventory.show_sides)
+	
 	# uh oh, yuv been jumped m8!
 	await textbox_controller.quick_beat("battle start")
 	
@@ -91,6 +94,7 @@ func _ready():
 					get_tree().change_scene_to_file(loot_screen_path)
 	player.textbox = textbox_controller
 	player.on_defeat = func ():
+### ALERT FIXME: MAKE IT RESET PROGRESS AND GO TO THE START MENU INSTEAD OF CRASHING THE GAME !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			# this code will run when the player is defeated
 			await textbox_controller.quick_beat("game over")
 			await get_tree().create_timer(0.5).timeout
@@ -120,10 +124,6 @@ func _ready():
 		
 	draw_dice()
 
-## This function calls the inventory's own function to handle displaying
-## the specific die sides
-func show_die_sides(die : Die):
-	inventory.show_sides(die)
 
 ## Starts a turn.
 ##
@@ -222,7 +222,7 @@ func _on_ready_pressed():
 				# Actually yeah, that sounds more fun... 
 				if die.target in enemies:
 					
-					# TODO: Temp(?) status effect stuff. remove/revise
+					# TODO: Temp(?) status effect stuff. Yeet this in a function somewhere.
 					var do_damage := true
 					match die.effect:
 						StatusEffect.EffectType.PARALYSIS:
