@@ -97,16 +97,9 @@ func _ready():
 	
 	# This function will be called when the player selects an action that requires selecting an enemy
 	DrawnDie.targeting_func = func ():
-			# Temp stuff to let us pick a status effect to apply for testing
-			var effect_wrapper = []
-			await textbox_controller.quick_beat("temp pick effect", [],
-					func (from_beat: DialogueBeat, destination_beat: String, from_choice: int):
-						effect_wrapper.append(from_choice)
-			)
-			
 			# No need to select a target if there's only 1
 			if enemies.size() == 1:
-				return [enemies[0], effect_wrapper[0]]
+				return enemies[0]
 			
 			await textbox_controller.quick_beat("targeting instructions")
 			
@@ -121,7 +114,7 @@ func _ready():
 			for enemy in enemies:
 				enemy.toggle_target_mode(false, target_selected)
 			
-			return [target, effect_wrapper[0]]
+			return target
 		
 	draw_dice()
 

@@ -15,21 +15,23 @@ class_name DieSide
 ## The numerical value on this die side
 @export var value : int
 
-## The special effects on this die side
-@export var effects : Array[BaseEffect]
+## The special effects on this die side, besides the default element effect
+var extra_effects : Array[StatusEffect]
+# TODO: USE THIS IF YOU WANT EXTRA EFFECTS:
+#@export var extra_effects : Array[StatusEffect.EffectType]
 
 ## Constructor
 ## has default values:
 ## custom_power is false, make it true if you want to bypass the power_calc function
 ## power is calculated using power_calc func
-## element is Fire
+## element is Basic
 ## value is a random integer between 1 & 20
 ## effect is nothing
 func _init(_custom_power:bool=false,
 			_power:int=0,
-				_element:BaseElement=Fire.new(),
+				_element:BaseElement=Basic.new(),
 					_value:int=randi_range(1,20),
-						_effects:Array[BaseEffect]=[]):
+						_effects:Array[StatusEffect]=[]):
 			
 	self.custom_power = _custom_power
 	if(not self.custom_power):
@@ -39,7 +41,7 @@ func _init(_custom_power:bool=false,
 		
 	self.element = _element
 	self.value = _value
-	self.effects = _effects
+	self.extra_effects = _effects
 	
 
 ## calculates the power of a side
