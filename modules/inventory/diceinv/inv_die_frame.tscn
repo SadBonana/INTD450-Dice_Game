@@ -1,22 +1,22 @@
 [gd_scene load_steps=7 format=3 uid="uid://bg2qp6qtt275u"]
 
-[ext_resource type="StyleBox" uid="uid://4yw2o7hwnbad" path="res://modules/inventory/diceinv/styles/button_normal.tres" id="1_q87rj"]
-[ext_resource type="StyleBox" uid="uid://dmdsc25mx73h4" path="res://modules/inventory/diceinv/styles/button_hover.tres" id="2_htiq2"]
-[ext_resource type="StyleBox" uid="uid://7oktwnv5y50g" path="res://modules/inventory/diceinv/styles/button_pressed.tres" id="3_bxl1l"]
+[ext_resource type="StyleBox" uid="uid://4yw2o7hwnbad" path="res://modules/inventory/diceinv/styles/button_inv_normal.tres" id="1_7vsp5"]
+[ext_resource type="StyleBox" uid="uid://dmdsc25mx73h4" path="res://modules/inventory/diceinv/styles/button_inv_hover.tres" id="2_xocrc"]
+[ext_resource type="StyleBox" uid="uid://7oktwnv5y50g" path="res://modules/inventory/diceinv/styles/button_inv_pressed.tres" id="3_e1dpg"]
 [ext_resource type="Script" path="res://modules/inventory/diceinv/inv_die_frame.gd" id="4_icvaw"]
 [ext_resource type="Texture2D" uid="uid://dhwep34g76ta7" path="res://modules/inventory/images/D4.png" id="5_oy0a1"]
 [ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="6_nyi68"]
 
-[node name="Button2" type="Button"]
+[node name="Button" type="Button"]
 custom_minimum_size = Vector2(75, 75)
 offset_right = 75.0
 offset_bottom = 75.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
 focus_mode = 0
-theme_override_styles/normal = ExtResource("1_q87rj")
-theme_override_styles/hover = ExtResource("2_htiq2")
-theme_override_styles/pressed = ExtResource("3_bxl1l")
+theme_override_styles/normal = ExtResource("1_7vsp5")
+theme_override_styles/hover = ExtResource("2_xocrc")
+theme_override_styles/pressed = ExtResource("3_e1dpg")
 action_mode = 0
 script = ExtResource("4_icvaw")
 
