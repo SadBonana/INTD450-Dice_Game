@@ -1,8 +1,8 @@
 extends Control
 
 ## Global variables
-@onready var slots: HFlowContainer = $Scroll/Frames
-@onready var scroll: ScrollContainer = $Scroll
+@onready var slots: HFlowContainer = %HFlowContainer
+@onready var scroll: ScrollContainer = %ScrollContainer
 var is_open = false
 var is_side_view_open = false
 var scene = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")

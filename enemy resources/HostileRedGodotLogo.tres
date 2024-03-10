@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="BaseEnemy" load_steps=6 format=3 uid="uid://dxvj75cw3wclu"]
 
 [ext_resource type="Script" path="res://enemy resources/BaseEnemy.gd" id="1_44fdo"]
-[ext_resource type="Resource" uid="uid://dinkuhl73fnn" path="res://die_resources/die_side_resources/basic_dice/d3_basic.tres" id="1_amsab"]
+[ext_resource type="Resource" uid="uid://dinkuhl73fnn" path="res://die_resources/basic_dice/d3_basic.tres" id="1_amsab"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="2_lwaki"]
-[ext_resource type="Resource" uid="uid://dp2q4nnem8qg8" path="res://die_resources/die_side_resources/basic_dice/d4_basic.tres" id="2_qou56"]
-[ext_resource type="Resource" uid="uid://cd0ef5txxdjcq" path="res://die_resources/die_side_resources/basic_dice/d6_basic.tres" id="3_4i3wk"]
+[ext_resource type="Resource" uid="uid://dp2q4nnem8qg8" path="res://die_resources/basic_dice/d4_basic.tres" id="2_qou56"]
+[ext_resource type="Resource" uid="uid://cd0ef5txxdjcq" path="res://die_resources/basic_dice/d6_basic.tres" id="3_4i3wk"]
 
 [resource]
 script = ExtResource("1_44fdo")

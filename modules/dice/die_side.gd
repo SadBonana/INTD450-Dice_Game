@@ -17,6 +17,8 @@ class_name DieSide
 
 ## The special effects on this die side, besides the default element effect
 var extra_effects : Array[StatusEffect]
+# TODO: USE THIS IF YOU WANT EXTRA EFFECTS:
+#@export var extra_effects : Array[StatusEffect.EffectType]
 
 ## Constructor
 ## has default values:
