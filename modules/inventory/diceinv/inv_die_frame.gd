@@ -1,9 +1,10 @@
 extends Button
+class_name InvDieFrame
 
 ## Assigning variables when Scene is created
 @onready var button: Button = $'.'
-@onready var die_visual: TextureRect = $MarginContainer/die_display
-@onready var die_type: Label = $Label
+@onready var die_visual: TextureRect = %die_display
+@onready var die_type: Label = %Label
 @onready var die_ref: Die
 signal die_clicked(die : Die)
 

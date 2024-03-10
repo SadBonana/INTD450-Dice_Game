@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuaew3jle1avs"]
+
+[ext_resource type="PackedScene" uid="uid://bg2qp6qtt275u" path="res://modules/inventory/diceinv/inv_die_frame.tscn" id="1_sd3bl"]
+[ext_resource type="Script" path="res://battle/drawn_die/drawn_die.gd" id="2_xa0sa"]
+
+[node name="Button" instance=ExtResource("1_sd3bl")]
+toggle_mode = true
+script = ExtResource("2_xa0sa")
+
+[connection signal="toggled" from="." to="." method="_on_toggled"]

@@ -35,7 +35,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5jfo4")
-drawn_die_path = "res://battle/drawn_die/drawn_die.tscn"
+drawn_die_path = "res://battle/drawn_die.tscn"
 map_path = "res://map/map.tscn"
 loot_screen_path = "res://battle/battle_item_drop.tscn"
 encounter_res = ExtResource("2_6ad1h")
@@ -93,8 +93,8 @@ focus_neighbor_right = NodePath("../Battle Enemy2")
 focus_neighbor_bottom = NodePath("../Battle Enemy2")
 focus_next = NodePath("../Battle Enemy2")
 focus_previous = NodePath("../Battle Enemy3")
-status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 res = ExtResource("2_yokuy")
+status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
 [node name="Battle Enemy2" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
@@ -105,8 +105,8 @@ focus_neighbor_right = NodePath("../Battle Enemy3")
 focus_neighbor_bottom = NodePath("../Battle Enemy3")
 focus_next = NodePath("../Battle Enemy3")
 focus_previous = NodePath("../Battle Enemy")
-status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 res = ExtResource("2_yokuy")
+status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
 [node name="Battle Enemy3" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
@@ -117,8 +117,8 @@ focus_neighbor_right = NodePath("../Battle Enemy")
 focus_neighbor_bottom = NodePath("../Battle Enemy")
 focus_next = NodePath("../Battle Enemy")
 focus_previous = NodePath("../Battle Enemy2")
-status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 res = ExtResource("2_yokuy")
+status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
 [node name="PlayerPanel" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
