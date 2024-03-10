@@ -35,7 +35,7 @@ var defeated_enemies = []
 @onready var drawn_die_placeholder := %"Die Action Menu"
 @onready var drawn_die_container := %"Hand of Dice"
 @onready var action_menu := %"Player Action Menu"
-
+@onready var inventory := %"DiceBag"
 @onready var player := %"Battle Player"
 
 
@@ -69,6 +69,8 @@ func _ready():
 	# line of code
 	drawn_die_placeholder.hide()
 	
+	## This makes Inventory clicks execute the following function
+	inventory.die_clicked.connect(show_die_sides)
 	# uh oh, yuv been jumped m8!
 	await textbox_controller.quick_beat("battle start")
 	
@@ -118,6 +120,10 @@ func _ready():
 		
 	draw_dice()
 
+## This function calls the inventory's own function to handle displaying
+## the specific die sides
+func show_die_sides(die : Die):
+	inventory.show_sides(die)
 
 ## Starts a turn.
 ##

@@ -1,21 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3k3ibm1acab5"]
+[gd_scene load_steps=7 format=3 uid="uid://c3k3ibm1acab5"]
 
 [ext_resource type="Script" path="res://modules/inventory/diceinv/inv_frame.gd" id="1_kkp0t"]
-[ext_resource type="Texture2D" uid="uid://dwhspmj5if0et" path="res://modules/inventory/images/frame.png" id="1_nofps"]
+[ext_resource type="StyleBox" uid="uid://4yw2o7hwnbad" path="res://modules/inventory/diceinv/styles/button_normal.tres" id="1_ktb52"]
+[ext_resource type="StyleBox" uid="uid://dmdsc25mx73h4" path="res://modules/inventory/diceinv/styles/button_hover.tres" id="2_yot7x"]
+[ext_resource type="StyleBox" uid="uid://7oktwnv5y50g" path="res://modules/inventory/diceinv/styles/button_pressed.tres" id="3_1hm2d"]
 [ext_resource type="Texture2D" uid="uid://dhwep34g76ta7" path="res://modules/inventory/images/D4.png" id="3_tsr8w"]
 [ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="4_jbqmt"]
 
-[node name="InvFrame" type="Panel"]
-self_modulate = Color(1, 1, 1, 0)
+[node name="Button" type="Button"]
 custom_minimum_size = Vector2(75, 75)
 offset_right = 75.0
 offset_bottom = 75.0
+focus_mode = 0
+theme_override_styles/normal = ExtResource("1_ktb52")
+theme_override_styles/hover = ExtResource("2_yot7x")
+theme_override_styles/pressed = ExtResource("3_1hm2d")
+action_mode = 0
 script = ExtResource("1_kkp0t")
-
-[node name="Sprite2D" type="TextureRect" parent="."]
-layout_mode = 0
-scale = Vector2(0.188, 0.188)
-texture = ExtResource("1_nofps")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
