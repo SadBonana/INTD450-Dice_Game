@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Die" load_steps=3 format=3 uid="uid://rxfggdisd0j2"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_xp1dm"]
+[ext_resource type="Resource" uid="uid://dycvmhjbthgda" path="res://resources/DieSide.tres" id="2_gr2eu"]
+
+[resource]
+script = ExtResource("1_xp1dm")
+num_sides = 5
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_gr2eu")])

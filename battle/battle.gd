@@ -28,6 +28,7 @@ signal target_selected(target)
 # File paths for scene changes and sub-scene instantiations.
 @export_file("*.tscn") var drawn_die_path
 @export_file("*.tscn") var map_path
+@export_file("*.tscn") var loot_screen_path
 
 # Enemy
 # If given an EncounterTable, will randomly choose a BaseEncounter based on the difficulty setting.
@@ -52,7 +53,7 @@ var defeated_enemies = []
 @onready var drawn_die_placeholder := %"Die Action Menu"
 @onready var drawn_die_container := %"Hand of Dice"
 @onready var action_menu := %"Player Action Menu"
-
+@onready var inventory := %"DiceBag"
 @onready var player := %"Battle Player"
 
 
@@ -86,6 +87,11 @@ func _ready():
 	# line of code
 	drawn_die_placeholder.hide()
 	
+	# This makes Inventory clicks execute the show_sides function
+	# NOTE: you can also connect to this signal in the node tab of the inspector,
+	# same as with built in nodes. This way is less cluttered in this case tho.
+	inventory.frame_clicked.connect(inventory.show_sides)
+	
 	# uh oh, yuv been jumped m8!
 	await textbox_controller.quick_beat("battle start")
 	
@@ -103,9 +109,10 @@ func _ready():
 					enemies.erase(enemy)
 				if enemies.size() == 0:
 					await textbox_controller.next()
-					get_tree().change_scene_to_file(map_path)
+					get_tree().change_scene_to_file(loot_screen_path)
 	player.textbox = textbox_controller
 	player.on_defeat = func ():
+### ALERT FIXME: MAKE IT RESET PROGRESS AND GO TO THE START MENU INSTEAD OF CRASHING THE GAME !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			# this code will run when the player is defeated
 			await textbox_controller.quick_beat("game over")
 			await get_tree().create_timer(0.5).timeout
@@ -114,16 +121,9 @@ func _ready():
 	
 	# This function will be called when the player selects an action that requires selecting an enemy
 	DrawnDie.targeting_func = func ():
-			# Temp stuff to let us pick a status effect to apply for testing
-			var effect_wrapper = []
-			await textbox_controller.quick_beat("temp pick effect", [],
-					func (from_beat: DialogueBeat, destination_beat: String, from_choice: int):
-						effect_wrapper.append(from_choice)
-			)
-			
 			# No need to select a target if there's only 1
 			if enemies.size() == 1:
-				return [enemies[0], effect_wrapper[0]]
+				return enemies[0]
 			
 			await textbox_controller.quick_beat("targeting instructions")
 			
@@ -138,7 +138,7 @@ func _ready():
 			for enemy in enemies:
 				enemy.toggle_target_mode(false, target_selected)
 			
-			return [target, effect_wrapper[0]]
+			return target
 		
 	draw_dice()
 
@@ -240,7 +240,7 @@ func _on_ready_pressed():
 				# Actually yeah, that sounds more fun... 
 				if die.target in enemies:
 					
-					# TODO: Temp(?) status effect stuff. remove/revise
+					# TODO: Temp(?) status effect stuff. Yeet this in a function somewhere.
 					var do_damage := true
 					match die.effect:
 						StatusEffect.EffectType.PARALYSIS:

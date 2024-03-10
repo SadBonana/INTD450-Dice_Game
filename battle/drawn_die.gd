@@ -17,24 +17,26 @@ static func instantiate(node_path: String, parent: Node, _die: Die):
 	var scene = load(node_path).instantiate()
 	scene.die = _die
 	parent.add_child(scene)
-	scene.roll = _die.roll()
-	
+	scene.dieside = _die.roll()
+	scene.roll = scene.dieside.value
+	scene.effect = scene.dieside.element.effect
+	scene.die_sprite.set_self_modulate(scene.dieside.element.color)
 	return scene
-
 
 var roll: int:
 	set (value):
 		roll = value
 		roll_label.text = "%d" % roll	 # TODO: This doesn't tell you the kind of dice it is, juct the roll.
 var die: Die	# Could later be accessed to provide the player with die info and such
+var dieside : DieSide
 var selected_action: DieActions
 var target: BattleEnemy
 var effect: StatusEffect.EffectType
 var item_selected = false
 
-
 @onready var action_menu := %"Die Actions"
 @onready var roll_label := %Roll
+@onready var die_sprite = $"Die Sprite"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -57,14 +59,10 @@ func _ready():
 			# TODO: press esc to cancel targeting
 			action_menu.hide()
 			
+			
 			if index == DieActions.ATTACK:
 				# TODO: Below 3 lines are temp stuff
-				var temp = await targeting_func.call()
-				if temp is Array:
-					effect = temp[1]
-					target = temp[0]
-				else:
-					target = temp
+				target = await targeting_func.call()
 				
 			# TODO: Rather than reroll, implement dice drafting
 			
