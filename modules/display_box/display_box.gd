@@ -5,9 +5,11 @@ extends Control
 @onready var scroll: ScrollContainer = $Scroll
 var is_open = false
 var is_side_view_open = false
-var scene = preload("res://modules/inventory/diceinv/inv_frame.tscn")
-var side_scene = preload("res://modules/dice/inv_die_side.tscn")
-signal die_clicked(die : Die)
+var scene = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
+var side_scene = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
+## If your frame is returning something and you want to
+## forward it/use it in the parent scene, use this signal
+signal frame_clicked(frame) 
 
 ## Initializes our scene
 func _ready():
@@ -39,12 +41,13 @@ func show_dice() -> void:
 		invframe = scene.instantiate()
 		slots.add_child(invframe)	# Adds scene as a child to slots, the HFlowContainer in Dicebag
 		invframe.update(die)		# Adds correct die texture to the scene
-		invframe.die_clicked.connect(die_return)
+		invframe.die_clicked.connect(return_content)	# Emits a 
 		invframe.owner = get_tree().get_current_scene()
 
-## When die is pressed emit signal with die
-func die_return(die : Die):
-	die_clicked.emit(die)
+## When we want to use the info that a frame emitted from its signal
+## We may catch and reemit it up 
+func return_content(content):
+	frame_clicked.emit(content)
 	
 ## This function displays a specific die's sides
 func show_sides(die : Die):

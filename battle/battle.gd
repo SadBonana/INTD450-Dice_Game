@@ -70,7 +70,7 @@ func _ready():
 	drawn_die_placeholder.hide()
 	
 	## This makes Inventory clicks execute the following function
-	inventory.die_clicked.connect(show_die_sides)
+	inventory.frame_clicked.connect(show_die_sides)
 	# uh oh, yuv been jumped m8!
 	await textbox_controller.quick_beat("battle start")
 	
