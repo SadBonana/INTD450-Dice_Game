@@ -23,7 +23,6 @@ static func instantiate(node_path: String, parent: Node, _die: Die):
 	scene.die_sprite.set_self_modulate(scene.dieside.element.color)
 	return scene
 
-
 var roll: int:
 	set (value):
 		roll = value
