@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Intd 450-dice Game"
-run/main_scene="res://map/map.tscn"
+run/main_scene="res://map/map_old.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 SaveSettings="*res://Menus/save_settings.gd"
 GlobalSettings="*res://Menus/global_settings.gd"
 NodeType="*res://map/NodeType.gd"
-Map="*res://map/map.tscn"
+Map="*res://map/map_old.tscn"
 MapNew="*res://map/map_new.tscn"
 
 [display]

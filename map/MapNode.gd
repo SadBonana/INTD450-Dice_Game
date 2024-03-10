@@ -60,10 +60,10 @@ func get_dest() -> String:
 #set the parents of this node
 func set_parents(_parents:Array[MapNode]=[]) -> void:
 	for parent in _parents:
-		add_parent(parent)
+		set_parent(parent)
 
 #add a single parent for this node
-func add_parent(parent:MapNode) -> void:
+func set_parent(parent:MapNode) -> void:
 	if parent != null:
 		self.parents.append(parent)
 
@@ -87,6 +87,5 @@ func _pressed():
 	self.disabled = true
 	for child in children:
 		child.disabled = false
-	
 	get_tree().change_scene_to_file(dest_path)
 	

@@ -7,4 +7,5 @@ enum NodeType {
 	CAMPFIRE, 
 	TREASURE, 
 	WORKSHOP, 
-	BOSS}
+	BOSS
+	}
