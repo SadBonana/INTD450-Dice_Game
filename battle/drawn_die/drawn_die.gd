@@ -48,6 +48,7 @@ var die: Die:
 			assert(false, "attempt to directly set die of a DrawnDie object. Set the data instead")
 		get:
 			return die_ref
+var is_toggled: bool
 
 
 ## Loads, attaches to parent, and initializes required parameters all in one go.
@@ -61,6 +62,7 @@ static func instantiate(node_path: String, parent: Node, _die: Die, battle_conte
 
 ## called when the player selects a die in their hand. allows player to target actors.
 func _on_toggled(toggled_on):
+	is_toggled = toggled_on
 	if toggled_on:
 		make_focused_pressed()
 		var targets = data.battle.enemies.duplicate()
@@ -85,7 +87,17 @@ func _on_toggled(toggled_on):
 		# Clean up once targeting is finished
 		for option in targets:
 			option.toggle_target_mode(false, data.battle.target_selected)
-			
+		
+		# After targeting is finished, focus on the next thing the player is likely to want to be in focus.
+		var found_next_focus_item = false
+		for i in range(data.battle.player.dice_hand.size()):
+			if not data.battle.player.dice_hand[i].is_toggled:
+				found_next_focus_item = true
+				data.battle.player.dice_hand[i].grab_focus()
+				break
+		if not found_next_focus_item:
+			data.battle.ready_button.grab_focus()
+
 
 ## A function that changes the style box of the drawn_die
 ## in order to make it clear what die is currently selected

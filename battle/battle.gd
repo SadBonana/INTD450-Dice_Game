@@ -38,6 +38,7 @@ var defeated_enemies = []
 @onready var action_menu := %"Player Action Menu"
 @onready var inventory := %"DiceBag"
 @onready var player := %"Battle Player"
+@onready var ready_button := %Ready
 
 
 func _enter_tree():
@@ -149,6 +150,11 @@ func draw_dice():
 	for effect in player.status_effects.duplicate():
 		await effect.invoke()
 	player.update_status_effects()
+	
+	if player.dice_hand.size() > 0:
+		player.dice_hand[0].grab_focus()
+	else:
+		ready_button.grab_focus()
 	
 	# MAYBE TODO: change the name of this func to start_turn() or something, then await ready_pressed or whatever, then call enemy turn. might make things clearer.
 		# could potentially take most of the logic out of _on_ready_pressed and put it in a player_turn() function, whcih gets called here after ready gets pressed.
