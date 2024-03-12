@@ -27,7 +27,7 @@ var end
 #map data
 var map_width = 6
 var map_height = 8
-var map_array = range(map_width*map_height + 1)
+var map_array = range(map_width*map_height)
 var connections = []
 var positions = []
 
@@ -61,7 +61,8 @@ func _init():
 	assert(path_starts.size() != 0)
 	
 	for start in path_starts: #creating each path
-		add_connection(root.position,map_array[start])
+		var start_index = pos_to_index((start.x - margin) / tile_size,(start.y - margin) / tile_size)
+		add_connection(root.position,map_array[start_index])
 		generate(start,1)
 	
 	end = MapNode.new()
@@ -79,7 +80,7 @@ func pos_to_index(row:int,col:int) -> int:
 	#var x = pos_to_width(col)
 	#var y = pos_to_depth(row)
 	#return x + map_width*y
-	return col + map_width*row + 1
+	return col + map_width*row
 
 func pos_to_depth(y:int) -> int:
 	return (y - margin) / tile_size
@@ -108,7 +109,7 @@ func select_starts():
 		var start_index = randi_range(0,possible_starts.size()-1)
 		var start = possible_starts.pop_at(start_index)
 		#positions.append(start)
-		var index = pos_to_index(start.y,start.x)
+		var index = pos_to_index((start.x - margin) / tile_size,(start.y - margin) / tile_size)
 		positions[index] = 1
 		starts.append(start)
 	return starts
@@ -210,24 +211,35 @@ func generate(prev:Vector2, depth:int):
 	var p2 = Vector2(prev.x, prev.y + tile_size)
 	var p3 = Vector2(prev.x + tile_size, prev.y + tile_size)
 	
-	if (p1.x > 0 + margin and p1.x < screen_width - margin and 
-			p1.y > 0 + margin and p1.y < screen_height - margin):
+	var grid_width = [ 0 + margin ,map_width * tile_size ]
+	var grid_height = [0 + margin, map_height * tile_size]
+	
+	#if (p1.x > 0 + margin and p1.x < screen_width - margin and 
+	#		p1.y > 0 + margin and p1.y < screen_height - margin):
+	if (p1.x > grid_width[0] and p1.x < grid_width[1] and
+			p1.y > grid_height[0] and p1.y < grid_height[1]):
 		children.append(p1)
 		
-	if (p2.x > 0 + margin and p2.x < screen_width - margin and 
-			p2.y > 0 + margin and p2.y < screen_height - margin):
+	#if (p2.x > 0 + margin and p2.x < screen_width - margin and 
+	#		p2.y > 0 + margin and p2.y < screen_height - margin):
+	if (p2.x > grid_width[0] and p2.x < grid_width[1] and
+			p2.y > grid_height[0] and p2.y < grid_height[1]):
 		children.append(p2)
 		
-	if (p3.x > 0 + margin and p3.x < screen_width - margin and 
-			p3.y > 0 + margin and p3.y < screen_height - margin):
+	#if (p3.x > 0 + margin and p3.x < screen_width - margin and 
+	#		p3.y > 0 + margin and p3.y < screen_height - margin):
+	if (p3.x > grid_width[0] and p3.x < grid_width[1] and
+			p3.y > grid_height[0] and p3.y < grid_height[1]):
 		children.append(p3)
 		
 	var paths = randi_range(1,children.size())
 	for path in paths:
-		var child_index = randi_range(0,paths-1)
+		var child_index = randi_range(0,children.size()-1)
 		var child = children.pop_at(child_index)
 		#positions.append(child)
-		var index = pos_to_index(child.y,child.x)
+		if not child:
+			return
+		var index = pos_to_index((child.x - margin) / tile_size,(child.y - margin) / tile_size)
 		positions[index] = 1
 		
 		#var connection = [prev,child]

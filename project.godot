@@ -20,13 +20,7 @@ config/icon="res://icon.svg"
 SaveSettings="*res://Menus/save_settings.gd"
 GlobalSettings="*res://Menus/global_settings.gd"
 NodeType="*res://map/NodeType.gd"
-Map="*res://map/map_old.tscn"
-MapNew="*res://map/map_new.tscn"
-
-[autoload]
-
-SaveSettings="*res://Menus/save_settings.gd"
-GlobalSettings="*res://Menus/global_settings.gd"
+Map="*res://map/map.tscn"
 
 [display]
 

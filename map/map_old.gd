@@ -93,6 +93,7 @@ func process(id, dest=null):
 func _ready():
 	#map_data = map_data_load.new()
 	#map_data = ResourceLoader.load("user://map/map_resource.tres")
+	return #killing this script from running
 	map_load()
 	print(map_data.completion) #check save state
 	var path1 = "PanelContainer/MarginContainer/VBoxContainer/"
