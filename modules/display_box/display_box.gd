@@ -3,6 +3,7 @@ extends Control
 ## Global variables
 @onready var slots: HFlowContainer = %HFlowContainer
 @onready var scroll: ScrollContainer = %ScrollContainer
+@onready var dtab: TabContainer = %TabContainer
 var is_open = false
 var is_side_view_open = false
 var scene = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
@@ -32,10 +33,13 @@ func _process(delta):
 			show_dice()
 		elif is_open:
 			close()
+			
+func _create_tab(tab_object)
 
 ## Adds the neccessary slots and Die texture models into our scene
-func show_dice() -> void:
+func show_frames(frames : Array,) -> void:
 	wipe()
+	dtab.set_tab_title(0,"Dice")
 	var invframe
 	for die in PlayerData.dice_bag:
 		invframe = scene.instantiate()
@@ -52,6 +56,7 @@ func return_content(content):
 ## This function displays a specific die's sides
 func show_sides(die : Die):
 	wipe()
+	dtab.set_tab_title(0,"Sides")
 	is_side_view_open = true
 	var invside
 	for side in die.sides:
@@ -70,10 +75,13 @@ func open():
 func close():
 	visible = false
 	is_open = false
-	
+
+## Clear current dice/sides being shown
 func wipe():
 	for child in slots.get_children():
 		slots.remove_child(child)
+		
+## 
 		
 
 			

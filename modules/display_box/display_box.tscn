@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dh8djh65x4wfj"]
+[gd_scene load_steps=8 format=3 uid="uid://dh8djh65x4wfj"]
 
-[ext_resource type="Texture2D" uid="uid://df1y7wbs1ncc8" path="res://modules/inventory/images/inventory.png" id="1_omj54"]
 [ext_resource type="Script" path="res://modules/display_box/display_box.gd" id="1_wqckx"]
+[ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="3_5innm"]
+[ext_resource type="StyleBox" uid="uid://ds7whts5qhh8c" path="res://modules/display_box/styles/display_box.tres" id="3_hx48s"]
+[ext_resource type="StyleBox" uid="uid://bjgb7uajeki8y" path="res://modules/display_box/styles/tab_selected.tres" id="3_r7vbc"]
+[ext_resource type="StyleBox" uid="uid://brgndhav25fw2" path="res://modules/display_box/styles/tab_hovered.tres" id="4_6b4pv"]
+[ext_resource type="StyleBox" uid="uid://cy44octlcoag8" path="res://modules/display_box/styles/tab_unselected.tres" id="4_418ug"]
+[ext_resource type="PackedScene" uid="uid://deg2v4nbm6ggt" path="res://modules/display_box/tabs/inv_frame_tab_display.tscn" id="7_c3o5a"]
 
 [node name="Display" type="Control"]
 layout_direction = 2
@@ -13,41 +18,28 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wqckx")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-show_behind_parent = true
-custom_minimum_size = Vector2(450, 310)
+[node name="TabContainer" type="TabContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -160.0
+offset_right = 300.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_omj54")
-expand_mode = 1
+theme_override_constants/side_margin = 32
+theme_override_fonts/font = ExtResource("3_5innm")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/tab_selected = ExtResource("3_r7vbc")
+theme_override_styles/tab_hovered = ExtResource("4_6b4pv")
+theme_override_styles/tab_unselected = ExtResource("4_418ug")
+theme_override_styles/panel = ExtResource("3_hx48s")
+tab_focus_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
-unique_name_in_owner = true
-layout_direction = 2
+[node name="Dice" parent="TabContainer" instance=ExtResource("7_c3o5a")]
 layout_mode = 2
-horizontal_scroll_mode = 0
-
-[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer/ScrollContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/h_separation = 11
-theme_override_constants/v_separation = 11
-alignment = 1

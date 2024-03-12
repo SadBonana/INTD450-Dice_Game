@@ -36,7 +36,7 @@ var defeated_enemies = []
 @onready var drawn_die_placeholder := %"Die Action Menu"
 @onready var drawn_die_container := %"Hand of Dice"
 @onready var action_menu := %"Player Action Menu"
-@onready var inventory := %"DiceBag"
+@onready var inventory := %"Inventory"
 @onready var player := %"Battle Player"
 
 
