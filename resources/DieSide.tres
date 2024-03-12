@@ -1,11 +1,7 @@
-[gd_resource type="Resource" script_class="DieSide" load_steps=6 format=3 uid="uid://dycvmhjbthgda"]
+[gd_resource type="Resource" script_class="DieSide" load_steps=4 format=3 uid="uid://dycvmhjbthgda"]
 
-[ext_resource type="Script" path="res://modules/elements/fire_element.gd" id="1_36mto"]
-[ext_resource type="Script" path="res://modules/effects/effect_base.gd" id="1_cjtpp"]
+[ext_resource type="Script" path="res://modules/elements/poison_element.gd" id="1_36mto"]
 [ext_resource type="Script" path="res://modules/dice/die_side.gd" id="2_x76oc"]
-
-[sub_resource type="Resource" id="Resource_ii4n1"]
-script = ExtResource("1_cjtpp")
 
 [sub_resource type="Resource" id="Resource_j20vc"]
 script = ExtResource("1_36mto")
@@ -16,4 +12,3 @@ power = 1234
 custom_power = true
 element = SubResource("Resource_j20vc")
 value = 8
-effects = Array[ExtResource("1_cjtpp")]([SubResource("Resource_ii4n1")])

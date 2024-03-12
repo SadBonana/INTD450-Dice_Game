@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DieSide" load_steps=4 format=3 uid="uid://brvub4t7vtfam"]
+
+[ext_resource type="Script" path="res://modules/elements/basic_element.gd" id="1_plc32"]
+[ext_resource type="Script" path="res://modules/dice/die_side.gd" id="2_eeffp"]
+
+[sub_resource type="Resource" id="Resource_c4eab"]
+script = ExtResource("1_plc32")
+
+[resource]
+script = ExtResource("2_eeffp")
+power = 0
+custom_power = false
+element = SubResource("Resource_c4eab")
+value = 11

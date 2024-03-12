@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Die" load_steps=23 format=3 uid="uid://bewbkj0wirwea"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_e238t"]
+[ext_resource type="Resource" uid="uid://fnj6cjl02yjk" path="res://die_resources/basic_dice/basic_sides/1_basic_side.tres" id="2_ih5wk"]
+[ext_resource type="Resource" uid="uid://bqx5d8v76pabp" path="res://die_resources/basic_dice/basic_sides/2_basic_side.tres" id="3_yedxa"]
+[ext_resource type="Resource" uid="uid://dcukumvqqyc2x" path="res://die_resources/basic_dice/basic_sides/3_basic_side.tres" id="4_mcj8a"]
+[ext_resource type="Resource" uid="uid://qeeome5drtma" path="res://die_resources/basic_dice/basic_sides/4_basic_side.tres" id="5_36wpn"]
+[ext_resource type="Resource" uid="uid://bv8ogi6g6lcwb" path="res://die_resources/basic_dice/basic_sides/5_basic_side.tres" id="6_rkx6h"]
+[ext_resource type="Resource" uid="uid://ltn6e15ghi3j" path="res://die_resources/basic_dice/basic_sides/6_basic_side.tres" id="7_7tmcc"]
+[ext_resource type="Resource" uid="uid://cono8cryv20rv" path="res://die_resources/basic_dice/basic_sides/7_basic_side.tres" id="8_xtap3"]
+[ext_resource type="Resource" uid="uid://dw1gnx742jvfe" path="res://die_resources/basic_dice/basic_sides/8_basic_side.tres" id="9_y4qjs"]
+[ext_resource type="Resource" uid="uid://c1pe3lp4v2aoh" path="res://die_resources/basic_dice/basic_sides/9_basic_side.tres" id="10_61xo7"]
+[ext_resource type="Resource" uid="uid://blngfgoy7ao8i" path="res://die_resources/basic_dice/basic_sides/10_basic_side.tres" id="11_0sxd5"]
+[ext_resource type="Resource" uid="uid://brvub4t7vtfam" path="res://die_resources/basic_dice/basic_sides/11_basic_side.tres" id="12_awuqt"]
+[ext_resource type="Resource" uid="uid://s2rerngyd2ao" path="res://die_resources/basic_dice/basic_sides/12_basic_side.tres" id="13_fte4g"]
+[ext_resource type="Resource" uid="uid://bdpqurdevuffp" path="res://die_resources/basic_dice/basic_sides/13_basic_side.tres" id="14_mu3mp"]
+[ext_resource type="Resource" uid="uid://b7mpqowt1looi" path="res://die_resources/basic_dice/basic_sides/14_basic_side.tres" id="15_d77qu"]
+[ext_resource type="Resource" uid="uid://dweyvocglw8mr" path="res://die_resources/basic_dice/basic_sides/15_basic_side.tres" id="16_cm3dt"]
+[ext_resource type="Resource" uid="uid://dp214j384ciwr" path="res://die_resources/basic_dice/basic_sides/16_basic_side.tres" id="17_5hml6"]
+[ext_resource type="Resource" uid="uid://bs2vchgsrxj3r" path="res://die_resources/basic_dice/basic_sides/17_basic_side.tres" id="18_2rr3n"]
+[ext_resource type="Resource" uid="uid://c4g7n5yyr5nur" path="res://die_resources/basic_dice/basic_sides/18_basic_side.tres" id="19_rssne"]
+[ext_resource type="Resource" uid="uid://b34xlcrplag3u" path="res://die_resources/basic_dice/basic_sides/19_basic_side.tres" id="20_0bnfy"]
+[ext_resource type="Resource" uid="uid://vj7klh4x82xe" path="res://die_resources/basic_dice/basic_sides/20_basic_side.tres" id="21_bbsok"]
+[ext_resource type="Texture2D" uid="uid://nbxxq246bq4t" path="res://modules/inventory/images/D20.png" id="22_qxevg"]
+
+[resource]
+script = ExtResource("1_e238t")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_ih5wk"), ExtResource("3_yedxa"), ExtResource("4_mcj8a"), ExtResource("5_36wpn"), ExtResource("6_rkx6h"), ExtResource("7_7tmcc"), ExtResource("8_xtap3"), ExtResource("9_y4qjs"), ExtResource("10_61xo7"), ExtResource("11_0sxd5"), ExtResource("12_awuqt"), ExtResource("13_fte4g"), ExtResource("14_mu3mp"), ExtResource("15_d77qu"), ExtResource("16_cm3dt"), ExtResource("17_5hml6"), ExtResource("18_2rr3n"), ExtResource("19_rssne"), ExtResource("20_0bnfy"), ExtResource("21_bbsok")])
+texture = ExtResource("22_qxevg")
+name = "d20"

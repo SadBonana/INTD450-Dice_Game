@@ -19,12 +19,11 @@ var element : ElementType
 ## The element's inherent value
 var value : int
 
-## Every element has a an effect that must be applied.
-## Have your class implement this function.
-func apply_element_effect():
-	assert(false,
-		"UNIMPLEMENTED ERROR: apply_element_effect()\n
-		 PLEASE IMPLEMENT THIS FUNCTION TO YOUR CLASS")
+## The color associated with the die element
+var color : Color
+
+## The element's basic effect
+var effect : StatusEffect.EffectType
 		
 ## Mandatory to give each element its own string representation
 ## Override this in your class
