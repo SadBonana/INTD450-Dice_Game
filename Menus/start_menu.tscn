@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddvb8gwrblohv"]
+[gd_scene load_steps=6 format=3 uid="uid://ddvb8gwrblohv"]
 
-[ext_resource type="Script" path="res://menus/start_menu.gd" id="1_fsp0p"]
 [ext_resource type="PackedScene" uid="uid://dmaf74odgy7v6" path="res://menus/start_button.tscn" id="2_v1kad"]
 [ext_resource type="PackedScene" uid="uid://djhlg0x1wvmi" path="res://menus/controls_button.tscn" id="3_abhdu"]
 [ext_resource type="PackedScene" uid="uid://c3ardwyvsttr1" path="res://menus/fps_label.tscn" id="3_smo4h"]
@@ -16,7 +15,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("1_fsp0p")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
