@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dby8hjc3eqgkj"]
+[gd_scene load_steps=4 format=3 uid="uid://dby8hjc3eqgkj"]
 
 [ext_resource type="Script" path="res://menus/controls_menu.gd" id="1_g4vo7"]
-[ext_resource type="PackedScene" path="res://Menus/quit_button.tscn" id="2_7kese"]
+[ext_resource type="PackedScene" uid="uid://c8y350efda5hk" path="res://Menus/quit_button.tscn" id="2_7kese"]
+[ext_resource type="PackedScene" uid="uid://dw45jdegirn73" path="res://menus/back_to_start_menu_button.tscn" id="2_ret1g"]
 
 [node name="controls_menu" type="Control"]
 layout_mode = 3
@@ -29,9 +30,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -103.0
-offset_top = -128.5
+offset_top = -69.5
 offset_right = 103.0
-offset_bottom = 128.5
+offset_bottom = 69.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
@@ -45,14 +46,8 @@ text = "Controls"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="back_button" type="Button" parent="VBoxContainer"]
+[node name="back_to_start_menu_button" parent="VBoxContainer" instance=ExtResource("2_ret1g")]
 layout_mode = 2
-theme_override_colors/font_pressed_color = Color(1, 0.263137, 0.293668, 1)
-theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
-theme_override_font_sizes/font_size = 50
-text = "Back"
 
 [node name="quit_button" parent="VBoxContainer" instance=ExtResource("2_7kese")]
 layout_mode = 2
-
-[connection signal="pressed" from="VBoxContainer/back_button" to="." method="_on_back_button_pressed"]

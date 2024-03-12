@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dulueip5bvc88"]
+[gd_scene load_steps=7 format=3 uid="uid://ddvb8gwrblohv"]
 
 [ext_resource type="Script" path="res://menus/start_menu.gd" id="1_fsp0p"]
 [ext_resource type="PackedScene" uid="uid://dmaf74odgy7v6" path="res://menus/start_button.tscn" id="2_v1kad"]
@@ -70,6 +70,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="fps_label" parent="PanelContainer/MarginContainer" instance=ExtResource("3_smo4h")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
