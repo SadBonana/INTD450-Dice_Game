@@ -1,7 +1,7 @@
 extends Node
 
 enum NodeType {
-	ERROR, 
+	ERROR = -1, 
 	START, 
 	BATTLE, 
 	CAMPFIRE, 

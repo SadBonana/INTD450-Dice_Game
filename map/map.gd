@@ -6,9 +6,17 @@ var points = []
 
 func _init():
 	map = MapTree.new()
-	print(map.positions)
-	#print(map.connections)
-	#print(map.map_array)
+
+	for node in map.map_nodes:
+		if node != null:
+			print("Node:",node)
+			print("pos:",node.position)
+			print("parents:",node.get_parents())
+			print("children:",node.get_sons())
+			print("type:",node.type)
+			print("depth:",node.depth)
+			add_child(node)
+	'''
 	var i = 0
 	for position in map.map_array:
 		var node = Node2D.new()
@@ -17,18 +25,17 @@ func _init():
 		points.append(node)
 		add_child(node)
 		i += 1
-		
-	#var start = Node2D.new()
-	#start.position = map.connections[0][0]
-	#points.push_front(start)
-		
-	
+	'''
+
 func _draw():
+	
 	#for position in map.positions:
 		#draw_circle(Vector2.ZERO, 4, Color.WHITE_SMOKE)
-	for point in points:
-		point.draw_circle(Vector2.ZERO, 4, Color.WHITE_SMOKE)
+	for node in map.map_nodes:
+		if node != null:
+			node.draw_circle(Vector2.ZERO, 4, Color.WHITE_SMOKE)
 		#print(point.position)
+		
 	'''
 	for connection in map.connections:
 		connection[0].draw_circle(Vector2.ZERO, 4, Color.WHITE_SMOKE)
@@ -38,3 +45,4 @@ func _draw():
 		var colour = Color.BLACK
 		connection[0].draw_line(normal*margin, line, colour, 2, true)
 	'''
+

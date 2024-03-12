@@ -8,7 +8,7 @@ const NT = NodeType.NodeType
 
 var id        = 0      #supposed to be index in complete array but might be useless now
 #var type_str  = null  #honestly not sure what i was cookin with this
-var type      = null   #type of this node
+var type      = NT.ERROR   #type of this node
 var dest_path = null   #destination path to a specific scene
 var children  = []     
 var parents   = []
@@ -60,22 +60,30 @@ func get_dest() -> String:
 #set the parents of this node
 func set_parents(_parents:Array[MapNode]=[]) -> void:
 	for parent in _parents:
-		set_parent(parent)
+		add_parent(parent)
 
 #add a single parent for this node
-func set_parent(parent:MapNode) -> void:
+func add_parent(parent:MapNode) -> void:
 	if parent != null:
+		for existing in parents:
+			if existing == parent:
+				return
 		self.parents.append(parent)
 
 #get the array of parents
-func get_parents() -> Array[MapNode]:
+func get_parents() -> Array:
 	return self.parents
 
 #add a child to the children array
 #named add_son to avoid name-clashing with built-in add_child()
 func add_son(child:MapNode) -> void:
-	self.children.append(child)
-	child.set_parent(self)
+	if child != null:
+		for existing in children:
+				if existing == child:
+					return
+
+		self.children.append(child)
+		child.add_parent(self)
 
 #get the array of children. 
 #func is called get_sons to avoid name-clashing with built-in get_children()
@@ -88,4 +96,8 @@ func _pressed():
 	for child in children:
 		child.disabled = false
 	get_tree().change_scene_to_file(dest_path)
-	
+
+'''
+func _draw():
+	draw_circle(Vector2.ZERO, 4, Color.WHITE_SMOKE)
+'''
