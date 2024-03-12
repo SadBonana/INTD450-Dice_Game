@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" path="res://map/map.gd" id="2_gsif4"]
 [ext_resource type="Resource" uid="uid://b678kjxq1cp1t" path="res://map/map_resource.tres" id="2_xlpbv"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ih5t2"]
-bg_color = Color(0.886275, 0.878431, 0.796078, 1)
+[ext_resource type="StyleBox" uid="uid://v7rkr5wiak83" path="res://styles/worn_parchment_style_box_texture.tres" id="3_e5y4h"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_iqo7b"]
 center_offset = Vector3(0, 0, -10)
@@ -31,7 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ih5t2")
+theme_override_styles/panel = ExtResource("3_e5y4h")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
