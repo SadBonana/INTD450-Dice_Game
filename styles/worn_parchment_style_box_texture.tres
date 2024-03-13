@@ -1,16 +1,16 @@
 [gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://v7rkr5wiak83"]
 
-[ext_resource type="Texture2D" uid="uid://nbkhp465pb4j" path="res://assets/textures/map paper ninepatch.png" id="1_g8hbi"]
+[ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="1_6c2wu"]
 
 [resource]
 content_margin_left = 32.0
 content_margin_top = 32.0
 content_margin_right = 32.0
 content_margin_bottom = 32.0
-texture = ExtResource("1_g8hbi")
+texture = ExtResource("1_6c2wu")
 texture_margin_left = 32.0
 texture_margin_top = 32.0
 texture_margin_right = 32.0
 texture_margin_bottom = 32.0
 axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
+axis_stretch_vertical = 2
