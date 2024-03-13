@@ -96,7 +96,7 @@ func _init():
 	
 	#create the end node (boss)
 	end = MapNode.new()
-	end.set_depth(d) 
+	end.set_depth(d+1) 
 	end.set_type(NT.BOSS)
 	end.position = map_array[map_array.size() - 1]
 	
