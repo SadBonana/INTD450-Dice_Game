@@ -1,12 +1,17 @@
 extends Node
 
+@onready var vContainer = %VNodeContainer
+@onready var hContainerPacked = preload("res://map/NodeContainer.tscn")
 var map
 const margin = 5
 var points = []
 
-func _init():
-	map = MapTree.new()
-
+func _ready():
+	map = MapTree.new()	
+	vContainer.add_child(hContainerPacked.instantiate()) # for the root
+	for layer in map.d:
+		vContainer.add_child(hContainerPacked.instantiate())
+	var hContainers = vContainer.get_children()
 	for node in map.map_nodes:
 		if node != null:
 			print("Node:",node)
@@ -15,7 +20,7 @@ func _init():
 			print("children:",node.get_sons())
 			print("type:",node.type)
 			print("depth:",node.depth)
-			add_child(node)
+			hContainers[node.get_depth()].add_child(node)
 	'''
 	var i = 0
 	for position in map.map_array:
@@ -28,7 +33,6 @@ func _init():
 	'''
 
 func _draw():
-	
 	#for position in map.positions:
 		#draw_circle(Vector2.ZERO, 4, Color.WHITE_SMOKE)
 	for node in map.map_nodes:

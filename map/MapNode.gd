@@ -19,6 +19,7 @@ var depth     = 0      #depth of this node in the tree, idk if it's necessary fo
 #before the button should be used, otherwise it will break things
 func _init():
 	self.disabled = true
+	self.custom_minimum_size = Vector2(15,15)
 
 #set the depth of this node
 func set_depth(_depth:int):
