@@ -10,7 +10,8 @@ var id        = 0      #supposed to be index in complete array but might be usel
 #var type_str  = null  #honestly not sure what i was cookin with this
 var type      = NT.ERROR   #type of this node
 var dest_path = null   #destination path to a specific scene
-var children  = []     
+var children  = []  
+var siblings =  []   
 var parents   = []
 var depth     = 0      #depth of this node in the tree, idk if it's necessary for each node yet
 
@@ -38,8 +39,8 @@ func set_type(_type:NT) -> void:
 		NT.START:
 			self.disabled = false #all buttons start disabled, so if it's a "start" node, enable it
 		NT.BATTLE:
-			#dest_path = "res://battle/battle.tscn" #set path to battle scene
-			pass
+			dest_path = "res://battle/battle.tscn" #set path to battle scene
+			#pass
 		NT.CAMPFIRE:
 			dest_path = "res://campfire/campfire.tscn" #set path to rest scene
 		NT.WORKSHOP:
@@ -65,10 +66,9 @@ func set_parents(_parents:Array[MapNode]=[]) -> void:
 #add a single parent for this node
 func add_parent(parent:MapNode) -> void:
 	if parent != null:
-		for existing in parents:
-			if existing == parent:
-				return
-		self.parents.append(parent)
+		if not parents.has(parent): 
+			self.parents.append(parent)
+			self.add_brothers(parent)
 
 #get the array of parents
 func get_parents() -> Array:
@@ -78,24 +78,37 @@ func get_parents() -> Array:
 #named add_son to avoid name-clashing with built-in add_child()
 func add_son(child:MapNode) -> void:
 	if child != null:
-		for existing in children:
-				if existing == child:
-					return
-
-		self.children.append(child)
-		child.add_parent(self)
+		if not children.has(child):
+			self.children.append(child)
+			child.add_parent(self)
 
 #get the array of children. 
 #func is called get_sons to avoid name-clashing with built-in get_children()
 func get_sons():
 	return self.children
 
+
+func add_brothers(parent:MapNode) -> void:
+	#for parent in parents:
+	for child in parent.get_sons():
+		if  child != self and not siblings.has(child):
+			siblings.append(child)
+	
+func get_brothers():
+	return self.siblings
+
 #handler for pressing the button
 func _pressed():
 	self.disabled = true
 	for child in children:
 		child.disabled = false
-	get_tree().change_scene_to_file(dest_path)
+	for sibling in siblings:
+		sibling.disabled = true
+	if type == NT.BATTLE:
+		pass
+		
+func _to_string():
+	return str(name)
 
 '''
 func _draw():

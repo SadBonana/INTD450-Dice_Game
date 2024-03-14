@@ -6,6 +6,7 @@ extends Control
 @onready var settings_menu = %settings_menu
 @onready var start_button = %start_button
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Allows player to control buttons using keyboard
@@ -14,7 +15,8 @@ func _ready():
 
 func _on_start_button_pressed():
 	# Change to map scene once done
-	get_tree().change_scene_to_file(map_scene_path)
+	visible = false
+	#get_tree().change_scene_to_file(map_scene_path)
 
 
 func _on_controls_button_pressed():

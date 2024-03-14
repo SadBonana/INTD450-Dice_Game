@@ -9,8 +9,8 @@ const b_lower = 0 #lower limit on number of branches
 const b_upper = 3 #upper limit on number of branches
 const num_paths = 4 #number of complete paths in the game
 
-const tile_size = 32 #32 x 32 tiles for Sean's icons
-const margin = 20    #generic margin for the side of our screen so we have space for UI
+const tile_size = 32*3 #32 x 32 tiles for Sean's icons
+const margin = 40    #generic margin for the side of our screen so we have space for UI
 
 const screen_width =  640 #640 pixels wide
 const screen_height = 360 #360 pixels tall
@@ -108,10 +108,12 @@ func _init():
 	
 	#for each leafnode, we connect to the boss
 	for leafnode in leafnodes:
-		add_connection(leafnode,end.position)
+		add_connection(leafnode.position,end.position)
+	
+	centre_points() #centring points on the map
 
 #we use a 1D array to represent a 2D array, so we use some clever indexing
-func pos_to_index(row:int,col:int) -> int:
+func pos_to_index(col:int,row:int) -> int:
 	'''
 	This function will convert row and column positions of a point into an index
 	in the map_array, position, and map_nodes arrays.
@@ -160,7 +162,7 @@ func index_to_pos(index:int):
 		for row in range(0,map_height):
 			#checking if this combination of rows and cols gives the position we want
 			if col + map_width*row == index:
-				return Vector2(row,col)
+				return Vector2(col,row)
 	#position not found, return -1,-1
 	return Vector2(-1,-1)
 
@@ -177,10 +179,10 @@ func init_grid():
 	for col in range(0,map_width):
 		for row in range(0,map_height):
 			#getting the index so we can properly update map_array
-			var index = pos_to_index(row,col)
+			var index = pos_to_index(col,row)
 			
 			#initialize position at that index
-			map_array[index] = Vector2(row * tile_size + margin, col * tile_size + 2*margin)
+			map_array[index] = Vector2(col * tile_size + margin, row * tile_size + 2*margin)
 
 func select_starts() -> Array:
 	'''
@@ -350,7 +352,7 @@ func generate(prev:Vector2, depth:int) -> void:
 	
 	#initialize the min and max widths/heights for the grid
 	#index 0 is the min, index 1 is the max
-	var grid_width = [ 0 + margin ,map_width * tile_size * 3]
+	var grid_width = [ 0 + margin ,map_width * tile_size]
 	var grid_height = [0 + margin, map_height * tile_size]
 	
 	#if (p1.x > 0 + margin and p1.x < screen_width - margin and 
@@ -437,6 +439,8 @@ func check_connections(current_pos:Vector2, dest_pos:Vector2) -> bool:
 	#var offset_dest = (dest_pos.x - margin) / tile_size
 	
 	#for each existing connection in connections
+	
+	
 	for connection in connections:
 		#we use greater than or equal to account for connected nodes below ours
 		if connection[1].y == dest_pos.y and connection[1].x == dest_pos.x - tile_size:
@@ -455,6 +459,7 @@ func init_nodes():
 	for index in range(positions.size()):
 		if positions[index] == 1:
 			var node = MapNode.new()
+			node.name = "node: " + str(index)
 			map_nodes[index] = node
 
 func add_nodes() -> void:
@@ -505,3 +510,22 @@ func add_node(prev:MapNode, pos: Vector2, depth:int) -> MapNode:
 	prev.add_son(node)
 	num_nodes += 1
 	return node
+	
+func centre_points() -> void:
+	'''
+	This function is designed to centre the grid properly on the screen.
+	Parameters:
+		None
+	Returns:
+		None
+	'''
+	var grid_width = map_width * tile_size
+	var mid = screen_width / 2
+	var offset = mid - (grid_width / 2)
+	#var grid_height = [0 + margin, map_height * tile_size]
+	for index in range(map_array.size()):
+		map_array[index].x = map_array[index].x + offset
+		
+		var node = map_nodes[index]
+		if node != null:
+			node.position.x = node.position.x + offset
