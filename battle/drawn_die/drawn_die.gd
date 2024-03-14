@@ -64,6 +64,7 @@ static func instantiate(node_path: String, parent: Node, _die: Die, battle_conte
 func _on_toggled(toggled_on):
 	is_toggled = toggled_on
 	if toggled_on:
+		data.battle.bottom_container.visible = false
 		make_focused_pressed()
 		var targets = data.battle.enemies.duplicate()
 		targets.append(data.battle.player)
@@ -87,6 +88,8 @@ func _on_toggled(toggled_on):
 		# Clean up once targeting is finished
 		for option in targets:
 			option.toggle_target_mode(false, data.battle.target_selected)
+		
+		data.battle.bottom_container.visible = true # reveal bottom menu
 		
 		# After targeting is finished, focus on the next thing the player is likely to want to be in focus.
 		var found_next_focus_item = false

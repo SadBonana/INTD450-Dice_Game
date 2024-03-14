@@ -32,6 +32,7 @@ var defeated_enemies = []
 @onready var textbox_controller := %"Textbox Controller"
 
 # Player Panel
+@onready var bottom_container := %"Player Status and Hand"
 @onready var player_status := %"Player Status"
 @onready var drawn_die_placeholder := %"Die Action Menu"
 @onready var drawn_die_container := %"Hand of Dice"
