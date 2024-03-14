@@ -1,8 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://bx1wovv0p182j"]
+[gd_scene load_steps=14 format=3 uid="uid://bx1wovv0p182j"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="2_gsif4"]
 [ext_resource type="Resource" uid="uid://b678kjxq1cp1t" path="res://map/map_resource.tres" id="2_xlpbv"]
 [ext_resource type="StyleBox" uid="uid://v7rkr5wiak83" path="res://styles/worn_parchment_style_box_texture.tres" id="3_e5y4h"]
+[ext_resource type="Texture2D" uid="uid://bdrpmw762opsu" path="res://assets/textures/map icon sprite sheet.png" id="4_3faog"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bf0td"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_per4k"]
+atlas = ExtResource("4_3faog")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pqqj1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jpte7"]
+atlas = ExtResource("4_3faog")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mx8n7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5f6jn"]
+atlas = ExtResource("4_3faog")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lgm7o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxigt"]
+atlas = ExtResource("4_3faog")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_iqo7b"]
 center_offset = Vector3(0, 0, -10)
@@ -33,10 +58,6 @@ theme_override_styles/panel = ExtResource("3_e5y4h")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
@@ -48,7 +69,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 2
-text = "start"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_bf0td")
+icon = SubResource("AtlasTexture_per4k")
 
 [node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -58,8 +80,10 @@ size_flags_stretch_ratio = 4.0
 [node name="battle" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 6
-text = "battle"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pqqj1")
+icon = SubResource("AtlasTexture_jpte7")
 
 [node name="VSeparator2" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -69,10 +93,24 @@ size_flags_stretch_ratio = 4.0
 [node name="campfire" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 6
-text = "camp"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mx8n7")
+icon = SubResource("AtlasTexture_5f6jn")
 
 [node name="VSeparator3" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="treasure (non functional)" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lgm7o")
+icon = SubResource("AtlasTexture_sxigt")
+
+[node name="VSeparator4" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
