@@ -32,6 +32,8 @@ func _init():
 	# Add nodes to map
 	for node in map.map_nodes:
 		if node != null: #and node.type != NT.ERROR:
+			if node.type == NT.ERROR:
+				pass
 			#print("Node:",node)
 			#print("pos:",node.position)
 			#print("parents:",node.get_parents())

@@ -13,7 +13,7 @@ var dest_path = null   #destination path to a specific scene
 var children  = []  
 var siblings =  []   
 var parents   = []
-var depth     = 0      #depth of this node in the tree, idk if it's necessary for each node yet
+var depth     = -1      #depth of this node in the tree, idk if it's necessary for each node yet
 
 #initialize the button as disabled
 #_init is NOT enough to set up a MapNode, set_type and set_depth MUST be ran first
