@@ -109,6 +109,7 @@ func _init():
 	#for each leafnode, we connect to the boss
 	for leafnode in leafnodes:
 		add_connection(leafnode.position,end.position)
+		leafnode.add_son(end)
 	
 	centre_points() #centring points on the map
 
@@ -262,6 +263,9 @@ func select_type(prev:NT, depth:int) -> NT:
 		selection (NT): the selected type for the current node 
 	'''
 	var selection = NT.ERROR   #if error is returned something went wrong
+	
+	if depth == 0:
+		return NT.BOSS
 	
 	#if depth is 1 then set type to BATTLE
 	if depth == 1:
@@ -504,6 +508,8 @@ func add_node(prev:MapNode, pos: Vector2, depth:int) -> MapNode:
 	
 	#print(prev.get_type())
 	var selection = select_type(prev.type, depth)
+	if selection == NT.ERROR:
+		pass
 	
 	node.set_type(selection)
 	
