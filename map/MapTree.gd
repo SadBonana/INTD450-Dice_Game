@@ -13,7 +13,7 @@ const tile_size = 32*3 #32 x 32 tiles for Sean's icons
 const margin = 40    #generic margin for the side of our screen so we have space for UI
 
 const screen_width =  640 #640 pixels wide
-const screen_height = 360 #360 pixels tall
+const screen_height = 720 #360 pixels tall
 
 #tree functionality
 var leafnodes = [] #track leafnodes so we can connect to boss
