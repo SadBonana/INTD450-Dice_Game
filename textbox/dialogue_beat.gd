@@ -1,8 +1,12 @@
+@tool
 class_name DialogueBeat extends Resource
 
 ## NOTE: uniqueness not enforced at compile time, but will cause a crash
 ## when you try to feed it to the textbox node
-@export var unique_name: String		# TODO: maybe use StringName instead
+@export var unique_name: String:		# TODO: maybe use StringName instead
+		set (nombre):
+			resource_name = nombre
+			unique_name = nombre
 
 ## Rich text, supports BBCodes
 @export_multiline var text: String

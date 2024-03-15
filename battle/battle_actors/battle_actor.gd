@@ -17,6 +17,7 @@ func _get_health():
 var defense: int:
 	set (value):
 		defense = max(0, value)
+		shield_manager(defense)
 var dice_draws: int:	## Number of dice to draw from bag every turn
 	set (value):
 		dice_draws = max(0, value)
@@ -32,6 +33,7 @@ var _usual_alpha = modulate.a
 @onready var tex_rect: TextureRect = %"Actor Sprite"
 @onready var animation_player := %AnimationPlayer
 @onready var status_backdrop := %PanelContainer
+@onready var shield := %Shield
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -88,6 +90,7 @@ func update_status_effects():
 func take_damage(damage: int, beligerent_name: String) -> int:
 	var damage_after_defense = Helpers.clamp_damage(damage, defense)
 	defense -= damage
+	shield_manager(defense)
 	var prev_health = health
 	health -= damage_after_defense
 	
@@ -172,6 +175,18 @@ func _on_gui_input_factory(target_selected: Signal):
 	_on_gui_input = func (event: InputEvent):
 		if event.is_action_pressed("ui_accept") or event.is_action_released("click"):
 			target_selected.emit(self)
+			
+func set_shield_string(value : int):
+	shield.text = "Shield: " + str(value)
+func show_shield_string(show : bool):
+	shield.visible = show
+	
+func shield_manager(value: int):
+	set_shield_string(value)
+	if (value <= 0):
+		show_shield_string(false)
+	else:
+		show_shield_string(true)
 
 
 

@@ -32,12 +32,14 @@ var defeated_enemies = []
 @onready var textbox_controller := %"Textbox Controller"
 
 # Player Panel
+@onready var bottom_container := %"Player Status and Hand"
 @onready var player_status := %"Player Status"
 @onready var drawn_die_placeholder := %"Die Action Menu"
 @onready var drawn_die_container := %"Hand of Dice"
 @onready var action_menu := %"Player Action Menu"
 @onready var inventory := %"Inventory"
 @onready var player := %"Battle Player"
+@onready var ready_button := %Ready
 
 
 func _enter_tree():
@@ -150,6 +152,11 @@ func draw_dice():
 		await effect.invoke()
 	player.update_status_effects()
 	
+	if player.dice_hand.size() > 0:
+		player.dice_hand[0].grab_focus()
+	else:
+		ready_button.grab_focus()
+	
 	# MAYBE TODO: change the name of this func to start_turn() or something, then await ready_pressed or whatever, then call enemy turn. might make things clearer.
 		# could potentially take most of the logic out of _on_ready_pressed and put it in a player_turn() function, whcih gets called here after ready gets pressed.
 
@@ -187,8 +194,9 @@ func _on_run_pressed():
 func _on_ready_pressed():
 	for die in player.dice_hand:
 		# NOTE: May eventually want to allow the player to intentionally discard or not use dice.
-		if not die.target:
+		if (not die.target or not die.is_toggled):
 			await textbox_controller.quick_beat("not ready")
+			die.grab_focus()
 			return
 	
 	# Hide things we don't want the player to be able to mess

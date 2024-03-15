@@ -115,15 +115,10 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="Player Status and Hand" type="HBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="PlayerStatusMargin" type="MarginContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Player Status" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin" instance=ExtResource("6_0lq60")]
+[node name="Player Status" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand" instance=ExtResource("6_0lq60")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
@@ -141,7 +136,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
 
-[node name="PlayerActionMargin" type="MarginContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -150,13 +145,13 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Player Action Menu" type="VBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin"]
+[node name="Player Action Menu" type="VBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Ready" type="Button" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu"]
+[node name="Ready" type="Button" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -169,7 +164,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
 text = "TO BATTLE! "
 
-[node name="Run" type="Button" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu"]
+[node name="Run" type="Button" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -200,13 +195,12 @@ theme_override_constants/margin_top = 35
 theme_override_constants/margin_right = 35
 theme_override_constants/margin_bottom = 35
 
-[node name="Inventory" parent="." instance=ExtResource("10_sbswq")]
+[node name="DiceBag" parent="MarginContainer" instance=ExtResource("10_sbswq")]
 unique_name_in_owner = true
-layout_mode = 1
+layout_mode = 2
 
-[connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
-[connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu/Run" to="." method="_on_run_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Run" to="." method="_on_run_pressed"]
 
-[editable path="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status"]
 [editable path="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu"]
 [editable path="VBoxContainer/PlayerPanel/MarginContainer/Textbox Controller"]

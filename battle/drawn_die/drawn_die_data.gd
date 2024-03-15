@@ -43,4 +43,6 @@ func _init(die: Die, die_owner: BattleActor, battle_context: Battle):
 
 
 func target_is_friendly():
-	return target.get_script() == die_owner.get_script()
+	if target != null:
+		return target.get_script() == die_owner.get_script()
+	return false

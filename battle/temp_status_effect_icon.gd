@@ -70,3 +70,4 @@ func update():
 
 func _on_pressed():
 	await effect.textbox.quick_beat(effect.description_beat)
+	grab_focus()
