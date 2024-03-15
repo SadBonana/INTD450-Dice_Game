@@ -1,7 +1,6 @@
 class_name BattleActor extends VBoxContainer
 
 @export_file("*.tscn") var status_effect_scene_path
-#@export var textbox: TextboxController
 var textbox: TextboxController
 
 var status_effects: Array[StatusEffect] = []
@@ -18,6 +17,7 @@ func _get_health():
 var defense: int:
 	set (value):
 		defense = max(0, value)
+		shield_manager(defense)
 var dice_draws: int:	## Number of dice to draw from bag every turn
 	set (value):
 		dice_draws = max(0, value)
@@ -33,6 +33,7 @@ var _usual_alpha = modulate.a
 @onready var tex_rect: TextureRect = %"Actor Sprite"
 @onready var animation_player := %AnimationPlayer
 @onready var status_backdrop := %PanelContainer
+@onready var shield := %Shield
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -78,12 +79,6 @@ func update_status_effects():
 		var index = status_effects.find(effect_icon.effect)
 		status_container.move_child(effect_icon, index)
 		effect_icon.update()
-	
-	
-	## DEBUG:	TODO: remove:
-	#print("effect order:")
-	#for effect in status_effects:
-		#print("type:", effect._type, "turns:", effect.remaining_turns, "strength:", effect.strength)
 
 
 ## All logic involved with taking damage
@@ -95,8 +90,7 @@ func update_status_effects():
 func take_damage(damage: int, beligerent_name: String) -> int:
 	var damage_after_defense = Helpers.clamp_damage(damage, defense)
 	defense -= damage
-	## doing it like this should prevent attempts to call on_defeated multiple times:
-	#var defeated = (health - damage_after_defense <= 0 and health != 0)
+	shield_manager(defense)
 	var prev_health = health
 	health -= damage_after_defense
 	
@@ -137,50 +131,62 @@ func restore_sprite_color():
 
 # NOTE: with the way this works, we could easily uncomment this and have the player capable of targeting
 # their self, though a few places elsewhere would need to be modified, it wouldn't be much.
-#func toggle_target_mode(player_is_targeting: bool, target_selected: Signal):
-	## Init logic for player to target enemies
-	#if player_is_targeting:
-		#modulate.a = _usual_alpha / 2	# Set unfocused alpha
-		#set_focus_mode(FOCUS_ALL)	# Enable focus
-		#
-		## Set the _on_gui_input func so we can connect the _on_focus...
-		#_on_gui_input_factory(target_selected)
-		#
-		## Connect callbacks
-		#focus_entered.connect(_on_focus_entered)
-		#focus_exited.connect(_on_focus_exited)
-		#
-	## Cleanup now that targeting is finished
-	#else:
-		#set_focus_mode(FOCUS_NONE)	# Disable focusing
-		#
-		## Disconnect callbacks
-		#Helpers.disconnect_if_connected(focus_entered, _on_focus_entered)
-		#Helpers.disconnect_if_connected(focus_exited, _on_focus_exited)
-		#
-		#modulate.a = _usual_alpha	# Restore alpha
+func toggle_target_mode(player_is_targeting: bool, target_selected: Signal):
+	# Init logic for player to target enemies
+	if player_is_targeting:
+		modulate.a = _usual_alpha / 2	# Set unfocused alpha
+		set_focus_mode(FOCUS_ALL)	# Enable focus
+		
+		# Set the _on_gui_input func so we can connect the _on_focus...
+		_on_gui_input_factory(target_selected)
+		
+		# Connect callbacks
+		focus_entered.connect(_on_focus_entered)
+		focus_exited.connect(_on_focus_exited)
+		
+	# Cleanup now that targeting is finished
+	else:
+		set_focus_mode(FOCUS_NONE)	# Disable focusing
+		
+		# Disconnect callbacks
+		Helpers.disconnect_if_connected(focus_entered, _on_focus_entered)
+		Helpers.disconnect_if_connected(focus_exited, _on_focus_exited)
+		
+		modulate.a = _usual_alpha	# Restore alpha
 
 
 # More targetting stuff, if we want to be able to target the player, will move the logic from
 # BattleEnemy to here and then tweak some things.
-#var _on_gui_input: Callable
-#
-## NOTE: The 2 callback funcs below are intentionally not connected by default
-#func _on_focus_entered():
-	#gui_input.connect(_on_gui_input)
-	#modulate.a = _usual_alpha
-#
-#func _on_focus_exited():
-	#Helpers.disconnect_if_connected(gui_input, _on_gui_input)
-	#modulate.a = _usual_alpha / 2
-#
-### Generates a gui_input callback that will emit the given
-### target_selected signal when the gui_input signal is received with a
-### ui_accept event.
-#func _on_gui_input_factory(target_selected: Signal):
-	#_on_gui_input = func (event: InputEvent):
-		#if event.is_action_pressed("ui_accept") or event.is_action_released("click"):
-			#target_selected.emit(self)
+var _on_gui_input: Callable
+
+# NOTE: The 2 callback funcs below are intentionally not connected by default
+func _on_focus_entered():
+	gui_input.connect(_on_gui_input)
+	modulate.a = _usual_alpha
+
+func _on_focus_exited():
+	Helpers.disconnect_if_connected(gui_input, _on_gui_input)
+	modulate.a = _usual_alpha / 2
+
+## Generates a gui_input callback that will emit the given
+## target_selected signal when the gui_input signal is received with a
+## ui_accept event.
+func _on_gui_input_factory(target_selected: Signal):
+	_on_gui_input = func (event: InputEvent):
+		if event.is_action_pressed("ui_accept") or event.is_action_released("click"):
+			target_selected.emit(self)
+			
+func set_shield_string(value : int):
+	shield.text = "Shield: " + str(value)
+func show_shield_string(show : bool):
+	shield.visible = show
+	
+func shield_manager(value: int):
+	set_shield_string(value)
+	if (value <= 0):
+		show_shield_string(false)
+	else:
+		show_shield_string(true)
 
 
 

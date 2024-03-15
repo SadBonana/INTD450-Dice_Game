@@ -1,8 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3k3ibm1acab5"]
+[gd_scene load_steps=7 format=3 uid="uid://bg2qp6qtt275u"]
 
-[ext_resource type="StyleBox" uid="uid://4yw2o7hwnbad" path="res://modules/inventory/diceinv/styles/button_normal.tres" id="1_q87rj"]
-[ext_resource type="StyleBox" uid="uid://dmdsc25mx73h4" path="res://modules/inventory/diceinv/styles/button_hover.tres" id="2_htiq2"]
-[ext_resource type="StyleBox" uid="uid://7oktwnv5y50g" path="res://modules/inventory/diceinv/styles/button_pressed.tres" id="3_bxl1l"]
+[ext_resource type="StyleBox" uid="uid://4yw2o7hwnbad" path="res://modules/inventory/diceinv/styles/button_inv_normal.tres" id="1_7vsp5"]
+[ext_resource type="StyleBox" uid="uid://dmdsc25mx73h4" path="res://modules/inventory/diceinv/styles/button_inv_hover.tres" id="2_xocrc"]
+[ext_resource type="StyleBox" uid="uid://7oktwnv5y50g" path="res://modules/inventory/diceinv/styles/button_inv_pressed.tres" id="3_e1dpg"]
 [ext_resource type="Script" path="res://modules/inventory/diceinv/inv_die_frame.gd" id="4_icvaw"]
 [ext_resource type="Texture2D" uid="uid://dhwep34g76ta7" path="res://modules/inventory/images/D4.png" id="5_oy0a1"]
 [ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="6_nyi68"]
@@ -11,10 +11,12 @@
 custom_minimum_size = Vector2(75, 75)
 offset_right = 75.0
 offset_bottom = 75.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
 focus_mode = 0
-theme_override_styles/normal = ExtResource("1_q87rj")
-theme_override_styles/hover = ExtResource("2_htiq2")
-theme_override_styles/pressed = ExtResource("3_bxl1l")
+theme_override_styles/normal = ExtResource("1_7vsp5")
+theme_override_styles/hover = ExtResource("2_xocrc")
+theme_override_styles/pressed = ExtResource("3_e1dpg")
 action_mode = 0
 script = ExtResource("4_icvaw")
 
@@ -25,24 +27,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="die_display" type="TextureRect" parent="MarginContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 texture = ExtResource("5_oy0a1")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
+[node name="Label" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("6_nyi68")
 theme_override_font_sizes/font_size = 32

@@ -6,6 +6,7 @@ extends VBoxContainer
 # or by setting these in the _ready function instead. See battle_enemy.gd for an example of this.
 @export var health_bar: ProgressBar
 @export var deck_status: Label
+@onready var bag_button := %"Bag Button"
 
 static var deck_f_string = "Dice: %d/%d"
 

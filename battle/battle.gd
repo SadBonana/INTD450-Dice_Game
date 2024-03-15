@@ -2,6 +2,7 @@
 # Prolly needed for the 3d dice anyways.
 
 extends Control
+class_name Battle
 
 signal textbox_closed
 signal damage_enemy_resolved
@@ -31,12 +32,14 @@ var defeated_enemies = []
 @onready var textbox_controller := %"Textbox Controller"
 
 # Player Panel
+@onready var bottom_container := %"Player Status and Hand"
 @onready var player_status := %"Player Status"
 @onready var drawn_die_placeholder := %"Die Action Menu"
 @onready var drawn_die_container := %"Hand of Dice"
 @onready var action_menu := %"Player Action Menu"
 @onready var inventory := %"DiceBag"
 @onready var player := %"Battle Player"
+@onready var ready_button := %Ready
 
 
 func _enter_tree():
@@ -46,12 +49,15 @@ func _enter_tree():
 	var enemy_resources = encounter_res.enemies
 	if enemy_resources.size() >= 1:
 		enemy3.res = enemy_resources[0]
+		enemy3.battle = self
 		enemies.append(enemy3)
 	if enemy_resources.size() >= 2:
 		enemy2.res = enemy_resources[1]
+		enemy2.battle = self
 		enemies.append(enemy2)
 	if enemy_resources.size() >= 3:
 		enemy1.res = enemy_resources[2]
+		enemy1.battle = self
 		enemies.append(enemy1)
 	match enemy_resources.size():
 		1:
@@ -101,27 +107,6 @@ func _ready():
 			get_tree().quit()
 			# TODO: Might be better to have this stuff in the setter for PlayerData.hp instead
 	
-	# This function will be called when the player selects an action that requires selecting an enemy
-	DrawnDie.targeting_func = func ():
-			# No need to select a target if there's only 1
-			if enemies.size() == 1:
-				return enemies[0]
-			
-			await textbox_controller.quick_beat("targeting instructions")
-			
-			# Set targeting callback and give the player visual queues for targeting
-			for enemy in enemies:
-				enemy.toggle_target_mode(true, target_selected)
-			
-			enemies[0].grab_focus()
-			var target = await target_selected
-			
-			# Clean up once targeting is finished
-			for enemy in enemies:
-				enemy.toggle_target_mode(false, target_selected)
-			
-			return target
-		
 	draw_dice()
 
 
@@ -141,7 +126,7 @@ func draw_dice():
 	
 	# Player draws dice
 	for d in await player.draw_dice():
-		var die = DrawnDie.instantiate(drawn_die_path, drawn_die_container, d)
+		var die = DrawnDie.instantiate(drawn_die_path, drawn_die_container, d, self)
 		player.dice_hand.append(die)
 	player_status.dice_remaining = player.dice_bag.size()
 	
@@ -167,6 +152,11 @@ func draw_dice():
 		await effect.invoke()
 	player.update_status_effects()
 	
+	if player.dice_hand.size() > 0:
+		player.dice_hand[0].grab_focus()
+	else:
+		ready_button.grab_focus()
+	
 	# MAYBE TODO: change the name of this func to start_turn() or something, then await ready_pressed or whatever, then call enemy turn. might make things clearer.
 		# could potentially take most of the logic out of _on_ready_pressed and put it in a player_turn() function, whcih gets called here after ready gets pressed.
 
@@ -185,7 +175,12 @@ func cleanup_enemies():
 func enemy_turn():
 	await textbox_controller.quick_beat("enemy attack")
 	for enemy in enemies:
-		await player.take_damage(enemy.damage, enemy.actor_name)
+		for die in enemy.dice_hand:
+			if die.action == DrawnDieData.ATTACK and die.effect.damaging:
+				await player.take_damage(die.side.value, enemy.actor_name)
+			else:		# DEFENSE
+				enemy.defense += die.side.value
+			await die.effect.apply()
 	
 	draw_dice()    # Enemy turn is over so player draws dice
 
@@ -199,8 +194,9 @@ func _on_run_pressed():
 func _on_ready_pressed():
 	for die in player.dice_hand:
 		# NOTE: May eventually want to allow the player to intentionally discard or not use dice.
-		if not die.item_selected:
+		if (not die.target or not die.is_toggled):
 			await textbox_controller.quick_beat("not ready")
+			die.grab_focus()
 			return
 	
 	# Hide things we don't want the player to be able to mess
@@ -215,34 +211,15 @@ func _on_ready_pressed():
 	
 	for die in player.dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
 		match die.selected_action:
-			DrawnDie.ATTACK:
+			DrawnDieData.ATTACK:
 				# Account for if a previous die killed the enemy.
-				# e.g. used 3 dice when the first 2 will kill the enemy
-				# Could warn the player... or punish their stupidity by making the die just miss...
-				# Actually yeah, that sounds more fun... 
-				if die.target in enemies:
-					
-					# TODO: Temp(?) status effect stuff. Yeet this in a function somewhere.
-					var do_damage := true
-					match die.effect:
-						StatusEffect.EffectType.PARALYSIS:
-							await StatusEffect.Paralysis.new(textbox_controller, die.target).apply()
-						StatusEffect.EffectType.AUTODEFENSE:
-							await StatusEffect.Autodefense.new(textbox_controller, player, die.roll).apply()
-							do_damage = false
-						StatusEffect.EffectType.IGNITED:
-							#if die.roll == die.die.sides[0]:	# Small, but configurable chance to inflict ignited.	# Commented out for since it feels less fun.
-							await StatusEffect.Ignited.new(textbox_controller, die.target, enemies).apply()
-						StatusEffect.EffectType.POISONED:
-							await StatusEffect.Poisoned.new(textbox_controller, die.target, die.roll).apply()
-							do_damage = false
-					if do_damage:
-						await die.target.take_damage(die.roll, player.actor_name)
-					
-				else:
+				if not die.target in enemies:
 					await textbox_controller.quick_beat("missed")
-			DrawnDie.DEFEND:
+				elif die.data.effect.damaging:
+						await die.target.take_damage(die.roll, player.actor_name)
+			DrawnDieData.DEFEND:
 				player.defense += die.roll
+		await die.data.effect.apply()
 		die.queue_free()	# NOTE: Freeing in an array loop would prolly normally cause issues, but I think queue_free() can somehow sometimes detect when it needs to wait to actually free it. maybe. Still, be careful when doing this kind of thing.
 		
 	cleanup_enemies()

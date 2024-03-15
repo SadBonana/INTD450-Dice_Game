@@ -6,6 +6,7 @@ class_name BattleEnemy extends BattleActor
 @export var res: Resource
 
 
+var battle: Battle
 var max_health: int:
 	set (value):
 		max_health = value
@@ -22,19 +23,6 @@ func _get_health():
 	return health
 
 
-# HACK: Ideally this could be the same DrawnDie used by the player, but that's troublesome right now.
-# This is needed for certain status effects.
-class EnemyDrawnDie:
-	var roll: int
-	var side: DieSide
-	var die: Die
-	
-	func _init(die: Die):
-		self.die = die
-		self.side = die.roll()
-		self.roll = side.value
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	restore_sprite_color()
@@ -45,11 +33,7 @@ func _ready():
 	actor_name = res.name
 	
 	# Initialize enemy dice bag
-	#var dice_caps = res.dice_caps.duplicate()
-	#dice_caps.shuffle()
-	#dice_bag = Die.to_dice(dice_caps)
 	dice_bag = res.dice.duplicate()
-	print("res.dice: ", res.dice)
 	dice_bag.shuffle()
 	
 	# set texture
@@ -59,7 +43,10 @@ func _ready():
 # Can be used later for fancier enemy decision making
 ## Commit dice in dice hand to a particular action. For now, just uses all dice for attacking.
 func commit_dice():
-	damage = dice_hand.reduce(func (accum, die): return accum + die.roll, 0)	# damage = sum of rolls in dice hand
+	for die in dice_hand:
+		die.target = battle.player
+		die.action = DrawnDieData.ATTACK
+	damage = dice_hand.reduce(func (accum, die): return accum + die.side.value, 0)	# damage = sum of rolls in dice hand
 
 
 # Will likely need to be rewritten once effect die and enemies defending become a thing.
@@ -80,36 +67,12 @@ func draw_dice():
 		# it a used die (aka discard it but not really)
 		var d = dice_bag.pop_back()
 		used_dice.append(d)		# TODO: make this happen after the die actually gets used
-		var die = EnemyDrawnDie.new(d)
+		var die = DrawnDieData.new(d, self, battle)
 		dice_hand.append(die)
 		
 	commit_dice()
 	
 	roll_label.show()
-
-
-func toggle_target_mode(player_is_targeting: bool, target_selected: Signal):
-	# Init logic for player to target enemies
-	if player_is_targeting:
-		modulate.a = _usual_alpha / 2	# Set unfocused alpha
-		set_focus_mode(FOCUS_ALL)	# Enable focus
-		
-		# Set the _on_gui_input func so we can connect the _on_focus...
-		_on_gui_input_factory(target_selected)
-		
-		# Connect callbacks
-		focus_entered.connect(_on_focus_entered)
-		focus_exited.connect(_on_focus_exited)
-		
-	# Cleanup now that targeting is finished
-	else:
-		set_focus_mode(FOCUS_NONE)	# Disable focusing
-		
-		# Disconnect callbacks
-		Helpers.disconnect_if_connected(focus_entered, _on_focus_entered)
-		Helpers.disconnect_if_connected(focus_exited, _on_focus_exited)
-		
-		modulate.a = _usual_alpha	# Restore alpha
 
 
 ## Restore the texture rect's self_modulate property to res.sprite_color
@@ -124,26 +87,3 @@ func toggle_target_mode(player_is_targeting: bool, target_selected: Signal):
 ## AnimationPlayer can.
 func restore_sprite_color():
 	tex_rect.self_modulate = res.sprite_color
-
-
-var _on_gui_input: Callable
-
-# NOTE: The 2 callback funcs below are intentionally not connected by default
-func _on_focus_entered():
-	gui_input.connect(_on_gui_input)
-	modulate.a = _usual_alpha
-
-func _on_focus_exited():
-	Helpers.disconnect_if_connected(gui_input, _on_gui_input)
-	modulate.a = _usual_alpha / 2
-
-## Generates a gui_input callback that will emit the given
-## target_selected signal when the gui_input signal is received with a
-## ui_accept event.
-func _on_gui_input_factory(target_selected: Signal):
-	_on_gui_input = func (event: InputEvent):
-		if event.is_action_pressed("ui_accept") or event.is_action_released("click"):
-			target_selected.emit(self)
-
-
-
