@@ -194,8 +194,9 @@ func _on_run_pressed():
 func _on_ready_pressed():
 	for die in player.dice_hand:
 		# NOTE: May eventually want to allow the player to intentionally discard or not use dice.
-		if not die.target:
+		if (not die.target or not die.is_toggled):
 			await textbox_controller.quick_beat("not ready")
+			die.grab_focus()
 			return
 	
 	# Hide things we don't want the player to be able to mess

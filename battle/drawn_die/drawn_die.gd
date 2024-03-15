@@ -63,13 +63,14 @@ static func instantiate(node_path: String, parent: Node, _die: Die, battle_conte
 ## called when the player selects a die in their hand. allows player to target actors.
 func _on_toggled(toggled_on):
 	is_toggled = toggled_on
+	target = null
+	var targets = data.battle.enemies.duplicate()
+	targets.append(data.battle.player)
 	if toggled_on:
-		data.battle.bottom_container.visible = false
 		make_focused_pressed()
-		var targets = data.battle.enemies.duplicate()
-		targets.append(data.battle.player)
+		disable_untargetables(true, self)
 
-		await data.battle.textbox_controller.quick_beat("targeting instructions")
+		#await data.battle.textbox_controller.quick_beat("targeting instructions")
 
 		# Set targeting callback and give the player visual queues for targeting
 		for option in targets:
@@ -80,6 +81,7 @@ func _on_toggled(toggled_on):
 			targets[-1].grab_focus()
 		else:
 			targets[0].grab_focus()
+		
 		target = await data.battle.target_selected
 		
 		selected_action = data.ATTACK if target is BattleEnemy else data.DEFEND
@@ -89,7 +91,7 @@ func _on_toggled(toggled_on):
 		for option in targets:
 			option.toggle_target_mode(false, data.battle.target_selected)
 		
-		data.battle.bottom_container.visible = true # reveal bottom menu
+		disable_untargetables(false)
 		
 		# After targeting is finished, focus on the next thing the player is likely to want to be in focus.
 		var found_next_focus_item = false
@@ -100,6 +102,11 @@ func _on_toggled(toggled_on):
 				break
 		if not found_next_focus_item:
 			data.battle.ready_button.grab_focus()
+	else:
+		disable_untargetables(false)
+		for option in targets:
+			option.toggle_target_mode(false, data.battle.target_selected)
+		target = null
 
 
 ## A function that changes the style box of the drawn_die
@@ -117,5 +124,35 @@ func make_pressed():
 	button.remove_theme_stylebox_override(pressed_style)
 	button.add_theme_stylebox_override(pressed_style, pressed_path)
 
+## makes it so that you can back out of enemy selection using esc
+func _input(event):
+	if event.is_action_pressed("close"):
+		if(is_toggled and target == null):
+			button_pressed = false
+			grab_focus()
 
+## A function to hide menus during target selection
+func disable_untargetables(disable : bool, button_clicked : Button=null):
+	for child in data.battle.action_menu.get_children():
+		child.disabled = disable
+		if disable:
+			child.focus_mode = FOCUS_NONE
+		else:
+			child.focus_mode = FOCUS_ALL
+	data.battle.player_status.bag_button.disabled = disable
+	if disable:
+		data.battle.player_status.bag_button.focus_mode = FOCUS_NONE
+	else:
+		data.battle.player_status.bag_button.focus_mode = FOCUS_ALL
+	for button in data.battle.drawn_die_container.get_children():
+		
+		if button != button_clicked:
+			button.disabled = disable
+		if disable:
+			button.focus_mode = FOCUS_NONE
+		else:
+			button.focus_mode = FOCUS_ALL
+		
+		
+	
 	
