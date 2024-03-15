@@ -37,16 +37,6 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.984314, 0.184314, 0.109804, 1)
 
-[node name="dice_bag" parent="." instance=ExtResource("2_i5kku")]
-layout_mode = 1
-anchors_preset = 10
-anchor_bottom = 0.0
-offset_top = 91.0
-offset_bottom = 91.0
-grow_vertical = 1
-scale = Vector2(1, 0.559999)
-size_flags_vertical = 4
-
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -58,6 +48,19 @@ grow_vertical = 2
 [node name="inventory_container" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="dice_bag" parent="VBoxContainer/inventory_container" instance=ExtResource("2_i5kku")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" parent="VBoxContainer/inventory_container/dice_bag" index="0"]
+visible = false
+
+[node name="arrow_label" parent="VBoxContainer/inventory_container/dice_bag/MarginContainer/ScrollContainer/VBoxContainer" index="1"]
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
 
 [node name="choices_container" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -67,3 +70,13 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 dialogue_res = SubResource("Resource_aposx")
+
+[node name="Text" parent="VBoxContainer/choices_container/Textbox Controller/Textbox/MarginContainer/VBoxContainer" index="0"]
+size_flags_stretch_ratio = 1.0
+
+[node name="Choices" parent="VBoxContainer/choices_container/Textbox Controller/Textbox/MarginContainer/VBoxContainer" index="1"]
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 15
+
+[editable path="VBoxContainer/inventory_container/dice_bag"]
+[editable path="VBoxContainer/choices_container/Textbox Controller"]

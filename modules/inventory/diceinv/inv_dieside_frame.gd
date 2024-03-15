@@ -1,5 +1,5 @@
 extends Panel
-
+class_name InvDiesideFrame
 ## Assigning variables when Scene is created
 @onready var element_visual : ColorRect = $Element
 @onready var side_type: Label = $Type

@@ -2,7 +2,19 @@ extends Control
 
 ## Global variables
 @onready var slots: HFlowContainer = %HFlowContainer
+@onready var arrow_label = $MarginContainer/ScrollContainer/VBoxContainer/arrow_label
+@onready var slots_preview: HFlowContainer = $MarginContainer/ScrollContainer/VBoxContainer/HFlowContainer2
+
+
+#@onready var slots: VFlowContainer = %MarginContainer/ScrollContainer/HBoxContainer/VFlowContainer
+#@onready var arrow_label = $MarginContainer/ScrollContainer/HBoxContainer/arrow_label
+#@onready var slots_preview: VFlowContainer = $MarginContainer/ScrollContainer/HBoxContainer/VFlowContainer2
+
+
 @onready var scroll: ScrollContainer = %ScrollContainer
+
+
+
 var is_open = false
 var is_side_view_open = false
 var scene = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
@@ -11,14 +23,22 @@ var side_scene = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn
 ## forward it/use it in the parent scene, use this signal
 signal frame_clicked(frame) 
 
+var in_upgrade_scene = false
+
 ## Initializes our scene
-func _ready():
+func _ready():	
 	close()
 
 ## Changes our scene accordingly
 ## Hides and unhides the Inventory using the i key
 ## Escape key returns side view to dice view or closes dice view
 func _process(delta):
+	if (in_upgrade_scene == true):
+		# Not sure why the if-statement is needed, but die side screen does not show without it.
+		if is_open == false:
+			open()
+			show_dice()
+		
 	if(Input.is_action_just_pressed("i")):
 		if is_open:
 			close()
@@ -52,14 +72,32 @@ func return_content(content):
 ## This function displays a specific die's sides
 func show_sides(die : Die):
 	wipe()
+	
 	is_side_view_open = true
+	
 	var invside
+	var invside_preview
+	var duplicate_side_value
+	var arrow_text = "%5s" % ""
+	
 	for side in die.sides:
 		invside = side_scene.instantiate()
 		slots.add_child(invside)
 		invside.update(side)
-		invside.owner = get_tree().get_current_scene()
 		
+		if in_upgrade_scene == true:
+			invside_preview = side_scene.instantiate()
+			
+			duplicate_side_value = side.duplicate()
+			duplicate_side_value.value += 1
+			
+			slots_preview.add_child(invside_preview)
+			invside_preview.update(duplicate_side_value)
+			
+			arrow_text = arrow_text + "↓" + "%5s" % ""
+			arrow_label.text = arrow_text
+			
+		invside.owner = get_tree().get_current_scene()
 	
 ## Makes scene visible
 func open():
@@ -74,6 +112,6 @@ func close():
 func wipe():
 	for child in slots.get_children():
 		slots.remove_child(child)
-		
-
-			
+	
+	for child in slots_preview.get_children():
+		slots_preview.remove_child(child)

@@ -1,4 +1,5 @@
 extends Button
+class_name InvDieFrame
 
 ## Assigning variables when Scene is created
 @onready var button: Button = $'.'
