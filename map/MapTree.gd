@@ -444,15 +444,16 @@ func check_connections(current_pos:Vector2, dest_pos:Vector2) -> bool:
 	
 	#for each existing connection in connections
 	
-	
 	for connection in connections:
+		var start = connection[0]
+		var end = connection[1]
 		#we use greater than or equal to account for connected nodes below ours
-		if connection[1].y == dest_pos.y and connection[1].x == dest_pos.x - tile_size:
-			if connection[0].x == current_pos.x + tile_size and connection[0].y == current_pos.y:
+		if end.y == dest_pos.y and end.x == dest_pos.x - tile_size:
+			if start.x == current_pos.x + tile_size and start.y == current_pos.y:
 				return true
 				
-		if connection[1].y == dest_pos.y and connection[1].x == dest_pos.x + tile_size:
-			if connection[0].x == current_pos.x - tile_size and connection[0].y == current_pos.y:
+		if end.y == dest_pos.y and end.x == dest_pos.x + tile_size:
+			if start.x == current_pos.x - tile_size and start.y == current_pos.y:
 				return true
 
 	return false
