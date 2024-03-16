@@ -201,7 +201,6 @@ theme_override_constants/margin_right = 35
 theme_override_constants/margin_bottom = 35
 
 [node name="Inventory" parent="." instance=ExtResource("10_sbswq")]
-visible = false
 layout_mode = 1
 open_action = "i"
 close_action = "i"

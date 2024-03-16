@@ -35,8 +35,8 @@ func draw_dice():
 									await textbox.next()
 									
 									# Reshuffle dice into bag
-									dice_bag = used_dice
-									used_dice = []
+									dice_bag.append_array(used_dice)
+									used_dice.clear()
 									dice_bag.shuffle()
 									for die in dice_hand:
 										die.queue_free()

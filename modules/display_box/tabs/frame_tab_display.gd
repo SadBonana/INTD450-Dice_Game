@@ -7,17 +7,18 @@ extends TabBar
 ## The Tab object reference
 var tabobj_ref : Tab
 
-signal frame_clicked(frame)
+signal disp_frame_clicked(frame)
 
-func create_tab(tab: Tab):
-	self.tabobj_ref = tab
+func create_tab(_tab: Tab):
+	self.tabobj_ref = _tab
+	tab.name = tabobj_ref.get_tab_title()
 	_show_frames()
 	
 ## Adds the neccessary slots and Die texture models into our scene
 func _show_frames() -> void:
 	wipe()
 	set_tab_title(0, tabobj_ref.get_tab_title())			# Set Title
-	var frame_visual = tab.get_frame_visual().instantiate()	# Get frame visual
+	var frame_visual = tabobj_ref.get_frame_visual().instantiate()	# Get frame visual
 	
 	check_validity(frame_visual)
 	
@@ -26,13 +27,15 @@ func _show_frames() -> void:
 		frame_visual.update(frame)		# Adds frame information to scene
 		frame_visual.frame_clicked.connect(return_content)
 		frame_visual.owner = get_tree().get_current_scene()
-		frame_visual = tab.get_frame_visual().instantiate()
+		frame_visual = tabobj_ref.get_frame_visual().instantiate()
 		
-func update_frames(frames) -> void:
-	tabobj_ref.frames = frames
+func update_frames() -> void:
 	_show_frames()
-	
-		
+
+func new_frames(frames) -> void:
+	tabobj_ref.frames = frames
+	update_frames()
+
 ## Clear current frames being shown
 func wipe():
 	for child in slots.get_children():
@@ -41,7 +44,7 @@ func wipe():
 ## When we want to use the info that a frame emitted from its signal
 ## We may catch and reemit it up 
 func return_content(content):
-	frame_clicked.emit(content)
+	disp_frame_clicked.emit(content)
 
 ## Checks the validity of the passed frame. Frame must have these functions
 ## to be valid, even if they dont do anything
