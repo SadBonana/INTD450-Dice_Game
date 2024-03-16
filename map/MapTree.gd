@@ -9,7 +9,7 @@ const b_lower = 0 #lower limit on number of branches
 const b_upper = 3 #upper limit on number of branches
 const num_paths = 4 #number of complete paths in the game
 
-const tile_size = 32*3 #32 x 32 tiles for Sean's icons
+const tile_size = 32 * 3 #32 x 32 tiles for Sean's icons
 const margin = 40    #generic margin for the side of our screen so we have space for UI
 
 const screen_width =  640 #640 pixels wide
@@ -264,9 +264,6 @@ func select_type(prev:NT, depth:int) -> NT:
 	'''
 	var selection = NT.ERROR   #if error is returned something went wrong
 	
-	if depth == 0:
-		return NT.BOSS
-	
 	#if depth is 1 then set type to BATTLE
 	if depth == 1:
 		return NT.BATTLE
@@ -383,15 +380,17 @@ func generate(prev:Vector2, depth:int) -> void:
 	#randomly select the number of paths (the number of children)
 	var paths = randi_range(1,children.size())
 	
+	#print("Children points: ", children)
+	
 	#for each path
 	for path in paths:
 		#randomly select WHICH child we are pathing to
 		var child_index = randi_range(0,children.size()-1)
-		
+
 		#when we select the child we path to, we remove that child 
 		#this way if we randomly generate 2 paths, we don't select the same child for each
 		var child = children.pop_at(child_index)
-
+		
 		#if there was no child
 		if not child:
 			return #stop generating
@@ -399,14 +398,14 @@ func generate(prev:Vector2, depth:int) -> void:
 		#otherwise, find the index of the child in the various arrays
 		var index = pos_to_index((child.x - margin) / tile_size,(child.y - margin) / tile_size)
 		
-		#activate the child
-		positions[index] = 1
-		
 		#add a connection between parent and child
-		add_connection(prev,child)
-		
-		#recursive call to generate more children
-		generate(child, depth + 1)
+		if not check_connections(prev,child):
+			add_connection(prev,child)
+			#activate the child
+			positions[index] = 1
+			
+			#recursive call to generate more children
+			generate(child, depth + 1)
 
 func add_connection(start:Vector2, end:Vector2) -> void:
 	'''
@@ -419,8 +418,8 @@ func add_connection(start:Vector2, end:Vector2) -> void:
 	'''
 	
 	#recently added. Should check if the line will intersect and return if it will
-	if check_connections(start,end):
-		return
+	#if check_connections(start,end):
+	#	return
 	
 	#init connection as an array with start and end
 	var connection = [start,end]
@@ -455,7 +454,6 @@ func check_connections(current_pos:Vector2, dest_pos:Vector2) -> bool:
 		if end.y == dest_pos.y and end.x == dest_pos.x + tile_size:
 			if start.x == current_pos.x - tile_size and start.y == current_pos.y:
 				return true
-
 	return false
 
 
