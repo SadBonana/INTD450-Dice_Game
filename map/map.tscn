@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bx1wovv0p182j"]
+[gd_scene load_steps=18 format=3 uid="uid://bx1wovv0p182j"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="2_gsif4"]
 [ext_resource type="Resource" uid="uid://b678kjxq1cp1t" path="res://map/map_resource.tres" id="2_xlpbv"]
@@ -25,9 +25,22 @@ region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lgm7o"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sxigt"]
-atlas = ExtResource("4_3faog")
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nbhua"]
+load_path = "res://.godot/imported/map icon sprite sheet.png-ec2fe835a039701db9312c1660aa10bb.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8jnv"]
+atlas = SubResource("CompressedTexture2D_nbhua")
 region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxigt"]
+atlas = SubResource("CompressedTexture2D_nbhua")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4vu2o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lm5jk"]
+atlas = ExtResource("4_3faog")
+region = Rect2(64, 32, 32, 32)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_iqo7b"]
 center_offset = Vector3(0, 0, -10)
@@ -108,9 +121,22 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_styles/normal = SubResource("StyleBoxEmpty_lgm7o")
-icon = SubResource("AtlasTexture_sxigt")
+button_mask = 0
+icon = SubResource("AtlasTexture_h8jnv")
 
 [node name="VSeparator4" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="workshop (non functional)" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lgm7o")
+icon = SubResource("AtlasTexture_sxigt")
+
+[node name="VSeparator5" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
@@ -119,7 +145,8 @@ size_flags_stretch_ratio = 4.0
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 10
-text = "boss"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4vu2o")
+icon = SubResource("AtlasTexture_lm5jk")
 
 [node name="quit" type="Button" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
@@ -161,5 +188,5 @@ default_color = Color(0.396889, 0.396889, 0.396889, 1)
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/battle" to="." method="_on_battle_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/campfire" to="." method="_on_campfire_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/boss" to="." method="_on_boss_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/quit" to="." method="_on_boss_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/quit" to="." method="_on_boss_pressed"]
