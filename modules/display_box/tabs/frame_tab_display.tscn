@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://deg2v4nbm6ggt"]
 
-[ext_resource type="Script" path="res://modules/display_box/tabs/inv_frame_tab_display.gd" id="1_6okni"]
+[ext_resource type="Script" path="res://modules/display_box/tabs/frame_tab_display.gd" id="1_6okni"]
 
 [node name="DisplayTab" type="TabBar"]
 theme_override_constants/h_separation = 0

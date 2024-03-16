@@ -27,7 +27,6 @@ signal target_selected(target)
 
 var enemies = []
 var defeated_enemies = []
-
 # Textbox
 @onready var textbox_controller := %"Textbox Controller"
 
@@ -40,6 +39,7 @@ var defeated_enemies = []
 @onready var inventory := %"Inventory"
 @onready var player := %"Battle Player"
 @onready var ready_button := %Ready
+@onready var inv_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
 
 
 func _enter_tree():
@@ -75,10 +75,17 @@ func _ready():
 	# line of code
 	drawn_die_placeholder.hide()
 	
+	## setup for dice inventory tab
+	var inv_frames : Array
+	for die in player.dice_bag:
+		inv_frames.append(die)
+	var tab_title = "Dice"
+	var inv_dice_tab : Tab = Tab.new(tab_title,inv_frames,inv_visual)
+	inventory.add_tab_child(inv_dice_tab)
 	# This makes Inventory clicks execute the show_sides function
 	# NOTE: you can also connect to this signal in the node tab of the inspector,
 	# same as with built in nodes. This way is less cluttered in this case tho.
-	inventory.frame_clicked.connect(inventory.show_sides)
+	#inventory.frame_clicked.connect(inventory.show_sides)
 	
 	# uh oh, yuv been jumped m8!
 	await textbox_controller.quick_beat("battle start")
