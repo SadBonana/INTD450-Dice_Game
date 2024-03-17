@@ -41,40 +41,6 @@ func _init():
 	var index = 0
 	for node in map.map_nodes:
 		if node != null: #and node.type != NT.ERROR:
-			if node.type == NT.ERROR:
-				#print("Positions: ",map.positions)
-				print("Node Position: ", node.position)
-				#print("Map Array: ", map.map_array)
-				#print("Map Nodes: ", map.map_nodes)
-				print("Error Node: ", node)
-				print("index: ", index)
-				print("Correct Pos: ", map.map_array[index])
-				print("Active? : ", map.positions[index])
-				print("correct depth: ", map.pos_to_depth(map.map_array[index].y))
-				if node.children.size() > 0:
-					print("has children")
-				
-				var grid_width = [ 40 ,6 * 32]
-				var grid_height = [40 , 8 * 32]
-				
-				print("\ngrid_width: ",grid_width)
-				print("grid_height: ", grid_height)
-				print("")
-				
-				var p1 = map.map_array[index]
-				var grid_w = 6 * 32
-				var mid = 640 / 2
-				var offset = mid - (grid_w / 2)
-				#var grid_height = [0 + margin, map_height * tile_size]
-				p1.x = p1.x - offset
-				print("position after change: ", p1)
-				
-				if (p1.x > grid_width[0] and p1.x < grid_width[1] and
-					p1.y > grid_height[0] and p1.y < grid_height[1]):
-						print("within bounds")
-				else:
-					print("outside bounds")
-				pass
 			#print("Node:",node)
 			#print("pos:",node.position)
 			#print("parents:",node.get_parents())
@@ -83,7 +49,6 @@ func _init():
 			#print("depth:",node.depth)
 			node.text = str(node.type)
 			bg.add_child(node)
-		index += 1
 	'''
 	var i = 0
 	for position in map.map_array:
