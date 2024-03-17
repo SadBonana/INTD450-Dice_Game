@@ -55,9 +55,9 @@ func _init():
 	
 	init_grid()                        #initialize the grid
 	
-	#add the start and end positions to the map_array
-	map_array.push_front(Vector2(screen_width/2, margin))
-	map_array.push_back(Vector2(screen_width / 2, screen_height - margin))
+	#add the start position to the map_array
+	map_array.push_front(Vector2((screen_width - 2*margin) / 2, margin))
+	#map_array.push_back(Vector2(screen_width / 2, screen_height - margin))
 	
 	#create a new MapNode for the starting room
 	root = MapNode.new()
@@ -93,6 +93,10 @@ func _init():
 	
 	#insert the root position at the front as active
 	positions.push_front(1)
+	
+	#adding the boss position to the map_array
+	var leafnode_y = leafnodes[0].position.y
+	map_array.push_back(Vector2((screen_width - 2*margin) / 2, leafnode_y + tile_size))
 	
 	#create the end node (boss)
 	end = MapNode.new()
@@ -502,13 +506,11 @@ func add_node(prev:MapNode, pos: Vector2, depth:int) -> MapNode:
 	node.position = pos
 	node.set_depth(depth)
 	
-	if depth >= d:
-		leafnodes.append(prev)
+	if depth == d:
+		leafnodes.append(node)
 	
 	#print(prev.get_type())
 	var selection = select_type(prev.type, depth)
-	if selection == NT.ERROR:
-		pass
 	
 	node.set_type(selection)
 	

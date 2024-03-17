@@ -93,6 +93,12 @@ func add_brothers(parent:MapNode) -> void:
 	for child in parent.get_sons():
 		if  child != self and not siblings.has(child):
 			siblings.append(child)
+			child.add_brother(self)
+
+func add_brother(sibling:MapNode) -> void:
+	if siblings.has(sibling) or sibling == self:
+		return
+	siblings.append(sibling)
 	
 func get_brothers():
 	return self.siblings
