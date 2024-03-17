@@ -405,6 +405,7 @@ func generate(prev:Vector2, depth:int) -> void:
 		#add a connection between parent and child
 		if not check_connections(prev,child):
 			add_connection(prev,child)
+			
 			#activate the child
 			positions[index] = 1
 			

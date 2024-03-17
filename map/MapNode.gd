@@ -110,13 +110,46 @@ func _pressed():
 		child.disabled = false
 	for sibling in siblings:
 		sibling.disabled = true
-	if type == NT.BATTLE:
-		pass
+	
+	var scene = null
+	
+	match type:
 		
+		NT.START:
+			#TODO: START can probably lead into a tutorial scene
+			#scene = preload("TODO:insert tutorial path here.tscn")
+			pass
+			
+		NT.BATTLE:
+			#scene = preload("TODO:insert battle path here.tscn")
+			pass
+			
+		NT.CAMPFIRE:
+			scene = preload("res://campfire/campfire.tscn")
+			
+		NT.WORKSHOP:
+			#scene = preload("TODO:insert workshop path here.tscn")
+			pass
+			
+		NT.TREASURE:
+			#scene = preload("TODO:insert treasure path here.tscn")
+			pass
+			
+		NT.BOSS:
+			#scene = preload("TODO:insert boss path here.tscn")
+			pass
+		
+		#_ is default in godot
+		_:
+			#TODO: insert default ah path for the node
+			#scene = preload("")
+			pass
+	
+	if scene != null:
+		var instance = scene.instantiate()
+		var current_scene = get_tree().get_current_scene()
+		add_sibling(instance)
+		
+	
 func _to_string():
 	return str(name)
-
-'''
-func _draw():
-	draw_circle(Vector2.ZERO, 4, Color.WHITE_SMOKE)
-'''
