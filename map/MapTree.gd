@@ -388,29 +388,33 @@ func generate(prev:Vector2, depth:int) -> void:
 	
 	#for each path
 	for path in paths:
-		#randomly select WHICH child we are pathing to
-		var child_index = randi_range(0,children.size()-1)
+		var done = false
+		while not done:
+				
+			#randomly select WHICH child we are pathing to
+			var child_index = randi_range(0,children.size()-1)
 
-		#when we select the child we path to, we remove that child 
-		#this way if we randomly generate 2 paths, we don't select the same child for each
-		var child = children.pop_at(child_index)
-		
-		#if there was no child
-		if not child:
-			return #stop generating
-		
-		#otherwise, find the index of the child in the various arrays
-		var index = pos_to_index((child.x - margin) / tile_size,(child.y - margin) / tile_size)
-		
-		#add a connection between parent and child
-		if not check_connections(prev,child):
-			add_connection(prev,child)
+			#when we select the child we path to, we remove that child 
+			#this way if we randomly generate 2 paths, we don't select the same child for each
+			var child = children.pop_at(child_index)
 			
-			#activate the child
-			positions[index] = 1
+			#if there was no child
+			if not child:
+				return #stop generating
 			
-			#recursive call to generate more children
-			generate(child, depth + 1)
+			#otherwise, find the index of the child in the various arrays
+			var index = pos_to_index((child.x - margin) / tile_size,(child.y - margin) / tile_size)
+			
+			#add a connection between parent and child
+			if not check_connections(prev,child):
+				done = true
+				add_connection(prev,child)
+				
+				#activate the child
+				positions[index] = 1
+				
+				#recursive call to generate more children
+				generate(child, depth + 1)
 
 func add_connection(start:Vector2, end:Vector2) -> void:
 	'''
