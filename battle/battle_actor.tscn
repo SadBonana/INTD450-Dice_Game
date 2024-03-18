@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bbu8nn2jqun2j"]
 
-[ext_resource type="Script" path="res://battle stuff/battle_actor.gd" id="1_k0mx3"]
+[ext_resource type="Script" path="res://battle/battle_actor.gd" id="1_k0mx3"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_tuuc8"]
 
 [sub_resource type="Animation" id="Animation_ootso"]
@@ -40,7 +40,6 @@ _data = {
 
 [node name="Battle Actor" type="VBoxContainer"]
 script = ExtResource("1_k0mx3")
-status_effect_scene_path = "res://battle stuff/temp_status_effect_icon.tscn"
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 unique_name_in_owner = true

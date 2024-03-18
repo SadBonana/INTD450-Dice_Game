@@ -9,7 +9,6 @@
 [ext_resource type="Resource" uid="uid://4byr5vo3bivx" path="res://encounter resources/red_purple.tres" id="7_gi01f"]
 
 [resource]
-resource_name = " mid game encounters"
 script = ExtResource("6_3yvef")
 novice_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([ExtResource("3_oiopp"), ExtResource("4_insug"), ExtResource("5_y3h5f")])
 standard_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([ExtResource("4_insug"), ExtResource("7_gi01f"), ExtResource("1_vyuan")])

@@ -1,4 +1,4 @@
-extends TextureButton
+extends Button
 
 class_name MapNode
 
@@ -125,7 +125,8 @@ func _pressed():
 			pass
 			
 		NT.CAMPFIRE:
-			scene = preload("res://campfire/campfire.tscn")
+			#scene = preload("res://campfire/campfire.tscn")
+			pass
 			
 		NT.WORKSHOP:
 			#scene = preload("TODO:insert workshop path here.tscn")
