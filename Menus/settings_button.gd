@@ -1,4 +1,7 @@
-extends Control
+extends Button
+
+@onready var settings_menu = $settings_menu
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -9,10 +12,6 @@ func _ready():
 func _process(delta):
 	pass
 
-func _on_upgrade_die_button_pressed():
-	pass # Replace with function body.
 
-
-func _on_proficiency_button_pressed():
-	#get_tree().change_scene_to_file("res://UI/proficiency_upgrade.tscn")
-	pass
+func _on_pressed():
+	settings_menu.popup_centered()

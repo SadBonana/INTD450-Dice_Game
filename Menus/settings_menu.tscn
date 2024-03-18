@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b0rmrjb71troy"]
 
-[ext_resource type="Script" path="res://Menus/settings_menu.gd" id="1_nfjqp"]
+[ext_resource type="Script" path="res://menus/settings_menu.gd" id="1_nfjqp"]
 
 [node name="settings_menu" type="Popup"]
 size = Vector2i(640, 360)
@@ -131,8 +131,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 572.0
-offset_bottom = 159.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 25
@@ -193,8 +191,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 565.0
-offset_bottom = 142.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 25

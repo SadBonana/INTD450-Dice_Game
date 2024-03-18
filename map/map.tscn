@@ -125,5 +125,5 @@ default_color = Color(0.396889, 0.396889, 0.396889, 1)
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/battle" to="." method="_on_battle_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/campfire" to="." method="_on_campfire_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/boss" to="." method="_on_boss_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/quit" to="." method="_on_boss_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/quit" to="." method="_on_boss_pressed"]
