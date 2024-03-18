@@ -35,7 +35,8 @@ func _ready():
 	await textbox_closed
 	
 	#get_tree().change_scene_to_file(map_path)
-	get_tree().unload_current_scene()
+	#get_tree().unload_current_scene()
+	Helpers.to_map(self)
 	
 	'''for die in PlayerData.dice_bag:
 		display_text(die.name)

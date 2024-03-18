@@ -1,6 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://bx1wovv0p182j"]
+[gd_scene load_steps=26 format=3 uid="uid://bx1wovv0p182j"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
+[ext_resource type="Resource" uid="uid://5w5aahmcd3bf" path="res://encounter resources/purple_purple_purple.tres" id="2_exwuv"]
 [ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="2_i66mx"]
 [ext_resource type="Resource" uid="uid://bh8sa74vyv8n7" path="res://encounter resources/mid_game_encounters.tres" id="3_bwhnb"]
 [ext_resource type="Resource" uid="uid://cx5f6ubsrjg7s" path="res://encounter resources/late_game_encounters.tres" id="4_g2avk"]
@@ -88,6 +89,9 @@ grow_vertical = 2
 script = ExtResource("1_vgmaq")
 battle_path = "res://battle stuff/battle.tscn"
 campfire_path = "res://campfire/campfire.tscn"
+treasure_path = "res://campfire/campfire.tscn"
+workshop_path = "res://campfire/campfire.tscn"
+boss_encounter = ExtResource("2_exwuv")
 encounter_tables = Array[Resource("res://encounter resources/encounter_table.gd")]([ExtResource("4_q58wh"), ExtResource("3_bwhnb"), ExtResource("4_g2avk")])
 camp_texture = SubResource("AtlasTexture_074dg")
 treasure_texture = SubResource("AtlasTexture_tuhf3")

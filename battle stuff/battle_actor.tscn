@@ -40,6 +40,7 @@ _data = {
 
 [node name="Battle Actor" type="VBoxContainer"]
 script = ExtResource("1_k0mx3")
+status_effect_scene_path = "res://battle stuff/temp_status_effect_icon.tscn"
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 unique_name_in_owner = true

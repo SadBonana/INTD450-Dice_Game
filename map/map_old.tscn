@@ -179,8 +179,8 @@ points = PackedVector2Array(512, 22, 514, 47, 515, 115)
 width = 5.0
 default_color = Color(0.396889, 0.396889, 0.396889, 1)
 
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/battle1" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/battle1" to="." method="_on_battle_1_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/battle1" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/battle2" to="." method="_on_battle_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/campfire1" to="." method="_on_campfire_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/battle3" to="." method="_on_boss_pressed"]
@@ -188,8 +188,8 @@ default_color = Color(0.396889, 0.396889, 0.396889, 1)
 [connection signal="pressed" from="PanelContainer/MarginContainer/quit" to="." method="_on_boss_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/quit/VBoxContainer2/battle4" to="." method="_on_battle_4_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/quit/VBoxContainer2/battle4" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/quit/VBoxContainer2/campfire2" to="." method="_on_campfire_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/quit/VBoxContainer2/campfire2" to="." method="_on_campfire_2_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/quit/VBoxContainer2/campfire2" to="." method="_on_campfire_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/quit/VBoxContainer2/battle5" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/quit/VBoxContainer2/campfire3" to="." method="_on_campfire_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/quit/VBoxContainer2/battle6" to="." method="_on_start_pressed"]

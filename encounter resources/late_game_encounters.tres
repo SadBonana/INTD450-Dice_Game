@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://encounter resources/encounter_table.gd" id="6_po6ws"]
 
 [resource]
+resource_name = "late game encounters"
 script = ExtResource("6_po6ws")
 novice_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([ExtResource("3_qjfyi"), ExtResource("4_sjf46"), ExtResource("5_vkcwc")])
 standard_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([ExtResource("5_vkcwc"), ExtResource("2_vvpmy"), ExtResource("1_w10dq")])

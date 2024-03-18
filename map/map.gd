@@ -3,9 +3,9 @@ extends ScrollContainer
 @export_file("*.tscn") var battle_path
 @export_file('*.tscn') var campfire_path
 
-# TODO: paths temporarily set to battle scene, set to proper scenes when they exist.
-@export_file('*.tscn') var treasure_path = battle_path
-@export_file('*.tscn') var workshop_path = battle_path
+# TODO: paths temporarily set to campfire scene, set to proper scenes when they exist.
+@export_file('*.tscn') var treasure_path
+@export_file('*.tscn') var workshop_path
 
 @export_group("Battle Encounters")
 # TODO: Add a boss encounter in the inspector, and probably more encounter progress stages
@@ -152,7 +152,9 @@ func start_battle(node_depth: int):
 	print("stage size: ", stage_size)
 	for i in range(encounter_tables.size()):
 		if node_depth < stage_size * (i+1):
+			print(encounter_tables[i].resource_name, " ------------------------------------------------------------------")
 			Battle.start(battle_path, encounter_tables[i], get_tree())
+			break
 
 
 # NOTE: The following 4 functions are connected by code, and not the inspector

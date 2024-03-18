@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="PlayerDataInit" load_steps=7 format=3 uid="uid://bvcujelfg6iql"]
 
 [ext_resource type="Resource" uid="uid://dp2q4nnem8qg8" path="res://die_resources/basic_dice/d4_basic.tres" id="1_ddbta"]
-[ext_resource type="Script" path="res://battle/temp_player_data_init_res.gd" id="1_ieoqn"]
+[ext_resource type="Script" path="res://battle stuff/temp_player_data_init_res.gd" id="1_ieoqn"]
 [ext_resource type="Resource" uid="uid://bt7rnnfr007c1" path="res://die_resources/fire_dice/d3_fire.tres" id="2_pof6j"]
 [ext_resource type="Resource" uid="uid://dase6d6ehskv0" path="res://die_resources/lightning_dice/d3_lightning.tres" id="3_wr58w"]
 [ext_resource type="Resource" uid="uid://b1ggy2nkkrkxb" path="res://die_resources/poison_dice/d3_poison.tres" id="4_axwh2"]
