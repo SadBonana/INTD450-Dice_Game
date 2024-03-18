@@ -13,7 +13,6 @@ offset_right = 75.0
 offset_bottom = 75.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
-focus_mode = 0
 theme_override_styles/normal = ExtResource("1_7vsp5")
 theme_override_styles/hover = ExtResource("2_xocrc")
 theme_override_styles/pressed = ExtResource("3_e1dpg")

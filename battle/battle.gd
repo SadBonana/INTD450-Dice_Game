@@ -27,7 +27,6 @@ signal target_selected(target)
 
 var enemies = []
 var defeated_enemies = []
-
 # Textbox
 @onready var textbox_controller := %"Textbox Controller"
 
@@ -37,10 +36,14 @@ var defeated_enemies = []
 @onready var drawn_die_placeholder := %"Die Action Menu"
 @onready var drawn_die_container := %"Hand of Dice"
 @onready var action_menu := %"Player Action Menu"
-@onready var inventory := %"DiceBag"
+@onready var inventory := %"Inventory"
 @onready var player := %"Battle Player"
 @onready var ready_button := %Ready
 
+## Inventory
+@onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
+@onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
+@onready var side_name = "Sides"
 
 func _enter_tree():
 	# Slight HACK: The better way is probably to load and instantiate the enemies
@@ -75,10 +78,16 @@ func _ready():
 	# line of code
 	drawn_die_placeholder.hide()
 	
-	# This makes Inventory clicks execute the show_sides function
-	# NOTE: you can also connect to this signal in the node tab of the inspector,
-	# same as with built in nodes. This way is less cluttered in this case tho.
-	inventory.frame_clicked.connect(inventory.show_sides)
+	## setup for dice inventory tab
+	inventory.make_tab("In Bag", player.dice_bag,inv_dice_visual)
+	## setup for used inventory tab
+	inventory.make_tab("Used", player.used_dice,inv_dice_visual)
+	## setup for die sides inventory tab
+	inventory.make_tab(side_name, [], inv_side_visual)
+	## connect dice bag button to inventory
+	player_status.bag_button.pressed.connect(inventory.open)
+	## connect frame clicks to display sides
+	inventory.return_clicked.connect(show_sides)
 	
 	# uh oh, yuv been jumped m8!
 	await textbox_controller.quick_beat("battle start")
@@ -109,7 +118,17 @@ func _ready():
 	
 	draw_dice()
 
-
+## simple function that changes what is displayed on the sides tab
+func show_sides(die : Die):
+	var side_view
+	for child in inventory.get_children():
+		if child.tabobj_ref.get_tab_title() == side_name:	 #hardcoded cause bro this shit is ass
+			side_view = child
+	if side_view == null:
+		return
+	else:
+		side_view.new_frames(die.sides)
+		inventory.current_tab = side_view.get_index()
 ## Starts a turn.
 ##
 ## First, enemies draw dice from their bags, then players do, then reset everyone's defense, then

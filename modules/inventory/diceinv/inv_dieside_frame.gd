@@ -5,6 +5,7 @@ extends Panel
 @onready var side_type: Label = $Type
 @onready var side_value: Label = $Value
 @onready var side_ref: DieSide
+signal frame_clicked(dieside : DieSide)
 
 ## Changes label and inventory die texture accordingly
 func update(dieside: DieSide):
