@@ -27,13 +27,21 @@ extends ScrollContainer
 @export var workshop_texture: AtlasTexture
 @export var boss_texture: AtlasTexture
 
-@export_subgroup("Disabled")
+@export_subgroup("Disabled Visited")
 @export var camp_disabled: AtlasTexture
 @export var treasure_disabled: AtlasTexture
 @export var battle_disabled: AtlasTexture
 @export var start_disabled: AtlasTexture
 @export var workshop_disabled: AtlasTexture
 @export var boss_disabled: AtlasTexture
+
+@export_subgroup("Disabled Unvisited")
+@export var camp_unvisited: AtlasTexture
+@export var treasure_unvisited: AtlasTexture
+@export var battle_unvisited: AtlasTexture
+@export var start_unvisited: AtlasTexture
+@export var workshop_unvisited: AtlasTexture
+@export var boss_unvisited: AtlasTexture
 
 @export_subgroup("Focused")
 @export var camp_focused: AtlasTexture
@@ -67,45 +75,41 @@ func _ready():
 					print("Error node found in map")
 				NT.START:
 					node.texture_normal = start_texture
-					node.texture_disabled = start_disabled
+					node.texture_disabled = start_unvisited
 					node.texture_focused = start_focused
 					node.texture_hover = start_focused
-					#node.icon = start_texture
+					node.grab_focus()
 				NT.BATTLE:
 					node.texture_normal = battle_texture
-					node.texture_disabled = battle_disabled
+					node.texture_disabled = battle_unvisited
 					node.texture_focused = battle_focused
 					node.texture_hover = battle_focused
-					#node.icon = battle_texture
 					node.pressed.connect(func (): start_battle(node.depth))
 				NT.BOSS:
 					node.texture_normal = boss_texture
-					node.texture_disabled = boss_disabled
+					node.texture_disabled = boss_unvisited
 					node.texture_focused = boss_focused
 					node.texture_hover = boss_focused
-					#node.icon = boss_texture
 					node.pressed.connect(_on_boss_button_pressed)
 				NT.CAMPFIRE:
 					node.texture_normal = camp_texture
-					node.texture_disabled = camp_disabled
+					node.texture_disabled = camp_unvisited
 					node.texture_focused = camp_focused
 					node.texture_hover = camp_focused
-					#node.icon = camp_texture
 					node.pressed.connect(_on_camp_button_pressed)
 				NT.TREASURE:
 					node.texture_normal = treasure_texture
-					node.texture_disabled = treasure_disabled
+					node.texture_disabled = treasure_unvisited
 					node.texture_focused = treasure_focused
 					node.texture_hover = treasure_focused
-					#node.icon = treasure_texture
 					node.pressed.connect(_on_treasure_button_pressed)
 				NT.WORKSHOP:
 					node.texture_normal = workshop_texture
-					node.texture_disabled = workshop_disabled
+					node.texture_disabled = workshop_unvisited
 					node.texture_focused = workshop_focused
 					node.texture_hover = workshop_focused
-					#node.icon = workshop_texture
 					node.pressed.connect(_on_workshop_button_pressed)
+			node.pressed.connect(func (): visit_node(node))
 			
 			bg.add_child(node)
 		index += 1
@@ -120,6 +124,30 @@ func start_battle(node_depth: int):
 		if node_depth < stage_size * (i+1):
 			Battle.start(battle_path, encounter_tables[i], get_tree())
 			break
+
+
+func visit_node(node: MapNode):
+	visit_node_retexture(node)
+	for sibling in node.siblings:
+		visit_node_retexture(sibling)
+
+
+func visit_node_retexture(node: MapNode):
+	node.focus_mode = Control.FOCUS_NONE
+	match node.type:
+		NT.START:
+			node.texture_disabled = start_disabled
+			node.children[0].grab_focus()
+		NT.BATTLE:
+			node.texture_disabled = battle_disabled
+		NT.BOSS:
+			node.texture_disabled = boss_disabled
+		NT.CAMPFIRE:
+			node.texture_disabled = camp_disabled
+		NT.TREASURE:
+			node.texture_disabled = treasure_disabled
+		NT.WORKSHOP:
+			node.texture_disabled = workshop_disabled
 
 
 # NOTE: The following 4 functions are connected by code, and not the inspector
@@ -137,13 +165,17 @@ func _on_boss_button_pressed():
 func _on_background_draw():
 	# Draw Lines
 	#var margins = Vector2(map.margin, 0)
-	var margins = Vector2(8,16)
+	#var margins = Vector2(8,16)
+	var margins = Vector2(16,16)
 	#for con in map.connections:
 	#TODO: we might wanna change this back to what sean had previously in the final version
 	for node in map.map_nodes:
 		if node != null:
 			for child in node.get_sons():
 				if node.type != NT.ERROR:
-					bg.draw_line(node.position + margins, child.position + margins, Color.RED, 2)
+					var start = node.position + margins + Vector2(0, margins.y)
+					var end = child.position + margins - Vector2(0, margins.y)
+					bg.draw_line(start, end, Color("#6a3c33", .8), 4)
+					bg.draw_line(start, end, Color("#b57521", .8), 2)
 				else:
 					bg.draw_line(node.position + margins, child.position + margins, Color.HOT_PINK, 2)

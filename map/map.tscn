@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bx1wovv0p182j"]
+[gd_scene load_steps=32 format=3 uid="uid://bx1wovv0p182j"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
 [ext_resource type="Resource" uid="uid://5w5aahmcd3bf" path="res://encounter resources/purple_purple_purple.tres" id="2_exwuv"]
@@ -10,27 +10,27 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_074dg"]
 atlas = ExtResource("5_o7mtx")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 140, 34, 34)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tuhf3"]
 atlas = ExtResource("5_o7mtx")
-region = Rect2(35, 0, 32, 32)
+region = Rect2(35, 140, 34, 34)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n8luq"]
 atlas = ExtResource("5_o7mtx")
-region = Rect2(70, 0, 32, 32)
+region = Rect2(70, 140, 34, 34)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_stydu"]
 atlas = ExtResource("5_o7mtx")
-region = Rect2(0, 35, 32, 32)
+region = Rect2(0, 175, 34, 34)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i5x8t"]
 atlas = ExtResource("5_o7mtx")
-region = Rect2(35, 35, 32, 32)
+region = Rect2(35, 175, 34, 34)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vgvt5"]
 atlas = ExtResource("5_o7mtx")
-region = Rect2(70, 35, 32, 32)
+region = Rect2(70, 175, 34, 34)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ur3kr"]
 atlas = ExtResource("5_o7mtx")
@@ -55,6 +55,30 @@ region = Rect2(35, 105, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_5xk82"]
 atlas = ExtResource("5_o7mtx")
 region = Rect2(70, 105, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4iiuu"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibxve"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(35, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1fwx"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(70, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qc01v"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(0, 35, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o367i"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(35, 35, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7b3p"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(70, 35, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7gx3g"]
 atlas = ExtResource("5_o7mtx")
@@ -105,6 +129,12 @@ battle_disabled = SubResource("AtlasTexture_6sa2a")
 start_disabled = SubResource("AtlasTexture_524o6")
 workshop_disabled = SubResource("AtlasTexture_8oi6k")
 boss_disabled = SubResource("AtlasTexture_5xk82")
+camp_unvisited = SubResource("AtlasTexture_4iiuu")
+treasure_unvisited = SubResource("AtlasTexture_ibxve")
+battle_unvisited = SubResource("AtlasTexture_r1fwx")
+start_unvisited = SubResource("AtlasTexture_qc01v")
+workshop_unvisited = SubResource("AtlasTexture_o367i")
+boss_unvisited = SubResource("AtlasTexture_c7b3p")
 camp_focused = SubResource("AtlasTexture_7gx3g")
 treasure_focused = SubResource("AtlasTexture_naet5")
 battle_focused = SubResource("AtlasTexture_kypx1")

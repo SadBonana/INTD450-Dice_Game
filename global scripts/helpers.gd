@@ -24,4 +24,9 @@ static func to_map(current_scene: Node):
 		#current_scene.get_tree().unload_current_scene()
 	#else:
 		#current_scene.queue_free()
+	var bg = current_scene.get_node("/root/Map/Background")
 	current_scene.queue_free() # Free the current scene to reveal the map beneath it.
+	for node in bg.get_children():
+		if node.focus_mode == Control.FocusMode.FOCUS_ALL:
+			node.grab_focus()
+			break
