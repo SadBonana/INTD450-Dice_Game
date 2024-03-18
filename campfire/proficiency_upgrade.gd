@@ -37,15 +37,35 @@ func select_die(frame):
 	#choices_container.visible = true
 	await textbox_controller.quick_beat("confirm", [], _on_dialogue_transitiond)
 
-
+ 
 func upgrade_die():
-	for i in range(die.num_sides):
-		# Change to 10 to test -> allows for easy identification otherwsie you need to roll a 5 to see result
-		die.sides[i].value += 1
+	# Get the index of the selected die
+	var die_index = PlayerData.dice_bag.find(die, 0)
+	print("die index:", die_index)
+	
+	# Make a duplicate of the selected die using it's index
+	var upgraded_die = PlayerData.dice_bag[die_index].duplicate(true)
+	
+	# Init array to store the upgraded die sides, which will also be duplicates
+	var duplicated_sides: Array[DieSide] = []
+	
+	# Loop for each die side
+	for i in range(die.sides.size()):
+		# Duplicate the current die side
+		var die_side = upgraded_die.sides[i].duplicate(true)
 		
-		#die.name = "D%d - prof" % die.num_sides
-		#print(die.name)
-		print(die.sides[i].value)
+		# Increase the die side's value by 1
+		die_side.value += 1
+		#print(die_side.value)
+		
+		# Store the die side in the duplicated die sides array
+		duplicated_sides.append(die_side)
+	
+	# Set the sides of the duplicated die to be the upgraded sides (which are also duplicates)
+	upgraded_die.sides = duplicated_sides
+	
+	# Set the old die to equal the new upgraded die
+	PlayerData.dice_bag[die_index] = upgraded_die
 	
 	print("Congrats! You upgraded your D%d" % die.num_sides)
 	inventory.in_upgrade_scene = false
