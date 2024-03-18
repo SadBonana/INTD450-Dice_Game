@@ -55,9 +55,9 @@ func _init():
 	
 	init_grid()                        #initialize the grid
 	
-	#add the start and end positions to the map_array
-	map_array.push_front(Vector2(screen_width/2, margin))
-	map_array.push_back(Vector2(screen_width / 2, screen_height - margin))
+	#add the start position to the map_array
+	map_array.push_front(Vector2((screen_width - 2*margin) / 2, margin))
+	#map_array.push_back(Vector2(screen_width / 2, screen_height - margin))
 	
 	#create a new MapNode for the starting room
 	root = MapNode.new()
@@ -93,6 +93,10 @@ func _init():
 	
 	#insert the root position at the front as active
 	positions.push_front(1)
+	
+	#adding the boss position to the map_array
+	var leafnode_y = leafnodes[0].position.y
+	map_array.push_back(Vector2((screen_width - 2*margin) / 2, leafnode_y + tile_size))
 	
 	#create the end node (boss)
 	end = MapNode.new()
@@ -384,28 +388,33 @@ func generate(prev:Vector2, depth:int) -> void:
 	
 	#for each path
 	for path in paths:
-		#randomly select WHICH child we are pathing to
-		var child_index = randi_range(0,children.size()-1)
+		var done = false
+		while not done:
+				
+			#randomly select WHICH child we are pathing to
+			var child_index = randi_range(0,children.size()-1)
 
-		#when we select the child we path to, we remove that child 
-		#this way if we randomly generate 2 paths, we don't select the same child for each
-		var child = children.pop_at(child_index)
-		
-		#if there was no child
-		if not child:
-			return #stop generating
-		
-		#otherwise, find the index of the child in the various arrays
-		var index = pos_to_index((child.x - margin) / tile_size,(child.y - margin) / tile_size)
-		
-		#add a connection between parent and child
-		if not check_connections(prev,child):
-			add_connection(prev,child)
-			#activate the child
-			positions[index] = 1
+			#when we select the child we path to, we remove that child 
+			#this way if we randomly generate 2 paths, we don't select the same child for each
+			var child = children.pop_at(child_index)
 			
-			#recursive call to generate more children
-			generate(child, depth + 1)
+			#if there was no child
+			if not child:
+				return #stop generating
+			
+			#otherwise, find the index of the child in the various arrays
+			var index = pos_to_index((child.x - margin) / tile_size,(child.y - margin) / tile_size)
+			
+			#add a connection between parent and child
+			if not check_connections(prev,child):
+				done = true
+				add_connection(prev,child)
+				
+				#activate the child
+				positions[index] = 1
+				
+				#recursive call to generate more children
+				generate(child, depth + 1)
 
 func add_connection(start:Vector2, end:Vector2) -> void:
 	'''
@@ -502,13 +511,11 @@ func add_node(prev:MapNode, pos: Vector2, depth:int) -> MapNode:
 	node.position = pos
 	node.set_depth(depth)
 	
-	if depth >= d:
-		leafnodes.append(prev)
+	if depth == d:
+		leafnodes.append(node)
 	
 	#print(prev.get_type())
 	var selection = select_type(prev.type, depth)
-	if selection == NT.ERROR:
-		pass
 	
 	node.set_type(selection)
 	

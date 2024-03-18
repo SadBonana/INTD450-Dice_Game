@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bf40v4cvcgxxj"]
-
-[ext_resource type="Script" path="res://map/map_test/event.gd" id="1_pas4j"]
-
-[node name="event" type="Node2D"]
-script = ExtResource("1_pas4j")
