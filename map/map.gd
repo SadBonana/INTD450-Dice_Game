@@ -1,120 +1,116 @@
-extends Control
+extends Node
 
-@export var map_data : map_resource
+const NT = NodeType.NodeType
 
-@export_file('*.tscn') var battle_path: String
-@export_file('*.tscn') var campfire_path: String
+var map
+const margin = 5
+var points = []
 
-@onready var start_button := %start
-@onready var battle_button := %battle
-@onready var campfire_button := %campfire
-@onready var boss_button := %boss
-
-@onready var tree = get_tree()
-
-# initializing node variables, any additional nodes will need to be added here
-# eventually will need to do this in an _init func with a loop.
-# the null value gets replaced with reference to the node, the first value is that nodes index in completion
-var start =    [0, null]
-var battle =   [1, null]
-var campfire = [2, null]
-var boss =     [3, null]
-var root =     [4, null]
-
-func map_save():
-	#map_save will save the completion of the map to a text file
-	#opening the file
-	var map_save = FileAccess.open("user://mapsave.save",FileAccess.WRITE)
-	#var json_string = JSON.stringify(map_data.completion)
-	#saving each index of completion as a separate line to the file
-	for i in map_data.completion:
-		var line = str(i)
-		map_save.store_line(line)
-	map_save.close() #closing the file
+func _init():
+	map = MapTree.new()
+	#print(map.map_nodes[0].type)
 	
+	# Setup stuff that lets you scroll the map.
+	var scroll_cont = ScrollContainer.new()
+	scroll_cont.custom_minimum_size = Vector2(640, 360)
+	add_child(scroll_cont)
 	
-func map_load():
-	#we want to run map_load each time the map opens, so if mapsave.save does not exist
-	#we save the default completion state
-	if not FileAccess.file_exists("user://mapsave.save"):
-		map_save()
+	# Setup the map background
+	var bg = TextureRect.new()
+	bg.custom_minimum_size = Vector2(640, 1080)
+	bg.texture = load("res://icon.svg")
+	bg.stretch_mode = TextureRect.STRETCH_TILE
+	scroll_cont.add_child(bg)
 	
-	#loading data
-	var map_save = FileAccess.open("user://mapsave.save", FileAccess.READ)
+	# Draw Lines
+	#var margins = Vector2(map.margin, 0)
+	var margins = Vector2(8,16)
+	bg.draw.connect(func ():
+		#for con in map.connections:
+		#TODO: we might wanna change this back to what sean had previously in the final version
+		for node in map.map_nodes:
+			if node != null:
+				for child in node.get_sons():
+					if node.type != NT.ERROR:
+						bg.draw_line(node.position + margins, child.position + margins, Color.RED, 2)
+					else:
+						bg.draw_line(node.position + margins, child.position + margins, Color.HOT_PINK, 2)
+		)
 	
-	#for each node, we read a separate line from the file into the respective index in completion
-	for i in range(map_data.num_nodes):
-		map_data.completion[i] = int(map_save.get_line())
-	map_save.close() #close the file
+	# Add nodes to map
+	var index = 0
+	for node in map.map_nodes:
+		if node != null: #and node.type != NT.ERROR:
+			if node.type == NT.ERROR:
+				#print("Positions: ",map.positions)
+				print("Node Position: ", node.position)
+				#print("Map Array: ", map.map_array)
+				#print("Map Nodes: ", map.map_nodes)
+				print("Error Node: ", node)
+				print("index: ", index)
+				print("Correct Pos: ", map.map_array[index])
+				print("Active? : ", map.positions[index])
+				print("correct depth: ", map.pos_to_depth(map.map_array[index].y))
+				if node.children.size() > 0:
+					print("has children")
+				
+				var grid_width = [ 40 ,6 * 32]
+				var grid_height = [40 , 8 * 32]
+				
+				print("\ngrid_width: ",grid_width)
+				print("grid_height: ", grid_height)
+				print("")
+				
+				var p1 = map.map_array[index]
+				var grid_w = 6 * 32
+				var mid = 640 / 2
+				var offset = mid - (grid_w / 2)
+				#var grid_height = [0 + margin, map_height * tile_size]
+				p1.x = p1.x - offset
+				print("position after change: ", p1)
+				
+				if (p1.x > grid_width[0] and p1.x < grid_width[1] and
+					p1.y > grid_height[0] and p1.y < grid_height[1]):
+						print("within bounds")
+				else:
+					print("outside bounds")
+				pass
+			#print("Node:",node)
+			#print("pos:",node.position)
+			#print("parents:",node.get_parents())
+			#print("children:",node.get_sons())
+			#print("type:",node.type)
+			#print("depth:",node.depth)
+			node.text = str(node.type)
+			bg.add_child(node)
+		index += 1
+	'''
+	var i = 0
+	for position in map.map_array:
+		var node = Node2D.new()
+		node.set_position(position) #= position
+		node.set_name("node" + str(i))
+		points.append(node)
+		add_child(node)
+		i += 1
+	'''
+'''
+func _draw():
+	
+	#for position in map.positions:
+		#draw_circle(Vector2.ZERO, 4, Color.WHITE_SMOKE)
+	for node in map.map_nodes:
+		if node != null:
+			node.draw_circle(Vector2.ZERO, 4, Color.WHITE_SMOKE)
+		#print(point.position)
 		
-
-func _ready():
-	#map_data = map_data_load.new()
-	#map_data = ResourceLoader.load("user://map/map_resource.tres")
-	map_load()
-	print(map_data.completion) #check save state
 	
-	#following code should be self-explanatory
-	#root[1] = get_node("/root")
-	start[1] = start_button
-	if map_data.completion[start[0]] == 1:
-		start[1].disabled = true
-	
-	battle[1] = battle_button
-	if map_data.completion[start[0]] == 0 or map_data.completion[battle[0]] == 1:
-		battle[1].disabled = true
-	
-	campfire[1] = campfire_button
-	
-	if map_data.completion[battle[0]] == 0 or map_data.completion[campfire[0]] == 1:
-		campfire[1].disabled = true
-	
-	boss[1] = boss_button
-	if map_data.completion[campfire[0]] == 0:
-		boss[1].disabled = true
+	for connection in map.connections:
+		connection[0].draw_circle(Vector2.ZERO, 4, Color.WHITE_SMOKE)
+		var line = connection[1].position - connection[0].position
+		var normal = line.normalized()
+		line -= margin * normal
+		var colour = Color.BLACK
+		connection[0].draw_line(normal*margin, line, colour, 2, true)
+	'''
 
-func _on_start_pressed():
-	#start is a placeholder rn, but we could use it for an initial starting room for the player
-	start[1].disabled = true
-	map_data.completion[start[0]] = 1
-	battle[1].disabled = false
-	map_save() #have to save every time a button is pressed if we are swapping scenes.
-
-func _on_battle_pressed():
-	#save()
-	battle[1].disabled = true
-	map_data.completion[battle[0]] = 1
-	campfire[1].disabled = false
-	map_save()
-	#get_tree().change_scene_to_file("res://battle.tscn") #switch to battle scene
-	get_tree().change_scene_to_file(battle_path) #switch to battle battle_path scene
-
-
-func _on_campfire_pressed():
-	#save()
-	campfire[1].disabled = true
-	map_data.completion[campfire[0]] = 1
-	boss[1].disabled = false
-	map_save()
-	#get_tree().change_scene_to_file("res://UI/campfire.tscn") #switch to campfire scene
-	get_tree().change_scene_to_file(campfire_path) #switch to campfire scene
-	#pass
-
-
-func _on_boss_pressed():
-	boss[1].disabled = true
-	map_data.completion[boss[0]] = 1
-	map_save()
-	#get_tree().change_scene_to_file("") insert path to boss scene here
-	# TODO: make a boss encounter and make the scene use it.
-	get_tree().change_scene_to_file(battle_path) #switch to battle battle_path scene
-	#pass
-
-
-func _on_quit_pressed():
-	for i in range(map_data.num_nodes):
-		map_data.completion[i] = 0 #resetting the save state to the initial one
-	map_save()
-		#we will likely need a more nuanced reset in the future, but this works for now.
-	tree.quit() #quits the game rn
-	

@@ -1,7 +1,25 @@
 # TODO: Consider making the battle scene paper 3D to make the multiple enemy perspective look better.
 # Prolly needed for the 3d dice anyways.
 
-extends Control
+class_name Battle extends Control
+
+## Starts a battle scene with the given encounter resource
+##
+## Parameters:
+##         battle_scene_path:
+##             the filepath of battle.tscn
+##         encounter_res:
+##             Can be a BaseEncounter for a guaranteed encounter, or an EncounterTable to randomly
+##             select from a small set of encounters based on the game difficulty setting.
+##             Note: encounters specify what enemies, and how many of them the player will fight.
+##         tree:
+##             Usually you will put get_tree() for this argument.
+static func start(battle_scene_path: String, encounter_res: BaseEncounter, tree: SceneTree):
+	var battle_node = load(battle_scene_path).instantiate()
+	battle_node.encounter_res = encounter_res
+	var scene = PackedScene.new()
+	scene.pack(battle_node)
+	tree.change_scene_to_packed(scene)
 
 signal textbox_closed
 signal damage_enemy_resolved

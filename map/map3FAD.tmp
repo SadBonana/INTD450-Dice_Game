@@ -2,7 +2,5 @@
 
 [ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
 
-[node name="Map" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="Map" type="Node2D"]
 script = ExtResource("1_vgmaq")
