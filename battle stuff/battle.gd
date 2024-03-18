@@ -211,7 +211,10 @@ func enemy_turn():
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
 	await textbox_controller.quick_beat("run")
-	get_tree().change_scene_to_file(map_path)
+	#get_tree().change_scene_to_file(map_path)
+	# This might be a HACK ... but necessary given that the map is an autoload...
+	# idk what bugs this could cause down the line, if any. it could actually be fine.
+	get_tree().unload_current_scene()
 
 
 func _on_ready_pressed():

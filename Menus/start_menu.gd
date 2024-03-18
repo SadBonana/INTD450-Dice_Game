@@ -15,8 +15,10 @@ func _ready():
 
 func _on_start_button_pressed():
 	# Change to map scene once done
-	visible = false
+	#visible = false
 	#get_tree().change_scene_to_file(map_scene_path)
+	queue_free()
+	#get_tree().unload_current_scene()
 
 
 func _on_controls_button_pressed():

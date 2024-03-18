@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ck3aqqaxesp6p"]
 
-[ext_resource type="Script" path="res://battle/battle_player.gd" id="1_udnp1"]
-[ext_resource type="PackedScene" uid="uid://bbu8nn2jqun2j" path="res://battle/battle_actor.tscn" id="2_3c1fd"]
-[ext_resource type="Resource" uid="uid://bvcujelfg6iql" path="res://battle/temp_player_element_res.tres" id="3_5wym8"]
+[ext_resource type="Script" path="res://battle stuff/battle_player.gd" id="1_udnp1"]
+[ext_resource type="PackedScene" uid="uid://bbu8nn2jqun2j" path="res://battle stuff/battle_actor.tscn" id="2_3c1fd"]
+[ext_resource type="Resource" uid="uid://bvcujelfg6iql" path="res://battle stuff/temp_player_element_res.tres" id="3_5wym8"]
 
 [node name="Battle Player" instance=ExtResource("2_3c1fd")]
 anchors_preset = 8

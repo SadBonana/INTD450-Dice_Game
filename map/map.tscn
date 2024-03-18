@@ -1,8 +1,124 @@
-[gd_scene load_steps=2 format=3 uid="uid://dobeg8c3tqmme"]
+[gd_scene load_steps=25 format=3 uid="uid://bx1wovv0p182j"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
+[ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="2_i66mx"]
+[ext_resource type="Resource" uid="uid://bh8sa74vyv8n7" path="res://encounter resources/mid_game_encounters.tres" id="3_bwhnb"]
+[ext_resource type="Resource" uid="uid://cx5f6ubsrjg7s" path="res://encounter resources/late_game_encounters.tres" id="4_g2avk"]
+[ext_resource type="Resource" uid="uid://cx30urpy5x70o" path="res://encounter resources/early_game_encounters.tres" id="4_q58wh"]
+[ext_resource type="Texture2D" uid="uid://bdrpmw762opsu" path="res://assets/textures/map icon sprite sheet.png" id="5_o7mtx"]
 
-[node name="Map" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[sub_resource type="AtlasTexture" id="AtlasTexture_074dg"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuhf3"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(35, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8luq"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(70, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stydu"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(0, 35, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5x8t"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(35, 35, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgvt5"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(70, 35, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur3kr"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(0, 70, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23rpb"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(35, 70, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6sa2a"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(70, 70, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_524o6"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(0, 105, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8oi6k"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(35, 105, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xk82"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(70, 105, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7gx3g"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(105, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_naet5"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(142, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kypx1"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(179, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbxhw"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(105, 37, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86v0c"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(142, 37, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_as2rr"]
+atlas = ExtResource("5_o7mtx")
+region = Rect2(179, 37, 36, 36)
+
+[node name="Map" type="ScrollContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_vgmaq")
+battle_path = "res://battle stuff/battle.tscn"
+campfire_path = "res://campfire/campfire.tscn"
+encounter_tables = Array[Resource("res://encounter resources/encounter_table.gd")]([ExtResource("4_q58wh"), ExtResource("3_bwhnb"), ExtResource("4_g2avk")])
+camp_texture = SubResource("AtlasTexture_074dg")
+treasure_texture = SubResource("AtlasTexture_tuhf3")
+battle_texture = SubResource("AtlasTexture_n8luq")
+start_texture = SubResource("AtlasTexture_stydu")
+workshop_texture = SubResource("AtlasTexture_i5x8t")
+boss_texture = SubResource("AtlasTexture_vgvt5")
+camp_disabled = SubResource("AtlasTexture_ur3kr")
+treasure_disabled = SubResource("AtlasTexture_23rpb")
+battle_disabled = SubResource("AtlasTexture_6sa2a")
+start_disabled = SubResource("AtlasTexture_524o6")
+workshop_disabled = SubResource("AtlasTexture_8oi6k")
+boss_disabled = SubResource("AtlasTexture_5xk82")
+camp_focused = SubResource("AtlasTexture_7gx3g")
+treasure_focused = SubResource("AtlasTexture_naet5")
+battle_focused = SubResource("AtlasTexture_kypx1")
+start_focused = SubResource("AtlasTexture_bbxhw")
+workshop_focused = SubResource("AtlasTexture_86v0c")
+boss_focused = SubResource("AtlasTexture_as2rr")
+
+[node name="Background" type="NinePatchRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 1080)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_i66mx")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[connection signal="draw" from="Background" to="." method="_on_background_draw"]

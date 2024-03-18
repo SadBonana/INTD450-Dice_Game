@@ -1,4 +1,4 @@
-extends Button
+extends TextureButton
 
 class_name MapNode
 
