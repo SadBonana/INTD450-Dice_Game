@@ -117,6 +117,7 @@ func _init():
 		leafnode.add_son(end)
 	
 	centre_points() #centring points on the map
+	#randomize_positions()
 
 #we use a 1D array to represent a 2D array, so we use some clever indexing
 func pos_to_index(col:int,row:int) -> int:
@@ -277,8 +278,6 @@ func select_type(node:MapNode) -> NT:
 				parent.get_type() == NT.WORKSHOP or 
 				parent.get_type() == NT.TREASURE):
 					prevent_double = true
-					print("double at :", parent.depth)
-		
 	
 	#if depth is 1 then set type to BATTLE
 	if depth == 1:
@@ -489,22 +488,17 @@ func init_nodes():
 			map_nodes[index] = node
 
 func add_nodes() -> void:
-	#print(map_nodes)
-	#print(positions)
-	#var prev = start
 	'''
-	for index in range(positions.size()):
-		if positions[index] == 1:
-			var pos = index_to_pos(index)
-			var depth = pos_to_depth(pos.y)
-			prev = add_node(prev,pos,depth)
+	This function is designed to add MapNodes to the map at every position.
+	Parameters:
+		None
+	Returns:
+		None
 	'''
-	
 	for connection in connections:
 		var start = connection[0]
 		var end = connection[1]
 		if start != root.position:
-			#print((start.x - margin) / tile_size)
 			var index = pos_to_index((start.x - margin) / tile_size,(start.y - margin) / tile_size)
 			var prev = map_nodes[index]
 			var depth = pos_to_depth(end.y)
@@ -513,6 +507,15 @@ func add_nodes() -> void:
 		
 	
 func add_node(prev:MapNode, pos: Vector2, depth:int) -> MapNode:
+	'''
+	This function is designed to add a MapNode at the designated position.
+	Parameters:
+		prev (MapNode) - The previous node added. AKA the parent of this node.
+		pos (Vector2)  - The position of the node being added.
+		depth (int)    - The depth of the node.
+	Returns:
+		node (MapNode) - reference to the node that was added.
+	'''
 	#var point = index_to_pos(pos)
 	#var node = MapNode.new()
 	
@@ -527,12 +530,7 @@ func add_node(prev:MapNode, pos: Vector2, depth:int) -> MapNode:
 	
 	if depth == d:
 		leafnodes.append(node)
-	
-	#print(prev.get_type())
-	#var selection = select_type(prev.type, depth)
-	
-	#node.set_type(selection)
-	
+
 	prev.add_son(node)
 	num_nodes += 1
 	return node
@@ -562,3 +560,35 @@ func centre_points() -> void:
 		var node = map_nodes[index]
 		if node != null:
 			node.position.x = node.position.x + offset
+
+func randomize_positions() -> void:
+	for index in range(map_array.size()):
+		var offset_x = randf_range(-32,32)
+		var offset_y = randf_range(-32,32)
+		
+		#TODO: make sure the change is within bounds
+		#initialize the min and max widths/heights for the grid
+		#index 0 is the min, index 1 is the max
+		var grid_width = [ 0 + margin ,map_width * tile_size]
+		var grid_height = [0 + margin, map_height * tile_size]
+		
+		var rand_pos = Vector2(map_array[index].x + offset_y,map_array[index].y + offset_y )
+		
+		var grid_size = map_width * tile_size
+		var mid = screen_width / 2
+		var uncentre = mid - (grid_size / 2)
+		var p = Vector2(rand_pos.x - uncentre,rand_pos.y)
+		
+		if (p.x >= grid_width[0] and p.x < grid_width[1] and
+				p.y > grid_height[0] and p.y < grid_height[1]):
+		
+			#map_array[index].x = rand_pos.x
+			#map_array[index].y = map_array[index].y + offset_y
+			map_array[index] = rand_pos
+			
+			var node = map_nodes[index]
+			if node != null:
+				#node.position.x = node.position.x + offset_x
+				#node.position.y = node.position.y + offset_y
+				node.position = rand_pos
+

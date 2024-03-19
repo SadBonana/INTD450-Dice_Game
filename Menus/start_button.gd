@@ -14,7 +14,5 @@ func _ready():
 func _process(delta):
 	pass
 
-
-func _on_pressed():
-	# Change to map scene once done
-	get_tree().change_scene_to_file(map_scene_path)
+func _pressed():
+	get_node("/root/start_menu").visible = false

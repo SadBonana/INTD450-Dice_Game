@@ -16,7 +16,8 @@ func _on_heal_button_pressed():
 	
 	# Change the transfer scene to be the map scene once that gets made
 	#get_tree().change_scene_to_file(map_path)
-	get_node("root/Campfire").free()
+	queue_free()
+	get_node("/root/Map").visible = true
 	#get_owner().queue_free()
 
 
