@@ -149,7 +149,10 @@ func _pressed():
 	if scene != null:
 		var instance = scene.instantiate()
 		var current_scene = get_tree().get_current_scene()
-		add_sibling(instance)
+		get_tree().root.add_child(instance)
+		var map_node = get_node("/root/Map")
+		map_node.visible = false
+		#TODO: Figure out how tf to make Map scene visible again and delete the scene we swap to.
 		
 	
 func _to_string():
