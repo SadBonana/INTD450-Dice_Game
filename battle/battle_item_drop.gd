@@ -1,44 +1,67 @@
 extends Control
 
 @export var loot_table: LootTable
-
 @export_file("*.tscn") var map_path
 
-# Textbox
-@export var textbox: Panel
-@export var textboxLabel: Label
-signal textbox_closed
+@onready var textbox_controller := $"VBoxContainer/HBoxContainer2/Textbox Controller"
+@onready var inventory := $VBoxContainer/HBoxContainer/dice_bag
 
-var item_dict = {"D4": 50, "D6": 25, "D8": 15, "D10": 7, "D20": 3}
+var item_dict = {"D3": 40, "D4": 30, "D6": 20, "D8": 10}
+var selected_die
+var dropped_die_array: Array[Die] = []
+
+
+func get_drop_array():
+	return dropped_die_array
+
+
+func _on_dialogue_transitiond(from_beat: DialogueBeat, destination_beat: String, from_choice: int):
+	match from_beat.unique_name:
+		"confirm":
+			if from_choice == 0:
+				print("player said yes")
+				PlayerData.dice_bag.append(selected_die)
+				# Change to map once done
+				get_tree().change_scene_to_file(map_path)
+			else:
+				print("player said no")
+				#choices_container.visible = false
+				
+				#Close preview
+				inventory.is_side_view_open = false
+				inventory.show_dice()
+
+
+func select_die(frame):
+	selected_die = frame
+	
+	# Open upgrade preview
+	inventory.show_sides(frame)
+	
+	# Display prompt
+	#choices_container.visible = true
+	await textbox_controller.quick_beat("confirm", [], _on_dialogue_transitiond)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#pass
-	display_text("Congrats, you beat the enemy")
-	await textbox_closed
+	for i in range(3):
+		var dropped_die = item_generation()
+		dropped_die_array.append(dropped_die)
+		print("stored die")
 	
-	var item_drop = item_generation()
-	
-	display_text("Congrats, you just received a D%s" % item_drop.get_slice("D", 1))
-	await textbox_closed
-	
-	# Change to map once done
-	get_tree().change_scene_to_file(map_path)
+	inventory.display_bag = dropped_die_array
+	inventory.in_battle_drop_scene = true
+	inventory.frame_clicked.connect(select_die)
 
-func _input(event):
-	if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and $Textbox.visible:
-		textbox.hide()
-		emit_signal("textbox_closed")
-
-func display_text(text):
-	textbox.show()
-	textboxLabel.text = text
 
 func item_generation():
-	var new_item_rarity
+	'''var new_item_rarity
 	var item_rarities = item_dict.keys()
 	randomize()
 	var rarity_roll = randi() % 100 + 1
+	print("Probability is:", rarity_roll)
+	var drop
 	
 	for item in item_rarities:
 		if rarity_roll <= item_dict[item]:
@@ -47,37 +70,23 @@ func item_generation():
 		else:
 			rarity_roll -= item_dict[item]
 	
+	if rarity_roll >= 0 and rarity_roll <= 40:
+		drop = loot_table.basic_loot[0]
+	if rarity_roll > 40 and rarity_roll <= 70:
+		drop = loot_table.basic_loot[1]
+	if rarity_roll > 70 and rarity_roll <= 90:
+		drop = loot_table.basic_loot[2]
+	if rarity_roll > 90 and rarity_roll <= 100:
+		drop = loot_table.basic_loot[3]'''
+	
 	#var drop = Die.new( int(new_item_rarity.get_slice("D", 1)) )
 	# FIXME: Die.new() doesnt and won't ever work. now we have LootTable,
 	# but the rest of this code hasn't been adapted to use it, so this is
 	# currently a very half assed fix:
 	var drop = loot_table.pick_loot()
+	print("The dropped die has:", drop.num_sides)
+	
 	PlayerData.dice_bag.append(drop)
-	print("Drop is D%s" % new_item_rarity.get_slice("D", 1))
+	#print("Drop is D%s" % new_item_rarity.get_slice("D", 1))
 	
-	'''if new_item_rarity == "D4":
-		var drop = Die.new(4)
-		PlayerData.dice_bag.append(drop)
-		print("Drop is D%d" % 4)
-	
-	if new_item_rarity == "D6":
-		var drop = Die.new(6)
-		PlayerData.dice_bag.append(drop)
-		print("Drop is D%d" % 6)
-	
-	if new_item_rarity == "D8":
-		var drop = Die.new(8)
-		PlayerData.dice_bag.append(drop)
-		print("Drop is D%d" % 8)
-	
-	if new_item_rarity == "D10":
-		var drop = Die.new(10)
-		PlayerData.dice_bag.append(drop)
-		print("Drop is D%d" % 10)
-	
-	if new_item_rarity == "D20":
-		var drop = Die.new(20)
-		PlayerData.dice_bag.append(drop)
-		print("Drop is D%d" % 20)'''
-	
-	return new_item_rarity
+	return drop

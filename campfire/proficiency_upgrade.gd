@@ -25,7 +25,6 @@ func _on_dialogue_transitiond(from_beat: DialogueBeat, destination_beat: String,
 				inventory.is_side_view_open = false
 				inventory.show_dice()
 
-
 func select_die(frame):
 	die = frame
 	
@@ -75,3 +74,4 @@ func upgrade_die():
 func _ready():
 	inventory.in_upgrade_scene = true
 	inventory.frame_clicked.connect(select_die)
+	inventory.display_bag = PlayerData.dice_bag

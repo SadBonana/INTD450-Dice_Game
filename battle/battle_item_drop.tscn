@@ -1,17 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://cglfsj48akwp2"]
+[gd_scene load_steps=9 format=3 uid="uid://cglfsj48akwp2"]
 
 [ext_resource type="Script" path="res://Battle/battle_item_drop.gd" id="1_e8830"]
-[ext_resource type="Resource" uid="uid://cugg8w1sdc2xl" path="res://die_resources/die_side_resources/d8_to_d20_basic_loot.tres" id="2_mgoud"]
-[ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="2_n2dhy"]
+[ext_resource type="Resource" uid="uid://cugg8w1sdc2xl" path="res://die_resources/d8_to_d20_basic_loot.tres" id="2_mgoud"]
+[ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="3_cd6bx"]
+[ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="3_dly5t"]
+[ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="4_05img"]
+[ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="5_bdc6d"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xubwb"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+[sub_resource type="Resource" id="Resource_ps3eq"]
+script = ExtResource("4_05img")
+unique_name = "confirm"
+text = "Would you like to select this die to add to your inventory?"
+jumps = Array[String]([])
+choices = Array[String](["Yes", "No"])
+end_conversation = true
 
-[node name="battle_item_drop" type="Control" node_paths=PackedStringArray("textbox", "textboxLabel")]
+[sub_resource type="Resource" id="Resource_umkng"]
+script = ExtResource("5_bdc6d")
+beats = Array[ExtResource("4_05img")]([SubResource("Resource_ps3eq")])
+
+[node name="battle_item_drop" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,55 +29,39 @@ grow_vertical = 2
 script = ExtResource("1_e8830")
 loot_table = ExtResource("2_mgoud")
 map_path = "res://map/map.tscn"
-textbox = NodePath("Textbox")
-textboxLabel = NodePath("Textbox/Label")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 0.329412, 1)
 
-[node name="Textbox" type="Panel" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="dice_bag" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_dly5t")]
 visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = 91.0
-grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xubwb")
-
-[node name="Label" type="Label" parent="Textbox"]
 layout_mode = 2
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 232.0
-offset_bottom = 8.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_n2dhy")
-theme_override_font_sizes/font_size = 32
-text = "A GODOT LOGO Appears"
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 
-[node name="Ticker" type="Label" parent="Textbox"]
+[node name="TextureRect" parent="VBoxContainer/HBoxContainer/dice_bag" index="0"]
+visible = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -17.0
-offset_top = -32.0
-offset_right = -4.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_n2dhy")
-theme_override_font_sizes/font_size = 32
-text = ">"
+size_flags_vertical = 3
+
+[node name="Textbox Controller" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_cd6bx")]
+layout_mode = 2
+size_flags_horizontal = 3
+dialogue_res = SubResource("Resource_umkng")
+
+[node name="Choices" parent="VBoxContainer/HBoxContainer2/Textbox Controller/Textbox/MarginContainer/VBoxContainer" index="1"]
+theme_override_font_sizes/font_size = 15
+
+[editable path="VBoxContainer/HBoxContainer/dice_bag"]
+[editable path="VBoxContainer/HBoxContainer2/Textbox Controller"]

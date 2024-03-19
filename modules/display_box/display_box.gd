@@ -5,15 +5,12 @@ extends Control
 @onready var arrow_label = $MarginContainer/ScrollContainer/VBoxContainer/arrow_label
 @onready var slots_preview: HFlowContainer = $MarginContainer/ScrollContainer/VBoxContainer/HFlowContainer2
 
-
 #@onready var slots: VFlowContainer = %MarginContainer/ScrollContainer/HBoxContainer/VFlowContainer
 #@onready var arrow_label = $MarginContainer/ScrollContainer/HBoxContainer/arrow_label
 #@onready var slots_preview: VFlowContainer = $MarginContainer/ScrollContainer/HBoxContainer/VFlowContainer2
 
 
 @onready var scroll: ScrollContainer = %ScrollContainer
-
-
 
 var is_open = false
 var is_side_view_open = false
@@ -24,6 +21,8 @@ var side_scene = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn
 signal frame_clicked(frame) 
 
 var in_upgrade_scene = false
+var in_battle_drop_scene = false
+var display_bag
 
 ## Initializes our scene
 func _ready():	
@@ -33,13 +32,14 @@ func _ready():
 ## Hides and unhides the Inventory using the i key
 ## Escape key returns side view to dice view or closes dice view
 func _process(delta):
-	if (in_upgrade_scene == true):
+	if (in_upgrade_scene == true or in_battle_drop_scene == true):
 		# Not sure why the if-statement is needed, but die side screen does not show without it.
 		if is_open == false:
 			open()
 			show_dice()
 		
 	if(Input.is_action_just_pressed("i")):
+		display_bag = PlayerData.dice_bag
 		if is_open:
 			close()
 		else:
@@ -57,7 +57,15 @@ func _process(delta):
 func show_dice() -> void:
 	wipe()
 	var invframe
-	for die in PlayerData.dice_bag:
+	
+	'''if in_battle_drop_scene == true:
+		display_bag = battle_item_drop.dropped_die_array
+	else:
+		display_bag = PlayerData.dice_bag'''
+	
+	
+	
+	for die in display_bag:
 		invframe = scene.instantiate()
 		slots.add_child(invframe)	# Adds scene as a child to slots, the HFlowContainer in Dicebag
 		invframe.update(die)		# Adds correct die texture to the scene
