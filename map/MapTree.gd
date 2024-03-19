@@ -308,7 +308,9 @@ func select_type(prev:NT, depth:int) -> NT:
 				fin = true	                #selection successful so stop
 						
 			NT.CAMPFIRE:
-				if prev != NT.CAMPFIRE: #if campfire was previous selection then skip
+				#if campfire was previous selection then skip
+				#also skip if the depth is d-1 since d is hardcoded to be campfires
+				if prev != NT.CAMPFIRE and depth != d-1:
 					if camp_prob > 0.06:     #otherwise, proceed same as for battle
 						battle_prob     += 0.02
 						camp_prob       -= 0.06
