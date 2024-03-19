@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c82d0db21hh53"]
+
+[ext_resource type="Script" path="res://Menus/resume_button.gd" id="1_gxxtb"]
+
+[node name="resume_button" type="Button"]
+focus_neighbor_top = NodePath("../quit_button")
+focus_neighbor_bottom = NodePath("../controls_button")
+text = "Resume"
+script = ExtResource("1_gxxtb")

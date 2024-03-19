@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbhr5ye2on3mo"]
+
+[ext_resource type="Script" path="res://menus/settings_button.gd" id="1_415ir"]
+[ext_resource type="PackedScene" uid="uid://b0rmrjb71troy" path="res://menus/settings_menu.tscn" id="2_mgncs"]
+
+[node name="settings_button" type="Button"]
+focus_neighbor_top = NodePath("../controls_button")
+focus_neighbor_bottom = NodePath("../quit_button")
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
+text = "Settings"
+script = ExtResource("1_415ir")
+
+[node name="settings_menu" parent="." instance=ExtResource("2_mgncs")]
+visible = false
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

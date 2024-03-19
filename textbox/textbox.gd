@@ -36,8 +36,6 @@ signal transitioned_from(from_beat: DialogueBeat, destination_beat: String, from
 @export var dialogue_res: DialogueRes
 
 
-
-
 ## Holds a reference to the dialogue beat being narrated.
 ##
 ## Usually, it is recommended not to set this manually. You shouldn't need to.
@@ -104,7 +102,14 @@ func _ready():
 		# erase this print statement.
 		print(_dialogue_dict[beat.unique_name].unique_name)
 	
-	textbox.hide()
+	close()
+
+
+# FIXME: textbox voming up on mouse down, making mouse up dismiss imediately
+# should fix teh abov if fixed: input being listened for when textbox is hidden.
+func _input(event):
+	# Redirects mouse clicks elsewhere on the screen to the textbox.
+	textbox.grab_click_focus()
 
 
 # TODO: Consider making a func that will automatically decide the number of beats
@@ -162,8 +167,8 @@ func next(string_replacements = []):
 	if not _current_beat.choices.size() > 0:
 		_set_choice_visibility(false)
 		Helpers.disconnect_if_connected(choices.item_activated, _on_choice_chosen)
+		Helpers.disconnect_if_connected(choices.item_clicked, _on_choice_clicked)
 		textbox.gui_input.connect(_on_textbox_gui_input)
-		textbox.grab_focus()
 	
 	# Configure textbox with choices
 	else:
@@ -175,9 +180,9 @@ func next(string_replacements = []):
 			choices.add_item(choice)
 		
 		Helpers.disconnect_if_connected(textbox.gui_input, _on_textbox_gui_input)
-		# TODO: Find a way to allow activating a list item by single-clicking without breaking controller support
 		choices.item_activated.connect(_on_choice_chosen)
-		choices.grab_focus()
+		choices.item_clicked.connect(_on_choice_clicked)
+	
 	
 	# Yeet the text the textbox
 	if string_replacements.size() > 0:
@@ -219,14 +224,24 @@ func quick_beat(dialogue_key: String, string_replacements = [], on_transitioned_
 	return await next(string_replacements)
 
 
+func close():
+	textbox.hide()
+	set_process_input(false)
+
+
 ## Ensures that the ticker is not shown when choices are, and vice versa.
 func _set_choice_visibility(show_choices: bool):
 	if show_choices:
 		choices.show()
 		ticker.hide()
+		choices.grab_focus.call_deferred()
+
 	else:
+		set_process_input(true)
 		choices.hide()
 		ticker.show()
+		textbox.grab_focus.call_deferred()
+
 
 
 ## Emits the transitioned_from signal. Is called when the player chooses a
@@ -241,7 +256,7 @@ func _set_choice_visibility(show_choices: bool):
 ##		The index of the choice taken on the beat that was transitioned from.
 ##		-1 if there were no choices in the last dialogue beat.
 func _transition(from_beat: DialogueBeat, destination_beat: String, from_choice:=-1):
-	textbox.hide()
+	close()
 	assert(destination_beat != "_unknown")
 	
 	# We have no destination beat if we came from the last beat.
@@ -253,7 +268,7 @@ func _transition(from_beat: DialogueBeat, destination_beat: String, from_choice:
 	transitioned_from.emit(from_beat, destination_beat, from_choice)
 
 
-# The following 2 callbacks are intentionally not connected to a signal by
+# The following 3 callbacks are intentionally not connected to a signal by
 # default.
 ## Called when the player interacts with the textbox when there are no choices.
 func _on_textbox_gui_input(event: InputEvent):
@@ -265,3 +280,7 @@ func _on_choice_chosen(index: int):
 	if _next_beat == "_unknown":
 		_next_beat = _current_beat.jumps[index]
 	_transition(_current_beat, _next_beat, index)
+
+
+func _on_choice_clicked(index: int, blah, blah1):
+	_on_choice_chosen(index)

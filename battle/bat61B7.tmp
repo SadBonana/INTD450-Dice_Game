@@ -35,7 +35,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5jfo4")
-drawn_die_path = "res://battle/drawn_die/drawn_die.tscn"
+drawn_die_path = "res://battle/drawn_die.tscn"
 map_path = "res://map/map.tscn"
 loot_screen_path = "res://battle/battle_item_drop.tscn"
 encounter_res = ExtResource("2_6ad1h")
@@ -87,18 +87,36 @@ status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 [node name="Battle Enemy" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
 size_flags_vertical = 0
+focus_neighbor_left = NodePath("../Battle Enemy3")
+focus_neighbor_top = NodePath("../Battle Enemy3")
+focus_neighbor_right = NodePath("../Battle Enemy2")
+focus_neighbor_bottom = NodePath("../Battle Enemy2")
+focus_next = NodePath("../Battle Enemy2")
+focus_previous = NodePath("../Battle Enemy3")
 res = ExtResource("2_yokuy")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
 [node name="Battle Enemy2" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
 size_flags_vertical = 4
+focus_neighbor_left = NodePath("../Battle Enemy")
+focus_neighbor_top = NodePath("../Battle Enemy")
+focus_neighbor_right = NodePath("../Battle Enemy3")
+focus_neighbor_bottom = NodePath("../Battle Enemy3")
+focus_next = NodePath("../Battle Enemy3")
+focus_previous = NodePath("../Battle Enemy")
 res = ExtResource("2_yokuy")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
 [node name="Battle Enemy3" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
 size_flags_vertical = 8
+focus_neighbor_left = NodePath("../Battle Enemy2")
+focus_neighbor_top = NodePath("../Battle Enemy2")
+focus_neighbor_right = NodePath("../Battle Enemy")
+focus_neighbor_bottom = NodePath("../Battle Enemy")
+focus_next = NodePath("../Battle Enemy")
+focus_previous = NodePath("../Battle Enemy2")
 res = ExtResource("2_yokuy")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
@@ -115,15 +133,10 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="Player Status and Hand" type="HBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="PlayerStatusMargin" type="MarginContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Player Status" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin" instance=ExtResource("6_0lq60")]
+[node name="Player Status" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand" instance=ExtResource("6_0lq60")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
@@ -141,7 +154,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
 
-[node name="PlayerActionMargin" type="MarginContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -150,14 +163,13 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Player Action Menu" type="VBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin"]
+[node name="Player Action Menu" type="VBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Ready" type="Button" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu"]
-unique_name_in_owner = true
+[node name="Ready" type="Button" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -169,7 +181,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
 text = "TO BATTLE! "
 
-[node name="Run" type="Button" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu"]
+[node name="Run" type="Button" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -200,14 +212,12 @@ theme_override_constants/margin_top = 35
 theme_override_constants/margin_right = 35
 theme_override_constants/margin_bottom = 35
 
-[node name="Inventory" parent="." instance=ExtResource("10_sbswq")]
-layout_mode = 1
-open_action = "i"
-close_action = "i"
+[node name="DiceBag" parent="MarginContainer" instance=ExtResource("10_sbswq")]
+unique_name_in_owner = true
+layout_mode = 2
 
-[connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
-[connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu/Run" to="." method="_on_run_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Run" to="." method="_on_run_pressed"]
 
-[editable path="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status"]
 [editable path="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu"]
 [editable path="VBoxContainer/PlayerPanel/MarginContainer/Textbox Controller"]

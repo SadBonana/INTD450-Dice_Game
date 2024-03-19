@@ -1,13 +1,19 @@
 class_name StatusEffect
 
 enum EffectType {BASEEFFECT, PARALYSIS, AUTODEFENSE, IGNITED, POISONED}
+const BASEEFFECT := EffectType.BASEEFFECT
+const PARALYSIS := EffectType.PARALYSIS
+const AUTODEFENSE := EffectType.AUTODEFENSE
+const IGNITED := EffectType.IGNITED
+const POISONED := EffectType.POISONED
 
 var target: BattleActor
 var remaining_turns: int:
 	set (value):
 		remaining_turns = max(0, value)
 var strength: int 	# Can be base turns, base damage/defense, anything really.
-var beneficial: bool = false
+var beneficial: bool = false	# Whether the effect is a buff or a debuff
+var damaging: bool = true	# Should a die with this effect also do damage narmally.
 
 var textbox: TextboxController
 var description_beat: String
@@ -95,6 +101,7 @@ class Autodefense extends StatusEffect:
 		super(_textbox, _target, turns, _strength)
 		_type = EffectType.AUTODEFENSE
 		beneficial = true
+		damaging = false
 		description_beat = "autodefense description"
 	
 	
@@ -166,17 +173,15 @@ class Ignited extends StatusEffect:
 		if burning_dice > 0:
 			await textbox.quick_beat("ignited invoke", [burning_dice])
 		for i in range(burning_dice):
-			var roll = target.dice_hand[i].die.roll().value
-			# NOTE: With the way things currently are, this means that if a victim's die has multiple
-			# sides with the same value as its first side, it will be much more flammable. Which
-			# could be interesting?
-			if roll == target.dice_hand[i].die.sides[0].value:
+			var roll = target.dice_hand[i].die.roll()
+			# Made it compare values instead of sides cause i think it could be more interesting. Might wanna nerf later tho.
+			if roll.value == target.dice_hand[i].die.sides[0].value:
 				# FIXME: If we ever teach enemies shadow clone jutsu, old fire won't spread to the clones this way:
 				var new_ignition = Ignited.new(textbox, spread_targets.pick_random(), spread_targets)
 				await new_ignition.apply()
 
-			await target.take_damage(roll, "ignited")
-			target.dice_hand[i].roll = roll
+			await target.take_damage(roll.value, "ignited")
+			target.dice_hand[i].side = roll
 			target.commit_dice()
 		remaining_turns -= 1	# NOTE: if high ignited stacks is too overpowered, can nerf it by indenting this line by one. Discovered thanks to a bug lol.
 		if remaining_turns == 0:
@@ -191,6 +196,7 @@ class Poisoned extends StatusEffect:
 		super(_textbox, _target, 5, _strength)	# Default 5 turns
 		_type = EffectType.POISONED
 		description_beat = "poisoned description"
+		damaging = false
 	
 	## Attempt to apply the status effect on the target.
 	## Return whether the effect landed succesfully or not.

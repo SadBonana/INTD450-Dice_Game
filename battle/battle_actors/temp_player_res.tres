@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://cd0ef5txxdjcq" path="res://die_resources/basic_dice/d6_basic.tres" id="2_moifh"]
 [ext_resource type="Resource" uid="uid://xo41pqglhf05" path="res://die_resources/basic_dice/d8_basic.tres" id="3_im5th"]
 [ext_resource type="Resource" uid="uid://bp1fq8i5q8wil" path="res://die_resources/basic_dice/d10_basic.tres" id="4_wj1dr"]
-[ext_resource type="Script" path="res://battle/temp_player_data_init_res.gd" id="5_5kv4y"]
+[ext_resource type="Script" path="res://battle/battle_actors/temp_player_data_init_res.gd" id="5_5kv4y"]
 
 [resource]
 script = ExtResource("5_5kv4y")
