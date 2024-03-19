@@ -87,6 +87,7 @@ func _init():
 	
 	#add all the other nodes
 	add_nodes()
+	set_types()
 	
 	#insert the root at the front
 	map_nodes.push_front(root)
@@ -255,7 +256,8 @@ func select() -> NT:
 		
 	return select
 
-func select_type(prev:NT, depth:int) -> NT:
+#func select_type(prev:NT, depth:int) -> NT:
+func select_type(node:MapNode) -> NT:
 	'''
 	This function will adjust the probabilities of getting each NodeType before randomly
 	selecting a NodeType.
@@ -267,6 +269,16 @@ func select_type(prev:NT, depth:int) -> NT:
 		selection (NT): the selected type for the current node 
 	'''
 	var selection = NT.ERROR   #if error is returned something went wrong
+	var depth = node.depth
+	var prevent_double = false
+	
+	for parent in node.get_parents():
+		if (parent.get_type() == NT.CAMPFIRE or 
+				parent.get_type() == NT.WORKSHOP or 
+				parent.get_type() == NT.TREASURE):
+					prevent_double = true
+					print("double at :", parent.depth)
+		
 	
 	#if depth is 1 then set type to BATTLE
 	if depth == 1:
@@ -310,7 +322,7 @@ func select_type(prev:NT, depth:int) -> NT:
 			NT.CAMPFIRE:
 				#if campfire was previous selection then skip
 				#also skip if the depth is d-1 since d is hardcoded to be campfires
-				if prev != NT.CAMPFIRE and depth != d-1:
+				if not prevent_double and depth != d-1:
 					if camp_prob > 0.06:     #otherwise, proceed same as for battle
 						battle_prob     += 0.02
 						camp_prob       -= 0.06
@@ -319,7 +331,7 @@ func select_type(prev:NT, depth:int) -> NT:
 					fin = true
 
 			NT.WORKSHOP:                     #same as before
-				if prev != NT.WORKSHOP:
+				if not prevent_double:
 					if wshop_prob > 0.06:
 						battle_prob     += 0.02
 						camp_prob       += 0.02
@@ -328,7 +340,7 @@ func select_type(prev:NT, depth:int) -> NT:
 					fin = true
 
 			NT.TREASURE:                     #same as before
-				if prev != NT.TREASURE:
+				if not prevent_double:
 					if treasure_prob > 0.06:
 						battle_prob     += 0.02
 						wshop_prob      += 0.02
@@ -517,14 +529,21 @@ func add_node(prev:MapNode, pos: Vector2, depth:int) -> MapNode:
 		leafnodes.append(node)
 	
 	#print(prev.get_type())
-	var selection = select_type(prev.type, depth)
+	#var selection = select_type(prev.type, depth)
 	
-	node.set_type(selection)
+	#node.set_type(selection)
 	
 	prev.add_son(node)
 	num_nodes += 1
 	return node
-	
+
+func set_types() -> void:
+	for node in map_nodes:
+		if node != null:
+			var select = select_type(node)
+			node.set_type(select)
+	return
+
 func centre_points() -> void:
 	'''
 	This function is designed to centre the grid properly on the screen.

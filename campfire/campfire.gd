@@ -15,7 +15,9 @@ func _on_heal_button_pressed():
 	print("You Healed. You now have %d" % PlayerData.hp)
 	
 	# Change the transfer scene to be the map scene once that gets made
-	get_tree().change_scene_to_file(map_path)
+	#get_tree().change_scene_to_file(map_path)
+	get_node("root/Campfire").free()
+	#get_owner().queue_free()
 
 
 func _on_upgrade_die_button_pressed():

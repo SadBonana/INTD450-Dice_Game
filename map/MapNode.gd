@@ -125,7 +125,7 @@ func _pressed():
 			pass
 			
 		NT.CAMPFIRE:
-			#scene = preload("res://campfire/campfire.tscn")
+			scene = preload("res://campfire/campfire.tscn")
 			pass
 			
 		NT.WORKSHOP:
