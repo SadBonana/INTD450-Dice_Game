@@ -363,21 +363,21 @@ func generate(prev:Vector2, depth:int) -> void:
 	#if (p1.x > 0 + margin and p1.x < screen_width - margin and 
 	#		p1.y > 0 + margin and p1.y < screen_height - margin):
 	#if position is within the boundaries, then add to children array
-	if (p1.x > grid_width[0] and p1.x < grid_width[1] and
+	if (p1.x >= grid_width[0] and p1.x < grid_width[1] and
 			p1.y > grid_height[0] and p1.y < grid_height[1]):
 		children.append(p1)
 		
 	#if (p2.x > 0 + margin and p2.x < screen_width - margin and 
 	#		p2.y > 0 + margin and p2.y < screen_height - margin):
 	#same as for p1
-	if (p2.x > grid_width[0] and p2.x < grid_width[1] and
+	if (p2.x >= grid_width[0] and p2.x < grid_width[1] and
 			p2.y > grid_height[0] and p2.y < grid_height[1]):
 		children.append(p2)
 		
 	#if (p3.x > 0 + margin and p3.x < screen_width - margin and 
 	#		p3.y > 0 + margin and p3.y < screen_height - margin):
 	#same as for p1
-	if (p3.x > grid_width[0] and p3.x < grid_width[1] and
+	if (p3.x >= grid_width[0] and p3.x < grid_width[1] and
 			p3.y > grid_height[0] and p3.y < grid_height[1]):
 		children.append(p3)
 	
