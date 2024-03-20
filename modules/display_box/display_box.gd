@@ -63,8 +63,6 @@ func show_dice() -> void:
 	else:
 		display_bag = PlayerData.dice_bag'''
 	
-	
-	
 	for die in display_bag:
 		invframe = scene.instantiate()
 		slots.add_child(invframe)	# Adds scene as a child to slots, the HFlowContainer in Dicebag
@@ -78,6 +76,9 @@ func return_content(content):
 	frame_clicked.emit(content)
 	
 ## This function displays a specific die's sides
+'''Copy-Paste this function into proficiency_upgrade scene, then call it 
+using the new display_box code Boris made. Refrence the updated battle scene
+on how to do this'''
 func show_sides(die : Die):
 	wipe()
 	

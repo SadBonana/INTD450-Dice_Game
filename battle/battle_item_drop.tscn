@@ -1,23 +1,66 @@
-[gd_scene load_steps=9 format=3 uid="uid://cglfsj48akwp2"]
+[gd_scene load_steps=16 format=3 uid="uid://cglfsj48akwp2"]
 
-[ext_resource type="Script" path="res://Battle/battle_item_drop.gd" id="1_e8830"]
-[ext_resource type="Resource" uid="uid://cugg8w1sdc2xl" path="res://die_resources/d8_to_d20_basic_loot.tres" id="2_mgoud"]
+[ext_resource type="Script" path="res://battle/battle_item_drop.gd" id="1_e8830"]
+[ext_resource type="Resource" uid="uid://cugg8w1sdc2xl" path="res://die_resources/d3_to_d8_basic_loot.tres" id="2_mgoud"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="3_cd6bx"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="3_dly5t"]
+[ext_resource type="Resource" uid="uid://57h8lf7cnkbn" path="res://die_resources/common_loot_table.tres" id="3_ww484"]
 [ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="4_05img"]
+[ext_resource type="Resource" uid="uid://cqxhmeluf1nvj" path="res://die_resources/uncommon_loot_table.tres" id="4_8ddl5"]
 [ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="5_bdc6d"]
 
-[sub_resource type="Resource" id="Resource_ps3eq"]
+[sub_resource type="Resource" id="Resource_0o1qc"]
+script = ExtResource("4_05img")
+unique_name = "congrats"
+text = "Congrats, you beat the enemy!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_uti2s"]
 script = ExtResource("4_05img")
 unique_name = "confirm"
-text = "Would you like to select this die to add to your inventory?"
+text = "Would you like to add this die to your inventory?"
 jumps = Array[String]([])
 choices = Array[String](["Yes", "No"])
-end_conversation = true
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_q0twr"]
+script = ExtResource("4_05img")
+unique_name = "confirm2"
+text = "Note, if you add this die to your inventory, your bag size will increase, making it harder to hit dice you want."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_ttg8l"]
+script = ExtResource("4_05img")
+unique_name = "confirm3"
+text = "Would you like to continue adding this die to your inventory?
+Selecting \"no\" means you won't receive a battle drop."
+jumps = Array[String]([])
+choices = Array[String](["Yes", "No"])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_bp11e"]
+script = ExtResource("4_05img")
+unique_name = "drop_confirm"
+text = "Congrats, this die was added to your inventory!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_a3kqi"]
+script = ExtResource("4_05img")
+unique_name = "no_die"
+text = "You chose not to add the die to your inventory."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
 
 [sub_resource type="Resource" id="Resource_umkng"]
 script = ExtResource("5_bdc6d")
-beats = Array[ExtResource("4_05img")]([SubResource("Resource_ps3eq")])
+beats = Array[ExtResource("4_05img")]([SubResource("Resource_0o1qc"), SubResource("Resource_uti2s"), SubResource("Resource_q0twr"), SubResource("Resource_ttg8l"), SubResource("Resource_bp11e"), SubResource("Resource_a3kqi")])
 
 [node name="battle_item_drop" type="Control"]
 layout_mode = 3
@@ -28,6 +71,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e8830")
 loot_table = ExtResource("2_mgoud")
+common_loot_table = ExtResource("3_ww484")
+uncommon_loot_table = ExtResource("4_8ddl5")
 map_path = "res://map/map.tscn"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -41,6 +86,7 @@ grow_vertical = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 
 [node name="dice_bag" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_dly5t")]
 visible = false
@@ -59,6 +105,9 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 dialogue_res = SubResource("Resource_umkng")
+
+[node name="Text" parent="VBoxContainer/HBoxContainer2/Textbox Controller/Textbox/MarginContainer/VBoxContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 15
 
 [node name="Choices" parent="VBoxContainer/HBoxContainer2/Textbox Controller/Textbox/MarginContainer/VBoxContainer" index="1"]
 theme_override_font_sizes/font_size = 15

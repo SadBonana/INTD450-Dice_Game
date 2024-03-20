@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Die" load_steps=11 format=3 uid="uid://cuj4w15yqeioc"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_co8d3"]
+[ext_resource type="Resource" uid="uid://nq0o2g57d888" path="res://die_resources/lightning_dice/lightning_sides/1_lightning_side.tres" id="2_ny0ht"]
+[ext_resource type="Resource" uid="uid://ciflo84x5qynq" path="res://die_resources/lightning_dice/lightning_sides/2_lightning_side.tres" id="3_wvxgj"]
+[ext_resource type="Resource" uid="uid://lo84spmit74s" path="res://die_resources/lightning_dice/lightning_sides/3_lightning_side.tres" id="4_27a6q"]
+[ext_resource type="Resource" uid="uid://c3bu6njp8iokg" path="res://die_resources/lightning_dice/lightning_sides/4_lightning_side.tres" id="5_ar7vq"]
+[ext_resource type="Resource" uid="uid://bk16fkwpytlch" path="res://die_resources/lightning_dice/lightning_sides/5_lightning_side.tres" id="6_8vigh"]
+[ext_resource type="Resource" uid="uid://b5ws43k6p8pna" path="res://die_resources/lightning_dice/lightning_sides/6_lightning_side.tres" id="7_0vuh6"]
+[ext_resource type="Resource" uid="uid://byiqd2nda05t3" path="res://die_resources/lightning_dice/lightning_sides/7_lightning_side.tres" id="8_kg1ih"]
+[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="8_o27jl"]
+[ext_resource type="Resource" uid="uid://7vepv0ltomes" path="res://die_resources/lightning_dice/lightning_sides/8_lightning_side.tres" id="9_mem33"]
+
+[resource]
+script = ExtResource("1_co8d3")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_ny0ht"), ExtResource("3_wvxgj"), ExtResource("4_27a6q"), ExtResource("5_ar7vq"), ExtResource("6_8vigh"), ExtResource("7_0vuh6"), ExtResource("8_kg1ih"), ExtResource("9_mem33")])
+texture = ExtResource("8_o27jl")
+name = "d8"

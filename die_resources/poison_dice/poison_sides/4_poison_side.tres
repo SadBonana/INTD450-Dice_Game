@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DieSide" load_steps=4 format=3 uid="uid://du72es70kqqyx"]
+
+[ext_resource type="Script" path="res://modules/elements/poison_element.gd" id="1_u6aq8"]
+[ext_resource type="Script" path="res://modules/dice/die_side.gd" id="2_qvymc"]
+
+[sub_resource type="Resource" id="Resource_7rohi"]
+script = ExtResource("1_u6aq8")
+
+[resource]
+script = ExtResource("2_qvymc")
+power = 0
+custom_power = false
+element = SubResource("Resource_7rohi")
+value = 3
