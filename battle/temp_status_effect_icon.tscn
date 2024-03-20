@@ -1,12 +1,48 @@
-[gd_scene load_steps=3 format=3 uid="uid://d27yg3qgsbwxp"]
+[gd_scene load_steps=8 format=3 uid="uid://d27yg3qgsbwxp"]
 
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="1_1kqdd"]
+[ext_resource type="Texture2D" uid="uid://ewxuldd6d0l8" path="res://assets/textures/status effect icons.png" id="2_8qvj5"]
 [ext_resource type="Script" path="res://battle/temp_status_effect_icon.gd" id="2_fh3yk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rnvoh"]
+atlas = ExtResource("2_8qvj5")
+region = Rect2(2, 0, 12, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8obfw"]
+atlas = ExtResource("2_8qvj5")
+region = Rect2(2, 96, 12, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyfnp"]
+atlas = ExtResource("2_8qvj5")
+region = Rect2(1, 32, 14, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmnto"]
+atlas = ExtResource("2_8qvj5")
+region = Rect2(0, 65, 16, 15)
 
 [node name="Button" type="Button"]
 theme_override_fonts/font = ExtResource("1_1kqdd")
 theme_override_font_sizes/font_size = 8
-text = "IV: 9"
+text = "3"
 script = ExtResource("2_fh3yk")
+par = SubResource("AtlasTexture_rnvoh")
+ign = SubResource("AtlasTexture_8obfw")
+def = SubResource("AtlasTexture_iyfnp")
+poi = SubResource("AtlasTexture_gmnto")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.862745, 0, 1)
+theme_override_fonts/font = ExtResource("1_1kqdd")
+theme_override_font_sizes/font_size = 8
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -126,6 +126,7 @@ size_flags_horizontal = 3
 [node name="Player Status" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin" instance=ExtResource("6_0lq60")]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 1
 
 [node name="Hand of Dice" type="HBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
@@ -200,8 +201,8 @@ theme_override_constants/margin_top = 35
 theme_override_constants/margin_right = 35
 theme_override_constants/margin_bottom = 35
 
-[node name="Inventory" parent="." instance=ExtResource("10_sbswq")]
-layout_mode = 1
+[node name="Inventory" parent="MarginContainer" instance=ExtResource("10_sbswq")]
+layout_mode = 2
 open_action = "i"
 close_action = "i"
 
