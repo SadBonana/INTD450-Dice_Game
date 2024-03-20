@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PlayerDataInit" load_steps=7 format=3 uid="uid://dfyowcgsslo2h"]
+
+[ext_resource type="Resource" uid="uid://cd0ef5txxdjcq" path="res://die_resources/basic_dice/d6_basic.tres" id="1_edd6w"]
+[ext_resource type="Resource" uid="uid://biliikcsuaqfn" path="res://die_resources/fire_dice/d4_fire.tres" id="2_cafxc"]
+[ext_resource type="Resource" uid="uid://8x1byhbks7gk" path="res://die_resources/lightning_dice/d6_lightning.tres" id="3_i0tcj"]
+[ext_resource type="Resource" uid="uid://v0g4xjft6wla" path="res://die_resources/poison_dice/d4_poison.tres" id="4_0exlw"]
+[ext_resource type="Resource" uid="uid://dktt7jqrno36n" path="res://die_resources/steel_dice/d6_steel.tres" id="5_xgg2b"]
+[ext_resource type="Script" path="res://battle/battle_actors/temp_player_data_init_res.gd" id="6_gbsyc"]
+
+[resource]
+script = ExtResource("6_gbsyc")
+dice = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_edd6w"), ExtResource("2_cafxc"), ExtResource("3_i0tcj"), ExtResource("4_0exlw"), ExtResource("5_xgg2b")])

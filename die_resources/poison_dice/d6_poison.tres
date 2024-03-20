@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Die" load_steps=10 format=3 uid="uid://bq3qkrw2s0cx8"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_48w17"]
+[ext_resource type="Resource" uid="uid://jhrqh5b7i4ru" path="res://die_resources/poison_dice/poison_sides/1_poison_side.tres" id="2_t2pis"]
+[ext_resource type="Resource" uid="uid://c4vfilhk021lp" path="res://die_resources/poison_dice/poison_sides/2_poison_side.tres" id="3_41buo"]
+[ext_resource type="Resource" uid="uid://crmk0g5628sx7" path="res://die_resources/poison_dice/poison_sides/3_poison_side.tres" id="4_23gxy"]
+[ext_resource type="Resource" uid="uid://csscftwohldhy" path="res://die_resources/poison_dice/poison_sides/4_poison_side.tres" id="5_g1bxp"]
+[ext_resource type="Resource" uid="uid://b3c02ecy7foa2" path="res://die_resources/poison_dice/poison_sides/5_poison_side.tres" id="6_rl4up"]
+[ext_resource type="Resource" uid="uid://cefoov5fv1ksg" path="res://die_resources/poison_dice/poison_sides/6_poison_side.tres" id="7_4or13"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tcxty"]
+load_path = "res://.godot/imported/dice.png-05732488eedaa20371bd32f795cd60bf.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ges3q"]
+atlas = SubResource("CompressedTexture2D_tcxty")
+region = Rect2(8, 114, 80, 92)
+
+[resource]
+script = ExtResource("1_48w17")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_t2pis"), ExtResource("3_41buo"), ExtResource("4_23gxy"), ExtResource("5_g1bxp"), ExtResource("6_rl4up"), ExtResource("7_4or13")])
+texture = SubResource("AtlasTexture_ges3q")
+name = "Poison d6"

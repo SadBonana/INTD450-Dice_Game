@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Die" load_steps=10 format=3 uid="uid://dktt7jqrno36n"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_r4vha"]
+[ext_resource type="Resource" uid="uid://dnayah5ug1oya" path="res://die_resources/steel_dice/steel_sides/1_steel_side.tres" id="2_pbelo"]
+[ext_resource type="Resource" uid="uid://des6eb7bnrlj3" path="res://die_resources/steel_dice/steel_sides/2_steel_side.tres" id="3_50ngh"]
+[ext_resource type="Resource" uid="uid://cm40u45m3xc64" path="res://die_resources/steel_dice/steel_sides/3_steel_side.tres" id="4_vytwl"]
+[ext_resource type="Resource" uid="uid://dnsb4gw2kfls7" path="res://die_resources/steel_dice/steel_sides/4_steel_side.tres" id="5_2r7y4"]
+[ext_resource type="Resource" uid="uid://bb3efxasotsw7" path="res://die_resources/steel_dice/steel_sides/5_steel_side.tres" id="6_4xkpb"]
+[ext_resource type="Resource" uid="uid://bhkm5m0prxng" path="res://die_resources/steel_dice/steel_sides/6_steel_side.tres" id="7_b0cab"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tcxty"]
+load_path = "res://.godot/imported/dice.png-05732488eedaa20371bd32f795cd60bf.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjdwa"]
+atlas = SubResource("CompressedTexture2D_tcxty")
+region = Rect2(8, 114, 80, 92)
+
+[resource]
+script = ExtResource("1_r4vha")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_pbelo"), ExtResource("3_50ngh"), ExtResource("4_vytwl"), ExtResource("5_2r7y4"), ExtResource("6_4xkpb"), ExtResource("7_b0cab")])
+texture = SubResource("AtlasTexture_hjdwa")
+name = "Steel d6"

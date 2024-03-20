@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DieSide" load_steps=4 format=3 uid="uid://cfwrkh88guanx"]
+
+[ext_resource type="Script" path="res://modules/elements/fire_element.gd" id="1_fxw0c"]
+[ext_resource type="Script" path="res://modules/dice/die_side.gd" id="2_sdcoa"]
+
+[sub_resource type="Resource" id="Resource_07awe"]
+script = ExtResource("1_fxw0c")
+
+[resource]
+script = ExtResource("2_sdcoa")
+power = 0
+custom_power = false
+element = SubResource("Resource_07awe")
+value = 4

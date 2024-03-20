@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Die" load_steps=8 format=3 uid="uid://biliikcsuaqfn"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_fxkdf"]
+[ext_resource type="Resource" uid="uid://b1d3iug3kqfhh" path="res://die_resources/fire_dice/fire_sides/1_fire_side.tres" id="2_pfubb"]
+[ext_resource type="Resource" uid="uid://drgkyjw5xk6a1" path="res://die_resources/fire_dice/fire_sides/2_fire_side.tres" id="3_cq0q4"]
+[ext_resource type="Resource" uid="uid://dfhidsyg2llgs" path="res://die_resources/fire_dice/fire_sides/3_fire_side.tres" id="4_47bxj"]
+[ext_resource type="Resource" uid="uid://cfwrkh88guanx" path="res://die_resources/fire_dice/fire_sides/4_fire_side.tres" id="5_27jwy"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tcxty"]
+load_path = "res://.godot/imported/dice.png-05732488eedaa20371bd32f795cd60bf.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgh7r"]
+atlas = SubResource("CompressedTexture2D_tcxty")
+region = Rect2(2, 2, 92, 92)
+
+[resource]
+script = ExtResource("1_fxkdf")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_pfubb"), ExtResource("3_cq0q4"), ExtResource("4_47bxj"), ExtResource("5_27jwy")])
+texture = SubResource("AtlasTexture_hgh7r")
+name = "Fire d4"

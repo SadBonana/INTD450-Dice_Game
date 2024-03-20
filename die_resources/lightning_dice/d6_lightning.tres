@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Die" load_steps=10 format=3 uid="uid://8x1byhbks7gk"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_hjuch"]
+[ext_resource type="Resource" uid="uid://nq0o2g57d888" path="res://die_resources/lightning_dice/lightning_sides/1_lightning_side.tres" id="2_w30ea"]
+[ext_resource type="Resource" uid="uid://ciflo84x5qynq" path="res://die_resources/lightning_dice/lightning_sides/2_lightning_side.tres" id="3_srqar"]
+[ext_resource type="Resource" uid="uid://lo84spmit74s" path="res://die_resources/lightning_dice/lightning_sides/3_lightning_side.tres" id="4_fre5i"]
+[ext_resource type="Resource" uid="uid://c5r2grrno6n02" path="res://die_resources/lightning_dice/lightning_sides/4_lightning_side.tres" id="5_d15ih"]
+[ext_resource type="Resource" uid="uid://bd3u4wdyuy6a" path="res://die_resources/lightning_dice/lightning_sides/5_lightning_side.tres" id="6_aq5wf"]
+[ext_resource type="Resource" uid="uid://bdswhy43pqmeo" path="res://die_resources/lightning_dice/lightning_sides/6_lightning_side.tres" id="7_71wei"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tcxty"]
+load_path = "res://.godot/imported/dice.png-05732488eedaa20371bd32f795cd60bf.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6di0"]
+atlas = SubResource("CompressedTexture2D_tcxty")
+region = Rect2(8, 114, 80, 92)
+
+[resource]
+script = ExtResource("1_hjuch")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_w30ea"), ExtResource("3_srqar"), ExtResource("4_fre5i"), ExtResource("5_d15ih"), ExtResource("6_aq5wf"), ExtResource("7_71wei")])
+texture = SubResource("AtlasTexture_h6di0")
+name = "Lightning d6"

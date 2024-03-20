@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Die" load_steps=8 format=3 uid="uid://bsfx2ugafliel"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_m17ii"]
+[ext_resource type="Resource" uid="uid://dnayah5ug1oya" path="res://die_resources/steel_dice/steel_sides/1_steel_side.tres" id="2_s10d8"]
+[ext_resource type="Resource" uid="uid://des6eb7bnrlj3" path="res://die_resources/steel_dice/steel_sides/2_steel_side.tres" id="3_0busg"]
+[ext_resource type="Resource" uid="uid://cm40u45m3xc64" path="res://die_resources/steel_dice/steel_sides/3_steel_side.tres" id="4_jpmq6"]
+[ext_resource type="Resource" uid="uid://dnsb4gw2kfls7" path="res://die_resources/steel_dice/steel_sides/4_steel_side.tres" id="5_1guct"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tcxty"]
+load_path = "res://.godot/imported/dice.png-05732488eedaa20371bd32f795cd60bf.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkjyo"]
+atlas = SubResource("CompressedTexture2D_tcxty")
+region = Rect2(2, 2, 92, 92)
+
+[resource]
+script = ExtResource("1_m17ii")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_s10d8"), ExtResource("3_0busg"), ExtResource("4_jpmq6"), ExtResource("5_1guct")])
+texture = SubResource("AtlasTexture_rkjyo")
+name = "Steel d4"

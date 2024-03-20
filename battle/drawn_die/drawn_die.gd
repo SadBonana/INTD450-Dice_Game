@@ -13,6 +13,7 @@ var data: DrawnDieData:
 			data = ddd
 			side = ddd.side
 			die_ref = ddd.die
+			update(die_ref)
 var side : DieSide:
 		set (side):
 			data.side = side

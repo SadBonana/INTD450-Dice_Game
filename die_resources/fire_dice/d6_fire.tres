@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Die" load_steps=10 format=3 uid="uid://dhqxymwqat7of"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_2qp32"]
+[ext_resource type="Resource" uid="uid://b1d3iug3kqfhh" path="res://die_resources/fire_dice/fire_sides/1_fire_side.tres" id="2_uvj8q"]
+[ext_resource type="Resource" uid="uid://drgkyjw5xk6a1" path="res://die_resources/fire_dice/fire_sides/2_fire_side.tres" id="3_550jk"]
+[ext_resource type="Resource" uid="uid://dfhidsyg2llgs" path="res://die_resources/fire_dice/fire_sides/3_fire_side.tres" id="4_50dyy"]
+[ext_resource type="Resource" uid="uid://cfwrkh88guanx" path="res://die_resources/fire_dice/fire_sides/4_fire_side.tres" id="5_2nyee"]
+[ext_resource type="Resource" uid="uid://b6vybwv6i85v4" path="res://die_resources/fire_dice/fire_sides/5_fire_side.tres" id="6_asirx"]
+[ext_resource type="Resource" uid="uid://pfm7w4me0685" path="res://die_resources/fire_dice/fire_sides/6_fire_side.tres" id="7_ywntn"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tcxty"]
+load_path = "res://.godot/imported/dice.png-05732488eedaa20371bd32f795cd60bf.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jabvr"]
+atlas = SubResource("CompressedTexture2D_tcxty")
+region = Rect2(8, 114, 80, 92)
+
+[resource]
+script = ExtResource("1_2qp32")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_uvj8q"), ExtResource("3_550jk"), ExtResource("4_50dyy"), ExtResource("5_2nyee"), ExtResource("6_asirx"), ExtResource("7_ywntn")])
+texture = SubResource("AtlasTexture_jabvr")
+name = "Fire d6"
