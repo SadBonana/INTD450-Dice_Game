@@ -52,12 +52,10 @@ func _init():
 	
 	map_nodes.resize(map_array.size()) #same as for positions
 	map_nodes.fill(null)               #initialize map_nodes with null values
-	
 	init_grid()                        #initialize the grid
 	
 	#add the start position to the map_array
 	map_array.push_front(Vector2((screen_width - 2*margin) / 2, margin))
-	#map_array.push_back(Vector2(screen_width / 2, screen_height - margin))
 	
 	#create a new MapNode for the starting room
 	root = MapNode.new()
@@ -114,7 +112,7 @@ func _init():
 	#for each leafnode, we connect to the boss
 	for leafnode in leafnodes:
 		add_connection(leafnode.position,end.position)
-		leafnode.add_son(end)
+		leafnode.add_son(end) 
 	
 	centre_points() #centring points on the map
 	#randomize_positions()
@@ -182,14 +180,14 @@ func init_grid():
 	Returns:
 		None
 	'''
-	#TODO: centre the grid
 	for col in range(0,map_width):
 		for row in range(0,map_height):
 			#getting the index so we can properly update map_array
 			var index = pos_to_index(col,row)
+			var start_height = margin + tile_size
 			
 			#initialize position at that index
-			map_array[index] = Vector2(col * tile_size + margin, row * tile_size + 2*margin)
+			map_array[index] = Vector2(col * tile_size + margin, row * tile_size + start_height)
 
 func select_starts() -> Array:
 	'''
@@ -563,8 +561,8 @@ func centre_points() -> void:
 
 func randomize_positions() -> void:
 	for index in range(map_array.size()):
-		var offset_x = randf_range(-32,32)
-		var offset_y = randf_range(-32,32)
+		var offset_x = randi_range(-24,24)
+		var offset_y = randi_range(-16,16)
 		
 		#TODO: make sure the change is within bounds
 		#initialize the min and max widths/heights for the grid
