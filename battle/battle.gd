@@ -82,6 +82,8 @@ func _ready():
 	inventory.make_tab("In Bag", player.dice_bag,inv_dice_visual)
 	## setup for used inventory tab
 	inventory.make_tab("Used", player.used_dice,inv_dice_visual)
+	## setup for dice hand inventory tab
+	inventory.make_tab("Hand", player.dice,inv_dice_visual)
 	## setup for die sides inventory tab
 	inventory.make_tab(side_name, [], inv_side_visual)
 	## connect dice bag button to inventory
@@ -239,8 +241,10 @@ func _on_ready_pressed():
 			DrawnDieData.DEFEND:
 				player.defense += die.roll
 		await die.data.effect.apply()
-		die.queue_free()	# NOTE: Freeing in an array loop would prolly normally cause issues, but I think queue_free() can somehow sometimes detect when it needs to wait to actually free it. maybe. Still, be careful when doing this kind of thing.
 		
 	cleanup_enemies()
+	player.hand_used()
+	for die in player.dice_hand:
+		die.queue_free()
 	player.dice_hand.clear()
 	enemy_turn()
