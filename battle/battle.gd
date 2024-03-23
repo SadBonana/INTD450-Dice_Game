@@ -45,6 +45,24 @@ var defeated_enemies = []
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
 @onready var side_name = "Sides"
 
+## Starts a battle scene with the given encounter resource
+##
+## Parameters:
+##         battle_scene_path:
+##             the filepath of battle.tscn
+##         encounter_res:
+##             Can be a BaseEncounter for a guaranteed encounter, or an EncounterTable to randomly
+##             select from a small set of encounters based on the game difficulty setting.
+##             Note: encounters specify what enemies, and how many of them the player will fight.
+##         tree:
+##             Usually you will put get_tree() for this argument.
+static func start(battle_scene_path: String, encounter_res: BaseEncounter, tree: SceneTree):
+	var battle_node = load(battle_scene_path).instantiate()
+	battle_node.encounter_res = encounter_res
+	#var scene = PackedScene.new()
+	#scene.pack(battle_node)
+	#tree.change_scene_to_packed(scene)
+
 func _enter_tree():
 	# Slight HACK: The better way is probably to load and instantiate the enemies
 	# similar to how it is done for the DrawnDie.

@@ -2,7 +2,13 @@ extends Button
 
 class_name MapNode
 
-#@export var early_game_encounter_table: BaseEncounter
+@export var boss_encounter: BaseEncounter
+# CAUTION: The size of this array should not be higher than the number of rows in the map.
+# See the start_battle() function below.
+# NOTE: The array must be in the order that the player is expected to fight first.
+# e.g. early game ecounter tables go first.
+#@export var encounter_tables: Array[EncounterTable]
+
 
 const NT = NodeType.NodeType
 
@@ -121,8 +127,8 @@ func _pressed():
 			pass
 			
 		NT.BATTLE:
-			#scene = preload("TODO:insert battle path here.tscn")
 			pass
+			
 			
 		NT.CAMPFIRE:
 			scene = preload("res://campfire/campfire.tscn")
@@ -148,11 +154,9 @@ func _pressed():
 	
 	if scene != null:
 		var instance = scene.instantiate()
-		var current_scene = get_tree().get_current_scene()
 		get_tree().root.add_child(instance)
 		var map_node = get_node("/root/Map")
 		map_node.visible = false
-		#TODO: Figure out how tf to make Map scene visible again and delete the scene we swap to.
 		
 	
 func _to_string():
