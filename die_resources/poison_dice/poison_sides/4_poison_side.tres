@@ -11,4 +11,4 @@ script = ExtResource("2_qvymc")
 power = 0
 custom_power = false
 element = SubResource("Resource_7rohi")
-value = 3
+value = 4

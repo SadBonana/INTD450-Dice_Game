@@ -1,6 +1,5 @@
 extends Control
 
-@export var loot_table: LootTable
 @export var common_loot_table: LootTable
 @export var uncommon_loot_table: LootTable
 @export_file("*.tscn") var map_path
@@ -67,7 +66,6 @@ func _ready():
 	item_generation()
 	inventory.display_bag = dropped_die_array
 	await textbox_controller.quick_beat("congrats", [], _on_dialogue_transitiond)
-	#await textbox_controller.quick_beat("congrats2", [], _on_dialogue_transitiond)
 	inventory.in_battle_drop_scene = true
 	inventory.frame_clicked.connect(select_die)
 
@@ -110,21 +108,29 @@ func item_generation():
 	var rarity_roll = randi() % 100 + 1
 	print("Probability is:", rarity_roll)
 	
-	if rarity_roll >= 0 and rarity_roll <= 50:
+	'''for item in uncommon_loot_table.basic_loot:
+		print("uncomon item before:", item.sides)'''
+	
+	
+	if rarity_roll >= 0 and rarity_roll <= 1:
 		chosen_loot_table = common_loot_table
 	else:
 		chosen_loot_table = uncommon_loot_table
 	
+		
+	'''for item in uncommon_loot_table.basic_loot:
+		print("uncomon item after:", item.sides)'''
+	
 	# <= does not work, you get 4 die objects
 	while index_of_dropped_die.size() < 3:
 		var drop = chosen_loot_table.pick_loot()
+		print("Drop sides are:", drop.sides)
 		var drop_index = chosen_loot_table.basic_loot.find(drop)
-		print("drop index is:", drop_index)
+		print("drop index is:", drop_index)	
 	
 		if drop_index not in index_of_dropped_die:
 			index_of_dropped_die.append(drop_index)
 			dropped_die_array.append(drop)
-			print("stored die")
 		
 		print("index of dropped die array:", index_of_dropped_die)
 	

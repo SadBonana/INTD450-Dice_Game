@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://cglfsj48akwp2"]
+[gd_scene load_steps=15 format=3 uid="uid://cglfsj48akwp2"]
 
 [ext_resource type="Script" path="res://battle/battle_item_drop.gd" id="1_e8830"]
-[ext_resource type="Resource" uid="uid://cugg8w1sdc2xl" path="res://die_resources/d3_to_d8_basic_loot.tres" id="2_mgoud"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="3_cd6bx"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="3_dly5t"]
 [ext_resource type="Resource" uid="uid://57h8lf7cnkbn" path="res://die_resources/common_loot_table.tres" id="3_ww484"]
@@ -37,7 +36,8 @@ end_conversation = false
 script = ExtResource("4_05img")
 unique_name = "confirm3"
 text = "Would you like to continue adding this die to your inventory?
-Selecting \"no\" means you won't receive a battle drop."
+
+Note, selecting \"no\" means you won't receive a battle drop."
 jumps = Array[String]([])
 choices = Array[String](["Yes", "No"])
 end_conversation = false
@@ -70,7 +70,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e8830")
-loot_table = ExtResource("2_mgoud")
 common_loot_table = ExtResource("3_ww484")
 uncommon_loot_table = ExtResource("4_8ddl5")
 map_path = "res://map/map.tscn"
@@ -86,13 +85,11 @@ grow_vertical = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
 
 [node name="dice_bag" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_dly5t")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
 
 [node name="TextureRect" parent="VBoxContainer/HBoxContainer/dice_bag" index="0"]
 visible = false
