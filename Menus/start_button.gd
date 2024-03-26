@@ -2,7 +2,7 @@ extends Button
 
 @export_file("*.tscn") var map_scene_path
 
-#@onready var start_button = %start_button
+@onready var start_menu = %start_menu_panel
 
 
 # Called when the node enters the scene tree for the first time.
@@ -14,5 +14,10 @@ func _ready():
 func _process(delta):
 	pass
 
+
+func _on_pressed():
+	# Change to map scene once done
+	#get_tree().change_scene_to_file(map_scene_path)
+	start_menu.get_parent_control().visible = false
 func _pressed():
 	get_node("/root/start_menu").visible = false

@@ -9,11 +9,11 @@ const b_lower = 0 #lower limit on number of branches
 const b_upper = 3 #upper limit on number of branches
 const num_paths = 4 #number of complete paths in the game
 
-const tile_size = 32 * 3 #32 x 32 tiles for Sean's icons
+const tile_size = 32 * 3 #96x96 space to allow randomized positions for tiles. Tile icons are 32x32.
 const margin = 40    #generic margin for the side of our screen so we have space for UI
 
-const screen_width =  640 #640 pixels wide
-const screen_height = 720 #360 pixels tall
+const screen_width =  640 #pixels wide
+const screen_height = 720 #pixels tall
 
 #tree functionality
 var leafnodes = [] #track leafnodes so we can connect to boss
