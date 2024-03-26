@@ -67,9 +67,9 @@ func update_status_effects():
 			return true
 		if (not effect1.beneficial) and effect2.beneficial:
 			return false
-		if effect1.remaining_turns < effect2.remaining_turns:
+		if effect1.stacks < effect2.stacks:
 			return true
-		if effect1.remaining_turns > effect2.remaining_turns:
+		if effect1.stacks > effect2.stacks:
 			return false
 		if effect1.strength > effect2.strength:
 			return true
