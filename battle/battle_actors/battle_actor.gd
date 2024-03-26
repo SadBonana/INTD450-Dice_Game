@@ -71,7 +71,7 @@ func update_status_effects():
 			return true
 		if effect1.stacks > effect2.stacks:
 			return false
-		if effect1.strength > effect2.strength:
+		if effect1.stacks > effect2.stacks:
 			return true
 		return false
 	)

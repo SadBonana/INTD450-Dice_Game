@@ -104,12 +104,15 @@ class Autodefense extends StatusEffect:
 	func apply():
 		# Extends duration of existing stacks based on roll, 
 		# added defence based on the total number of stacks
-		target.add_status_effect(self)
-		await textbox.quick_beat("autodefense")
 		for effect in target.status_effects:
 			if effect._type == AUTODEFENSE:
 				effect.stacks += stacks
 				target.defense += effect.stacks# We expect buffs to activate the turn they are used.
+				target.update_status_effects()
+				return true
+		target.add_status_effect(self)
+		await textbox.quick_beat("autodefense")
+		
 		return true
 	
 	
