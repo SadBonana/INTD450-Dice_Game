@@ -150,6 +150,7 @@ func _ready():
 				if enemies.size() == 0:
 					await textbox_controller.next()
 					get_tree().change_scene_to_file(loot_screen_path)
+					queue_free()
 	player.textbox = textbox_controller
 	player.on_defeat = func ():
 ### ALERT FIXME: MAKE IT RESET PROGRESS AND GO TO THE START MENU INSTEAD OF CRASHING THE GAME !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

@@ -19,5 +19,6 @@ func _on_pressed():
 	# Change to map scene once done
 	#get_tree().change_scene_to_file(map_scene_path)
 	start_menu.get_parent_control().visible = false
-func _pressed():
-	get_node("/root/start_menu").visible = false
+
+#func _pressed():
+	#get_node("/root/start_menu").visible = false
