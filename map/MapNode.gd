@@ -127,7 +127,7 @@ func _pressed():
 			pass
 			
 		NT.BATTLE:
-			pass
+			scene = preload("res://battle/battle.tscn")
 			
 			
 		NT.CAMPFIRE:
@@ -154,6 +154,11 @@ func _pressed():
 	
 	if scene != null:
 		var instance = scene.instantiate()
+		
+		if type == NT.BATTLE:
+			#instance._setup(depth)
+			pass
+		
 		get_tree().root.add_child(instance)
 		var map_node = get_node("/root/Map")
 		map_node.visible = false
