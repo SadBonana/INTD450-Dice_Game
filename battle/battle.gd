@@ -59,9 +59,9 @@ var defeated_enemies = []
 static func start(battle_scene_path: String, encounter_res: BaseEncounter, tree: SceneTree):
 	var battle_node = load(battle_scene_path).instantiate()
 	battle_node.encounter_res = encounter_res
-	#var scene = PackedScene.new()
-	#scene.pack(battle_node)
-	#tree.change_scene_to_packed(scene)
+	var scene = PackedScene.new()
+	scene.pack(battle_node)
+	tree.change_scene_to_packed(scene)
 
 func _enter_tree():
 	# Slight HACK: The better way is probably to load and instantiate the enemies
@@ -87,6 +87,8 @@ func _enter_tree():
 		2:
 			enemy1.hide()
 
+func _init():
+	pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
