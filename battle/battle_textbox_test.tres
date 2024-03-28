@@ -3,7 +3,8 @@
 [ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="1_xi6j0"]
 [ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="2_qjl25"]
 
-[sub_resource type="Resource" id="Resource_ay5xx"]
+[sub_resource type="Resource" id="Resource_5updw"]
+resource_name = "battle start"
 script = ExtResource("1_xi6j0")
 unique_name = "battle start"
 text = "Uh oh! yuv been jumped m8!"
@@ -11,15 +12,25 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_i4j1c"]
+[sub_resource type="Resource" id="Resource_c64ir"]
+resource_name = "targeting instructions"
 script = ExtResource("1_xi6j0")
 unique_name = "targeting instructions"
-text = "Select the enemy to attack. Press enter or release the mouse button to confirm the selection. (cancel a mouse selection with the arrow keys)."
+text = "Select a target. Select yourself (left) to defend. Select an enemy (right) to attack.
+
+[color=red]mouse/touch[/color]:
+		[color=blue]Click[/color] a target to select and confirm it.
+
+[color=red]keyboard/controller[/color]:
+		Use [color=blue]arrows[/color]/[color=blue]dpad[/color] to select a target. The selected target is opaque. Use [color=blue]enter[/color] or [color=blue]playstation x[/color] or [color=blue]xbox and nintendo a[/color] button to confirm selection.
+
+If you click all of your dice first before choosing something, all your dice target the actor chosen last."
 jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_oobqt"]
+[sub_resource type="Resource" id="Resource_yvqev"]
+resource_name = "player out of dice 1"
 script = ExtResource("1_xi6j0")
 unique_name = "player out of dice 1"
 text = "You are out of dice. If you wish to keep fighting, you will need to take a turn to collect them all again!"
@@ -27,7 +38,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = false
 
-[sub_resource type="Resource" id="Resource_lji7h"]
+[sub_resource type="Resource" id="Resource_1wwfy"]
+resource_name = "player out of dice 2"
 script = ExtResource("1_xi6j0")
 unique_name = "player out of dice 2"
 text = "What will you do?"
@@ -35,7 +47,8 @@ jumps = Array[String](["replenish dice", "await death"])
 choices = Array[String](["Skip this turn and replenish your dice", "await death"])
 end_conversation = false
 
-[sub_resource type="Resource" id="Resource_1ddtv"]
+[sub_resource type="Resource" id="Resource_ow0po"]
+resource_name = "run"
 script = ExtResource("1_xi6j0")
 unique_name = "run"
 text = "Of the 36 strategems, running is the best."
@@ -43,7 +56,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_jf5ht"]
+[sub_resource type="Resource" id="Resource_4c068"]
+resource_name = "await death"
 script = ExtResource("1_xi6j0")
 unique_name = "await death"
 text = "Then die then."
@@ -51,7 +65,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_pvm66"]
+[sub_resource type="Resource" id="Resource_pw46o"]
+resource_name = "enemy attack"
 script = ExtResource("1_xi6j0")
 unique_name = "enemy attack"
 text = "Oh noes! they're coming for you!"
@@ -59,7 +74,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_j0yr3"]
+[sub_resource type="Resource" id="Resource_bkyx8"]
+resource_name = "deal damage"
 script = ExtResource("1_xi6j0")
 unique_name = "deal damage"
 text = "%s dealt %d damage!"
@@ -67,7 +83,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = false
 
-[sub_resource type="Resource" id="Resource_4y2yx"]
+[sub_resource type="Resource" id="Resource_wyjeh"]
+resource_name = "actor defeated"
 script = ExtResource("1_xi6j0")
 unique_name = "actor defeated"
 text = "%s defeated!"
@@ -75,7 +92,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = false
 
-[sub_resource type="Resource" id="Resource_cpjfn"]
+[sub_resource type="Resource" id="Resource_rk4jd"]
+resource_name = "victory"
 script = ExtResource("1_xi6j0")
 unique_name = "victory"
 text = "You won! Onwards!"
@@ -83,7 +101,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_ytg4d"]
+[sub_resource type="Resource" id="Resource_i6u16"]
+resource_name = "not ready"
 script = ExtResource("1_xi6j0")
 unique_name = "not ready"
 text = "Hold your horses! You need to select what to do with each of your die first!"
@@ -91,7 +110,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_wl3bi"]
+[sub_resource type="Resource" id="Resource_lplyl"]
+resource_name = "ready"
 script = ExtResource("1_xi6j0")
 unique_name = "ready"
 text = "To battle! dun dun dun!"
@@ -99,15 +119,17 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_ylaaj"]
+[sub_resource type="Resource" id="Resource_1xcyg"]
+resource_name = "missed"
 script = ExtResource("1_xi6j0")
 unique_name = "missed"
-text = "You missed haha! Next time math before you attack."
+text = "You already killed that one m8!"
 jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_1m16p"]
+[sub_resource type="Resource" id="Resource_qcsay"]
+resource_name = "enemy out of dice"
 script = ExtResource("1_xi6j0")
 unique_name = "enemy out of dice"
 text = "%s is out of dice! They're helpless while they are replenishing their dice!"
@@ -115,15 +137,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_dr7yj"]
-script = ExtResource("1_xi6j0")
-unique_name = "temp pick effect"
-text = "TEMP CHEAT: Pick an effect to apply"
-jumps = Array[String]([])
-choices = Array[String](["No Effect", "Paralysis", "Autodefense", "Ignited", "Poison"])
-end_conversation = true
-
-[sub_resource type="Resource" id="Resource_cx0kr"]
+[sub_resource type="Resource" id="Resource_oyvy8"]
+resource_name = "game over"
 script = ExtResource("1_xi6j0")
 unique_name = "game over"
 text = "you lose"
@@ -131,7 +146,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_uha2h"]
+[sub_resource type="Resource" id="Resource_4bea6"]
+resource_name = "already paralyzed"
 script = ExtResource("1_xi6j0")
 unique_name = "already paralyzed"
 text = "the target is already paralyzed"
@@ -139,7 +155,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_ttgcs"]
+[sub_resource type="Resource" id="Resource_ywjoj"]
+resource_name = "paralyzed"
 script = ExtResource("1_xi6j0")
 unique_name = "paralyzed"
 text = "The target is paralyzed, %d / %d of their dice are unusable."
@@ -147,7 +164,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_vu3in"]
+[sub_resource type="Resource" id="Resource_ub1jd"]
+resource_name = "paralyzed invoke"
 script = ExtResource("1_xi6j0")
 unique_name = "paralyzed invoke"
 text = "%s is paralyzed, only %d of their dice are usable this turn!"
@@ -155,7 +173,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_6d0bx"]
+[sub_resource type="Resource" id="Resource_ygxwp"]
+resource_name = "autodefense"
 script = ExtResource("1_xi6j0")
 unique_name = "autodefense"
 text = "The target has gained auto defense, they start their turn with free defense!"
@@ -163,7 +182,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_32wr3"]
+[sub_resource type="Resource" id="Resource_60axw"]
+resource_name = "on fire"
 script = ExtResource("1_xi6j0")
 unique_name = "on fire"
 text = "The fire spreads."
@@ -171,7 +191,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_1o6re"]
+[sub_resource type="Resource" id="Resource_hn125"]
+resource_name = "ignited invoke"
 script = ExtResource("1_xi6j0")
 unique_name = "ignited invoke"
 text = "The conflagration is fueled by the target's dice. %d of their dice have caught fire, causing burns."
@@ -179,7 +200,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_7hifd"]
+[sub_resource type="Resource" id="Resource_ivh1e"]
+resource_name = "poisoned"
 script = ExtResource("1_xi6j0")
 unique_name = "poisoned"
 text = "The target has accumulated toxic substances in their body."
@@ -187,7 +209,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_dqxlm"]
+[sub_resource type="Resource" id="Resource_7vv8p"]
+resource_name = "poison invoke"
 script = ExtResource("1_xi6j0")
 unique_name = "poison invoke"
 text = "The target suffers from the toxins in their body."
@@ -195,7 +218,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_bsuvg"]
+[sub_resource type="Resource" id="Resource_jkuok"]
+resource_name = "paralysis description"
 script = ExtResource("1_xi6j0")
 unique_name = "paralysis description"
 text = "Paralysis:
@@ -204,7 +228,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_qk0l1"]
+[sub_resource type="Resource" id="Resource_nject"]
+resource_name = "autodefense description"
 script = ExtResource("1_xi6j0")
 unique_name = "autodefense description"
 text = "Autodefense.
@@ -213,16 +238,18 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_mdolo"]
+[sub_resource type="Resource" id="Resource_qipc1"]
+resource_name = "ignited description"
 script = ExtResource("1_xi6j0")
 unique_name = "ignited description"
 text = "Ignited.
-At the start of each turn, for each level of ignition, one of the target's dice is rerolled, the target then takes damage equal to the reroll, and if the roll was low, there is a chance for to either spread the ignition to other targets, or increase the ignition level."
+At the start of each turn, for each level of ignition, one of the target's dice is rerolled, the target then takes damage equal to the reroll, and if the roll was low, there is a chance to either spread the ignition to other targets, or increase the ignition level."
 jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_sk6li"]
+[sub_resource type="Resource" id="Resource_nwbc4"]
+resource_name = "poisoned description"
 script = ExtResource("1_xi6j0")
 unique_name = "poisoned description"
 text = "Poisoned.
@@ -231,7 +258,8 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_46wyg"]
+[sub_resource type="Resource" id="Resource_bpm4g"]
+resource_name = "replenish dice"
 script = ExtResource("1_xi6j0")
 unique_name = "replenish dice"
 text = "You cannot act this turn because you are busy replenishing your dice!"
@@ -239,6 +267,15 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
+[sub_resource type="Resource" id="Resource_1lmma"]
+resource_name = "reshuffle"
+script = ExtResource("1_xi6j0")
+unique_name = "reshuffle"
+text = "Out of Dice, Reshuffling"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
 [resource]
 script = ExtResource("2_qjl25")
-beats = Array[ExtResource("1_xi6j0")]([SubResource("Resource_ay5xx"), SubResource("Resource_i4j1c"), SubResource("Resource_oobqt"), SubResource("Resource_lji7h"), SubResource("Resource_1ddtv"), SubResource("Resource_jf5ht"), SubResource("Resource_pvm66"), SubResource("Resource_j0yr3"), SubResource("Resource_4y2yx"), SubResource("Resource_cpjfn"), SubResource("Resource_ytg4d"), SubResource("Resource_wl3bi"), SubResource("Resource_ylaaj"), SubResource("Resource_1m16p"), SubResource("Resource_dr7yj"), SubResource("Resource_cx0kr"), SubResource("Resource_uha2h"), SubResource("Resource_ttgcs"), SubResource("Resource_vu3in"), SubResource("Resource_6d0bx"), SubResource("Resource_32wr3"), SubResource("Resource_1o6re"), SubResource("Resource_7hifd"), SubResource("Resource_dqxlm"), SubResource("Resource_bsuvg"), SubResource("Resource_qk0l1"), SubResource("Resource_mdolo"), SubResource("Resource_sk6li"), SubResource("Resource_46wyg")])
+beats = Array[ExtResource("1_xi6j0")]([SubResource("Resource_5updw"), SubResource("Resource_c64ir"), SubResource("Resource_yvqev"), SubResource("Resource_1wwfy"), SubResource("Resource_ow0po"), SubResource("Resource_4c068"), SubResource("Resource_pw46o"), SubResource("Resource_bkyx8"), SubResource("Resource_wyjeh"), SubResource("Resource_rk4jd"), SubResource("Resource_i6u16"), SubResource("Resource_lplyl"), SubResource("Resource_1xcyg"), SubResource("Resource_qcsay"), SubResource("Resource_oyvy8"), SubResource("Resource_4bea6"), SubResource("Resource_ywjoj"), SubResource("Resource_ub1jd"), SubResource("Resource_ygxwp"), SubResource("Resource_60axw"), SubResource("Resource_hn125"), SubResource("Resource_ivh1e"), SubResource("Resource_7vv8p"), SubResource("Resource_jkuok"), SubResource("Resource_nject"), SubResource("Resource_qipc1"), SubResource("Resource_nwbc4"), SubResource("Resource_bpm4g"), SubResource("Resource_1lmma")])

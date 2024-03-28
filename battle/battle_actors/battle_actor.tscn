@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbu8nn2jqun2j"]
+[gd_scene load_steps=6 format=3 uid="uid://bbu8nn2jqun2j"]
 
-[ext_resource type="Script" path="res://battle/battle_actor.gd" id="1_k0mx3"]
+[ext_resource type="Script" path="res://battle/battle_actors/battle_actor.gd" id="1_k0mx3"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_tuuc8"]
+[ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="3_yrg2q"]
 
 [sub_resource type="Animation" id="Animation_ootso"]
 resource_name = "Hurt"
@@ -67,6 +68,20 @@ size_flags_stretch_ratio = 7.0
 texture = ExtResource("1_tuuc8")
 expand_mode = 5
 stretch_mode = 4
+
+[node name="Shield" type="Label" parent="Actor Sprite"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -52.5
+offset_right = 52.5
+offset_bottom = 29.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yrg2q")
+theme_override_font_sizes/font_size = 29
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

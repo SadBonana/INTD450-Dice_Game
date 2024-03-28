@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmaf74odgy7v6"]
+
+[ext_resource type="Script" path="res://menus/start_button.gd" id="1_sowo1"]
+
+[node name="start_button" type="Button"]
+focus_neighbor_top = NodePath("../quit_button")
+focus_neighbor_bottom = NodePath("../controls_button")
+theme_override_colors/font_pressed_color = Color(1, 0.263137, 0.293668, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
+text = "Start"
+script = ExtResource("1_sowo1")
+map_scene_path = "res://map/map.tscn"
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

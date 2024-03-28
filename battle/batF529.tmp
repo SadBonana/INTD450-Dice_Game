@@ -1,0 +1,206 @@
+[gd_scene load_steps=17 format=3 uid="uid://chd8awhkxw1b7"]
+
+[ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
+[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
+[ext_resource type="Resource" uid="uid://bh8sa74vyv8n7" path="res://encounter resources/mid_game_encounters.tres" id="2_6ad1h"]
+[ext_resource type="Resource" uid="uid://dxvj75cw3wclu" path="res://enemy resources/HostileRedGodotLogo.tres" id="2_yokuy"]
+[ext_resource type="PackedScene" uid="uid://ck3aqqaxesp6p" path="res://battle/battle_actors/battle_player.tscn" id="4_5lfpt"]
+[ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle/battle_actors/battle_enemy.tscn" id="4_w871o"]
+[ext_resource type="PackedScene" uid="uid://cuaew3jle1avs" path="res://battle/drawn_die/drawn_die.tscn" id="5_co5hi"]
+[ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_0lq60"]
+[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="7_iw7i2"]
+[ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="8_11wq8"]
+[ext_resource type="Resource" uid="uid://git3m0aftj0o" path="res://battle/battle_textbox_test.tres" id="9_5yvlh"]
+[ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="10_sbswq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idclm"]
+bg_color = Color(0.227451, 0.0823529, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prgvx"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lira"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0c1a"]
+
+[node name="Battle" type="Control" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5jfo4")
+drawn_die_path = "res://battle/drawn_die/drawn_die.tscn"
+map_path = "res://map/map.tscn"
+loot_screen_path = "res://battle/battle_item_drop.tscn"
+encounter_res = ExtResource("2_6ad1h")
+enemy1 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy")
+enemy2 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy2")
+enemy3 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy3")
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(0.04, 0.04, 0.04, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_iltai")
+stretch_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Battle Player" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_5lfpt")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+size_flags_stretch_ratio = 3.0
+texture = ExtResource("1_iltai")
+status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
+
+[node name="Battle Enemy" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
+layout_mode = 2
+size_flags_vertical = 0
+res = ExtResource("2_yokuy")
+status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
+
+[node name="Battle Enemy2" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
+layout_mode = 2
+size_flags_vertical = 4
+res = ExtResource("2_yokuy")
+status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
+
+[node name="Battle Enemy3" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
+layout_mode = 2
+size_flags_vertical = 8
+res = ExtResource("2_yokuy")
+status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
+
+[node name="PlayerPanel" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_idclm")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PlayerPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Player Status and Hand" type="HBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Player Status" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand" instance=ExtResource("6_0lq60")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Hand of Dice" type="HBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Die Action Menu" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice" instance=ExtResource("5_co5hi")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Player Action Menu" type="VBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Ready" type="Button" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("7_iw7i2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_prgvx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
+text = "TO BATTLE! "
+
+[node name="Run" type="Button" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("7_iw7i2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_prgvx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
+text = "RUN"
+
+[node name="Textbox Controller" parent="VBoxContainer/PlayerPanel/MarginContainer" instance=ExtResource("8_11wq8")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+dialogue_res = ExtResource("9_5yvlh")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 35
+
+[node name="DiceBag" parent="MarginContainer" instance=ExtResource("10_sbswq")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/MarginContainer/Player Action Menu/Run" to="." method="_on_run_pressed"]
+
+[editable path="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu"]
+[editable path="VBoxContainer/PlayerPanel/MarginContainer/Textbox Controller"]

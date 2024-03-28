@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dw45jdegirn73"]
+
+[ext_resource type="Script" path="res://menus/back_to_start_menu_button.gd" id="1_fwg0a"]
+
+[node name="back_to_start_menu_button" type="Button"]
+theme_override_colors/font_pressed_color = Color(1, 0.263137, 0.293668, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
+text = "Back"
+script = ExtResource("1_fwg0a")
+start_menu_scene_path = "res://menus/start_menu.tscn"
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

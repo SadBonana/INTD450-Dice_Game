@@ -19,11 +19,14 @@ config/icon="res://icon.svg"
 
 SaveSettings="*res://Menus/save_settings.gd"
 GlobalSettings="*res://Menus/global_settings.gd"
+NodeType="*res://map/NodeType.gd"
+Map="*res://map/map.tscn"
 
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/always_on_top=true
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
