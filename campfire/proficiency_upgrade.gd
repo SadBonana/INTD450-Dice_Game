@@ -1,7 +1,5 @@
 extends Control
 
-@export_file("*.tscn") var map_path
-
 # Textbox
 @onready var choices_container := $VBoxContainer/choices_container
 @onready var textbox_controller := $"VBoxContainer/choices_container/Textbox Controller"
@@ -68,7 +66,7 @@ func upgrade_die():
 	
 	print("Congrats! You upgraded your D%d" % die.num_sides)
 	inventory.in_upgrade_scene = false
-	get_tree().change_scene_to_file(map_path)
+	queue_free()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

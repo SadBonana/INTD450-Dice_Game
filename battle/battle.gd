@@ -9,7 +9,6 @@ signal target_selected(target)
 
 # File paths for scene changes and sub-scene instantiations.
 @export_file("*.tscn") var drawn_die_path
-@export_file("*.tscn") var map_path
 @export_file("*.tscn") var loot_screen_path
 
 # Enemy
@@ -193,7 +192,7 @@ func enemy_turn():
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
 	await textbox_controller.quick_beat("run")
-	get_tree().change_scene_to_file(map_path)
+	queue_free()
 
 
 func _on_ready_pressed():

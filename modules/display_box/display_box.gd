@@ -1,17 +1,9 @@
 extends Control
 
-
 ## Global variables
 @onready var slots: HFlowContainer = %HFlowContainer
 @onready var arrow_label = $MarginContainer/ScrollContainer/VBoxContainer/arrow_label
 @onready var slots_preview: HFlowContainer = $MarginContainer/ScrollContainer/VBoxContainer/HFlowContainer2
-
-#@onready var slots: VFlowContainer = %MarginContainer/ScrollContainer/HBoxContainer/VFlowContainer
-#@onready var arrow_label = $MarginContainer/ScrollContainer/HBoxContainer/arrow_label
-#@onready var slots_preview: VFlowContainer = $MarginContainer/ScrollContainer/HBoxContainer/VFlowContainer2
-
-
-@onready var scroll: ScrollContainer = %ScrollContainer
 
 var is_open = false
 var is_side_view_open = false
@@ -58,12 +50,6 @@ func _process(delta):
 func show_dice() -> void:
 	wipe()
 	var invframe
-	
-	'''if in_battle_drop_scene == true:
-		display_bag = battle_item_drop.dropped_die_array
-	else:
-		display_bag = PlayerData.dice_bag'''
-	
 	for die in display_bag:
 		invframe = scene.instantiate()
 		slots.add_child(invframe)	# Adds scene as a child to slots, the HFlowContainer in Dicebag
@@ -77,9 +63,6 @@ func return_content(content):
 	frame_clicked.emit(content)
 	
 ## This function displays a specific die's sides
-'''Copy-Paste this function into proficiency_upgrade scene, then call it 
-using the new display_box code Boris made. Refrence the updated battle scene
-on how to do this'''
 func show_sides(die : Die):
 	wipe()
 	

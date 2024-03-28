@@ -1,15 +1,15 @@
 [gd_scene load_steps=2 format=3 uid="uid://ctaccl0npcgto"]
 
-[ext_resource type="Script" path="res://temp_disbox_scene_code.gd" id="1_7fksj"]
+[ext_resource type="Script" path="res://modules/display_box/temp_disbox.gd" id="1_83wj6"]
 
-[node name="Control" type="Control"]
+[node name="display_box" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_7fksj")
+script = ExtResource("1_83wj6")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
