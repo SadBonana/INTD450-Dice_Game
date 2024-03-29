@@ -61,7 +61,7 @@ func _ready():
 		StatusEffect.EffectType.PARALYSIS:
 			self_modulate = Color.YELLOW
 		StatusEffect.EffectType.AUTODEFENSE:
-			self_modulate = Color.GRAY
+			self_modulate = Color.LIGHT_STEEL_BLUE
 		StatusEffect.EffectType.IGNITED:
 			self_modulate = Color.DARK_RED
 		StatusEffect.EffectType.POISONED:
