@@ -214,12 +214,16 @@ func _on_run_pressed():
 
 
 func _on_ready_pressed():
+	var one_target = false
 	for die in player.dice_hand:
-		# NOTE: May eventually want to allow the player to intentionally discard or not use dice.
-		if (not die.target or not die.is_toggled):
-			await textbox_controller.quick_beat("not ready")
-			die.grab_focus()
-			return
+		if die.target:
+			one_target = true
+			break
+	if not one_target:
+	# NOTE: May eventually want to allow the player to intentionally discard or not use dice.
+		await textbox_controller.quick_beat("not ready")
+		player.dice_hand[0].grab_focus()
+		return
 	
 	# Hide things we don't want the player to be able to mess
 	# with after they've ended their turn
@@ -232,6 +236,8 @@ func _on_ready_pressed():
 		enemy.roll_label.hide()
 	
 	for die in player.dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
+		if not die.target:
+			continue
 		match die.selected_action:
 			DrawnDieData.ATTACK:
 				# Account for if a previous die killed the enemy.
