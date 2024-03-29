@@ -15,6 +15,7 @@ var beneficial: bool = false	# Whether the effect is a buff or a debuff
 var damaging: bool = true	# Should a die with this effect also do damage narmally.
 
 var textbox: TextboxController
+var textbox_enabled := false
 var description_beat: String
 
 var _type = EffectType.BASEEFFECT
@@ -56,11 +57,13 @@ class Paralysis extends StatusEffect:
 				effect.stacks += stacks
 
 				target.update_status_effects()
-				await textbox.quick_beat("paralyzed", [stacks, target.dice_draws])
+				if textbox_enabled:
+					await textbox.quick_beat("paralyzed", [stacks, target.dice_draws])
 				_invoke_helper()	# We expect this one to take effect immediately
 				return true
 		target.add_status_effect(self)
-		await textbox.quick_beat("paralyzed", [stacks, target.dice_draws])
+		if textbox_enabled:
+			await textbox.quick_beat("paralyzed", [stacks, target.dice_draws])
 		_invoke_helper()	# We expect this one to take effect immediately
 		return true
 	
@@ -70,7 +73,8 @@ class Paralysis extends StatusEffect:
 	## Return whether the effect should be removed this turn
 	func invoke():
 		_invoke_helper()
-		await textbox.quick_beat("paralyzed invoke", [target.actor_name, target.dice_hand.size()])
+		if textbox_enabled:
+			await textbox.quick_beat("paralyzed invoke", [target.actor_name, target.dice_hand.size()])
 		stacks -= 1
 		if stacks == 0:
 			target.remove_status_effect(self)
@@ -111,7 +115,8 @@ class Autodefense extends StatusEffect:
 				target.update_status_effects()
 				return true
 		target.add_status_effect(self)
-		await textbox.quick_beat("autodefense")
+		if textbox_enabled:
+			await textbox.quick_beat("autodefense")
 		
 		return true
 	
@@ -159,7 +164,8 @@ class Ignited extends StatusEffect:
 				target.update_status_effects()
 				return true
 		target.add_status_effect(self)
-		await textbox.quick_beat("on fire")
+		if textbox_enabled:
+			await textbox.quick_beat("on fire")
 		return true
 		
 		
@@ -169,7 +175,8 @@ class Ignited extends StatusEffect:
 	func invoke():
 		var burning_dice = min(stacks, target.dice_hand.size())
 		if burning_dice > 0:
-			await textbox.quick_beat("ignited invoke", [burning_dice])
+			if textbox_enabled:
+				await textbox.quick_beat("ignited invoke", [burning_dice])
 		for i in range(burning_dice):
 			var roll = target.dice_hand[i].die.roll()
 			# Made it compare values instead of sides cause i think it could be more interesting. Might wanna nerf later tho.
@@ -208,7 +215,8 @@ class Poisoned extends StatusEffect:
 				target.update_status_effects()
 				return true
 		target.add_status_effect(self)
-		await textbox.quick_beat("poisoned")
+		if textbox_enabled:
+			await textbox.quick_beat("poisoned")
 		return true
 	
 	
@@ -216,7 +224,8 @@ class Poisoned extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
-		await textbox.quick_beat("poison invoke")
+		if textbox_enabled:
+			await textbox.quick_beat("poison invoke")
 		await target.take_damage(stacks, "poison")
 		stacks -= 1
 		if stacks == 0:

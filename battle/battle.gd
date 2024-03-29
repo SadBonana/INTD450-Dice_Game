@@ -29,7 +29,7 @@ var enemies = []
 var defeated_enemies = []
 # Textbox
 @onready var textbox_controller := %"Textbox Controller"
-
+@export var enable_textboxes := false
 # Player Panel
 @onready var bottom_container := %"Player Status and Hand"
 @onready var player_status := %"Player Status"
@@ -194,7 +194,8 @@ func cleanup_enemies():
 
 
 func enemy_turn():
-	await textbox_controller.quick_beat("enemy attack")
+	if enable_textboxes:
+		await textbox_controller.quick_beat("enemy attack")
 	for enemy in enemies:
 		for die in enemy.dice_hand:
 			if die.action == DrawnDieData.ATTACK and die.effect.damaging:
@@ -224,8 +225,8 @@ func _on_ready_pressed():
 	# with after they've ended their turn
 	drawn_die_container.hide()
 	action_menu.hide()
-	
-	await textbox_controller.quick_beat("ready")
+	if enable_textboxes:
+		await textbox_controller.quick_beat("ready")
 	
 	for enemy in enemies:
 		enemy.roll_label.hide()
