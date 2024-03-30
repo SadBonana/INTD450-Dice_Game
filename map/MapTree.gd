@@ -33,8 +33,8 @@ var map_nodes = []   #array of MapNodes
 #front-end probabilities
 #these are the expected chances of getting a room of this type
 var camp_prob     = 0.0 #initialized at 0 until depth = 3
-var wshop_prob    = 0.3
-var battle_prob   = 0.7 #70% chance of selecting battle as first room
+var wshop_prob    = 0.0
+var battle_prob   = 1.0 #70% chance of selecting battle as first room
 var treasure_prob = 0.0 #initialized at 0 until depth = 3
 #var elite_prob
 #var rand_enc_prob 
@@ -282,18 +282,18 @@ func select_type(node:MapNode) -> NT:
 		return NT.BATTLE
 	
 	if depth == 3:           #only want this to run once, at depth=3 to increase probs
-		camp_prob = 0.15     #i.e., chance for node 3 in a path of being a campfire is 15%
-		wshop_prob = 0.25    # 25%
-		battle_prob = 0.50   # 50%
-		treasure_prob = 0.10 # 10%
+		camp_prob = 0.25     #% of campfire
+		wshop_prob = 0.0    # % chance of workshop
+		battle_prob = 0.60   # % chance of battle
+		treasure_prob = 0.15 # % chance of treasure
 	
 	#hardcode depth 4 as treasure, we dont have to do this
 	if depth == 4:
 		return NT.TREASURE
 	
 	#hardcode depth 6 as workshop
-	if depth == 6:
-		return NT.WORKSHOP
+	#if depth == 6:
+	#	return NT.WORKSHOP
 	
 	#if depth is d then its a leafnode, and all leafnodes are rest sites
 	if depth == d:
@@ -311,9 +311,9 @@ func select_type(node:MapNode) -> NT:
 			NT.BATTLE:         #if battle selected
 				if battle_prob > 0.06: #if current chance for battle > 6%
 					battle_prob     -= 0.06 #reduce battle_prob by 6%
-					camp_prob       += 0.02 #increase other probs by 2%
-					wshop_prob      += 0.02
-					treasure_prob   += 0.02		
+					#camp_prob       += 0.02 #increase other probs by 2%
+					wshop_prob      += 0.03
+					treasure_prob   += 0.03		
 				fin = true	                #selection successful so stop
 						
 			NT.CAMPFIRE:
@@ -321,10 +321,10 @@ func select_type(node:MapNode) -> NT:
 				#also skip if the depth is d-1 since d is hardcoded to be campfires
 				if not prevent_double and depth != d-1:
 					if camp_prob > 0.06:     #otherwise, proceed same as for battle
-						battle_prob     += 0.02
+						battle_prob     += 0.03
 						camp_prob       -= 0.06
-						wshop_prob      += 0.02
-						treasure_prob   += 0.02
+						#wshop_prob      += 0.02
+						treasure_prob   += 0.03
 					fin = true
 
 			NT.WORKSHOP:                     #same as before
@@ -339,9 +339,9 @@ func select_type(node:MapNode) -> NT:
 			NT.TREASURE:                     #same as before
 				if not prevent_double:
 					if treasure_prob > 0.06:
-						battle_prob     += 0.02
-						wshop_prob      += 0.02
-						camp_prob       += 0.02
+						battle_prob     += 0.03
+						#wshop_prob      += 0.02
+						camp_prob       += 0.03
 						treasure_prob   -= 0.06
 					fin = true
 	return selection
