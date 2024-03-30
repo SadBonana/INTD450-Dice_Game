@@ -8,6 +8,9 @@ var pressed_path : StyleBox = preload("res://battle/drawn_die/styles/button_batt
 var pressed_style = "pressed"
 var normal_style = "normal"
 
+signal target_selected(drawndie)
+signal target_unselected(drawndie)
+
 var data: DrawnDieData:
 		set (ddd):
 			data = ddd
@@ -56,8 +59,16 @@ static func instantiate(node_path: String, parent: Node, _die: Die, battle_conte
 	var scene = load(node_path).instantiate()
 	parent.add_child(scene)
 	scene.data = DrawnDieData.new(_die, battle_context.player, battle_context)
+	
 
 	return scene
+	
+func _ready():
+	var parent = get_parent()
+	if parent.has_method("add_to_dice_with_targets"):
+		target_selected.connect(parent.add_to_dice_with_targets)
+	if parent.has_method("remove_from_dice_with_targets"):
+		target_unselected.connect(parent.remove_from_dice_with_targets)
 
 
 ## called when the player selects a die in their hand. allows player to target actors.
@@ -87,6 +98,8 @@ func _on_toggled(toggled_on):
 		selected_action = data.ATTACK if target is BattleEnemy else data.DEFEND
 		
 		make_pressed()
+		## emits a signal that we want the container to catch
+		target_selected.emit(self)
 		# Clean up once targeting is finished
 		for option in targets:
 			option.toggle_target_mode(false, data.battle.target_selected)
@@ -107,6 +120,7 @@ func _on_toggled(toggled_on):
 		for option in targets:
 			option.toggle_target_mode(false, data.battle.target_selected)
 		target = null
+		target_unselected.emit(self)
 
 
 ## A function that changes the style box of the drawn_die

@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_0lq60"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="7_iw7i2"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="8_11wq8"]
-[ext_resource type="Script" path="res://battle/Hand of Dice.gd" id="8_g4f03"]
+[ext_resource type="Script" path="res://battle/hand_of_dice.gd" id="8_47wfu"]
 [ext_resource type="Resource" uid="uid://git3m0aftj0o" path="res://battle/battle_textbox_test.tres" id="9_5yvlh"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="10_sbswq"]
 
@@ -136,7 +136,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 theme_override_constants/separation = 20
 alignment = 1
-script = ExtResource("8_g4f03")
+script = ExtResource("8_47wfu")
 
 [node name="Die Action Menu" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice" instance=ExtResource("5_co5hi")]
 unique_name_in_owner = true
