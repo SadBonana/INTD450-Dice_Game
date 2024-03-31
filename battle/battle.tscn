@@ -1,17 +1,22 @@
-[gd_scene load_steps=17 format=3 uid="uid://chd8awhkxw1b7"]
+[gd_scene load_steps=19 format=3 uid="uid://chd8awhkxw1b7"]
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
-[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
-[ext_resource type="Resource" uid="uid://bh8sa74vyv8n7" path="res://encounter resources/mid_game_encounters.tres" id="2_6ad1h"]
+[ext_resource type="Resource" uid="uid://tudqfbuutdsk" path="res://encounter resources/boss_encounter.tres" id="2_8b5lk"]
 [ext_resource type="Resource" uid="uid://dxvj75cw3wclu" path="res://enemy resources/HostileRedGodotLogo.tres" id="2_yokuy"]
+[ext_resource type="Texture2D" uid="uid://cdwdndybdb65w" path="res://assets/textures/bricks 32.png" id="3_f41du"]
 [ext_resource type="PackedScene" uid="uid://ck3aqqaxesp6p" path="res://battle/battle_actors/battle_player.tscn" id="4_5lfpt"]
 [ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle/battle_actors/battle_enemy.tscn" id="4_w871o"]
+[ext_resource type="Texture2D" uid="uid://bgacwcqu3hk14" path="res://assets/textures/resources/new_atlas_texture.tres" id="5_8ng7q"]
 [ext_resource type="PackedScene" uid="uid://cuaew3jle1avs" path="res://battle/drawn_die/drawn_die.tscn" id="5_co5hi"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_0lq60"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="7_iw7i2"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="8_11wq8"]
 [ext_resource type="Resource" uid="uid://git3m0aftj0o" path="res://battle/battle_textbox_test.tres" id="9_5yvlh"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="10_sbswq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twasx"]
+atlas = ExtResource("3_f41du")
+region = Rect2(0, 144, 32, 32)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idclm"]
 bg_color = Color(0.227451, 0.0823529, 0, 1)
@@ -38,12 +43,12 @@ script = ExtResource("1_5jfo4")
 drawn_die_path = "res://battle/drawn_die/drawn_die.tscn"
 map_path = "res://map/map.tscn"
 loot_screen_path = "res://battle/battle_item_drop.tscn"
-encounter_res = ExtResource("2_6ad1h")
+encounter_res = ExtResource("2_8b5lk")
 enemy1 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy")
 enemy2 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy2")
 enemy3 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy3")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="NinePatchRect" parent="."]
 modulate = Color(0.04, 0.04, 0.04, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -51,8 +56,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_iltai")
-stretch_mode = 1
+texture = SubResource("AtlasTexture_twasx")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -81,7 +87,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 8
 size_flags_stretch_ratio = 3.0
-texture = ExtResource("1_iltai")
+texture = ExtResource("5_8ng7q")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
 [node name="Battle Enemy" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
@@ -192,6 +198,7 @@ mouse_filter = 2
 dialogue_res = ExtResource("9_5yvlh")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

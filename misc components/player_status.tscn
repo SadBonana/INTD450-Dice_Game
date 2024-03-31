@@ -1,9 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgag7rr64v1m7"]
+[gd_scene load_steps=9 format=3 uid="uid://bgag7rr64v1m7"]
 
 [ext_resource type="Script" path="res://misc components/player_status.gd" id="1_kpf4t"]
-[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="2_f10bn"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_wrn3c"]
 [ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://misc components/health_bar.tscn" id="3_5jrpy"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tcxty"]
+load_path = "res://.godot/imported/dice.png-05732488eedaa20371bd32f795cd60bf.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qk8vw"]
+atlas = SubResource("CompressedTexture2D_tcxty")
+region = Rect2(7, 341, 84, 89)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_si3mn"]
 
@@ -43,12 +49,10 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="Bag Sprite" type="TextureRect" parent="."]
-self_modulate = Color(0.113725, 0.0588235, 0, 1)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
-texture = ExtResource("2_f10bn")
-expand_mode = 3
+texture = SubResource("AtlasTexture_qk8vw")
 stretch_mode = 4
 
 [node name="Deck Status" type="Label" parent="Bag Sprite"]

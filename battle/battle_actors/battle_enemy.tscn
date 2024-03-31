@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlyb2lewb1n15"]
+[gd_scene load_steps=6 format=3 uid="uid://dlyb2lewb1n15"]
 
 [ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://misc components/health_bar.tscn" id="1_pbfgf"]
 [ext_resource type="Script" path="res://battle/battle_actors/battle_enemy.gd" id="1_u2vwq"]
 [ext_resource type="PackedScene" uid="uid://bbu8nn2jqun2j" path="res://battle/battle_actors/battle_actor.tscn" id="3_vc0kg"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="4_4kj7r"]
+[ext_resource type="Texture2D" uid="uid://brl6jhcglmvv" path="res://assets/textures/player size test.png" id="4_clm1s"]
 
 [node name="Battle Enemy" instance=ExtResource("3_vc0kg")]
 anchors_preset = -1
@@ -19,6 +20,12 @@ res = null
 [node name="HealthBar" parent="." index="0" instance=ExtResource("1_pbfgf")]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="Actor Sprite" parent="." index="2"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_clm1s")
+expand_mode = 0
 
 [node name="Roll" type="Label" parent="Actor Sprite" index="0"]
 unique_name_in_owner = true

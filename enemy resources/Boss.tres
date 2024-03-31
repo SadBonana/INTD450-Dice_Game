@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="BaseEnemy" load_steps=9 format=3 uid="uid://cd2a3qhp3m7f3"]
+
+[ext_resource type="Resource" uid="uid://dinkuhl73fnn" path="res://die_resources/basic_dice/d3_basic.tres" id="1_pw6ue"]
+[ext_resource type="Resource" uid="uid://bt7rnnfr007c1" path="res://die_resources/fire_dice/d3_fire.tres" id="2_0t6la"]
+[ext_resource type="Resource" uid="uid://dase6d6ehskv0" path="res://die_resources/lightning_dice/d3_lightning.tres" id="3_gmkp4"]
+[ext_resource type="Resource" uid="uid://b1ggy2nkkrkxb" path="res://die_resources/poison_dice/d3_poison.tres" id="4_23saf"]
+[ext_resource type="Resource" uid="uid://ut6hr2ugnbh7" path="res://die_resources/steel_dice/d3_steel.tres" id="5_cot2r"]
+[ext_resource type="Script" path="res://enemy resources/BaseEnemy.gd" id="6_l3lib"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k57ys"]
+load_path = "res://.godot/imported/player enemies.png-051606b5fbf23f3340d5d51942d17338.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7wgg"]
+atlas = SubResource("CompressedTexture2D_k57ys")
+region = Rect2(0, 245, 222, 251)
+
+[resource]
+script = ExtResource("6_l3lib")
+name = "Elite Purple Godot Logo"
+texture = SubResource("AtlasTexture_r7wgg")
+health = 30
+dice_draws = 3
+sprite_color = Color(1, 1, 1, 1)
+dice = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_pw6ue"), ExtResource("2_0t6la"), ExtResource("3_gmkp4"), ExtResource("4_23saf"), ExtResource("5_cot2r")])

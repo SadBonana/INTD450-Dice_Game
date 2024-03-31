@@ -23,4 +23,6 @@ texture = null
 temp_dice_bag_init = ExtResource("3_ox3dv")
 
 [node name="Actor Sprite" parent="." index="1"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
 expand_mode = 0
