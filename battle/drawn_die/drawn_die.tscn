@@ -1,15 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://cuaew3jle1avs"]
+[gd_scene load_steps=7 format=3 uid="uid://cuaew3jle1avs"]
 
 [ext_resource type="PackedScene" uid="uid://bg2qp6qtt275u" path="res://modules/inventory/diceinv/inv_die_frame.tscn" id="1_sd3bl"]
 [ext_resource type="StyleBox" uid="uid://mx7pb2iqumt5" path="res://battle/drawn_die/styles/button_battle_normal.tres" id="2_l5xp6"]
 [ext_resource type="Script" path="res://battle/drawn_die/drawn_die.gd" id="2_xa0sa"]
 [ext_resource type="StyleBox" uid="uid://j5n4ind2akr2" path="res://battle/drawn_die/styles/button_battle_hover.tres" id="3_4jxcf"]
 [ext_resource type="StyleBox" uid="uid://cfxdr73d1vnru" path="res://battle/drawn_die/styles/button_battle_focused_pressed.tres" id="4_j6333"]
+[ext_resource type="StyleBox" uid="uid://ctvgbwyx6ygdt" path="res://battle/drawn_die/styles/button_battle_disabled.tres" id="5_ss3iu"]
 
 [node name="Button" instance=ExtResource("1_sd3bl")]
 theme_override_styles/normal = ExtResource("2_l5xp6")
 theme_override_styles/hover = ExtResource("3_4jxcf")
 theme_override_styles/pressed = ExtResource("4_j6333")
+theme_override_styles/disabled = ExtResource("5_ss3iu")
 toggle_mode = true
 script = ExtResource("2_xa0sa")
 

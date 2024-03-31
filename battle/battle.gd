@@ -40,6 +40,7 @@ var defeated_enemies = []
 @onready var player := %"Battle Player"
 @onready var ready_button := %Ready
 
+
 ## Inventory
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
@@ -205,8 +206,7 @@ func enemy_turn():
 			await die.effect.apply()
 	
 	draw_dice()    # Enemy turn is over so player draws dice
-
-
+	
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
 	await textbox_controller.quick_beat("run")
@@ -254,4 +254,5 @@ func _on_ready_pressed():
 	for die in player.dice_hand:
 		die.queue_free()
 	player.dice_hand.clear()
+	drawn_die_container.reset()
 	enemy_turn()

@@ -87,9 +87,10 @@ class Paralysis extends StatusEffect:
 		# target discards a die from their hand every turn.
 		#for i in range(strength):
 		if stacks > 0 and target.dice_hand.size() > 0:
-			var die = target.dice_hand.pop_back()
+			var die = target.dice_hand.back()
 			if target is BattlePlayer:
-				die.queue_free()
+				#target.used_dice.append(die.die)
+				die.visible = false
 			target.commit_dice()
 
 
