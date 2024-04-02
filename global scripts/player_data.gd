@@ -36,5 +36,6 @@ static var dice_bag = []
 #status_effects or whatever
 
 # How many dice to draw from bag each turn during battle
-static var dice_draws := 3
+static var dice_draws 	:= 5
+static var dice_choices	:= 3
 

@@ -29,7 +29,7 @@ var enemies = []
 var defeated_enemies = []
 # Textbox
 @onready var textbox_controller := %"Textbox Controller"
-
+@export var enable_textboxes := false
 # Player Panel
 @onready var bottom_container := %"Player Status and Hand"
 @onready var player_status := %"Player Status"
@@ -39,6 +39,7 @@ var defeated_enemies = []
 @onready var inventory := %"Inventory"
 @onready var player := %"Battle Player"
 @onready var ready_button := %Ready
+
 
 ## Inventory
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
@@ -194,7 +195,8 @@ func cleanup_enemies():
 
 
 func enemy_turn():
-	await textbox_controller.quick_beat("enemy attack")
+	if enable_textboxes:
+		await textbox_controller.quick_beat("enemy attack")
 	for enemy in enemies:
 		for die in enemy.dice_hand:
 			if die.action == DrawnDieData.ATTACK and die.effect.damaging:
@@ -204,8 +206,7 @@ func enemy_turn():
 			await die.effect.apply()
 	
 	draw_dice()    # Enemy turn is over so player draws dice
-
-
+	
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
 	await textbox_controller.quick_beat("run")
@@ -213,24 +214,30 @@ func _on_run_pressed():
 
 
 func _on_ready_pressed():
+	var one_target = false
 	for die in player.dice_hand:
-		# NOTE: May eventually want to allow the player to intentionally discard or not use dice.
-		if (not die.target or not die.is_toggled):
-			await textbox_controller.quick_beat("not ready")
-			die.grab_focus()
-			return
+		if die.target:
+			one_target = true
+			break
+	if not one_target:
+	# NOTE: May eventually want to allow the player to intentionally discard or not use dice.
+		await textbox_controller.quick_beat("not ready")
+		player.dice_hand[0].grab_focus()
+		return
 	
 	# Hide things we don't want the player to be able to mess
 	# with after they've ended their turn
 	drawn_die_container.hide()
 	action_menu.hide()
-	
-	await textbox_controller.quick_beat("ready")
+	if enable_textboxes:
+		await textbox_controller.quick_beat("ready")
 	
 	for enemy in enemies:
 		enemy.roll_label.hide()
 	
 	for die in player.dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
+		if not die.target:
+			continue
 		match die.selected_action:
 			DrawnDieData.ATTACK:
 				# Account for if a previous die killed the enemy.
@@ -247,4 +254,5 @@ func _on_ready_pressed():
 	for die in player.dice_hand:
 		die.queue_free()
 	player.dice_hand.clear()
+	drawn_die_container.reset()
 	enemy_turn()
