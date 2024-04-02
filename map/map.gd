@@ -19,9 +19,15 @@ func _init():
 	add_child(scroll_cont)
 	
 	# Setup the map background
-	var bg = TextureRect.new()
-	#var bg = NinePatchRect.new()
-	bg.custom_minimum_size = Vector2(640, 1080)
+	#var bg = TextureRect.new()
+	var bg = NinePatchRect.new()
+	
+	bg.patch_margin_bottom = 32
+	bg.patch_margin_left = 32
+	bg.patch_margin_right = 32
+	bg.patch_margin_top = 32
+	
+	bg.custom_minimum_size = Vector2(0, 1080)
 	bg.texture = bg_texture
 	#bg.stretch_mode = TextureRect.STRETCH_TILE
 	scroll_cont.add_child(bg)
