@@ -6,7 +6,9 @@ var map
 const margin = 5
 var points = []
 
-@onready var bg = %Background
+#@onready var bg = %Background
+#@export var bg_texture : CompressedTexture2D
+var bg_texture = preload("res://assets/textures/map noise paper ninepatch.png")
 
 func _init():
 	map = MapTree.new()
@@ -17,11 +19,12 @@ func _init():
 	add_child(scroll_cont)
 	
 	# Setup the map background
-	#var bg = TextureRect.new()
-	#bg.custom_minimum_size = Vector2(640, 1080)
-	#bg.texture = load("res://icon.svg")
+	var bg = TextureRect.new()
+	#var bg = NinePatchRect.new()
+	bg.custom_minimum_size = Vector2(640, 1080)
+	bg.texture = bg_texture
 	#bg.stretch_mode = TextureRect.STRETCH_TILE
-	#scroll_cont.add_child(bg)
+	scroll_cont.add_child(bg)
 	
 	# Draw Lines
 	#var margins = Vector2(map.margin, 0)

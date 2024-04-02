@@ -1,19 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://dobeg8c3tqmme"]
+[gd_scene load_steps=4 format=3 uid="uid://dobeg8c3tqmme"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
 [ext_resource type="AudioStream" uid="uid://d3iv3umrviehb" path="res://music and sound/battle.wav" id="2_esnf3"]
-[ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="2_i66mx"]
 [ext_resource type="Script" path="res://music and sound/BattleMusic.gd" id="3_3wd8c"]
 
 [node name="Map" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_vgmaq")
-
-[node name="Background" type="NinePatchRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_i66mx")
 
 [node name="BattleMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_esnf3")
