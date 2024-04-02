@@ -540,8 +540,59 @@ func set_types() -> void:
 	for node in map_nodes:
 		if node != null:
 			var select = select_type(node)
+			set_textures(node)
 			node.set_type(select)
 	return
+
+func set_textures(node: MapNode) -> void:
+	
+	var godot = preload("res://icon.svg")
+	
+	var normal = godot
+	var visited = godot
+	var unvisited = godot
+	var focused = godot
+	
+	match node.type:
+		NT.START:
+			normal = start_texture
+			visited = start_disabled
+			unvisited = start_unvisited
+			focused = start_focused
+			
+		NT.BATTLE: 
+			normal = battle_texture
+			visited = battle_disabled
+			unvisited = battle_unvisited
+			focused = battle_focused        
+
+		NT.CAMPFIRE:
+			normal = camp_texture
+			visited = camp_disabled
+			unvisited = camp_unvisited
+			focused = camp_focused
+
+
+		NT.WORKSHOP:  
+			normal = workshop_texture
+			visited = workshop_disabled
+			unvisited = workshop_unvisited
+			focused = workshop_focused                  
+
+
+		NT.TREASURE:   
+			normal = treasure_texture
+			visited = treasure_disabled
+			unvisited = treasure_unvisited
+			focused = treasure_focused                  
+		
+		NT.BOSS:
+			normal = boss_texture
+			visited = boss_disabled
+			unvisited = boss_unvisited
+			focused = boss_focused
+			
+	node.set_textures(normal, visited, unvisited, focused)
 
 func centre_points() -> void:
 	'''
