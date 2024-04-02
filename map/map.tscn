@@ -11,5 +11,4 @@ script = ExtResource("1_vgmaq")
 
 [node name="BattleMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_esnf3")
-autoplay = true
 script = ExtResource("3_3wd8c")
