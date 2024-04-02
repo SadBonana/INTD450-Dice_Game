@@ -1,13 +1,6 @@
-extends Button
+extends TextureButton
 
 class_name MapNode
-
-@export var boss_encounter: BaseEncounter
-# CAUTION: The size of this array should not be higher than the number of rows in the map.
-# See the start_battle() function below.
-# NOTE: The array must be in the order that the player is expected to fight first.
-# e.g. early game ecounter tables go first.
-#@export var encounter_tables: Array[EncounterTable]
 
 
 const NT = NodeType.NodeType
@@ -209,7 +202,7 @@ func draw_textures() -> void:
 	self.texture_normal = normal
 	self.texture_disabled = t_disabled
 	self.texture_focused = focused
-	self.texure_hover = focused
+	self.texture_hover = focused
 
 
 func _to_string():

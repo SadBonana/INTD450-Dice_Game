@@ -11,7 +11,11 @@ var points = []
 var bg_texture = preload("res://assets/textures/map noise paper ninepatch.png")
 
 func _init():
-	map = MapTree.new()
+	#map = MapTree.new()
+	#map = MapTree.instantiate()
+	var map_scene = preload("res://map/MapTree.tscn")
+	map = map_scene.instantiate()
+	map.set_textures()
 	
 	# Setup stuff that lets you scroll the map.
 	var scroll_cont = ScrollContainer.new()
@@ -78,6 +82,6 @@ func _init():
 
 			
 			#node.text = str(node.type)
-			node.text = text
+			#node.text = text
 			bg.add_child(node)
 	

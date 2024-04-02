@@ -540,59 +540,71 @@ func set_types() -> void:
 	for node in map_nodes:
 		if node != null:
 			var select = select_type(node)
-			set_textures(node)
+			#set_textures(node)
 			node.set_type(select)
 	return
 
-func set_textures(node: MapNode) -> void:
+func set_textures() -> void:
 	
-	var godot = preload("res://icon.svg")
-	
-	var normal = godot
-	var visited = godot
-	var unvisited = godot
-	var focused = godot
-	
-	match node.type:
-		NT.START:
-			normal = start_texture
-			visited = start_disabled
-			unvisited = start_unvisited
-			focused = start_focused
+	#var godot = preload("res://icon.svg")
+	for node in map_nodes:
+		if node != null:		
+			var normal = start_texture
+			var visited = start_disabled
+			#var unvisited = start_unvisited
+			var unvisited = start_disabled
+			var focused = start_focused
 			
-		NT.BATTLE: 
-			normal = battle_texture
-			visited = battle_disabled
-			unvisited = battle_unvisited
-			focused = battle_focused        
-
-		NT.CAMPFIRE:
-			normal = camp_texture
-			visited = camp_disabled
-			unvisited = camp_unvisited
-			focused = camp_focused
-
-
-		NT.WORKSHOP:  
-			normal = workshop_texture
-			visited = workshop_disabled
-			unvisited = workshop_unvisited
-			focused = workshop_focused                  
-
-
-		NT.TREASURE:   
-			normal = treasure_texture
-			visited = treasure_disabled
-			unvisited = treasure_unvisited
-			focused = treasure_focused                  
-		
-		NT.BOSS:
-			normal = boss_texture
-			visited = boss_disabled
-			unvisited = boss_unvisited
-			focused = boss_focused
+			print(node.type)
 			
-	node.set_textures(normal, visited, unvisited, focused)
+			match node.type:
+				NT.ERROR:
+					return 
+				
+				NT.START:
+					normal = start_texture
+					visited = start_disabled
+					#unvisited = start_unvisited
+					unvisited = start_disabled
+					focused = start_focused
+					
+				NT.BATTLE: 
+					normal = battle_texture
+					visited = battle_disabled
+					#unvisited = battle_unvisited
+					unvisited = battle_disabled
+					focused = battle_focused        
+
+				NT.CAMPFIRE:
+					normal = camp_texture
+					visited = camp_disabled
+					#unvisited = camp_unvisited
+					unvisited = camp_disabled
+					focused = camp_focused
+
+				NT.WORKSHOP:  
+					normal = workshop_texture
+					visited = workshop_disabled
+					#unvisited = workshop_unvisited
+					unvisited = workshop_disabled
+					focused = workshop_focused                  
+
+				NT.TREASURE:   
+					normal = treasure_texture
+					visited = treasure_disabled
+					#unvisited = treasure_unvisited
+					unvisited = treasure_disabled
+					focused = treasure_focused                  
+				
+				NT.BOSS:
+					normal = boss_texture
+					visited = boss_disabled
+					#unvisited = boss_unvisited
+					unvisited = boss_disabled
+					focused = boss_focused
+					
+			node.set_textures(normal, visited, unvisited, focused)
+	return
 
 func centre_points() -> void:
 	'''
