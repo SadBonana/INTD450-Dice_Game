@@ -21,6 +21,7 @@ SaveSettings="*res://Menus/save_settings.gd"
 GlobalSettings="*res://Menus/global_settings.gd"
 NodeType="*res://map/NodeType.gd"
 Map="*res://map/map.tscn"
+SoundManager="*res://music and sound/sound_manager.tscn"
 
 [display]
 

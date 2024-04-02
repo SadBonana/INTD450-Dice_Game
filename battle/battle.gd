@@ -198,8 +198,11 @@ func enemy_turn():
 	for enemy in enemies:
 		for die in enemy.dice_hand:
 			if die.action == DrawnDieData.ATTACK and die.effect.damaging:
+				get_node("/root/SoundManager/attack").play()
 				await player.take_damage(die.side.value, enemy.actor_name)
+				
 			else:		# DEFENSE
+				get_node("/root/SoundManager/defend").play()
 				enemy.defense += die.side.value
 			await die.effect.apply()
 	
@@ -237,8 +240,10 @@ func _on_ready_pressed():
 				if not die.target in enemies:
 					await textbox_controller.quick_beat("missed")
 				elif die.data.effect.damaging:
-						await die.target.take_damage(die.roll, player.actor_name)
+					get_node("/root/SoundManager/attack").play()
+					await die.target.take_damage(die.roll, player.actor_name)
 			DrawnDieData.DEFEND:
+				get_node("/root/SoundManager/defend").play()
 				player.defense += die.roll
 		await die.data.effect.apply()
 		

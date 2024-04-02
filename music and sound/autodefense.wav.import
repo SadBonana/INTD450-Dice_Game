@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ccd6ly60cywm8"
+path="res://.godot/imported/autodefense.wav-02586b75e2ca35850bc22d2fe7bedeae.sample"
+
+[deps]
+
+source_file="res://music and sound/autodefense.wav"
+dest_files=["res://.godot/imported/autodefense.wav-02586b75e2ca35850bc22d2fe7bedeae.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

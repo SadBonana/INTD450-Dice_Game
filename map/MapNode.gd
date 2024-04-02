@@ -105,6 +105,7 @@ func get_brothers():
 
 #handler for pressing the button
 func _pressed():
+	get_node("/root/SoundManager/select").play()
 	self.disabled = true
 	for child in children:
 		child.disabled = false

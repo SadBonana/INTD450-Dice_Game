@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://csi606ikdpqou"]
+
+[ext_resource type="Script" path="res://map/MapNode.gd" id="1_tt0ku"]
+
+[node name="MapNode" type="TextureButton"]
+script = ExtResource("1_tt0ku")
