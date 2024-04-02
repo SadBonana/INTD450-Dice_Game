@@ -44,8 +44,8 @@ func _init():
 				for child in node.get_sons():
 					if node.type != NT.ERROR:
 						#TODO: uncomment when actual background is added
-						#bg.draw_line(node.position + margins, child.position + margins, Color.DIM_GRAY, 2)
-						bg.draw_line(node.position + margins, child.position + margins, Color.RED, 2)
+						bg.draw_line(node.position + margins, child.position + margins, Color.DIM_GRAY, 2)
+						#bg.draw_line(node.position + margins, child.position + margins, Color.RED, 2)
 					else:
 						bg.draw_line(node.position + margins, child.position + margins, Color.HOT_PINK, 2)
 		
