@@ -40,6 +40,30 @@ func _init():
 	var index = 0
 	for node in map.map_nodes:
 		if node != null: #and node.type != NT.ERROR:
-			node.text = str(node.type)
+			var text = str(node.type)
+			
+			match node.type:
+				
+				NT.START:
+					text = "Start"
+					
+				NT.BATTLE:
+					text = "Battle"
+					
+				NT.CAMPFIRE:
+					text = "Camp"
+					
+				NT.WORKSHOP:
+					text = "Workshop"
+					
+				NT.TREASURE:
+					text = "Treasure"
+					
+				NT.BOSS:
+					text = "Boss"
+
+			
+			#node.text = str(node.type)
+			node.text = text
 			bg.add_child(node)
 	

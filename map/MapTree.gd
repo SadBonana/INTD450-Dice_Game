@@ -245,13 +245,15 @@ func select() -> NT:
 		select = NT.BATTLE
 		
 	elif random_float < wshop_prob_b:# chance of float < wshop_prob_b is wshop_prob*100%
-		select = NT.WORKSHOP
+		#select = NT.WORKSHOP
+		select = NT.TREASURE #FAILSAFE TO PREVENT CREATING WORKSHOPS
 		
 	elif random_float < camp_prob_b: # camp_prob*100%
 		select = NT.CAMPFIRE
 		
 	elif random_float < treasure_prob_b: #treasure_prob*100%
-		select = NT.TREASURE
+		#select = NT.TREASURE
+		select = NT.BATTLE    #TODO: REMOVE POST PLAYTEST
 		
 	return select
 
@@ -289,7 +291,8 @@ func select_type(node:MapNode) -> NT:
 	
 	#hardcode depth 4 as treasure, we dont have to do this
 	if depth == 4:
-		return NT.TREASURE
+		#return NT.TREASURE
+		return NT.CAMPFIRE #TODO: CHANGE THIS BACK
 	
 	#hardcode depth 6 as workshop
 	#if depth == 6:
