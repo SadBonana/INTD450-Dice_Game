@@ -1,4 +1,4 @@
-extends Node
+extends BaseMapTree
 
 class_name MapTree
 
@@ -245,13 +245,15 @@ func select() -> NT:
 		select = NT.BATTLE
 		
 	elif random_float < wshop_prob_b:# chance of float < wshop_prob_b is wshop_prob*100%
-		select = NT.WORKSHOP
+		#select = NT.WORKSHOP
+		select = NT.TREASURE #FAILSAFE TO PREVENT CREATING WORKSHOPS
 		
 	elif random_float < camp_prob_b: # camp_prob*100%
 		select = NT.CAMPFIRE
 		
 	elif random_float < treasure_prob_b: #treasure_prob*100%
-		select = NT.TREASURE
+		#select = NT.TREASURE
+		select = NT.BATTLE    #TODO: REMOVE POST PLAYTEST
 		
 	return select
 
@@ -289,7 +291,8 @@ func select_type(node:MapNode) -> NT:
 	
 	#hardcode depth 4 as treasure, we dont have to do this
 	if depth == 4:
-		return NT.TREASURE
+		#return NT.TREASURE
+		return NT.CAMPFIRE #TODO: CHANGE THIS BACK
 	
 	#hardcode depth 6 as workshop
 	#if depth == 6:
@@ -537,7 +540,70 @@ func set_types() -> void:
 	for node in map_nodes:
 		if node != null:
 			var select = select_type(node)
+			#set_textures(node)
 			node.set_type(select)
+	return
+
+func set_textures() -> void:
+	
+	#var godot = preload("res://icon.svg")
+	for node in map_nodes:
+		if node != null:		
+			var normal = start_texture
+			var visited = start_disabled
+			#var unvisited = start_unvisited
+			var unvisited = start_disabled
+			var focused = start_focused
+			
+			print(node.type)
+			
+			match node.type:
+				NT.ERROR:
+					return 
+				
+				NT.START:
+					normal = start_texture
+					visited = start_disabled
+					#unvisited = start_unvisited
+					unvisited = start_disabled
+					focused = start_focused
+					
+				NT.BATTLE: 
+					normal = battle_texture
+					visited = battle_disabled
+					#unvisited = battle_unvisited
+					unvisited = battle_disabled
+					focused = battle_focused        
+
+				NT.CAMPFIRE:
+					normal = camp_texture
+					visited = camp_disabled
+					#unvisited = camp_unvisited
+					unvisited = camp_disabled
+					focused = camp_focused
+
+				NT.WORKSHOP:  
+					normal = workshop_texture
+					visited = workshop_disabled
+					#unvisited = workshop_unvisited
+					unvisited = workshop_disabled
+					focused = workshop_focused                  
+
+				NT.TREASURE:   
+					normal = treasure_texture
+					visited = treasure_disabled
+					#unvisited = treasure_unvisited
+					unvisited = treasure_disabled
+					focused = treasure_focused                  
+				
+				NT.BOSS:
+					normal = boss_texture
+					visited = boss_disabled
+					#unvisited = boss_unvisited
+					unvisited = boss_disabled
+					focused = boss_focused
+					
+			node.set_textures(normal, visited, unvisited, focused)
 	return
 
 func centre_points() -> void:

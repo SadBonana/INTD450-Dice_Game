@@ -12,3 +12,8 @@ script = ExtResource("1_vgmaq")
 [node name="BattleMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_esnf3")
 script = ExtResource("3_3wd8c")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
