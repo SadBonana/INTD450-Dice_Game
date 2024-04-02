@@ -1,4 +1,4 @@
-extends Node
+extends BaseMapTree
 
 class_name MapTree
 

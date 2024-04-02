@@ -6,6 +6,8 @@ var map
 const margin = 5
 var points = []
 
+@onready var bg = %Background
+
 func _init():
 	map = MapTree.new()
 	
@@ -15,11 +17,11 @@ func _init():
 	add_child(scroll_cont)
 	
 	# Setup the map background
-	var bg = TextureRect.new()
-	bg.custom_minimum_size = Vector2(640, 1080)
-	bg.texture = load("res://icon.svg")
-	bg.stretch_mode = TextureRect.STRETCH_TILE
-	scroll_cont.add_child(bg)
+	#var bg = TextureRect.new()
+	#bg.custom_minimum_size = Vector2(640, 1080)
+	#bg.texture = load("res://icon.svg")
+	#bg.stretch_mode = TextureRect.STRETCH_TILE
+	#scroll_cont.add_child(bg)
 	
 	# Draw Lines
 	#var margins = Vector2(map.margin, 0)
