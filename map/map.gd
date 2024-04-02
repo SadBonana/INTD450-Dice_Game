@@ -41,7 +41,7 @@ func _init():
 	
 	# Draw Lines
 	#var margins = Vector2(map.margin, 0)
-	var margins = Vector2(8,16)
+	var margins = Vector2(16,16)
 	bg.draw.connect(func ():
 		for node in map.map_nodes:
 			if node != null:
