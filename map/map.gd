@@ -26,8 +26,11 @@ func _init():
 	bg.patch_margin_left = 32
 	bg.patch_margin_right = 32
 	bg.patch_margin_top = 32
+	bg.axis_stretch_horizontal = NinePatchRect.AXIS_STRETCH_MODE_TILE
+	bg.axis_stretch_vertical = NinePatchRect.AXIS_STRETCH_MODE_TILE
 	
-	bg.custom_minimum_size = Vector2(0, 1080)
+	
+	bg.custom_minimum_size = Vector2(640, 1080)
 	bg.texture = bg_texture
 	#bg.stretch_mode = TextureRect.STRETCH_TILE
 	scroll_cont.add_child(bg)
