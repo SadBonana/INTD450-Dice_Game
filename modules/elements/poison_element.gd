@@ -6,7 +6,7 @@ func _init():
 	element = ElementType.POISON
 	value = 2
 	effect = StatusEffect.EffectType.POISONED
-	color = Color.WEB_GREEN
+	color = Color.WEB_PURPLE
 	
 ## String representation of the element
 func _to_string():
