@@ -33,8 +33,8 @@ var map_nodes = []   #array of MapNodes
 #front-end probabilities
 #these are the expected chances of getting a room of this type
 var camp_prob     = 0.0 #initialized at 0 until depth = 3
-var wshop_prob    = 0.3
-var battle_prob   = 0.7 #70% chance of selecting battle as first room
+var wshop_prob    = 0.0
+var battle_prob   = 1.0 #70% chance of selecting battle as first room
 var treasure_prob = 0.0 #initialized at 0 until depth = 3
 #var elite_prob
 #var rand_enc_prob 
@@ -52,12 +52,10 @@ func _init():
 	
 	map_nodes.resize(map_array.size()) #same as for positions
 	map_nodes.fill(null)               #initialize map_nodes with null values
-	
 	init_grid()                        #initialize the grid
 	
 	#add the start position to the map_array
 	map_array.push_front(Vector2((screen_width - 2*margin) / 2, margin))
-	#map_array.push_back(Vector2(screen_width / 2, screen_height - margin))
 	
 	#create a new MapNode for the starting room
 	root = MapNode.new()
@@ -87,6 +85,7 @@ func _init():
 	
 	#add all the other nodes
 	add_nodes()
+	set_types()
 	
 	#insert the root at the front
 	map_nodes.push_front(root)
@@ -113,9 +112,10 @@ func _init():
 	#for each leafnode, we connect to the boss
 	for leafnode in leafnodes:
 		add_connection(leafnode.position,end.position)
-		leafnode.add_son(end)
+		leafnode.add_son(end) 
 	
 	centre_points() #centring points on the map
+	#randomize_positions()
 
 #we use a 1D array to represent a 2D array, so we use some clever indexing
 func pos_to_index(col:int,row:int) -> int:
@@ -180,14 +180,14 @@ func init_grid():
 	Returns:
 		None
 	'''
-	#TODO: centre the grid
 	for col in range(0,map_width):
 		for row in range(0,map_height):
 			#getting the index so we can properly update map_array
 			var index = pos_to_index(col,row)
+			var start_height = margin + tile_size
 			
 			#initialize position at that index
-			map_array[index] = Vector2(col * tile_size + margin, row * tile_size + 2*margin)
+			map_array[index] = Vector2(col * tile_size + margin, row * tile_size + start_height)
 
 func select_starts() -> Array:
 	'''
@@ -255,7 +255,8 @@ func select() -> NT:
 		
 	return select
 
-func select_type(prev:NT, depth:int) -> NT:
+#func select_type(prev:NT, depth:int) -> NT:
+func select_type(node:MapNode) -> NT:
 	'''
 	This function will adjust the probabilities of getting each NodeType before randomly
 	selecting a NodeType.
@@ -267,24 +268,32 @@ func select_type(prev:NT, depth:int) -> NT:
 		selection (NT): the selected type for the current node 
 	'''
 	var selection = NT.ERROR   #if error is returned something went wrong
+	var depth = node.depth
+	var prevent_double = false
+	
+	for parent in node.get_parents():
+		if (parent.get_type() == NT.CAMPFIRE or 
+				parent.get_type() == NT.WORKSHOP or 
+				parent.get_type() == NT.TREASURE):
+					prevent_double = true
 	
 	#if depth is 1 then set type to BATTLE
 	if depth == 1:
 		return NT.BATTLE
 	
 	if depth == 3:           #only want this to run once, at depth=3 to increase probs
-		camp_prob = 0.15     #i.e., chance for node 3 in a path of being a campfire is 15%
-		wshop_prob = 0.25    # 25%
-		battle_prob = 0.50   # 50%
-		treasure_prob = 0.10 # 10%
+		camp_prob = 0.25     #% of campfire
+		wshop_prob = 0.0    # % chance of workshop
+		battle_prob = 0.60   # % chance of battle
+		treasure_prob = 0.15 # % chance of treasure
 	
 	#hardcode depth 4 as treasure, we dont have to do this
 	if depth == 4:
 		return NT.TREASURE
 	
 	#hardcode depth 6 as workshop
-	if depth == 6:
-		return NT.WORKSHOP
+	#if depth == 6:
+	#	return NT.WORKSHOP
 	
 	#if depth is d then its a leafnode, and all leafnodes are rest sites
 	if depth == d:
@@ -302,24 +311,24 @@ func select_type(prev:NT, depth:int) -> NT:
 			NT.BATTLE:         #if battle selected
 				if battle_prob > 0.06: #if current chance for battle > 6%
 					battle_prob     -= 0.06 #reduce battle_prob by 6%
-					camp_prob       += 0.02 #increase other probs by 2%
-					wshop_prob      += 0.02
-					treasure_prob   += 0.02		
+					#camp_prob       += 0.02 #increase other probs by 2%
+					wshop_prob      += 0.03
+					treasure_prob   += 0.03		
 				fin = true	                #selection successful so stop
 						
 			NT.CAMPFIRE:
 				#if campfire was previous selection then skip
 				#also skip if the depth is d-1 since d is hardcoded to be campfires
-				if prev != NT.CAMPFIRE and depth != d-1:
+				if not prevent_double and depth != d-1:
 					if camp_prob > 0.06:     #otherwise, proceed same as for battle
-						battle_prob     += 0.02
+						battle_prob     += 0.03
 						camp_prob       -= 0.06
-						wshop_prob      += 0.02
-						treasure_prob   += 0.02
+						#wshop_prob      += 0.02
+						treasure_prob   += 0.03
 					fin = true
 
 			NT.WORKSHOP:                     #same as before
-				if prev != NT.WORKSHOP:
+				if not prevent_double:
 					if wshop_prob > 0.06:
 						battle_prob     += 0.02
 						camp_prob       += 0.02
@@ -328,11 +337,11 @@ func select_type(prev:NT, depth:int) -> NT:
 					fin = true
 
 			NT.TREASURE:                     #same as before
-				if prev != NT.TREASURE:
+				if not prevent_double:
 					if treasure_prob > 0.06:
-						battle_prob     += 0.02
-						wshop_prob      += 0.02
-						camp_prob       += 0.02
+						battle_prob     += 0.03
+						#wshop_prob      += 0.02
+						camp_prob       += 0.03
 						treasure_prob   -= 0.06
 					fin = true
 	return selection
@@ -477,22 +486,17 @@ func init_nodes():
 			map_nodes[index] = node
 
 func add_nodes() -> void:
-	#print(map_nodes)
-	#print(positions)
-	#var prev = start
 	'''
-	for index in range(positions.size()):
-		if positions[index] == 1:
-			var pos = index_to_pos(index)
-			var depth = pos_to_depth(pos.y)
-			prev = add_node(prev,pos,depth)
+	This function is designed to add MapNodes to the map at every position.
+	Parameters:
+		None
+	Returns:
+		None
 	'''
-	
 	for connection in connections:
 		var start = connection[0]
 		var end = connection[1]
 		if start != root.position:
-			#print((start.x - margin) / tile_size)
 			var index = pos_to_index((start.x - margin) / tile_size,(start.y - margin) / tile_size)
 			var prev = map_nodes[index]
 			var depth = pos_to_depth(end.y)
@@ -501,6 +505,15 @@ func add_nodes() -> void:
 		
 	
 func add_node(prev:MapNode, pos: Vector2, depth:int) -> MapNode:
+	'''
+	This function is designed to add a MapNode at the designated position.
+	Parameters:
+		prev (MapNode) - The previous node added. AKA the parent of this node.
+		pos (Vector2)  - The position of the node being added.
+		depth (int)    - The depth of the node.
+	Returns:
+		node (MapNode) - reference to the node that was added.
+	'''
 	#var point = index_to_pos(pos)
 	#var node = MapNode.new()
 	
@@ -515,16 +528,18 @@ func add_node(prev:MapNode, pos: Vector2, depth:int) -> MapNode:
 	
 	if depth == d:
 		leafnodes.append(node)
-	
-	#print(prev.get_type())
-	var selection = select_type(prev.type, depth)
-	
-	node.set_type(selection)
-	
+
 	prev.add_son(node)
 	num_nodes += 1
 	return node
-	
+
+func set_types() -> void:
+	for node in map_nodes:
+		if node != null:
+			var select = select_type(node)
+			node.set_type(select)
+	return
+
 func centre_points() -> void:
 	'''
 	This function is designed to centre the grid properly on the screen.
@@ -543,3 +558,35 @@ func centre_points() -> void:
 		var node = map_nodes[index]
 		if node != null:
 			node.position.x = node.position.x + offset
+
+func randomize_positions() -> void:
+	for index in range(map_array.size()):
+		var offset_x = randi_range(-24,24)
+		var offset_y = randi_range(-16,16)
+		
+		#TODO: make sure the change is within bounds
+		#initialize the min and max widths/heights for the grid
+		#index 0 is the min, index 1 is the max
+		var grid_width = [ 0 + margin ,map_width * tile_size]
+		var grid_height = [0 + margin, map_height * tile_size]
+		
+		var rand_pos = Vector2(map_array[index].x + offset_y,map_array[index].y + offset_y )
+		
+		var grid_size = map_width * tile_size
+		var mid = screen_width / 2
+		var uncentre = mid - (grid_size / 2)
+		var p = Vector2(rand_pos.x - uncentre,rand_pos.y)
+		
+		if (p.x >= grid_width[0] and p.x < grid_width[1] and
+				p.y > grid_height[0] and p.y < grid_height[1]):
+		
+			#map_array[index].x = rand_pos.x
+			#map_array[index].y = map_array[index].y + offset_y
+			map_array[index] = rand_pos
+			
+			var node = map_nodes[index]
+			if node != null:
+				#node.position.x = node.position.x + offset_x
+				#node.position.y = node.position.y + offset_y
+				node.position = rand_pos
+
