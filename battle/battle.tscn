@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cdwdndybdb65w" path="res://assets/textures/bricks 32.png" id="3_f41du"]
 [ext_resource type="PackedScene" uid="uid://ck3aqqaxesp6p" path="res://battle/battle_actors/battle_player.tscn" id="4_5lfpt"]
 [ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle/battle_actors/battle_enemy.tscn" id="4_w871o"]
-[ext_resource type="Texture2D" uid="uid://bgacwcqu3hk14" path="res://assets/textures/resources/new_atlas_texture.tres" id="5_8ng7q"]
+[ext_resource type="Texture2D" uid="uid://bgacwcqu3hk14" path="res://assets/textures/resources/battle_actors_atlas.tres" id="5_8ng7q"]
 [ext_resource type="PackedScene" uid="uid://cuaew3jle1avs" path="res://battle/drawn_die/drawn_die.tscn" id="5_co5hi"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_0lq60"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="7_iw7i2"]
