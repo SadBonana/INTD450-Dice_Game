@@ -78,6 +78,8 @@ func _on_toggled(toggled_on):
 	var targets = data.battle.enemies.duplicate()
 	targets.append(data.battle.player)
 	if toggled_on:
+		#get_node("/root/SoundManager/select").play()
+		SoundManager.select_sfx.play()
 		make_focused_pressed()
 		disable_untargetables(true, self)
 
@@ -118,6 +120,8 @@ func _on_toggled(toggled_on):
 		if not found_next_focus_item:
 			data.battle.ready_button.grab_focus()
 	else:
+		#get_node("/root/SoundManager/alt_select").play()
+		SoundManager.alt_select_sfx.play()
 		disable_untargetables(false)
 		for option in targets:
 			option.toggle_target_mode(false, data.battle.target_selected)

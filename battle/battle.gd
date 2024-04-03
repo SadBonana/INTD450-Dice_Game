@@ -200,23 +200,6 @@ func draw_dice():
 	for enemy in enemies:
 		enemy.defense = 0
 	
-	# Invoke status effects on enemies and player
-	# NOTE: order of effect invocation matters a lot.
-		# buffs before debuffs -> poison and such get mitigated by autodefense, makes debuff immunity effects easy to implement
-		# order of application
-	for enemy in enemies.duplicate():	# Shallow copy, so we don't get rekked when an enemy is removed from enemies on death
-		for effect in enemy.status_effects.duplicate():
-			if enemy != null and enemy.health != 0:
-				await effect.invoke()
-		if enemy != null and enemy.health != 0:
-			enemy.update_status_effects()
-	
-	cleanup_enemies()	# Enemies need to die when they are killed
-	
-	for effect in player.status_effects.duplicate():
-		await effect.invoke()
-	player.update_status_effects()
-	
 	if player.dice_hand.size() > 0:
 		player.dice_hand[0].grab_focus()
 	else:
@@ -243,18 +226,26 @@ func enemy_turn():
 	for enemy in enemies:
 		for die in enemy.dice_hand:
 			if die.action == DrawnDieData.ATTACK and die.effect.damaging:
-				get_node("/root/SoundManager/attack").play()
+				#get_node("/root/SoundManager/attack").play()
+				SoundManager.attack_sfx.play()
 				await player.take_damage(die.side.value, enemy.actor_name)
 				
 			else:		# DEFENSE
-				get_node("/root/SoundManager/defend").play()
+				#get_node("/root/SoundManager/defend").play()
+				SoundManager.defend_sfx.play()
 				enemy.defense += die.side.value
 			await die.effect.apply()
+	
+	for effect in player.status_effects.duplicate():
+		await effect.invoke()
+	player.update_status_effects()
 	
 	draw_dice()    # Enemy turn is over so player draws dice
 	
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
+	#get_node("/root/SoundManager/select").play()
+	SoundManager.select_sfx.play()
 	await textbox_controller.quick_beat("run")
 	#get_tree().change_scene_to_file(map_path)
 	queue_free()
@@ -262,6 +253,8 @@ func _on_run_pressed():
 
 
 func _on_ready_pressed():
+	#get_node("/root/SoundManager/select").play()
+	SoundManager.select_sfx.play()
 	var one_target = false
 	for die in player.dice_hand:
 		if die.target:
@@ -292,13 +285,28 @@ func _on_ready_pressed():
 				if not die.target in enemies:
 					await textbox_controller.quick_beat("missed")
 				elif die.data.effect.damaging:
-					get_node("/root/SoundManager/attack").play()
+					#get_node("/root/SoundManager/attack").play()
+					SoundManager.attack_sfx.play()
 					await die.target.take_damage(die.roll, player.actor_name)
 			DrawnDieData.DEFEND:
-				get_node("/root/SoundManager/defend").play()
+				#get_node("/root/SoundManager/defend").play()
+				SoundManager.defend_sfx.play() #TODO: Make sure this plays at the proper time
 				player.defense += die.roll
 		await die.data.effect.apply()
-		
+	
+	await get_tree().create_timer(0.5).timeout #delaying so the player can see the effects apply
+	
+	# Invoke status effects on enemies and player
+	# NOTE: order of effect invocation matters a lot.
+		# buffs before debuffs -> poison and such get mitigated by autodefense, makes debuff immunity effects easy to implement
+		# order of application
+	for enemy in enemies.duplicate():	# Shallow copy, so we don't get rekked when an enemy is removed from enemies on death
+		for effect in enemy.status_effects.duplicate():
+			if enemy != null and enemy.health != 0:
+				await effect.invoke()
+		if enemy != null and enemy.health != 0:
+			enemy.update_status_effects()
+	
 	cleanup_enemies()
 	player.hand_used()
 	for die in player.dice_hand:

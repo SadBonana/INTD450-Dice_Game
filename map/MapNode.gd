@@ -111,7 +111,8 @@ func get_brothers():
 
 #handler for pressing the button
 func _pressed():
-	get_node("/root/SoundManager/select").play()
+	#get_node("/root/SoundManager/select").play()
+	SoundManager.select_sfx.play()
 	self.disabled = true
 	#self.texture_disabled = visited
 	change_texture("disabled", visited)

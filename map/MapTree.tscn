@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dq3n8jpal7hyb"]
+[gd_scene load_steps=27 format=3 uid="uid://5woeaauhh14p"]
 
 [ext_resource type="Script" path="res://map/MapTree.gd" id="1_r4pap"]
 [ext_resource type="Texture2D" uid="uid://bdrpmw762opsu" path="res://assets/textures/map icon sprite sheet.png" id="2_unv55"]

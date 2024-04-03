@@ -1,3 +1,5 @@
+extends Node
+
 class_name StatusEffect
 
 enum EffectType {BASEEFFECT, PARALYSIS, AUTODEFENSE, IGNITED, POISONED}
@@ -72,6 +74,7 @@ class Paralysis extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
+		#get_node("/root/SoundManager/select").play()
 		_invoke_helper()
 		if textbox_enabled:
 			await textbox.quick_beat("paralyzed invoke", [target.actor_name, target.dice_hand.size()])
@@ -126,6 +129,8 @@ class Autodefense extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
+		#get_node("/root/SoundManager/defend").play()
+		SoundManager.defend_sfx.play()
 		target.defense += stacks
 		stacks -= 1
 		if stacks == 0:
@@ -174,6 +179,8 @@ class Ignited extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
+		SoundManager.fire_sfx.play()
+		
 		var burning_dice = min(stacks, target.dice_hand.size())
 		if burning_dice > 0:
 			if textbox_enabled:
@@ -225,6 +232,8 @@ class Poisoned extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
+		#get_node("/root/SoundManager/poison_effect").play()
+		SoundManager.poison_sfx.play()
 		if textbox_enabled:
 			await textbox.quick_beat("poison invoke")
 		await target.take_damage(stacks, "poison")
