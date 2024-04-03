@@ -1,8 +1,7 @@
 [gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bgacwcqu3hk14"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k57ys"]
-load_path = "res://.godot/imported/player enemies.png-051606b5fbf23f3340d5d51942d17338.ctex"
+[ext_resource type="Texture2D" uid="uid://cwhexgrm5wnio" path="res://assets/textures/player enemies.png" id="1_8ou43"]
 
 [resource]
-atlas = SubResource("CompressedTexture2D_k57ys")
+atlas = ExtResource("1_8ou43")
 region = Rect2(0, 528, 62, 85)

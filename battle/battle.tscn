@@ -49,7 +49,6 @@ enemy2 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy2")
 enemy3 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy3")
 
 [node name="Background" type="NinePatchRect" parent="."]
-modulate = Color(0.04, 0.04, 0.04, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -87,6 +86,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 8
 size_flags_stretch_ratio = 3.0
+tooltip_text = "testing 123"
 texture = ExtResource("5_8ng7q")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
@@ -198,7 +198,6 @@ mouse_filter = 2
 dialogue_res = ExtResource("9_5yvlh")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
