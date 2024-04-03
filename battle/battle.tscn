@@ -86,7 +86,6 @@ layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 8
 size_flags_stretch_ratio = 3.0
-tooltip_text = "testing 123"
 texture = ExtResource("5_8ng7q")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
