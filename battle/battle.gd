@@ -154,12 +154,13 @@ func _ready():
 					queue_free()
 	player.textbox = textbox_controller
 	player.on_defeat = func ():
-### ALERT FIXME: MAKE IT RESET PROGRESS AND GO TO THE START MENU INSTEAD OF CRASHING THE GAME !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			# this code will run when the player is defeated
 			await textbox_controller.quick_beat("game over")
 			await get_tree().create_timer(0.5).timeout
 			get_tree().change_scene_to_file("res://Menus/start_menu.tscn")
-			#get_tree().quit()
+			get_node("/root/Map").visible = true
+			get_node("/root/Map").reset()
+			queue_free()
 			# TODO: Might be better to have this stuff in the setter for PlayerData.hp instead
 	
 	draw_dice()

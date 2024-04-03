@@ -3,45 +3,37 @@ extends Node
 const NT = NodeType.NodeType
 
 var map
-const margin = 5
+const margin = 16
 var points = []
 
 #@onready var bg = %Background
 #@export var bg_texture : CompressedTexture2D
-var bg_texture = preload("res://assets/textures/map noise paper ninepatch.png")
+#var bg_texture 	= preload("res://assets/textures/map noise paper ninepatch.png")
+var map_scene 	= preload("res://map/MapTree.tscn")
 
-func _init():
-	#map = MapTree.new()
-	#map = MapTree.instantiate()
-	var map_scene = preload("res://map/MapTree.tscn")
+@export var scroll_cont : ScrollContainer
+@export var bg 			: NinePatchRect
+
+func _ready():
+	setup()
+	
+func setup():
 	map = map_scene.instantiate()
 	map.set_textures()
-	
-	# Setup stuff that lets you scroll the map.
-	var scroll_cont = ScrollContainer.new()
-	scroll_cont.custom_minimum_size = Vector2(640, 360)
-	add_child(scroll_cont)
-	
-	# Setup the map background
-	#var bg = TextureRect.new()
-	var bg = NinePatchRect.new()
-	
-	bg.patch_margin_bottom = 32
-	bg.patch_margin_left = 32
-	bg.patch_margin_right = 32
-	bg.patch_margin_top = 32
-	bg.axis_stretch_horizontal = NinePatchRect.AXIS_STRETCH_MODE_TILE
-	bg.axis_stretch_vertical = NinePatchRect.AXIS_STRETCH_MODE_TILE
-	
-	
-	bg.custom_minimum_size = Vector2(640, 1080)
-	bg.texture = bg_texture
-	#bg.stretch_mode = TextureRect.STRETCH_TILE
-	scroll_cont.add_child(bg)
-	
-	# Draw Lines
-	#var margins = Vector2(map.margin, 0)
-	var margins = Vector2(16,16)
+	add_nodes()
+	draw()
+
+func reset():
+	map.queue_free()
+	for child in bg.get_children():
+		bg.remove_child(child)
+		child.queue_free()
+	scroll_cont.scroll_vertical = 0
+	setup()
+
+## Draws lines
+func draw():
+	var margins = Vector2(margin,margin)
 	bg.draw.connect(func ():
 		for node in map.map_nodes:
 			if node != null:
@@ -54,6 +46,8 @@ func _init():
 						bg.draw_line(node.position + margins, child.position + margins, Color.HOT_PINK, 2)
 		
 		)
+		
+func add_nodes():
 	# Add nodes to map
 	var index = 0
 	for node in map.map_nodes:
@@ -84,4 +78,4 @@ func _init():
 			#node.text = str(node.type)
 			#node.text = text
 			bg.add_child(node)
-	
+
