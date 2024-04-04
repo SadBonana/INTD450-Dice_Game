@@ -6,16 +6,17 @@ signal amount_selected(num : int)
 func add_to_dice_with_targets(drawndie):
 	drawndice_with_targets.append(drawndie)
 	var selected_amount = drawndice_with_targets.size()
+	#print("Hey we selected a drawndie's target")
 	send_signal(selected_amount)
 				
-	#print("Hey we selected a drawndie's target")
+	
 	
 func remove_from_dice_with_targets(drawndie):
 	var previous_selected_amount = drawndice_with_targets.size()
 	drawndice_with_targets.erase(drawndie)
 	var selected_amount = drawndice_with_targets.size()
 	send_signal(selected_amount)
-	
+	drawndie.data.battle.target_selected.emit(null)
 	#print("Hey we unselected a drawndie's target")
 	
 func get_drawndice_with_targets():

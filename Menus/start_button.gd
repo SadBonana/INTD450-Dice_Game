@@ -21,6 +21,7 @@ func _on_pressed():
 	#get_node("/root/Map/BattleMusic").play()
 	SoundManager.select_2.play()
 	SoundManager.battle_music.play()
+	PlayerData.reset()
 	start_menu.get_parent_control().visible = false
 
 #func _pressed():

@@ -96,7 +96,7 @@ func _on_toggled(toggled_on):
 			targets[0].grab_focus()
 		
 		target = await data.battle.target_selected
-		
+		#print("we only just made it past the await statement")
 		selected_action = data.ATTACK if target is BattleEnemy else data.DEFEND
 		
 		make_pressed()
