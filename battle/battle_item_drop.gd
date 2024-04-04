@@ -23,7 +23,7 @@ func _ready():
 	await textbox_closed
 	
 	# Change to map once done
-	#get_tree().change_scene_to_file(map_path)
+	get_node("/root/Map").visible = true
 	queue_free()
 
 func _input(event):
