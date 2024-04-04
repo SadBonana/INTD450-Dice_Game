@@ -112,6 +112,5 @@ func _on_mouse_sensitivity_slider_value_changed(value):
 	mouse_sensitivity_value.text = str(value)
 	
 
-
 func _on_close_requested():
-	settings_menu.visible = false
+	settings_menu.hide()

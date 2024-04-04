@@ -3,6 +3,7 @@ extends Node2D
 #Music
 @onready var battle_music = $music/BattleMusic
 @onready var boss_music = $music/BossMusic
+@onready var boss_intro = $music/BossIntro
 
 #SFX
 @onready var attack_sfx = $SFX/attack
@@ -18,3 +19,15 @@ extends Node2D
 @onready var heal = $SFX/heal
 @onready var error = $SFX/error
 @onready var select_2 = $SFX/select2
+
+@onready var lightning_apply = $SFX/lightning_apply
+@onready var fire_apply = $SFX/fire_apply
+@onready var poison_apply = $SFX/poison_apply
+
+
+func fade_out(sound1,sound2):
+	for i in range(10):
+		sound1.volume_db -= 2
+		await get_tree().create_timer(0.5).timeout #delaying so the player can see the effects apply
+	sound2.play()
+	sound1.stop()

@@ -55,7 +55,7 @@ class Paralysis extends StatusEffect:
 		# We could alternatively have it refresh the duration as well.
 		for effect in target.status_effects:
 			if effect._type == EffectType.PARALYSIS:
-
+				SoundManager.lightning_apply.play()
 				effect.stacks += stacks
 
 				target.update_status_effects()
@@ -63,6 +63,7 @@ class Paralysis extends StatusEffect:
 					await textbox.quick_beat("paralyzed", [stacks, target.dice_draws])
 				_invoke_helper()	# We expect this one to take effect immediately
 				return true
+		SoundManager.lightning_apply.play()
 		target.add_status_effect(self)
 		if textbox_enabled:
 			await textbox.quick_beat("paralyzed", [stacks, target.dice_draws])
@@ -114,10 +115,17 @@ class Autodefense extends StatusEffect:
 		# added defence based on the total number of stacks
 		for effect in target.status_effects:
 			if effect._type == AUTODEFENSE:
+
+				SoundManager.autodefense_2.play()
 				effect.stacks += stacks
+				
+				await get_tree().create_timer(0.5).timeout
+				
+				SoundManager.defend_2.play()
 				target.defense += effect.stacks# We expect buffs to activate the turn they are used.
 				target.update_status_effects()
 				return true
+		SoundManager.autodefense_2.play()
 		target.add_status_effect(self)
 		if textbox_enabled:
 			await textbox.quick_beat("autodefense")
@@ -130,7 +138,7 @@ class Autodefense extends StatusEffect:
 	## Return whether the effect should be removed this turn
 	func invoke():
 		#get_node("/root/SoundManager/defend").play()
-		SoundManager.defend_sfx.play()
+		SoundManager.defend_2.play()
 		target.defense += stacks
 		stacks -= 1
 		if stacks == 0:
@@ -166,9 +174,11 @@ class Ignited extends StatusEffect:
 		# Adding ignition stacks extendds duration.
 		for effect in target.status_effects:
 			if effect._type == EffectType.IGNITED:
+				SoundManager.fire_apply.play()
 				effect.stacks += 1
 				target.update_status_effects()
 				return true
+		SoundManager.fire_apply.play()
 		target.add_status_effect(self)
 		if textbox_enabled:
 			await textbox.quick_beat("on fire")
@@ -219,9 +229,11 @@ class Poisoned extends StatusEffect:
 		# determined by the roll (or strength).
 		for effect in target.status_effects:
 			if effect._type == EffectType.POISONED:
+				SoundManager.poison_apply.play()
 				effect.stacks = stacks
 				target.update_status_effects()
 				return true
+		SoundManager.poison_apply.play()
 		target.add_status_effect(self)
 		if textbox_enabled:
 			await textbox.quick_beat("poisoned")

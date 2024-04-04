@@ -237,7 +237,8 @@ func enemy_turn():
 			await die.effect.apply()
 	
 	for effect in player.status_effects.duplicate():
-		await effect.invoke()
+		if not effect.beneficial:
+			await effect.invoke()
 	player.update_status_effects()
 	
 	draw_dice()    # Enemy turn is over so player draws dice
@@ -245,7 +246,7 @@ func enemy_turn():
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
 	#get_node("/root/SoundManager/select").play()
-	SoundManager.select_sfx.play()
+	SoundManager.select_2.play()
 	await textbox_controller.quick_beat("run")
 	#get_tree().change_scene_to_file(map_path)
 	queue_free()
@@ -254,7 +255,7 @@ func _on_run_pressed():
 
 func _on_ready_pressed():
 	#get_node("/root/SoundManager/select").play()
-	SoundManager.select_sfx.play()
+	SoundManager.select_2.play()
 	var one_target = false
 	for die in player.dice_hand:
 		if die.target:
@@ -279,6 +280,7 @@ func _on_ready_pressed():
 	for die in player.dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
 		if not die.target:
 			continue
+		'''
 		match die.selected_action:
 			DrawnDieData.ATTACK:
 				# Account for if a previous die killed the enemy.
@@ -290,10 +292,40 @@ func _on_ready_pressed():
 					await die.target.take_damage(die.roll, player.actor_name)
 			DrawnDieData.DEFEND:
 				#get_node("/root/SoundManager/defend").play()
-				SoundManager.defend_sfx.play() #TODO: Make sure this plays at the proper time
+				SoundManager.defend_2.play() #TODO: Make sure this plays at the proper time
 				player.defense += die.roll
-		await die.data.effect.apply()
+		'''
+		if die.selected_action == DrawnDieData.DEFEND:
+			SoundManager.defend_2.play() #TODO: Make sure this plays at the proper time
+			player.defense += die.roll
+			await die.data.effect.apply()
 	
+	await get_tree().create_timer(0.5).timeout #delaying so the player can see the effects apply
+	
+	#applying buffs before attacking
+	for effect in player.status_effects.duplicate():
+		if effect.beneficial: 
+			await effect.invoke()
+			await get_tree().create_timer(0.5).timeout
+	
+	await get_tree().create_timer(0.2).timeout #delaying so the player can see the effects apply
+	
+	for die in player.dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
+		if not die.target:
+			continue
+			
+		if die.selected_action == DrawnDieData.ATTACK:
+			
+			# Account for if a previous die killed the enemy.
+			if not die.target in enemies:
+				await textbox_controller.quick_beat("missed")
+			elif die.data.effect.damaging:
+				#get_node("/root/SoundManager/attack").play()
+				SoundManager.attack_sfx.play()
+				await die.target.take_damage(die.roll, player.actor_name)
+			await die.data.effect.apply()
+			#applying buffs after attacking
+			
 	await get_tree().create_timer(0.5).timeout #delaying so the player can see the effects apply
 	
 	# Invoke status effects on enemies and player
@@ -306,6 +338,8 @@ func _on_ready_pressed():
 				await effect.invoke()
 		if enemy != null and enemy.health != 0:
 			enemy.update_status_effects()
+	
+	await get_tree().create_timer(0.5).timeout
 	
 	cleanup_enemies()
 	player.hand_used()
