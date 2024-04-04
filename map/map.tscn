@@ -1,8 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dobeg8c3tqmme"]
+[gd_scene load_steps=3 format=3 uid="uid://dobeg8c3tqmme"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
-[ext_resource type="AudioStream" uid="uid://d3iv3umrviehb" path="res://music and sound/battle.wav" id="2_esnf3"]
-[ext_resource type="Script" path="res://music and sound/BattleMusic.gd" id="3_3wd8c"]
 [ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="4_sqmrd"]
 
 [node name="Map" type="Control" node_paths=PackedStringArray("scroll_cont", "bg")]
@@ -11,10 +9,6 @@ anchors_preset = 0
 script = ExtResource("1_vgmaq")
 scroll_cont = NodePath("ScrollContainer")
 bg = NodePath("ScrollContainer/Nodes")
-
-[node name="BattleMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_esnf3")
-script = ExtResource("3_3wd8c")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(640, 360)
