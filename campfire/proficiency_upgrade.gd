@@ -23,7 +23,7 @@ func _ready():
 	await textbox_closed
 	
 	var die = PlayerData.dice_bag[0]
-	
+	SoundManager.select_3.play()
 	for i in range(die.num_sides):
 				# Change to 10 to test -> allows for easy identification otherwsie you need to roll a 5 to see result
 				die.sides[i].value += 1

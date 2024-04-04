@@ -12,4 +12,5 @@ func _process(delta):
 
 
 func _on_pressed():
+	SoundManager.error.play()
 	get_tree().quit()

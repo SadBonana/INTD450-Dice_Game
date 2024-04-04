@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://ccd6ly60cywm8"
-path="res://.godot/imported/autodefense.wav-02586b75e2ca35850bc22d2fe7bedeae.sample"
+path="res://.godot/imported/autodefense.wav-a0730b1e844b13fe1738df0c56ed758c.sample"
 
 [deps]
 
-source_file="res://music and sound/autodefense.wav"
-dest_files=["res://.godot/imported/autodefense.wav-02586b75e2ca35850bc22d2fe7bedeae.sample"]
+source_file="res://music and sound/SFX/autodefense.wav"
+dest_files=["res://.godot/imported/autodefense.wav-a0730b1e844b13fe1738df0c56ed758c.sample"]
 
 [params]
 

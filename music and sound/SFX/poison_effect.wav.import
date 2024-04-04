@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cby7ghnkyhxhh"
-path="res://.godot/imported/poison_effect.wav-32e2c7bd3eec30e09ccc793af37ac603.sample"
+path="res://.godot/imported/poison_effect.wav-44311f77e444c2b705fe456171f689ce.sample"
 
 [deps]
 
-source_file="res://music and sound/poison_effect.wav"
-dest_files=["res://.godot/imported/poison_effect.wav-32e2c7bd3eec30e09ccc793af37ac603.sample"]
+source_file="res://music and sound/SFX/poison_effect.wav"
+dest_files=["res://.godot/imported/poison_effect.wav-44311f77e444c2b705fe456171f689ce.sample"]
 
 [params]
 

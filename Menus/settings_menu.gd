@@ -1,4 +1,7 @@
-extends Popup
+#extends Popup
+extends Window
+
+@onready var settings_menu = $"."
 
 # Get video settings refrences
 @onready var display_options_button = $settings_tabs/Video/video_margin_container/video_settings/display_options_button
@@ -107,3 +110,8 @@ func _on_fov_slider_value_changed(value):
 func _on_mouse_sensitivity_slider_value_changed(value):
 	GlobalSettings.update_mouse_sensitivity(value)
 	mouse_sensitivity_value.text = str(value)
+	
+
+
+func _on_close_requested():
+	settings_menu.visible = false

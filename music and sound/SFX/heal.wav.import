@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://c3gy1rd4js2cm"
-path="res://.godot/imported/attack.wav-32aaef8a2d363d66cab7e43036abc541.sample"
+uid="uid://ce4hreeeepqb2"
+path="res://.godot/imported/heal.wav-84ebcb6245c4313d7f48454b76e99139.sample"
 
 [deps]
 
-source_file="res://music and sound/attack.wav"
-dest_files=["res://.godot/imported/attack.wav-32aaef8a2d363d66cab7e43036abc541.sample"]
+source_file="res://music and sound/SFX/heal.wav"
+dest_files=["res://.godot/imported/heal.wav-84ebcb6245c4313d7f48454b76e99139.sample"]
 
 [params]
 
