@@ -1,11 +1,19 @@
 [gd_scene load_steps=7 format=3 uid="uid://ddvb8gwrblohv"]
 
+<<<<<<< Updated upstream
 [ext_resource type="Script" path="res://Menus/start_button.gd" id="2_ffffd"]
 [ext_resource type="PackedScene" uid="uid://dmaf74odgy7v6" path="res://Menus/start_button.tscn" id="2_v1kad"]
 [ext_resource type="PackedScene" uid="uid://djhlg0x1wvmi" path="res://Menus/controls_button.tscn" id="3_abhdu"]
 [ext_resource type="PackedScene" uid="uid://c3ardwyvsttr1" path="res://Menus/fps_label.tscn" id="3_smo4h"]
 [ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://Menus/settings_button.tscn" id="4_b5kma"]
 [ext_resource type="PackedScene" uid="uid://c8y350efda5hk" path="res://Menus/quit_button.tscn" id="5_k2kcg"]
+=======
+[ext_resource type="PackedScene" uid="uid://dmaf74odgy7v6" path="res://menus/start_button.tscn" id="2_v1kad"]
+[ext_resource type="PackedScene" uid="uid://djhlg0x1wvmi" path="res://menus/controls_button.tscn" id="3_abhdu"]
+[ext_resource type="PackedScene" uid="uid://c3ardwyvsttr1" path="res://menus/fps_label.tscn" id="3_smo4h"]
+[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://menus/settings_button.tscn" id="4_b5kma"]
+[ext_resource type="PackedScene" uid="uid://c8y350efda5hk" path="res://menus/quit_button.tscn" id="5_k2kcg"]
+>>>>>>> Stashed changes
 
 [node name="start_menu2" type="Control"]
 layout_mode = 3

@@ -2,9 +2,14 @@ class_name BattleEnemy extends BattleActor
 
 @onready var health_bar: HealthBar = %HealthBar
 @onready var roll_label: Label = %Roll  # FIXME: Displaying the enemy's roll over their sprite is prolly not what we want the final game to look like. I thought the empty top panel was where we'd show that info, but I'm running out of energy now so...
-
 @export var res: Resource
 
+@onready var die_roll_1 = $die_roll_1
+#@onready var individual_die_rolls = $individual_die_roll_container
+
+@export_file("*.tscn") var drawn_die_path
+
+@export var enemy_hand: HBoxContainer
 
 var battle: Battle
 var max_health: int:
@@ -43,14 +48,38 @@ func _ready():
 # Can be used later for fancier enemy decision making
 ## Commit dice in dice hand to a particular action. For now, just uses all dice for attacking.
 func commit_dice():
+	var die_roll_text = " "
+	
+	print("dice hand size is:", dice_hand.size())
+	
 	for die in dice_hand:
 		die.target = battle.player
 		die.action = DrawnDieData.ATTACK
+		
+		print("die roll text before:", die_roll_text)
+		die_roll_text = die_roll_text + "%d" % die.side.value + " "
+		die_roll_1.text = die_roll_text
+		print("die roll text after:", die_roll_text)
+		
+	#die_roll_1.text = die_roll_text + "%d" % dice_hand[0].side.value
+	#die_roll_2.text = "%d" % dice_hand[1].side.value
+	#die_roll_3.text = "%d" % dice_hand[2].side.value
+	
 	damage = dice_hand.reduce(func (accum, die): return accum + die.side.value, 0)	# damage = sum of rolls in dice hand
 
 
 # Will likely need to be rewritten once effect die and enemies defending become a thing.
 func draw_dice():
+	#individual_die_rolls.show()
+	
+	'''if battle.enemies[0]:
+		enemy_hand = battle.enemy_1_dice_hand
+	if battle.enemies[1]:
+		enemy_hand = battle.enemy_2_dice_hand
+	if battle.enemies[2]:
+		enemy_hand = battle.enemy_3_dice_hand'''
+	
+	
 	dice_hand = []	# Reset the hand so we don't use the values from last turn
 	for i in range(dice_draws):
 		# Whatever we decide to do when the enemy runs out of dice, it'll be here
@@ -68,6 +97,7 @@ func draw_dice():
 		var d = dice_bag.pop_back()
 		used_dice.append(d)		# TODO: make this happen after the die actually gets used
 		var die = DrawnDieData.new(d, self, battle)
+		#var die = DrawnDie.instantiate(drawn_die_path, enemy_hand, d, battle)
 		dice_hand.append(die)
 		
 	commit_dice()

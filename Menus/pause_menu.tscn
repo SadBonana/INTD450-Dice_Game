@@ -1,13 +1,60 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwroqm35wwu7n"]
+[gd_scene load_steps=6 format=3 uid="uid://dqmmhl4lb6tkc"]
 
 [ext_resource type="Script" path="res://menus/pause_menu.gd" id="1_jr8ao"]
-[ext_resource type="PackedScene" uid="uid://c82d0db21hh53" path="res://menus/resume_button.tscn" id="2_npblr"]
-[ext_resource type="PackedScene" uid="uid://djhlg0x1wvmi" path="res://menus/controls_button.tscn" id="3_1n1b1"]
-[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://menus/settings_button.tscn" id="4_3fbm4"]
-[ext_resource type="PackedScene" uid="uid://c8y350efda5hk" path="res://menus/quit_button.tscn" id="5_2uw2u"]
+[ext_resource type="PackedScene" uid="uid://b0rmrjb71troy" path="res://menus/settings_menu.tscn" id="3_j7bvp"]
+[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://menus/settings_button.tscn" id="3_j362h"]
+[ext_resource type="PackedScene" uid="uid://c8y350efda5hk" path="res://menus/quit_button.tscn" id="4_mo4qs"]
+
+[sub_resource type="GDScript" id="GDScript_kuyg6"]
+script/source = "extends Control
+
+#@onready var settings_menu = $settings_menu
+
+var _is_paused:bool = false:
+	set = set_paused
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(\"pause\"):
+		_is_paused = !_is_paused
+
+func set_paused(value:bool) -> void:
+	_is_paused = value
+	get_tree().paused = _is_paused
+	visible = _is_paused
+	
+func _input(event):
+	'''if (Input.is_action_just_pressed()):
+		get_tree().change_scene_to_file(\"res://UI/Menus/pause_menu.tscn\")'''
+	'''if InputEvent.is_action_pressed(\"pause\"):
+		_is_paused = !_is_paused'''
+	pass
+
+
+func _on_resume_button_pressed():
+	_is_paused = false
+
+'''func _on_controls_button_pressed():
+	get_tree().change_scene_to_file(\"res://Menus/controls_menu.tscn\")
+
+
+func _on_settings_button_pressed():
+	settings_menu.popup_centered()
+
+func _on_quit_button_pressed():
+	get_tree().quit()'''
+"
 
 [node name="pause_menu" type="Control"]
-process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,50 +63,55 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jr8ao")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="pause_menu_panel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.309804, 1, 1, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -72.5
-offset_top = -104.5
-offset_right = 72.5
-offset_bottom = 104.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="ColorRect" type="ColorRect" parent="pause_menu_panel"]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.964706, 0, 0, 1)
-theme_override_font_sizes/font_size = 50
-text = "Pause
-"
+color = Color(0.772549, 0.129412, 0.67451, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="pause_menu_panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause_menu_panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="game_name_label" type="Label" parent="pause_menu_panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Pause Menu"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="resume_button" parent="VBoxContainer" instance=ExtResource("2_npblr")]
+[node name="resume_button" type="Button" parent="pause_menu_panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("")
-focus_neighbor_bottom = NodePath("")
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../quit_button")
+focus_neighbor_bottom = NodePath("../settings_button")
+text = "Resume Button"
+script = SubResource("GDScript_kuyg6")
 
-[node name="controls_button" parent="VBoxContainer" instance=ExtResource("3_1n1b1")]
+[node name="settings_button" parent="pause_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("3_j362h")]
 layout_mode = 2
+focus_neighbor_top = NodePath("../resume_button")
 
-[node name="settings_button" parent="VBoxContainer" instance=ExtResource("4_3fbm4")]
+[node name="settings_menu2" parent="pause_menu_panel/MarginContainer/VBoxContainer/settings_button" instance=ExtResource("3_j7bvp")]
+visible = false
+
+[node name="quit_button" parent="pause_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("4_mo4qs")]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../resume_button")
 
-[node name="quit_button" parent="VBoxContainer" instance=ExtResource("5_2uw2u")]
-layout_mode = 2
-
-[connection signal="pressed" from="VBoxContainer/resume_button" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="pause_menu_panel/MarginContainer/VBoxContainer/resume_button" to="." method="_on_resume_button_pressed"]

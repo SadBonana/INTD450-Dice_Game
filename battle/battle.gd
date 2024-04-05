@@ -47,6 +47,12 @@ var defeated_enemies = []
 @onready var player := %"Battle Player"
 @onready var ready_button := %Ready
 
+<<<<<<< Updated upstream
+=======
+@onready var enemy_1_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/enemy_1_hand
+@onready var enemy_2_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_2_container/enemy_2_hand
+@onready var enemy_3_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_3_container/enemy_3_hand
+>>>>>>> Stashed changes
 
 ## Inventory
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
@@ -118,7 +124,12 @@ func _ready():
 	# The die action menu here is just so designers can see what one looks like in engine.
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
 	# line of code
+	
 	drawn_die_placeholder.hide()
+	
+	enemy_1_dice_hand.hide()
+	enemy_2_dice_hand.hide()
+	enemy_3_dice_hand.hide()
 	
 	## setup for dice inventory tab
 	inventory.make_tab("In Bag", player.dice_bag,inv_dice_visual)
@@ -183,6 +194,7 @@ func show_sides(die : Die):
 func draw_dice():
 	# Enemy draws their dice and displays their rolls first so the player has more info.
 	for enemy in enemies:
+		enemy.enemy_hand.show()
 		await enemy.draw_dice()
 	
 	# It's the player's turn so show the things they'll need

@@ -15,4 +15,7 @@ theme_override_styles/disabled = ExtResource("5_ss3iu")
 toggle_mode = true
 script = ExtResource("2_xa0sa")
 
+[node name="die_display" parent="MarginContainer" index="0"]
+custom_minimum_size = Vector2(0, 0)
+
 [connection signal="toggled" from="." to="." method="_on_toggled"]
