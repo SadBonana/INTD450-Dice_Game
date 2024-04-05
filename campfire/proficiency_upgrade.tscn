@@ -1,12 +1,32 @@
-[gd_scene load_steps=8 format=3 uid="uid://biq23c5tqviqm"]
+[gd_scene load_steps=12 format=3 uid="uid://biq23c5tqviqm"]
 
 [ext_resource type="Script" path="res://campfire/proficiency_upgrade.gd" id="1_iw31s"]
+[ext_resource type="Resource" uid="uid://bvcujelfg6iql" path="res://battle/battle_actors/temp_player_element_res.tres" id="2_fpyou"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="2_i5kku"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="2_qnwa2"]
 [ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="3_ju3x2"]
 [ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="4_etjvx"]
 
+[sub_resource type="Resource" id="Resource_822hc"]
+resource_name = "intro"
+script = ExtResource("3_ju3x2")
+unique_name = "intro"
+text = "You have selected the proficiency upgrade option. Select a die for upgrade!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_wxl40"]
+resource_name = "directions"
+script = ExtResource("3_ju3x2")
+unique_name = "directions"
+text = "Select a die to preview its upgrade!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
 [sub_resource type="Resource" id="Resource_0rp4l"]
+resource_name = "confirm"
 script = ExtResource("3_ju3x2")
 unique_name = "confirm"
 text = "Do you want to select this die for upgrade?"
@@ -14,9 +34,18 @@ jumps = Array[String]([])
 choices = Array[String](["Yes", "No"])
 end_conversation = true
 
+[sub_resource type="Resource" id="Resource_6e130"]
+resource_name = "congrats"
+script = ExtResource("3_ju3x2")
+unique_name = "congrats"
+text = "Congrats! You upgraded your die!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
 [sub_resource type="Resource" id="Resource_aposx"]
 script = ExtResource("4_etjvx")
-beats = Array[ExtResource("3_ju3x2")]([SubResource("Resource_0rp4l")])
+beats = Array[ExtResource("3_ju3x2")]([SubResource("Resource_822hc"), SubResource("Resource_wxl40"), SubResource("Resource_0rp4l"), SubResource("Resource_6e130")])
 
 [node name="ProficiencyUpgrade" type="Control"]
 layout_mode = 3
@@ -26,16 +55,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iw31s")
-map_path = "res://map/map.tscn"
-
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.984314, 0.184314, 0.109804, 1)
+temp_dice_bag_init = ExtResource("2_fpyou")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -45,26 +65,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="inventory_container" type="HBoxContainer" parent="VBoxContainer"]
+[node name="inventory_container" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
 
 [node name="dice_bag" parent="VBoxContainer/inventory_container" instance=ExtResource("2_i5kku")]
-visible = false
 layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="TextureRect" parent="VBoxContainer/inventory_container/dice_bag" index="0"]
-visible = false
-
-[node name="arrow_label" parent="VBoxContainer/inventory_container/dice_bag/MarginContainer/ScrollContainer/VBoxContainer" index="1"]
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 50
+size_flags_vertical = 3
 
 [node name="choices_container" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
 
 [node name="Textbox Controller" parent="VBoxContainer/choices_container" instance=ExtResource("2_qnwa2")]
 layout_mode = 2
@@ -76,7 +88,5 @@ size_flags_stretch_ratio = 1.0
 
 [node name="Choices" parent="VBoxContainer/choices_container/Textbox Controller/Textbox/MarginContainer/VBoxContainer" index="1"]
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 15
 
-[editable path="VBoxContainer/inventory_container/dice_bag"]
 [editable path="VBoxContainer/choices_container/Textbox Controller"]

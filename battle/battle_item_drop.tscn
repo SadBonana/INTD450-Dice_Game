@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cglfsj48akwp2"]
+[gd_scene load_steps=16 format=3 uid="uid://cglfsj48akwp2"]
 
 [ext_resource type="Script" path="res://battle/battle_item_drop.gd" id="1_e8830"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="3_cd6bx"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="5_bdc6d"]
 
 [sub_resource type="Resource" id="Resource_0o1qc"]
+resource_name = "congrats"
 script = ExtResource("4_05img")
 unique_name = "congrats"
 text = "Congrats, you beat the enemy!"
@@ -16,7 +17,17 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = false
 
+[sub_resource type="Resource" id="Resource_5o87b"]
+resource_name = "directions"
+script = ExtResource("4_05img")
+unique_name = "directions"
+text = "Select a die to see its sides!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
 [sub_resource type="Resource" id="Resource_uti2s"]
+resource_name = "confirm"
 script = ExtResource("4_05img")
 unique_name = "confirm"
 text = "Would you like to add this die to your inventory?"
@@ -25,24 +36,27 @@ choices = Array[String](["Yes", "No"])
 end_conversation = false
 
 [sub_resource type="Resource" id="Resource_q0twr"]
+resource_name = "confirm2"
 script = ExtResource("4_05img")
 unique_name = "confirm2"
-text = "Note, if you add this die to your inventory, your bag size will increase, making it harder to hit dice you want."
+text = "Note, if you add this die to your inventory, your bag size will increase, making it harder to draw dice you want."
 jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = false
 
 [sub_resource type="Resource" id="Resource_ttg8l"]
+resource_name = "confirm3"
 script = ExtResource("4_05img")
 unique_name = "confirm3"
 text = "Would you like to continue adding this die to your inventory?
 
-Note, selecting \"no\" means you won't receive a battle drop."
+Selecting \"No\" means you won't receive a battle drop."
 jumps = Array[String]([])
 choices = Array[String](["Yes", "No"])
 end_conversation = false
 
 [sub_resource type="Resource" id="Resource_bp11e"]
+resource_name = "drop_confirm"
 script = ExtResource("4_05img")
 unique_name = "drop_confirm"
 text = "Congrats, this die was added to your inventory!"
@@ -51,16 +65,17 @@ choices = Array[String]([])
 end_conversation = false
 
 [sub_resource type="Resource" id="Resource_a3kqi"]
+resource_name = "no_die"
 script = ExtResource("4_05img")
 unique_name = "no_die"
-text = "You chose not to add the die to your inventory."
+text = "No die was added to your inventory."
 jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = false
 
 [sub_resource type="Resource" id="Resource_umkng"]
 script = ExtResource("5_bdc6d")
-beats = Array[ExtResource("4_05img")]([SubResource("Resource_0o1qc"), SubResource("Resource_uti2s"), SubResource("Resource_q0twr"), SubResource("Resource_ttg8l"), SubResource("Resource_bp11e"), SubResource("Resource_a3kqi")])
+beats = Array[ExtResource("4_05img")]([SubResource("Resource_0o1qc"), SubResource("Resource_5o87b"), SubResource("Resource_uti2s"), SubResource("Resource_q0twr"), SubResource("Resource_ttg8l"), SubResource("Resource_bp11e"), SubResource("Resource_a3kqi")])
 
 [node name="battle_item_drop" type="Control"]
 layout_mode = 3
@@ -85,13 +100,10 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="dice_bag" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_dly5t")]
+[node name="item_drop_display" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_dly5t")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="TextureRect" parent="VBoxContainer/HBoxContainer/dice_bag" index="0"]
-visible = false
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -102,11 +114,5 @@ layout_mode = 2
 size_flags_horizontal = 3
 dialogue_res = SubResource("Resource_umkng")
 
-[node name="Text" parent="VBoxContainer/HBoxContainer2/Textbox Controller/Textbox/MarginContainer/VBoxContainer" index="0"]
-theme_override_font_sizes/normal_font_size = 15
-
-[node name="Choices" parent="VBoxContainer/HBoxContainer2/Textbox Controller/Textbox/MarginContainer/VBoxContainer" index="1"]
-theme_override_font_sizes/font_size = 15
-
-[editable path="VBoxContainer/HBoxContainer/dice_bag"]
+[editable path="VBoxContainer/HBoxContainer/item_drop_display"]
 [editable path="VBoxContainer/HBoxContainer2/Textbox Controller"]

@@ -2,7 +2,7 @@ extends Control
 
 @export_file("*.tscn") var upgrade_path
 
-var recover_health_by = 15
+var recover_health_by = int(ceil(PlayerData.hp / 2))
 
 
 func _on_heal_button_pressed():

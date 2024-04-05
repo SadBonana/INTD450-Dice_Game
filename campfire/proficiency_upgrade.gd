@@ -1,12 +1,18 @@
-extends Control
+class_name ProficiencyUpgrade extends Node
 
 # Textbox
 @onready var choices_container := $VBoxContainer/choices_container
 @onready var textbox_controller := $"VBoxContainer/choices_container/Textbox Controller"
-@onready var inventory := $VBoxContainer/inventory_container/dice_bag
-@onready var arrow_label := $VBoxContainer/inventory_container/dice_bag/MarginContainer/ScrollContainer/VBoxContainer/arrow_label
+@onready var inventory := %dice_bag
 
-var die
+@onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
+@onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame_with_glow.tscn")
+@onready var side_name = "Preview Upgrade"
+
+@export var temp_dice_bag_init: PlayerDataInit
+
+var selected_die
+
 
 func _on_dialogue_transitiond(from_beat: DialogueBeat, destination_beat: String, from_choice: int):
 	match from_beat.unique_name:
@@ -14,30 +20,66 @@ func _on_dialogue_transitiond(from_beat: DialogueBeat, destination_beat: String,
 			if from_choice == 0:
 				print("player said yes")
 				upgrade_die()
+				await textbox_controller.quick_beat("congrats", [], _on_dialogue_transitiond)
+				queue_free()
+				get_node("/root/Map").show()
 			else:
 				print("player said no")
-				#choices_container.visible = false
 				
 				#Close preview
-				arrow_label.visible = false
-				inventory.is_side_view_open = false
-				inventory.show_dice()
+				selected_die = null
+				print("selected_die sides after no:", selected_die)
+				
+				inventory.current_tab = 0
+				await textbox_controller.quick_beat("directions", [], _on_dialogue_transitiond)
+
+
+func show_sides(die : Die):
+	var side_view
+	var duplicate_side
+	var duplicate_sides = []
+	
+	
+	for child in inventory.get_children():
+		if child.tabobj_ref.get_tab_title() == side_name:	 #hardcoded cause bro this shit is ass
+			side_view = child
+	
+	
+	for side in die.sides:
+		duplicate_side = side.duplicate(true)
+		#inv_side.get_material().set_shader_parameter("glow_power", 2.0)
+		duplicate_side.value += 1
+		duplicate_sides.append(duplicate_side)
+	
+	
+	if side_view == null:
+		return
+	else:
+		side_view.upgrade_frames(die.sides)
+		side_view.upgrade_frames(duplicate_sides)
+		side_view.columns(duplicate_sides.size())
+		inventory.current_tab = side_view.get_index()
+	
+	
+	for side in range(die.sides.size() / 2):
+			var die_side = die.sides.pop_back()
+	
+	print("og die sides size 7:", die.sides.size())
+
 
 func select_die(frame):
-	die = frame
+	selected_die = frame
 	
 	# Open upgrade preview
-	inventory.show_sides(frame)
-	arrow_label.visible = true
+	show_sides(frame)
 	
 	# Display prompt
-	#choices_container.visible = true
 	await textbox_controller.quick_beat("confirm", [], _on_dialogue_transitiond)
-
  
+
 func upgrade_die():
 	# Get the index of the selected die
-	var die_index = PlayerData.dice_bag.find(die, 0)
+	var die_index = PlayerData.dice_bag.find(selected_die, 0)
 	print("die index:", die_index)
 	
 	# Make a duplicate of the selected die using it's index
@@ -47,7 +89,7 @@ func upgrade_die():
 	var duplicated_sides: Array[DieSide] = []
 	
 	# Loop for each die side
-	for i in range(die.sides.size()):
+	for i in range(selected_die.sides.size()):
 		# Duplicate the current die side
 		var die_side = upgraded_die.sides[i].duplicate(true)
 		
@@ -64,12 +106,22 @@ func upgrade_die():
 	# Set the old die to equal the new upgraded die
 	PlayerData.dice_bag[die_index] = upgraded_die
 	
-	print("Congrats! You upgraded your D%d" % die.num_sides)
-	inventory.in_upgrade_scene = false
-	queue_free()
+	print("Congrats! You upgraded your D%d" % selected_die.num_sides)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	inventory.in_upgrade_scene = true
-	inventory.frame_clicked.connect(select_die)
-	inventory.display_bag = PlayerData.dice_bag
+	get_node("/root/Map").hide()
+	
+	if PlayerData.dice_bag.size() == 0:
+		PlayerData.dice_bag = temp_dice_bag_init.dice.duplicate(true)
+	
+	## setup for dice inventory tab
+	inventory.make_tab("Upgrade Options", PlayerData.dice_bag, inv_dice_visual)
+	## setup for die sides inventory tab
+	inventory.make_tab(side_name, [], inv_side_visual)
+	
+	inventory.return_clicked.connect(select_die)
+	await textbox_controller.quick_beat("intro", [], _on_dialogue_transitiond)
+	inventory.open()
+	await textbox_controller.quick_beat("directions", [], _on_dialogue_transitiond)
