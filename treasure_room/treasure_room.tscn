@@ -1,0 +1,119 @@
+[gd_scene load_steps=16 format=3 uid="uid://ccgg8eqmta1g0"]
+
+[ext_resource type="Script" path="res://treasure_room/treasure_room.gd" id="1_83xu2"]
+[ext_resource type="Resource" uid="uid://dcfrcd73qhrsb" path="res://die_resources/rare_loot_table.tres" id="2_aae7y"]
+[ext_resource type="Resource" uid="uid://cohodfukkebl2" path="res://die_resources/ultra_rare_loot_table.tres" id="3_p66ss"]
+[ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="4_saxdm"]
+[ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="5_mrhy6"]
+[ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="6_giihn"]
+[ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="7_ksbhw"]
+
+[sub_resource type="Resource" id="Resource_0o1qc"]
+resource_name = "congrats"
+script = ExtResource("6_giihn")
+unique_name = "congrats"
+text = "Congrats, you found a treasure room!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_5o87b"]
+resource_name = "directions"
+script = ExtResource("6_giihn")
+unique_name = "directions"
+text = "Select a die to see its sides!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_uti2s"]
+resource_name = "confirm"
+script = ExtResource("6_giihn")
+unique_name = "confirm"
+text = "Would you like to add this die to your inventory?"
+jumps = Array[String]([])
+choices = Array[String](["Yes", "No"])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_q0twr"]
+resource_name = "confirm2"
+script = ExtResource("6_giihn")
+unique_name = "confirm2"
+text = "Note, if you add this die to your inventory, your bag size will increase, making it harder to draw dice you want."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_ttg8l"]
+resource_name = "confirm3"
+script = ExtResource("6_giihn")
+unique_name = "confirm3"
+text = "Would you like to continue adding this die to your inventory?
+
+Selecting \"No\" means you won't receive a battle drop."
+jumps = Array[String]([])
+choices = Array[String](["Yes", "No"])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_bp11e"]
+resource_name = "drop_confirm"
+script = ExtResource("6_giihn")
+unique_name = "drop_confirm"
+text = "Congrats, this die was added to your inventory!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_a3kqi"]
+resource_name = "no_die"
+script = ExtResource("6_giihn")
+unique_name = "no_die"
+text = "No die was added to your inventory."
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_umkng"]
+script = ExtResource("7_ksbhw")
+beats = Array[ExtResource("6_giihn")]([SubResource("Resource_0o1qc"), SubResource("Resource_5o87b"), SubResource("Resource_uti2s"), SubResource("Resource_q0twr"), SubResource("Resource_ttg8l"), SubResource("Resource_bp11e"), SubResource("Resource_a3kqi")])
+
+[node name="battle_item_drop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_83xu2")
+rare_loot_table = ExtResource("2_aae7y")
+ultra_rare_loot_table = ExtResource("3_p66ss")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.25
+
+[node name="item_drop_display" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_saxdm")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Textbox Controller" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("5_mrhy6")]
+layout_mode = 2
+size_flags_horizontal = 3
+dialogue_res = SubResource("Resource_umkng")
+
+[editable path="VBoxContainer/HBoxContainer/item_drop_display"]
+[editable path="VBoxContainer/HBoxContainer2/Textbox Controller"]
