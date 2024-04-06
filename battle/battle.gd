@@ -10,7 +10,6 @@ signal target_selected(target)
 
 # File paths for scene changes and sub-scene instantiations.
 @export_file("*.tscn") var drawn_die_path
-@export_file("*.tscn") var map_path
 @export_file("*.tscn") var loot_screen_path
 
 # Enemy

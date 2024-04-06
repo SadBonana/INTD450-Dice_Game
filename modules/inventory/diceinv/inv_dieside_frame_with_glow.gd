@@ -1,5 +1,5 @@
 extends Panel
-class_name InvDiesideFrame
+class_name InvDiesideFrameGlow
 
 ## Assigning variables when Scene is created
 @onready var element_visual : ColorRect = $Element
@@ -8,6 +8,8 @@ class_name InvDiesideFrame
 @onready var side_ref: DieSide
 signal frame_clicked(dieside : DieSide)
 
+var glow_power = 1.0
+var speed = 2.0
 
 ## Changes label and inventory die texture accordingly
 func update(dieside: DieSide):
@@ -15,3 +17,13 @@ func update(dieside: DieSide):
 	element_visual.color = dieside.element.color
 	side_value.text = str(dieside.value)
 	side_ref = dieside
+
+func _process(delta):
+	glow_power += delta * speed
+	
+	# Change 4.0 to 2.0 for blinking effect
+	if glow_power >= 3.0 and speed > 0 or glow_power <= 1.0 and speed < 0:
+		speed *= -1.0
+	
+	get_material().set_shader_parameter("glow_color", element_visual.color)
+	get_material().set_shader_parameter("glow_power", glow_power)

@@ -1,84 +1,117 @@
 extends Control
 
-@export var loot_table: LootTable
+# Attach 2 loot tables (common loot tables, uncommon loot table)
+@export var common_loot_table: LootTable
+@export var uncommon_loot_table: LootTable
 
-@export_file("*.tscn") var map_path
+@onready var textbox_controller := $"VBoxContainer/HBoxContainer2/Textbox Controller"
+@onready var inventory := %item_drop_display
+@onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
+@onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
+@onready var side_name = "Sides"
 
-# Textbox
-@export var textbox: Panel
-@export var textboxLabel: Label
-signal textbox_closed
+var selected_die
+var dropped_die_array: Array[Die] = []
+var index_of_dropped_die = []
+var chosen_loot_table
 
-var item_dict = {"D4": 50, "D6": 25, "D8": 15, "D10": 7, "D20": 3}
+
+func _on_dialogue_transitiond(from_beat: DialogueBeat, destination_beat: String, from_choice: int):
+	
+	match from_beat.unique_name:
+		"confirm":
+			if from_choice == 0:
+				print("player said yes")
+				await textbox_controller.quick_beat("confirm2", [], _on_dialogue_transitiond)
+				await textbox_controller.quick_beat("confirm3", [], _on_dialogue_transitiond)
+			else:
+				print("player said no")
+				#choices_container.visible = false
+				
+				#Close preview
+				#inventory.open()
+				#inventory.current_tab = "Dropped Items"
+				inventory.current_tab = 0
+				await textbox_controller.quick_beat("directions", [], _on_dialogue_transitiond)
+	
+	match from_beat.unique_name:
+		"confirm3":
+			if from_choice == 0:
+				PlayerData.dice_bag.append(selected_die)
+				#inventory.is_side_view_open = false
+				#inventory.close()
+				await textbox_controller.quick_beat("drop_confirm", [], _on_dialogue_transitiond)
+				# Change to map once done
+			else:
+				await textbox_controller.quick_beat("no_die", [], _on_dialogue_transitiond)
+			
+			queue_free()
+			get_node("/root/Map").show()
+
+
+func show_sides(die : Die):
+	var side_view
+	
+	for child in inventory.get_children():
+		if child.tabobj_ref.get_tab_title() == side_name:	 #hardcoded cause bro this shit is ass
+			side_view = child
+	
+	if side_view == null:
+		return
+	else:
+		side_view.new_frames(die.sides)
+		inventory.current_tab = side_view.get_index()
+
+
+func select_die(frame):
+	selected_die = frame
+	
+	# Open side preview
+	show_sides(frame)
+	
+	# Display prompt
+	#choices_container.visible = true
+	await textbox_controller.quick_beat("confirm", [], _on_dialogue_transitiond)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#pass
-	display_text("Congrats, you beat the enemy")
-	await textbox_closed
+	get_node("/root/Map").hide()
+	# Generate 3 random battle drop items from a randomly selected loot table
+	item_generation()
 	
-	var item_drop = item_generation()
+	## setup for dice inventory tab
+	inventory.make_tab("Dropped Items", dropped_die_array, inv_dice_visual)
+	## setup for die sides inventory tab
+	inventory.make_tab(side_name, [], inv_side_visual)
 	
-	display_text("Congrats, you just received a D%s" % item_drop.get_slice("D", 1))
-	await textbox_closed
-	
-	# Change to map once done
-	get_node("/root/Map").visible = true
-	queue_free()
+	inventory.return_clicked.connect(select_die)
+	await textbox_controller.quick_beat("congrats", [], _on_dialogue_transitiond)
+	inventory.open()
+	await textbox_controller.quick_beat("directions", [], _on_dialogue_transitiond)
 
-func _input(event):
-	if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and $Textbox.visible:
-		textbox.hide()
-		emit_signal("textbox_closed")
-
-func display_text(text):
-	textbox.show()
-	textboxLabel.text = text
 
 func item_generation():
-	var new_item_rarity
-	var item_rarities = item_dict.keys()
-	randomize()
+	# Use probability to determine only ONE loot table 
 	var rarity_roll = randi() % 100 + 1
+	print("Probability is:", rarity_roll)
 	
-	for item in item_rarities:
-		if rarity_roll <= item_dict[item]:
-			new_item_rarity = item
-			break
-		else:
-			rarity_roll -= item_dict[item]
+	if rarity_roll >= 0 and rarity_roll <= 60:
+		chosen_loot_table = common_loot_table
+	else:
+		chosen_loot_table = uncommon_loot_table
 	
-	#var drop = Die.new( int(new_item_rarity.get_slice("D", 1)) )
-	# FIXME: Die.new() doesnt and won't ever work. now we have LootTable,
-	# but the rest of this code hasn't been adapted to use it, so this is
-	# currently a very half assed fix:
-	var drop = loot_table.pick_loot()
-	PlayerData.dice_bag.append(drop)
-	print("Drop is D%s" % new_item_rarity.get_slice("D", 1))
+	# <= does not work, you get 4 die objects
+	while index_of_dropped_die.size() < 3:
+		# Use pick_loot (uses pick_random) to grab 3 random die from that ONE loot table
+		var drop = chosen_loot_table.pick_loot()
+		print("Drop sides are:", drop.sides)
+		
+		var drop_index = chosen_loot_table.basic_loot.find(drop)
+		print("drop index is:", drop_index)	
 	
-	'''if new_item_rarity == "D4":
-		var drop = Die.new(4)
-		PlayerData.dice_bag.append(drop)
-		print("Drop is D%d" % 4)
-	
-	if new_item_rarity == "D6":
-		var drop = Die.new(6)
-		PlayerData.dice_bag.append(drop)
-		print("Drop is D%d" % 6)
-	
-	if new_item_rarity == "D8":
-		var drop = Die.new(8)
-		PlayerData.dice_bag.append(drop)
-		print("Drop is D%d" % 8)
-	
-	if new_item_rarity == "D10":
-		var drop = Die.new(10)
-		PlayerData.dice_bag.append(drop)
-		print("Drop is D%d" % 10)
-	
-	if new_item_rarity == "D20":
-		var drop = Die.new(20)
-		PlayerData.dice_bag.append(drop)
-		print("Drop is D%d" % 20)'''
-	
-	return new_item_rarity
+		if drop_index not in index_of_dropped_die:
+			index_of_dropped_die.append(drop_index)
+			dropped_die_array.append(drop)
+		
+		print("index of dropped die array:", index_of_dropped_die)

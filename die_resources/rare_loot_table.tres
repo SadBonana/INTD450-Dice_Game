@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LootTable" load_steps=6 format=3 uid="uid://dcfrcd73qhrsb"]
+
+[ext_resource type="Resource" uid="uid://120lerxy2rnl" path="res://die_resources/fire_dice/d6_fire.tres" id="1_a5mqi"]
+[ext_resource type="Script" path="res://die_resources/loot_table.gd" id="1_tx38k"]
+[ext_resource type="Resource" uid="uid://bcublpww8vx5o" path="res://die_resources/lightning_dice/d6_lightning.tres" id="2_heqn1"]
+[ext_resource type="Resource" uid="uid://qo3rlkyf82lh" path="res://die_resources/poison_dice/d6_poison.tres" id="3_cig27"]
+[ext_resource type="Resource" uid="uid://cjm4q5525pggf" path="res://die_resources/steel_dice/d6_steel.tres" id="4_sofh7"]
+
+[resource]
+script = ExtResource("1_tx38k")
+basic_loot = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_a5mqi"), ExtResource("2_heqn1"), ExtResource("3_cig27"), ExtResource("4_sofh7")])
