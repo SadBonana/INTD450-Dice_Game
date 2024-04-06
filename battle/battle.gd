@@ -47,12 +47,9 @@ var defeated_enemies = []
 @onready var player := %"Battle Player"
 @onready var ready_button := %Ready
 
-<<<<<<< Updated upstream
-=======
 @onready var enemy_1_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/enemy_1_hand
 @onready var enemy_2_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_2_container/enemy_2_hand
 @onready var enemy_3_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_3_container/enemy_3_hand
->>>>>>> Stashed changes
 
 ## Inventory
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")

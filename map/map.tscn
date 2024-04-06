@@ -1,17 +1,12 @@
-<<<<<<< Updated upstream
+
 [gd_scene load_steps=5 format=3 uid="uid://dobeg8c3tqmme"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
 [ext_resource type="AudioStream" uid="uid://d3iv3umrviehb" path="res://music and sound/battle.wav" id="2_esnf3"]
 [ext_resource type="Script" path="res://music and sound/BattleMusic.gd" id="3_3wd8c"]
 [ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="4_sqmrd"]
-=======
-[gd_scene load_steps=4 format=3 uid="uid://dobeg8c3tqmme"]
-
-[ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
 [ext_resource type="PackedScene" uid="uid://dqmmhl4lb6tkc" path="res://menus/pause_menu.tscn" id="2_744sy"]
 [ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://misc components/health_bar.tscn" id="3_uw4px"]
->>>>>>> Stashed changes
 
 [node name="Map" type="Control" node_paths=PackedStringArray("scroll_cont", "bg")]
 layout_mode = 3
@@ -23,7 +18,6 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_vgmaq")
-<<<<<<< Updated upstream
 scroll_cont = NodePath("ScrollContainer")
 bg = NodePath("ScrollContainer/Nodes")
 
@@ -47,7 +41,6 @@ patch_margin_right = 32
 patch_margin_bottom = 32
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
-=======
 
 [node name="HealthBar" parent="." instance=ExtResource("3_uw4px")]
 visible = false
@@ -56,4 +49,3 @@ layout_mode = 1
 [node name="pause_menu" parent="." instance=ExtResource("2_744sy")]
 visible = false
 layout_mode = 1
->>>>>>> Stashed changes
