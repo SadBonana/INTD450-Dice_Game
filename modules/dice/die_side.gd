@@ -58,6 +58,22 @@ func power_calc(_element:BaseElement, _value:int, _effects:Array) -> int:
 func _to_string() -> String:
 	var text = "%d\n(%s)" % [value,element]
 	return text
+
+func info() -> String:
+	if element is Basic:
+		return "Deal %d damage to the target." % [value]
+	var text
+	var stacks
+	var damage
+	if element.stack_roll:
+		stacks = value
+		damage = 0
+	else:
+		stacks = 1
+		damage = value
+		
+	text = "Apply %d stack(s) and deal %d damage to the target." % [stacks, damage]
+	return text
 	
 	
 	

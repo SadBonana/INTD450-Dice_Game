@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://chd8awhkxw1b7"]
+[gd_scene load_steps=19 format=3 uid="uid://chd8awhkxw1b7"]
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle/battle_actors/battle_enemy.tscn" id="4_w871o"]
 [ext_resource type="PackedScene" uid="uid://cuaew3jle1avs" path="res://battle/drawn_die/drawn_die.tscn" id="5_co5hi"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_0lq60"]
+[ext_resource type="StyleBox" uid="uid://b53y6jtfssomx" path="res://modules/display_box/styles/die_side_info_box.tres" id="6_8d77f"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="7_iw7i2"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="8_11wq8"]
 [ext_resource type="Script" path="res://battle/hand_of_dice.gd" id="8_47wfu"]
@@ -75,6 +76,17 @@ theme_override_constants/margin_bottom = 10
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Side Info" parent="VBoxContainer/MarginContainer/HBoxContainer/MarginContainer" instance=ExtResource("10_sbswq")]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("6_8d77f")
+tabs_visible = false
+is_open = true
 
 [node name="Battle Player" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_5lfpt")]
 unique_name_in_owner = true
@@ -229,14 +241,17 @@ theme_override_constants/margin_right = 35
 theme_override_constants/margin_bottom = 35
 
 [node name="Inventory" parent="." instance=ExtResource("10_sbswq")]
+visible = false
 layout_mode = 1
-open_action = "i"
-close_action = "i"
+open_action = "I"
+close_action = "I"
 
 [connection signal="amount_selected" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice" to="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status" method="_on_hand_of_dice_amount_selected"]
+[connection signal="mouse_entered" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu" to="." method="_on_die_action_menu_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
 [connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu/Run" to="." method="_on_run_pressed"]
 
+[editable path="VBoxContainer/MarginContainer/HBoxContainer/Battle Player"]
 [editable path="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status"]
 [editable path="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu"]
 [editable path="VBoxContainer/PlayerPanel/MarginContainer/Textbox Controller"]
