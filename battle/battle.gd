@@ -183,6 +183,7 @@ func show_sides(die : Die):
 	else:
 		side_view.new_frames(die.sides)
 		inventory.current_tab = side_view.get_index()
+
 ## Starts a turn.
 ##
 ## First, enemies draw dice from their bags, then players do, then reset everyone's defense, then

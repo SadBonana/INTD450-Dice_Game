@@ -20,17 +20,22 @@ var map_scene 	= preload("res://map/MapTree.tscn")
 @onready var side_name = "Sides"
 @onready var inventory = %"Display Box"
 @onready var player_status = $"Player Status"
+@export var temp_dice_bag_init: PlayerDataInit
+var inventory_open = false
 
 func _ready():
+	if PlayerData.dice_bag.size() == 0:
+		PlayerData.dice_bag = temp_dice_bag_init.dice.duplicate(true)
+	
 	## setup for dice inventory tab
 	inventory.make_tab("In Bag", PlayerData.dice_bag, inv_dice_visual)
 	## setup for die sides inventory tab
 	inventory.make_tab(side_name, [], inv_side_visual)
+	
 	## connect dice bag button to inventory
-	player_status.bag_button.pressed.connect(inventory.open)
+	player_status.bag_button.pressed.connect(track_inventory)
 	## connect frame clicks to display sides
 	inventory.return_clicked.connect(show_sides)
-	#inventory.visible = false
 	
 	setup()
 	
@@ -108,3 +113,19 @@ func show_sides(die : Die):
 	else:
 		side_view.new_frames(die.sides)
 		inventory.current_tab = side_view.get_index()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("i") and inventory_open == false:
+		inventory.open()
+		inventory_open = true
+	elif event.is_action_pressed("i") and inventory_open == true:
+		inventory.hide()
+		inventory_open = false
+
+func track_inventory():
+	if inventory.visible == false:
+		inventory.open()
+		inventory_open = true
+	elif inventory.visible == true:
+		inventory.close()
+		inventory_open = false
