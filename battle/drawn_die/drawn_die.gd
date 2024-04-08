@@ -77,7 +77,15 @@ func _ready():
 func _on_toggled(toggled_on):
 	is_toggled = toggled_on
 	target = null
-	var targets = data.battle.enemies.duplicate()
+	var targets = []
+	targets = data.battle.enemies.duplicate()
+	if self.side.element is Steel:
+		for enemy in targets:
+			enemy.should_dim(true)
+		targets.clear()
+	else:
+		for enemy in targets:
+			enemy.should_dim(false)
 	targets.append(data.battle.player)
 	if toggled_on:
 		make_focused_pressed()

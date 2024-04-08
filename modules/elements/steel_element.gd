@@ -15,4 +15,4 @@ func _to_string():
 
 func info():
 	var steel  = "[color=Gray]Steel[/color]"
-	return "%s gives the target the current %s stack as defense on their turn." % [steel, steel]
+	return "%s gives the player the current %s stack as defense on their turn." % [steel, steel]

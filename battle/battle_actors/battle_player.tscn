@@ -7,11 +7,6 @@
 [node name="Battle Player" instance=ExtResource("2_3c1fd")]
 offset_right = 128.0
 offset_bottom = 144.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
 script = ExtResource("1_udnp1")
 texture = null
 temp_dice_bag_init = ExtResource("3_5wym8")
-
-[node name="MarginContainer" parent="." index="1"]
-size_flags_vertical = 3

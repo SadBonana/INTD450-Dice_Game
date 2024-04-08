@@ -62,6 +62,8 @@ func _to_string() -> String:
 func info() -> String:
 	if element is Basic:
 		return "Deal %d damage to the target." % [value]
+	elif element is Steel:
+		return "Add %d shield." % [value]
 	var text
 	var stacks
 	var damage
