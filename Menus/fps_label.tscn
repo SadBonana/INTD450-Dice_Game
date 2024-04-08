@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3ardwyvsttr1"]
+[gd_scene load_steps=3 format=3 uid="uid://dt0k5w1vnqunx"]
 
-[ext_resource type="Script" path="res://menus/fps_label.gd" id="1_lkssw"]
+[ext_resource type="Script" path="res://menus/fps_label.gd" id="1_4blsr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrxug"]
 bg_color = Color(1, 0.886275, 0.137255, 1)
@@ -11,4 +11,4 @@ offset_bottom = 23.0
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_lrxug")
 text = " FPS: 60 "
-script = ExtResource("1_lkssw")
+script = ExtResource("1_4blsr")

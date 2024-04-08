@@ -22,7 +22,8 @@ func _on_dialogue_transitiond(from_beat: DialogueBeat, destination_beat: String,
 				upgrade_die()
 				await textbox_controller.quick_beat("congrats", [], _on_dialogue_transitiond)
 				queue_free()
-				get_node("/root/Map").show()
+				#get_node("/root/Map").show()
+				get_node("/root/Map").visible = true
 			else:
 				print("player said no")
 				
@@ -111,7 +112,8 @@ func upgrade_die():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_node("/root/Map").hide()
+	#get_node("/root/Map").hide()
+	get_node("/root/Map").visible = false
 	
 	if PlayerData.dice_bag.size() == 0:
 		PlayerData.dice_bag = temp_dice_bag_init.dice.duplicate(true)

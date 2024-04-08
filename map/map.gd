@@ -14,7 +14,24 @@ var map_scene 	= preload("res://map/MapTree.tscn")
 @export var scroll_cont : ScrollContainer
 @export var bg 			: NinePatchRect
 
+## Inventory
+@onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
+@onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
+@onready var side_name = "Sides"
+@onready var inventory = %"Display Box"
+@onready var player_status = $"Player Status"
+
 func _ready():
+	## setup for dice inventory tab
+	inventory.make_tab("In Bag", PlayerData.dice_bag, inv_dice_visual)
+	## setup for die sides inventory tab
+	inventory.make_tab(side_name, [], inv_side_visual)
+	## connect dice bag button to inventory
+	player_status.bag_button.pressed.connect(inventory.open)
+	## connect frame clicks to display sides
+	inventory.return_clicked.connect(show_sides)
+	#inventory.visible = false
+	
 	setup()
 	
 func setup():
@@ -79,3 +96,15 @@ func add_nodes():
 			#node.text = text
 			bg.add_child(node)
 
+
+## simple function that changes what is displayed on the sides tab
+func show_sides(die : Die):
+	var side_view
+	for child in inventory.get_children():
+		if child.tabobj_ref.get_tab_title() == side_name:	 #hardcoded cause bro this shit is ass
+			side_view = child
+	if side_view == null:
+		return
+	else:
+		side_view.new_frames(die.sides)
+		inventory.current_tab = side_view.get_index()

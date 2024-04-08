@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://battle/drawn_die/drawn_die.gd" id="2_xa0sa"]
 [ext_resource type="StyleBox" uid="uid://j5n4ind2akr2" path="res://battle/drawn_die/styles/button_battle_hover.tres" id="3_4jxcf"]
 [ext_resource type="StyleBox" uid="uid://cfxdr73d1vnru" path="res://battle/drawn_die/styles/button_battle_focused_pressed.tres" id="4_j6333"]
-[ext_resource type="StyleBox" path="res://battle/drawn_die/styles/button_battle_disabled.tres" id="5_ss3iu"]
+[ext_resource type="StyleBox" uid="uid://ctvgbwyx6ygdt" path="res://battle/drawn_die/styles/button_battle_disabled.tres" id="5_ss3iu"]
 
 [node name="Button" instance=ExtResource("1_sd3bl")]
 theme_override_styles/normal = ExtResource("2_l5xp6")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://biq23c5tqviqm"]
+[gd_scene load_steps=13 format=3 uid="uid://biq23c5tqviqm"]
 
 [ext_resource type="Script" path="res://campfire/proficiency_upgrade.gd" id="1_iw31s"]
 [ext_resource type="Resource" uid="uid://bvcujelfg6iql" path="res://battle/battle_actors/temp_player_element_res.tres" id="2_fpyou"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="2_i5kku"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="2_qnwa2"]
 [ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="3_ju3x2"]
+[ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="3_vwum2"]
 [ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="4_etjvx"]
 
 [sub_resource type="Resource" id="Resource_822hc"]
@@ -56,6 +57,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iw31s")
 temp_dice_bag_init = ExtResource("2_fpyou")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_vwum2")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

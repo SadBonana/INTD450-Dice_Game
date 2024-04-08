@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://df2jc3pw5xfhy"]
+[gd_scene load_steps=9 format=3 uid="uid://df2jc3pw5xfhy"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
-[ext_resource type="PackedScene" uid="uid://dqmmhl4lb6tkc" path="res://menus/pause_menu.tscn" id="2_744sy"]
-[ext_resource type="AudioStream" path="res://music and sound/battle.wav" id="2_esnf3"]
+[ext_resource type="PackedScene" uid="uid://dhgtx82xq4w7k" path="res://menus/pause_menu.tscn" id="2_744sy"]
+[ext_resource type="AudioStream" uid="uid://d3iv3umrviehb" path="res://music and sound/battle.wav" id="2_esnf3"]
 [ext_resource type="Script" path="res://music and sound/BattleMusic.gd" id="3_3wd8c"]
-[ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://misc components/health_bar.tscn" id="3_uw4px"]
 [ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="4_sqmrd"]
+[ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_k670k"]
+[ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://menus/fps_label.tscn" id="7_ccdas"]
+[ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="8_8cnei"]
 
 [node name="Map" type="Control" node_paths=PackedStringArray("scroll_cont", "bg")]
 layout_mode = 3
@@ -26,9 +28,12 @@ script = ExtResource("3_3wd8c")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(640, 360)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Nodes" type="NinePatchRect" parent="ScrollContainer"]
 custom_minimum_size = Vector2(640, 1080)
@@ -41,10 +46,26 @@ patch_margin_bottom = 32
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="HealthBar" parent="." instance=ExtResource("3_uw4px")]
+[node name="fps_label" parent="." instance=ExtResource("7_ccdas")]
+visible = false
+layout_mode = 0
+
+[node name="Player Status" parent="." instance=ExtResource("6_k670k")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Display Box" parent="." instance=ExtResource("8_8cnei")]
 visible = false
 layout_mode = 1
 
 [node name="pause_menu" parent="." instance=ExtResource("2_744sy")]
 visible = false
 layout_mode = 1
+
+[editable path="Player Status"]

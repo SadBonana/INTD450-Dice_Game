@@ -8,9 +8,11 @@ extends VBoxContainer
 @export var deck_status: Label
 @onready var bag_button := %"Bag Button"
 @export var dice_selected: Label
+@onready var inventory = %"Display Box"
 
 static var deck_f_string = "Dice: %d/%d"
 static var selected_f_string = "Selected: %d/%d"
+
 
 # I wonder if it would be better to have a class for the in-battle dice bag so we can just do .size() for dice remaining as well and then use callbacks for when dice are added or removed...
 var dice_remaining: int:
