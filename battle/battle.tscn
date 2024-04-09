@@ -38,7 +38,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5jfo4")
 drawn_die_path = "res://battle/drawn_die/drawn_die.tscn"
-map_path = "res://map/map.tscn"
 loot_screen_path = "res://battle/battle_item_drop.tscn"
 encounter_res = ExtResource("2_6ad1h")
 enemy1 = NodePath("VBoxContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy")

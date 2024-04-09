@@ -4,8 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://b0rmrjb71troy" path="res://menus/settings_menu.tscn" id="2_mgncs"]
 
 [node name="settings_button" type="Button"]
-focus_neighbor_top = NodePath("../controls_button")
-focus_neighbor_bottom = NodePath("../quit_button")
 theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
 text = "Settings"

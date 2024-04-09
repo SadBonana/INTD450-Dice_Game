@@ -52,7 +52,7 @@ func set_type(_type:NT) -> void:
 		NT.WORKSHOP:
 			pass
 		NT.TREASURE:
-			pass
+			dest_path = "res://treasure_room/treasure_room.tscn"
 		NT.BOSS:
 			pass
 
@@ -143,7 +143,7 @@ func _pressed():
 			
 		NT.TREASURE:
 			#scene = preload("TODO:insert treasure path here.tscn")
-			pass
+			scene = preload("res://treasure_room/treasure_room.tscn")
 			
 		NT.BOSS:
 			#scene = preload("TODO:insert boss path here.tscn")

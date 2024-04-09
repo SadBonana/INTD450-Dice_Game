@@ -291,8 +291,8 @@ func select_type(node:MapNode) -> NT:
 	
 	#hardcode depth 4 as treasure, we dont have to do this
 	if depth == 4:
-		#return NT.TREASURE
-		return NT.CAMPFIRE #TODO: CHANGE THIS BACK
+		return NT.TREASURE
+		#return NT.CAMPFIRE #TODO: CHANGE THIS BACK
 	
 	#hardcode depth 6 as workshop
 	#if depth == 6:

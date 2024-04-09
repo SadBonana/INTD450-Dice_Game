@@ -112,7 +112,8 @@ func upgrade_die():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_node("/root/Map").hide()
+	#get_node("/root/Map").hide()
+	get_node("/root/Map").visible = false
 	
 	if PlayerData.dice_bag.size() == 0:
 		PlayerData.dice_bag = temp_dice_bag_init.dice.duplicate(true)

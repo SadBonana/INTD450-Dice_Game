@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddvb8gwrblohv"]
+[gd_scene load_steps=8 format=3 uid="uid://ddvb8gwrblohv"]
 
+[ext_resource type="Script" path="res://menus/start_menu.gd" id="1_fcgiy"]
+[ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="1_yicmj"]
 [ext_resource type="Script" path="res://Menus/start_button.gd" id="2_ffffd"]
-[ext_resource type="PackedScene" uid="uid://dmaf74odgy7v6" path="res://Menus/start_button.tscn" id="2_v1kad"]
-[ext_resource type="PackedScene" uid="uid://djhlg0x1wvmi" path="res://Menus/controls_button.tscn" id="3_abhdu"]
-[ext_resource type="PackedScene" uid="uid://c3ardwyvsttr1" path="res://Menus/fps_label.tscn" id="3_smo4h"]
-[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://Menus/settings_button.tscn" id="4_b5kma"]
-[ext_resource type="PackedScene" uid="uid://c8y350efda5hk" path="res://Menus/quit_button.tscn" id="5_k2kcg"]
+[ext_resource type="PackedScene" uid="uid://dmaf74odgy7v6" path="res://menus/start_button.tscn" id="2_v1kad"]
+[ext_resource type="PackedScene" uid="uid://c3ardwyvsttr1" path="res://menus/fps_label.tscn" id="3_smo4h"]
+[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://menus/settings_button.tscn" id="4_b5kma"]
+[ext_resource type="PackedScene" uid="uid://c8y350efda5hk" path="res://menus/quit_button.tscn" id="5_k2kcg"]
 
 [node name="start_menu2" type="Control"]
 layout_mode = 3
@@ -16,6 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_fcgiy")
 
 [node name="start_menu_panel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
@@ -26,9 +28,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="start_menu_panel"]
+[node name="NinePatchRect" type="NinePatchRect" parent="start_menu_panel"]
 layout_mode = 2
-color = Color(0.772549, 0.129412, 0.67451, 1)
+texture = ExtResource("1_yicmj")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="start_menu_panel"]
 layout_mode = 2
@@ -51,17 +59,20 @@ vertical_alignment = 1
 
 [node name="start_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("2_v1kad")]
 layout_mode = 2
+focus_neighbor_top = NodePath("../quit_button")
+focus_neighbor_bottom = NodePath("../settings_button")
 script = ExtResource("2_ffffd")
 map_scene_path = null
 
-[node name="controls_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("3_abhdu")]
-layout_mode = 2
-
 [node name="settings_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("4_b5kma")]
 layout_mode = 2
+focus_neighbor_top = NodePath("../start_button")
+focus_neighbor_bottom = NodePath("../quit_button")
 
 [node name="quit_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("5_k2kcg")]
 layout_mode = 2
+focus_neighbor_top = NodePath("../settings_button")
+focus_neighbor_bottom = NodePath("../start_button")
 
 [node name="team_name_label" type="Label" parent="start_menu_panel/MarginContainer"]
 layout_mode = 2

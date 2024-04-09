@@ -4,7 +4,7 @@ extends Control
 @onready var heal_button = $MarginContainer/VBoxContainer/HBocContainer/HealButton
 @onready var campfire_scene = $"."
 
-var recover_health_by = int(ceil(PlayerData.hp / 2))
+var recover_health_by = int(ceil(PlayerData.hp_max / 2))
 
 func _ready():
 	heal_button.text = "Recover %d Health" % recover_health_by
@@ -20,10 +20,8 @@ func _on_heal_button_pressed():
 	print("You Healed. You now have %d" % PlayerData.hp)
 	
 	# Change the transfer scene to be the map scene once that gets made
-	#get_tree().change_scene_to_file(map_path)
 	queue_free()
 	get_node("/root/Map").visible = true
-	#get_owner().queue_free()
 
 
 func _on_upgrade_die_button_pressed():
