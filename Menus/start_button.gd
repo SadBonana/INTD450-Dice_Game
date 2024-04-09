@@ -20,3 +20,5 @@ func _on_pressed():
 	get_node("/root/Map/BattleMusic").play()
 	PlayerData.reset()
 	start_menu.get_parent_control().visible = false
+	queue_free()
+	get_node("/root/Map").visible = true

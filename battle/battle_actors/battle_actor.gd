@@ -1,5 +1,9 @@
 class_name BattleActor extends VBoxContainer
 
+#const damage_indication = preload("res://battle/damage_indicator/damage_indicator.tscn")
+@onready var damage_indication := $damage_indicator
+@onready var damage_animation := $damage_indicator/damage_animation
+
 @export_file("*.tscn") var status_effect_scene_path
 @export var enable_textboxes := false
 var textbox: TextboxController
@@ -96,10 +100,14 @@ func take_damage(damage: int, beligerent_name: String) -> int:
 	defense -= damage
 	shield_manager(defense)
 	var prev_health = health
+	
+	spawn_damage_indicator(damage_after_defense)
 	health -= damage_after_defense
 	
 	animation_player.play("Hurt")
 	await animation_player.animation_finished
+	
+	
 	if enable_textboxes:
 		await textbox.quick_beat("deal damage", [beligerent_name, damage_after_defense])
 	
@@ -194,3 +202,9 @@ func shield_manager(value: int):
 
 
 
+func spawn_damage_indicator(damage: int):
+	#damage_indication.visible = true
+	damage_indication.label.text = str(damage)
+	damage_animation.play()
+	await animation_player.animation_finished
+	#damage_indication.visible = false

@@ -55,6 +55,7 @@ var defeated_enemies = []
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
 @onready var side_name = "Sides"
 
+
 ## Starts a battle scene with the given encounter resource
 ##
 ## Parameters:
@@ -121,11 +122,18 @@ func _ready():
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
 	# line of code
 	
+	player_status.dice_selected.visible = true
+	
+	'''player.damage_indication.visible = false
+	enemy1.damage_indication.visible = false
+	enemy2.damage_indication.visible = false
+	enemy3.damage_indication.visible = false'''
+	
 	drawn_die_placeholder.hide()
 	
-	enemy_1_dice_hand.hide()
-	enemy_2_dice_hand.hide()
-	enemy_3_dice_hand.hide()
+	#enemy_1_dice_hand.hide()
+	#enemy_2_dice_hand.hide()
+	#enemy_3_dice_hand.hide()
 	
 	## setup for dice inventory tab
 	inventory.make_tab("In Bag", player.dice_bag,inv_dice_visual)
@@ -250,13 +258,18 @@ func cleanup_enemies():
 func enemy_turn():
 	if enable_textboxes:
 		await textbox_controller.quick_beat("enemy attack")
+	
 	for enemy in enemies:
 		for die in enemy.dice_hand:
 			if die.action == DrawnDieData.ATTACK and die.effect.damaging:
+				player.damage_indication.visible = true
 				await player.take_damage(die.side.value, enemy.actor_name)
+				#player.damage_indication.visible = false
 			else:		# DEFENSE
 				enemy.defense += die.side.value
+			
 			await die.effect.apply()
+			player.damage_indication.visible = false
 	
 	draw_dice()    # Enemy turn is over so player draws dice
 	
@@ -299,10 +312,18 @@ func _on_ready_pressed():
 				if not die.target in enemies:
 					await textbox_controller.quick_beat("missed")
 				elif die.data.effect.damaging:
+						
+						die.target.damage_indication.visible = true
+						
 						await die.target.take_damage(die.roll, player.actor_name)
+						
+						#die.target.damage_indication.visible = false
+						
 			DrawnDieData.DEFEND:
 				player.defense += die.roll
+		
 		await die.data.effect.apply()
+		die.target.damage_indication.visible = false
 		
 	cleanup_enemies()
 	player.hand_used()

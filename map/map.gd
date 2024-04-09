@@ -24,6 +24,7 @@ var map_scene 	= preload("res://map/MapTree.tscn")
 var inventory_open = false
 
 func _ready():
+	
 	if PlayerData.dice_bag.size() == 0:
 		PlayerData.dice_bag = temp_dice_bag_init.dice.duplicate(true)
 	
@@ -36,6 +37,8 @@ func _ready():
 	player_status.bag_button.pressed.connect(track_inventory)
 	## connect frame clicks to display sides
 	inventory.return_clicked.connect(show_sides)
+	
+	player_status.dice_remaining = PlayerData.dice_bag.size()
 	
 	setup()
 	

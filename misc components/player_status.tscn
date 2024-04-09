@@ -12,7 +12,7 @@ bg_color = Color(0.6, 0.6, 0.6, 0.678431)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bv15m"]
 
-[node name="Player Status" type="VBoxContainer" node_paths=PackedStringArray("health_bar", "deck_status")]
+[node name="Player Status" type="VBoxContainer" node_paths=PackedStringArray("health_bar", "deck_status", "dice_selected")]
 anchors_preset = -1
 anchor_right = 0.192
 anchor_bottom = 0.375
@@ -24,6 +24,7 @@ size_flags_vertical = 8
 script = ExtResource("1_kpf4t")
 health_bar = NodePath("Player Health and Name/Health Bar")
 deck_status = NodePath("Bag Sprite/Deck Status")
+dice_selected = NodePath("Bag Sprite/Dice Selected")
 
 [node name="Player Health and Name" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -62,6 +63,22 @@ size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("2_wrn3c")
 theme_override_font_sizes/font_size = 8
 text = "Dice: 12/20"
+vertical_alignment = 1
+
+[node name="Dice Selected" type="Label" parent="Bag Sprite"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -8.0
+offset_right = 48.0
+theme_override_fonts/font = ExtResource("2_wrn3c")
+theme_override_font_sizes/font_size = 8
+text = "Selected 0/3"
 vertical_alignment = 1
 
 [node name="Bag Button" type="Button" parent="Bag Sprite"]

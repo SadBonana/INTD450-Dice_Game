@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bbu8nn2jqun2j"]
+[gd_scene load_steps=7 format=3 uid="uid://bbu8nn2jqun2j"]
 
 [ext_resource type="Script" path="res://battle/battle_actors/battle_actor.gd" id="1_k0mx3"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_tuuc8"]
 [ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="3_yrg2q"]
+[ext_resource type="PackedScene" uid="uid://cvt2ilg78br68" path="res://battle/damage_indicator/damage_indicator.tscn" id="4_isne4"]
 
 [sub_resource type="Animation" id="Animation_ootso"]
 resource_name = "Hurt"
@@ -89,3 +90,11 @@ root_node = NodePath(".")
 libraries = {
 "": SubResource("AnimationLibrary_a231e")
 }
+
+[node name="damage_indicator" parent="." instance=ExtResource("4_isne4")]
+
+[node name="Label" parent="damage_indicator" index="0"]
+anchors_preset = 0
+grow_horizontal = 1
+
+[editable path="damage_indicator"]

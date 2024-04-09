@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvt2ilg78br68"]
+
+[ext_resource type="Script" path="res://battle/damage_indicator/damage_indicator.gd" id="1_b82sm"]
+
+[sub_resource type="Animation" id="Animation_8nd57"]
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(6, 6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_k58ux"]
+resource_name = "show_damage"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(8, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 0, 0, 1), Color(1, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k7fn2"]
+_data = {
+"RESET": SubResource("Animation_8nd57"),
+"show_damage": SubResource("Animation_k58ux")
+}
+
+[node name="damage_indicator" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_b82sm")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = -1
+offset_right = 40.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "0"
+
+[node name="damage_animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_k7fn2")
+}
+autoplay = "show_damage"
+next/show_damage = &"show_damage"

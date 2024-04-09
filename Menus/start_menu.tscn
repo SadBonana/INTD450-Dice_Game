@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxka8i50aptcg"]
+[gd_scene load_steps=7 format=3 uid="uid://bxka8i50aptcg"]
 
+[ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="1_atjgu"]
 [ext_resource type="PackedScene" uid="uid://boyouw0dt2gmk" path="res://menus/start_button.tscn" id="1_c6ght"]
+[ext_resource type="Script" path="res://menus/start_menu.gd" id="1_xqds2"]
 [ext_resource type="PackedScene" uid="uid://c1qfpvc0icjsy" path="res://menus/settings_button.tscn" id="3_wr0pd"]
 [ext_resource type="PackedScene" uid="uid://bgp0uigvyvkrj" path="res://menus/quit_button.tscn" id="4_inngh"]
 [ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://menus/fps_label.tscn" id="5_fjfjf"]
@@ -14,6 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_xqds2")
 
 [node name="start_menu_panel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
@@ -24,9 +27,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="start_menu_panel"]
+[node name="NinePatchRect" type="NinePatchRect" parent="start_menu_panel"]
 layout_mode = 2
-color = Color(0.772549, 0.129412, 0.67451, 1)
+texture = ExtResource("1_atjgu")
+patch_margin_left = 36
+patch_margin_top = 36
+patch_margin_right = 36
+patch_margin_bottom = 36
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="start_menu_panel"]
 layout_mode = 2
@@ -67,7 +76,7 @@ focus_neighbor_bottom = NodePath("../start_button")
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-text = "Dicey Devs"
+text = "Dicey Devs    "
 horizontal_alignment = 1
 vertical_alignment = 1
 
