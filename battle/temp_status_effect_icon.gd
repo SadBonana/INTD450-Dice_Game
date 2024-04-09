@@ -8,22 +8,23 @@ class_name TempSEIcon extends Button
 
 
 
+'''
 var strength: int = 1:
 	set (value):
 		strength = value
-		#text = _fstring % [TempSEIcon._to_rom_num(strength), remaining_turns]
-		text = _fstring % [remaining_turns]
-var remaining_turns: int = 0:
+		text = _fstring % [TempSEIcon._to_rom_num(strength), remaining_turns]
+'''
+var stacks: int = 0:
 	set (value):
-		remaining_turns = value
+		stacks = value
 		#text = _fstring % [TempSEIcon._to_rom_num(strength), remaining_turns]
-		text = _fstring % [remaining_turns]
+		text = _fstring % [stacks]
 var beneficial: bool
 var color: Color
 var effect: StatusEffect
 
 #static var _fstring := "%s: %d"		# Strength (roman num): turns left
-static var _fstring := "%d"
+static var _fstring := "%d" # stacks
 
 ## Loads, attaches to parent, and initializes required parameters all in one go.
 static func instantiate(node_path: String, parent: Node, _effect: StatusEffect):
@@ -62,7 +63,8 @@ static func _to_rom_num(number: int):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	text = _fstring % [TempSEIcon._to_rom_num(strength), remaining_turns]
+	#text = _fstring % [TempSEIcon._to_rom_num(strength), stacks]
+	text = _fstring % [stacks]
 	match effect._type:
 		StatusEffect.EffectType.PARALYSIS:
 			#self_modulate = Color.YELLOW
@@ -87,8 +89,8 @@ func _ready():
 
 
 func update():
-	strength = effect.strength
-	remaining_turns = effect.remaining_turns
+	#strength = effect.strength
+	stacks = effect.stacks
 
 
 func _on_pressed():

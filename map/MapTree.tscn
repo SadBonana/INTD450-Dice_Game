@@ -1,0 +1,127 @@
+[gd_scene load_steps=27 format=3 uid="uid://dq3n8jpal7hyb"]
+
+[ext_resource type="Script" path="res://map/MapTree.gd" id="1_r4pap"]
+[ext_resource type="Texture2D" uid="uid://bdrpmw762opsu" path="res://assets/textures/map icon sprite sheet.png" id="2_unv55"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ysyp"]
+atlas = ExtResource("2_unv55")
+region = Rect2(0, 140, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17sat"]
+atlas = ExtResource("2_unv55")
+region = Rect2(35, 140, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rawmg"]
+atlas = ExtResource("2_unv55")
+region = Rect2(70, 140, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08q83"]
+atlas = ExtResource("2_unv55")
+region = Rect2(0, 175, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5c1ji"]
+atlas = ExtResource("2_unv55")
+region = Rect2(35, 175, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khckv"]
+atlas = ExtResource("2_unv55")
+region = Rect2(70, 175, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nk5f6"]
+atlas = ExtResource("2_unv55")
+region = Rect2(0, 70, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4o3n"]
+atlas = ExtResource("2_unv55")
+region = Rect2(35, 70, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tv50g"]
+atlas = ExtResource("2_unv55")
+region = Rect2(70, 70, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ion0"]
+atlas = ExtResource("2_unv55")
+region = Rect2(0, 105, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tnqa"]
+atlas = ExtResource("2_unv55")
+region = Rect2(35, 105, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fryek"]
+atlas = ExtResource("2_unv55")
+region = Rect2(70, 105, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4aojk"]
+atlas = ExtResource("2_unv55")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oe880"]
+atlas = ExtResource("2_unv55")
+region = Rect2(35, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxl1y"]
+atlas = ExtResource("2_unv55")
+region = Rect2(70, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3q1lk"]
+atlas = ExtResource("2_unv55")
+region = Rect2(0, 35, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ow5n"]
+atlas = ExtResource("2_unv55")
+region = Rect2(35, 35, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htvns"]
+atlas = ExtResource("2_unv55")
+region = Rect2(70, 35, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1sxxy"]
+atlas = ExtResource("2_unv55")
+region = Rect2(105, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3yvdh"]
+atlas = ExtResource("2_unv55")
+region = Rect2(142, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mosa3"]
+atlas = ExtResource("2_unv55")
+region = Rect2(179, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvg5e"]
+atlas = ExtResource("2_unv55")
+region = Rect2(105, 37, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxo17"]
+atlas = ExtResource("2_unv55")
+region = Rect2(142, 37, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glv5r"]
+atlas = ExtResource("2_unv55")
+region = Rect2(179, 37, 35, 35)
+
+[node name="MapTree" type="Node2D"]
+script = ExtResource("1_r4pap")
+camp_texture = SubResource("AtlasTexture_7ysyp")
+treasure_texture = SubResource("AtlasTexture_17sat")
+battle_texture = SubResource("AtlasTexture_rawmg")
+start_texture = SubResource("AtlasTexture_08q83")
+workshop_texture = SubResource("AtlasTexture_5c1ji")
+boss_texture = SubResource("AtlasTexture_khckv")
+camp_disabled = SubResource("AtlasTexture_nk5f6")
+treasure_disabled = SubResource("AtlasTexture_y4o3n")
+battle_disabled = SubResource("AtlasTexture_tv50g")
+start_disabled = SubResource("AtlasTexture_7ion0")
+workshop_disabled = SubResource("AtlasTexture_3tnqa")
+boss_disabled = SubResource("AtlasTexture_fryek")
+camp_unvisited = SubResource("AtlasTexture_4aojk")
+treasure_unvisited = SubResource("AtlasTexture_oe880")
+battle_unvisited = SubResource("AtlasTexture_jxl1y")
+start_unvisited = SubResource("AtlasTexture_3q1lk")
+workshop_unvisited = SubResource("AtlasTexture_8ow5n")
+boss_unvisited = SubResource("AtlasTexture_htvns")
+camp_focused = SubResource("AtlasTexture_1sxxy")
+treasure_focused = SubResource("AtlasTexture_3yvdh")
+battle_focused = SubResource("AtlasTexture_mosa3")
+start_focused = SubResource("AtlasTexture_wvg5e")
+workshop_focused = SubResource("AtlasTexture_wxo17")
+boss_focused = SubResource("AtlasTexture_glv5r")
