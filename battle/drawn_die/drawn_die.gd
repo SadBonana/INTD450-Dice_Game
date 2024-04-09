@@ -1,12 +1,15 @@
 extends InvDieFrame
 class_name DrawnDie
 
+@onready var element_icon = %ElementIcon
+
 ## paths to the styleboxes we need
 var focused_press_path : StyleBox = preload("res://battle/drawn_die/styles/button_battle_focused_pressed.tres")
 var pressed_path : StyleBox = preload("res://battle/drawn_die/styles/button_battle_pressed.tres")
 ## name of the styleboxes we wish to change
 var pressed_style = "pressed"
 var normal_style = "normal"
+
 
 signal target_selected(drawndie)
 signal target_unselected(drawndie)
@@ -16,6 +19,9 @@ var data: DrawnDieData:
 			data = ddd
 			side = ddd.side
 			die_ref = ddd.die
+			die_visual.texture = ddd.die.texture
+			element_icon.texture = side.element.icon
+			
 var side : DieSide:
 		set (side):
 			data.side = side
