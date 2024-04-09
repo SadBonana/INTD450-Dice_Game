@@ -10,6 +10,20 @@
 [ext_resource type="Texture2D" uid="uid://cswe1gnj4fufy" path="res://assets/textures/resources/elements/steel.tres" id="8_r8g3o"]
 
 [node name="Button" instance=ExtResource("1_sd3bl")]
+custom_minimum_size = Vector2(96, 96)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_styles/normal = ExtResource("2_l5xp6")
 theme_override_styles/hover = ExtResource("3_4jxcf")
 theme_override_styles/pressed = ExtResource("4_j6333")
@@ -17,8 +31,23 @@ theme_override_styles/disabled = ExtResource("5_ss3iu")
 toggle_mode = true
 script = ExtResource("2_xa0sa")
 
+[node name="DisplayContainer" parent="." index="0"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -58.0
+offset_right = 58.0
+offset_bottom = 58.0
+
 [node name="die_display" parent="DisplayContainer" index="0"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("7_ytgmn")
+expand_mode = 0
+stretch_mode = 2
 
 [node name="IconContainer" type="MarginContainer" parent="." index="1"]
 custom_minimum_size = Vector2(32, 32)
@@ -42,12 +71,25 @@ texture = ExtResource("8_r8g3o")
 stretch_mode = 5
 
 [node name="LabelContainer" parent="." index="2"]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 20.0
+offset_bottom = 37.0
+grow_horizontal = 1
+grow_vertical = 1
 theme_override_constants/margin_left = 6
 
 [node name="Label" parent="LabelContainer" index="0"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_font_sizes/font_size = 36
 text = "4"
 horizontal_alignment = 0
 vertical_alignment = 0
 
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="toggled" from="." to="." method="_on_toggled"]

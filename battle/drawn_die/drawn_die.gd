@@ -192,7 +192,32 @@ func disable_untargetables(disable : bool, button_clicked : Button=null):
 		else:
 			get_parent().disable_die(button)
 			button.focus_mode = FOCUS_ALL
-		
-		
-	
-	
+
+
+## Set this drawn die to display on top of the others. Dice further from this die
+## in the dice hand will be beneath closer ones.
+func bring_to_front():
+	var hand = data.battle.player.dice_hand
+	var indx_in_hand = hand.find(self)
+	for index in range(hand.size()):
+		hand[index].z_index = hand.size() - abs(indx_in_hand - index)
+
+
+## After calling this, drawn dice will overlap however godot feels like making them overlap.
+## AKA, reset the drawn die overlap behavior to default.
+func reset_z_ordering():
+	for d in data.battle.player.dice_hand:
+		d.z_index = 0
+
+
+func _on_focus_entered():
+	bring_to_front()
+
+func _on_focus_exited():
+	reset_z_ordering()
+
+func _on_mouse_entered():
+	bring_to_front()
+
+func _on_mouse_exited():
+	reset_z_ordering()

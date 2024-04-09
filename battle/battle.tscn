@@ -165,6 +165,9 @@ layout_mode = 2
 size_flags_vertical = 1
 dice_selected = NodePath("Bag Sprite/Dice Selected")
 
+[node name="Bag Sprite" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status" index="1"]
+stretch_mode = 3
+
 [node name="Deck Status" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status/Bag Sprite" index="0"]
 anchors_preset = 5
 anchor_left = 0.5
@@ -194,9 +197,9 @@ vertical_alignment = 1
 [node name="Hand of Dice" type="HBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
 size_flags_stretch_ratio = 3.0
-theme_override_constants/separation = 20
+theme_override_constants/separation = -20
 alignment = 1
 script = ExtResource("8_47wfu")
 
@@ -264,9 +267,9 @@ theme_override_constants/margin_top = 35
 theme_override_constants/margin_right = 35
 theme_override_constants/margin_bottom = 35
 
-[node name="Inventory" parent="." instance=ExtResource("10_sbswq")]
+[node name="Inventory" parent="MarginContainer" instance=ExtResource("10_sbswq")]
 visible = false
-layout_mode = 1
+layout_mode = 2
 open_action = "I"
 close_action = "I"
 
