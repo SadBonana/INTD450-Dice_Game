@@ -230,6 +230,8 @@ func draw_dice():
 		# making the dice overlap messed with godot's ability to do it automatically.
 		var prev_d: DrawnDie
 		for d in player.dice_hand:
+			if not d.visible:
+				continue
 			if prev_d and prev_d is DrawnDie:
 				prev_d.focus_neighbor_right = d.get_path()
 				prev_d.focus_next = d.get_path()
