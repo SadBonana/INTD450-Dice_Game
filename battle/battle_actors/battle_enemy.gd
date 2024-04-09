@@ -46,8 +46,14 @@ func commit_dice():
 	for die in dice_hand:
 		die.target = battle.player
 		die.action = DrawnDieData.ATTACK
+	var paralyzed = false
+	for effect in status_effects:
+		if effect._type == StatusEffect.PARALYSIS:
+			paralyzed = true
+			
 	damage = dice_hand.reduce(func (accum, die): return accum + die.side.value, 0)	# damage = sum of rolls in dice hand
-
+	if paralyzed:
+		damage =  max(0, damage-2)
 
 # Will likely need to be rewritten once effect die and enemies defending become a thing.
 func draw_dice():

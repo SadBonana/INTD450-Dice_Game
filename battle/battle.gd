@@ -337,7 +337,8 @@ func _on_ready_pressed():
 				#get_node("/root/SoundManager/attack").play()
 				SoundManager.attack_sfx.play()
 				await die.target.take_damage(die.roll, player.actor_name)
-			await die.data.effect.apply()
+				await die.data.effect.apply()
+				
 			#applying buffs after attacking
 			
 	await get_tree().create_timer(0.5).timeout #delaying so the player can see the effects apply
