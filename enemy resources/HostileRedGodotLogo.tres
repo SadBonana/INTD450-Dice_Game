@@ -10,7 +10,7 @@ load_path = "res://.godot/imported/player enemies.png-051606b5fbf23f3340d5d51942
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rrfl7"]
 atlas = SubResource("CompressedTexture2D_k57ys")
-region = Rect2(0, 156, 59, 57)
+region = Rect2(0, 156, 64, 65)
 
 [resource]
 script = ExtResource("1_44fdo")
@@ -18,5 +18,5 @@ name = "Red Godot Logo"
 texture = SubResource("AtlasTexture_rrfl7")
 health = 18
 dice_draws = 2
-sprite_color = Color(1, 0.0705882, 0.231373, 1)
+sprite_color = Color(1, 1, 1, 1)
 dice = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_amsab"), ExtResource("1_amsab"), ExtResource("1_amsab"), ExtResource("1_amsab"), ExtResource("1_amsab"), ExtResource("2_qou56"), ExtResource("2_qou56"), ExtResource("3_4i3wk"), ExtResource("1_amsab"), ExtResource("1_amsab")])

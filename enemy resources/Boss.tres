@@ -12,7 +12,7 @@ load_path = "res://.godot/imported/player enemies.png-051606b5fbf23f3340d5d51942
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r7wgg"]
 atlas = SubResource("CompressedTexture2D_k57ys")
-region = Rect2(0, 245, 222, 251)
+region = Rect2(0, 253, 222, 251)
 
 [resource]
 script = ExtResource("6_l3lib")
