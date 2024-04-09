@@ -17,7 +17,7 @@ func create_tab(_tab: Tab):
 ## Adds the neccessary slots and Die texture models into our scene
 func _show_frames() -> void:
 	wipe()
-	set_tab_title(0, tabobj_ref.get_tab_title())			# Set Title
+	tab.name = tabobj_ref.get_tab_title()					# Set Title
 	var frame_visual = tabobj_ref.get_frame_visual().instantiate()	# Get frame visual
 	
 	check_validity(frame_visual)
