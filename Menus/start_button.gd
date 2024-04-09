@@ -18,4 +18,9 @@ func _process(delta):
 func _on_pressed():
 	# Change to map scene once done
 	#get_tree().change_scene_to_file(map_scene_path)
+	get_node("/root/Map/BattleMusic").play()
+	PlayerData.reset()
 	start_menu.get_parent_control().visible = false
+
+#func _pressed():
+	#get_node("/root/start_menu").visible = false

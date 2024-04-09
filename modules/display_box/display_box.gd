@@ -22,26 +22,22 @@ func _ready():
 ## Changes our scene accordingly
 ## Hides and unhides the Inventory using the i key
 ## Escape key returns side view to dice view or closes dice view
-func _input(event):	
-	if(not is_open and Input.is_action_just_pressed(open_action)): # if string is left empty this is false
-		open()
-		get_viewport().set_input_as_handled()
-	elif(is_open and Input.is_action_just_pressed(close_action)): # if string is left empty this is false
-		close()
-		get_viewport().set_input_as_handled()
+func _input(event):
+	if(InputMap.has_action(event.as_text())):
+		if(not is_open and Input.is_action_just_pressed(open_action)): # if string is left empty this is false
+			open()
+			get_viewport().set_input_as_handled()
+		elif(is_open and Input.is_action_just_pressed(close_action)): # if string is left empty this is false
+			close()
+			get_viewport().set_input_as_handled()
 			
 ## Use this function when you want to add a new tab to your Display box
-func add_tab_child(tab_object :  Tab, columns: int):
-	var tab_scene = frame_tab_display.instantiate()
-	tab_scene.disp_frame_clicked.connect(return_content)
-	add_child(tab_scene)
-	tab_scene.create_tab(tab_object, columns)
 
-'''func add_tab_child(tab_object :  Tab):
+func add_tab_child(tab_object :  Tab):
 	var tab_scene = frame_tab_display.instantiate()
 	tab_scene.disp_frame_clicked.connect(return_content)
 	add_child(tab_scene)
-	tab_scene.create_tab(tab_object)'''
+	tab_scene.create_tab(tab_object)
 
 ## When we want to use the info that a frame emitted from its signal
 ## We may catch and reemit it up 
@@ -60,10 +56,7 @@ func close():
 	visible = false
 	is_open = false
 	
-'''func make_tab(tab_title : StringName,inv_frames,inv_visual : PackedScene):
+func make_tab(tab_title : StringName,inv_frames,inv_visual : PackedScene):
 	var inv_tab : Tab = Tab.new(tab_title,inv_frames,inv_visual)
-	self.add_tab_child(inv_tab)'''
-
-func make_tab(tab_title : StringName, inv_frames, inv_visual : PackedScene, columns: int = 8):
-	var inv_tab : Tab = Tab.new(tab_title, inv_frames, inv_visual)
-	self.add_tab_child(inv_tab, columns)
+	self.add_tab_child(inv_tab)
+		

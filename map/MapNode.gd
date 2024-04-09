@@ -1,8 +1,7 @@
-extends Button
+extends TextureButton
 
 class_name MapNode
 
-#@export var early_game_encounter_table: BaseEncounter
 
 const NT = NodeType.NodeType
 
@@ -14,6 +13,13 @@ var children  = []
 var siblings =  []   
 var parents   = []
 var depth     = -1      #depth of this node in the tree, idk if it's necessary for each node yet
+
+#Texture variables
+var normal : AtlasTexture
+var visited : AtlasTexture
+var unvisited : AtlasTexture
+var focused : AtlasTexture
+var t_disabled : AtlasTexture
 
 #initialize the button as disabled
 #_init is NOT enough to set up a MapNode, set_type and set_depth MUST be ran first
@@ -106,9 +112,12 @@ func get_brothers():
 #handler for pressing the button
 func _pressed():
 	self.disabled = true
+	#self.texture_disabled = visited
+	change_texture("disabled", visited)
 	for child in children:
 		child.disabled = false
 	for sibling in siblings:
+		sibling.change_texture("disabled", visited)
 		sibling.disabled = true
 	
 	var scene = null
@@ -121,11 +130,11 @@ func _pressed():
 			pass
 			
 		NT.BATTLE:
-			#scene = preload("TODO:insert battle path here.tscn")
-			pass
+			scene = preload("res://battle/battle.tscn")
+			
 			
 		NT.CAMPFIRE:
-			#scene = preload("res://campfire/campfire.tscn")
+			scene = preload("res://campfire/campfire.tscn")
 			pass
 			
 		NT.WORKSHOP:
@@ -148,12 +157,53 @@ func _pressed():
 	
 	if scene != null:
 		var instance = scene.instantiate()
-		var current_scene = get_tree().get_current_scene()
+		
+		if type == NT.BATTLE:
+			#instance._setup(depth)
+			pass
+		
 		get_tree().root.add_child(instance)
 		var map_node = get_node("/root/Map")
 		map_node.visible = false
-		#TODO: Figure out how tf to make Map scene visible again and delete the scene we swap to.
 		
+
+func set_textures(_normal: AtlasTexture, _visited: AtlasTexture, _unvisited: AtlasTexture, _focused: AtlasTexture):
+	normal = _normal
+	visited = _visited
+	unvisited = _unvisited #this will likely go unused
+	t_disabled = _unvisited #set initial disabled texture
+	focused = _focused
+	draw_textures()
+
+func change_texture(key: String, texture: AtlasTexture) -> void:
+	match key:
+		"normal":
+			normal = texture
+		
+		"visited":
+			visited = texture
+		
+		"unvisited":
+			unvisited = texture
+		
+		"disabled": #general case for disabled texture
+			t_disabled = texture
+		
+		"focused":
+			focused = texture
+		
+		_:
+			print("ERROR: INVALID KEY FOR SET_TEXTURE. VALID KEYS: 
+				normal, visited, unvisited, disabled, focused")
+	draw_textures()
+				
 	
+func draw_textures() -> void:
+	self.texture_normal = normal
+	self.texture_disabled = t_disabled
+	self.texture_focused = focused
+	self.texture_hover = focused
+
+
 func _to_string():
 	return str(name)
