@@ -58,8 +58,6 @@ layout_mode = 1
 
 [node name="Player Status" parent="." instance=ExtResource("6_k670k")]
 layout_mode = 1
-grow_horizontal = 1
-grow_vertical = 1
 
 [node name="Display Box" parent="." instance=ExtResource("8_8cnei")]
 visible = false
