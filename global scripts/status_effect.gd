@@ -91,13 +91,30 @@ class Paralysis extends StatusEffect:
 		# target discards a die from their hand every turn.
 		#for i in range(strength):
 		if stacks > 0 and target.dice_hand.size() > 0:
-			var die = target.dice_hand.back()
-			if target is BattlePlayer:
-				#target.used_dice.append(die.die)
-				die.visible = false
-			target.commit_dice()
+			for i in range(stacks):
+				var max_die = argmax(target.dice_hand)
+				var die = target.dice_hand[max_die]
+				if target is BattlePlayer:
+					#target.used_dice.append(die.die)
+					#die.visible = false
+					#die.roll = max(die.roll - 2 * stacks, 0)
+					target.damage = max(target.attack - 2 * stacks, 0)
+				target.commit_dice()
 
-
+func argmax(dice_hand : Array) -> int:
+	var max = -1
+	var index = -1
+	for i in range(dice_hand.size()):
+		if dice_hand[i].side.value > max:
+			max = dice_hand[i].side.value
+			index = i
+		
+		if dice_hand[i].side.value == max:
+			
+			var rand_f = randf() 
+			if rand_f < 0.5:     #breaking ties randomly
+				index = i
+	return index
 
 class Autodefense extends StatusEffect:
 	func _init(_textbox: TextboxController, _target: BattleActor, _stacks: int):
@@ -191,21 +208,35 @@ class Ignited extends StatusEffect:
 	func invoke():
 		SoundManager.fire_sfx.play()
 		
-		var burning_dice = min(stacks, target.dice_hand.size())
-		if burning_dice > 0:
-			if textbox_enabled:
-				await textbox.quick_beat("ignited invoke", [burning_dice])
-		for i in range(burning_dice):
-			var roll = target.dice_hand[i].die.roll()
-			# Made it compare values instead of sides cause i think it could be more interesting. Might wanna nerf later tho.
-			if roll.value == target.dice_hand[i].die.sides[0].value:
-				# FIXME: If we ever teach enemies shadow clone jutsu, old fire won't spread to the clones this way:
-				var new_ignition = Ignited.new(textbox, spread_targets.pick_random(), spread_targets)
-				await new_ignition.apply()
+		#var burning_dice = min(stacks, target.dice_hand.size())
+		#if burning_dice > 0:
+		#	if textbox_enabled:
+		#		await textbox.quick_beat("ignited invoke", [burning_dice])
+		#for i in range(burning_dice):
+		#	var roll = target.dice_hand[i].die.roll()
+		#	# Made it compare values instead of sides cause i think it could be more interesting. Might wanna nerf later tho.
+		#	if roll.value == target.dice_hand[i].die.sides[0].value:
+		#		# FIXME: If we ever teach enemies shadow clone jutsu, old fire won't spread to the clones this way:
+		#		var new_ignition = Ignited.new(textbox, spread_targets.pick_random(), spread_targets)
+		#		await new_ignition.apply()
 
-			await target.take_damage(roll.value, "ignited")
-			target.dice_hand[i].side = roll
-			target.commit_dice()
+		#	await target.take_damage(roll.value, "ignited")
+		#	target.dice_hand[i].side = roll
+		#	target.commit_dice()
+		await target.take_damage(stacks,"fire")
+		
+		var rng = randf()
+		var limit = min(stacks, 20)
+		var reignite_chance = 0.25 + limit / 50 #every stack increases chance by 2% to a max of 65% total 
+		var spread_chance = 0.15 + limit / 50
+		var do_nothing = 1 - (reignite_chance + spread_chance)
+
+		if rng < reignite_chance:
+			stacks += 2 #extends duration by 2 stacks
+		elif rng < reignite_chance + spread_chance:
+			var new_ignition = Ignited.new(textbox, spread_targets.pick_random(), spread_targets)
+			await new_ignition.apply()
+			
 		stacks -= 1	# NOTE: if high ignited stacks is too overpowered, can nerf it by indenting this line by one. Discovered thanks to a bug lol.
 		if stacks == 0:
 			target.remove_status_effect(self)

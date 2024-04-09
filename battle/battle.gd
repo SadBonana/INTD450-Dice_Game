@@ -225,17 +225,30 @@ func enemy_turn():
 	if enable_textboxes:
 		await textbox_controller.quick_beat("enemy attack")
 	for enemy in enemies:
+		var attack_roll = 0
+		var defense_roll = 0
+		var die_effect = StatusEffect.BASEEFFECT
 		for die in enemy.dice_hand:
+			die_effect = die.effect
 			if die.action == DrawnDieData.ATTACK and die.effect.damaging:
 				#get_node("/root/SoundManager/attack").play()
-				SoundManager.attack_sfx.play()
-				await player.take_damage(die.side.value, enemy.actor_name)
+				#SoundManager.attack_sfx.play()
+				#await player.take_damage(die.side.value, enemy.actor_name)
+				attack_roll += die.side.value
 				
 			else:		# DEFENSE
 				#get_node("/root/SoundManager/defend").play()
-				SoundManager.defend_sfx.play()
-				enemy.defense += die.side.value
-			await die.effect.apply()
+				#SoundManager.defend_sfx.play()
+				#enemy.defense += die.side.value
+				defense_roll += die.side.value
+		if attack_roll > 0:
+			SoundManager.attack_sfx.play()
+			await player.take_damage(attack_roll, enemy.actor_name)
+		
+		if defense_roll > 0:
+			SoundManager.defend_sfx.play()
+			enemy.defense += defense_roll
+		await die_effect.apply()
 	
 	for effect in player.status_effects.duplicate():
 		if not effect.beneficial:
@@ -275,8 +288,8 @@ func _on_ready_pressed():
 	if enable_textboxes:
 		await textbox_controller.quick_beat("ready")
 	
-	for enemy in enemies:
-		enemy.roll_label.hide()
+	#for enemy in enemies:
+		#enemy.roll_label.hide()
 	
 	for die in player.dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
 		if not die.target:
