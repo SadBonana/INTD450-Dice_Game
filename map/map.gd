@@ -3,79 +3,79 @@ extends Node
 const NT = NodeType.NodeType
 
 var map
-const margin = 5
+const margin = 16
 var points = []
 
-func _init():
-	map = MapTree.new()
-	#print(map.map_nodes[0].type)
+#@onready var bg = %Background
+#@export var bg_texture : CompressedTexture2D
+#var bg_texture 	= preload("res://assets/textures/map noise paper ninepatch.png")
+var map_scene 	= preload("res://map/MapTree.tscn")
+
+@export var scroll_cont : ScrollContainer
+@export var bg 			: NinePatchRect
+
+func _ready():
+	setup()
 	
-	# Setup stuff that lets you scroll the map.
-	var scroll_cont = ScrollContainer.new()
-	scroll_cont.custom_minimum_size = Vector2(640, 360)
-	add_child(scroll_cont)
-	
-	# Setup the map background
-	var bg = TextureRect.new()
-	bg.custom_minimum_size = Vector2(640, 1080)
-	bg.texture = load("res://icon.svg")
-	bg.stretch_mode = TextureRect.STRETCH_TILE
-	scroll_cont.add_child(bg)
-	
-	# Draw Lines
-	#var margins = Vector2(map.margin, 0)
-	var margins = Vector2(8,16)
+func setup():
+	map = map_scene.instantiate()
+	map.set_textures()
+	add_nodes()
+	draw()
+
+func reset():
+	map.queue_free()
+	for child in bg.get_children():
+		bg.remove_child(child)
+		child.queue_free()
+	scroll_cont.scroll_vertical = 0
+	setup()
+
+## Draws lines
+func draw():
+	var margins = Vector2(margin,margin)
 	bg.draw.connect(func ():
-		#for con in map.connections:
-		#TODO: we might wanna change this back to what sean had previously in the final version
 		for node in map.map_nodes:
 			if node != null:
 				for child in node.get_sons():
 					if node.type != NT.ERROR:
-						bg.draw_line(node.position + margins, child.position + margins, Color.RED, 2)
+						#TODO: uncomment when actual background is added
+						bg.draw_line(node.position + margins, child.position + margins, Color.DIM_GRAY, 2)
+						#bg.draw_line(node.position + margins, child.position + margins, Color.RED, 2)
 					else:
 						bg.draw_line(node.position + margins, child.position + margins, Color.HOT_PINK, 2)
+		
 		)
-	
+		
+func add_nodes():
 	# Add nodes to map
 	var index = 0
 	for node in map.map_nodes:
 		if node != null: #and node.type != NT.ERROR:
-			#print("Node:",node)
-			#print("pos:",node.position)
-			#print("parents:",node.get_parents())
-			#print("children:",node.get_sons())
-			#print("type:",node.type)
-			#print("depth:",node.depth)
-			node.text = str(node.type)
+			var text = str(node.type)
+			
+			match node.type:
+				
+				NT.START:
+					text = "Start"
+					
+				NT.BATTLE:
+					text = "Battle"
+					
+				NT.CAMPFIRE:
+					text = "Camp"
+					
+				NT.WORKSHOP:
+					text = "Workshop"
+					
+				NT.TREASURE:
+					text = "Treasure"
+					
+				NT.BOSS:
+					text = "Boss"
+
+			
+			#node.text = str(node.type)
+			#node.text = text
 			bg.add_child(node)
-	'''
-	var i = 0
-	for position in map.map_array:
-		var node = Node2D.new()
-		node.set_position(position) #= position
-		node.set_name("node" + str(i))
-		points.append(node)
-		add_child(node)
-		i += 1
-	'''
-'''
-func _draw():
-	
-	#for position in map.positions:
-		#draw_circle(Vector2.ZERO, 4, Color.WHITE_SMOKE)
-	for node in map.map_nodes:
-		if node != null:
-			node.draw_circle(Vector2.ZERO, 4, Color.WHITE_SMOKE)
-		#print(point.position)
-		
-	
-	for connection in map.connections:
-		connection[0].draw_circle(Vector2.ZERO, 4, Color.WHITE_SMOKE)
-		var line = connection[1].position - connection[0].position
-		var normal = line.normalized()
-		line -= margin * normal
-		var colour = Color.BLACK
-		connection[0].draw_line(normal*margin, line, colour, 2, true)
-	'''
 

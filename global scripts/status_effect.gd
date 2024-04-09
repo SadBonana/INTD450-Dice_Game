@@ -8,22 +8,22 @@ const IGNITED := EffectType.IGNITED
 const POISONED := EffectType.POISONED
 
 var target: BattleActor
-var remaining_turns: int:
+var stacks: int:
 	set (value):
-		remaining_turns = max(0, value)
-var strength: int 	# Can be base turns, base damage/defense, anything really.
+		stacks = max(0, value)
 var beneficial: bool = false	# Whether the effect is a buff or a debuff
 var damaging: bool = true	# Should a die with this effect also do damage narmally.
 
 var textbox: TextboxController
+var textbox_enabled := false
 var description_beat: String
 
 var _type = EffectType.BASEEFFECT
 
 
-func _init(_textbox: TextboxController, _target: BattleActor, turns: int, _strength: int):
-	remaining_turns = turns
-	strength = _strength
+func _init(_textbox: TextboxController, _target: BattleActor, _stacks: int):
+	stacks = _stacks
+	#strength = _strength
 	target = _target
 	textbox = _textbox
 
@@ -37,13 +37,12 @@ func invoke():
 
 
 
-# For paralysis, strength is the number of dice to disable.
-# This effect either refreshes, overwrites, or misses when used on a
-# target that already has it.
+# For paralysis, stacks is the number of turns remaining.
+# This effect adds 1 stack when used on a target that already has it.
 # All this stuff is subject to change.
 class Paralysis extends StatusEffect:
-	func _init(_textbox: TextboxController, _target: BattleActor, turns := 3, _strength := 1):
-		super(_textbox, _target, turns, _strength)
+	func _init(_textbox: TextboxController, _target: BattleActor, stacks := 1):
+		super(_textbox, _target, stacks)
 		_type = EffectType.PARALYSIS
 		description_beat = "paralysis description"
 	
@@ -52,21 +51,19 @@ class Paralysis extends StatusEffect:
 	func apply():
 		# For now, a new paralysis overwrites an existing one if it's stronger, or misses otherwise.
 		# We could alternatively have it refresh the duration as well.
-		# Could add status resist later if we want, including some kind of tolerance building mechanic
 		for effect in target.status_effects:
 			if effect._type == EffectType.PARALYSIS:
-				if effect.strength >= strength and effect.remaining_turns > 0:
-					await textbox.quick_beat("already paralyzed")
-					return false
-				# Replace the weaker effect with the stronger one.
-				effect.remaining_turns = remaining_turns
-				effect.strength = strength
+
+				effect.stacks += stacks
+
 				target.update_status_effects()
-				await textbox.quick_beat("paralyzed", [strength, target.dice_draws])
+				if textbox_enabled:
+					await textbox.quick_beat("paralyzed", [stacks, target.dice_draws])
 				_invoke_helper()	# We expect this one to take effect immediately
 				return true
 		target.add_status_effect(self)
-		await textbox.quick_beat("paralyzed", [strength, target.dice_draws])
+		if textbox_enabled:
+			await textbox.quick_beat("paralyzed", [stacks, target.dice_draws])
 		_invoke_helper()	# We expect this one to take effect immediately
 		return true
 	
@@ -76,9 +73,10 @@ class Paralysis extends StatusEffect:
 	## Return whether the effect should be removed this turn
 	func invoke():
 		_invoke_helper()
-		await textbox.quick_beat("paralyzed invoke", [target.actor_name, target.dice_hand.size()])
-		remaining_turns -= 1
-		if remaining_turns == 0:
+		if textbox_enabled:
+			await textbox.quick_beat("paralyzed invoke", [target.actor_name, target.dice_hand.size()])
+		stacks -= 1
+		if stacks == 0:
 			target.remove_status_effect(self)
 			return true
 		return false
@@ -87,18 +85,19 @@ class Paralysis extends StatusEffect:
 	func _invoke_helper():
 		# Functional but less juicy way to implement paralysis:
 		# target discards a die from their hand every turn.
-		for i in range(strength):
-			if target.dice_hand.size() > 0:
-				var die = target.dice_hand.pop_back()
-				if target is BattlePlayer:
-					die.queue_free()
-				target.commit_dice()
+		#for i in range(strength):
+		if stacks > 0 and target.dice_hand.size() > 0:
+			var die = target.dice_hand.back()
+			if target is BattlePlayer:
+				#target.used_dice.append(die.die)
+				die.visible = false
+			target.commit_dice()
 
 
 
 class Autodefense extends StatusEffect:
-	func _init(_textbox: TextboxController, _target: BattleActor, turns: int, _strength:=2):
-		super(_textbox, _target, turns, _strength)
+	func _init(_textbox: TextboxController, _target: BattleActor, _stacks: int):
+		super(_textbox, _target, _stacks)
 		_type = EffectType.AUTODEFENSE
 		beneficial = true
 		damaging = false
@@ -108,12 +107,18 @@ class Autodefense extends StatusEffect:
 	## Attempt to apply the status effect on the target.
 	## Return whether the effect landed succesfully or not.
 	func apply():
-		# Does not refresh duration of existing stacks, but adds new stacks with
-		# durations based on the roll (this is controlled buring initialization,
-		# so it could also be a constant or abritrary duration)
+		# Extends duration of existing stacks based on roll, 
+		# added defence based on the total number of stacks
+		for effect in target.status_effects:
+			if effect._type == AUTODEFENSE:
+				effect.stacks += stacks
+				target.defense += effect.stacks# We expect buffs to activate the turn they are used.
+				target.update_status_effects()
+				return true
 		target.add_status_effect(self)
-		await textbox.quick_beat("autodefense")
-		target.defense += strength		# We expect buffs to activate the turn they are used.
+		if textbox_enabled:
+			await textbox.quick_beat("autodefense")
+		
 		return true
 	
 	
@@ -121,9 +126,9 @@ class Autodefense extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
-		target.defense += strength
-		remaining_turns -= 1
-		if remaining_turns == 0:
+		target.defense += stacks
+		stacks -= 1
+		if stacks == 0:
 			target.remove_status_effect(self)
 			return true
 		return false
@@ -144,7 +149,7 @@ class Ignited extends StatusEffect:
 	var spread_targets: Array		# Array[BattleActor] technically but gdscript is being weird and not letting me cast it.
 	
 	func _init(_textbox: TextboxController, _target: BattleActor, all_targets: Array):
-		super(_textbox, _target, 5, 1)		# Default 5 turns, strength of 1
+		super(_textbox, _target, 1)		# Default 1 stack
 		spread_targets = all_targets
 		_type = EffectType.IGNITED
 		description_beat = "ignited description"
@@ -153,15 +158,15 @@ class Ignited extends StatusEffect:
 	## Attempt to apply the status effect on the target.
 	## Return whether the effect landed succesfully or not.
 	func apply():
-		# Adding ignition stacks does not refresh or overwrite the duration of existing stacks.
-		# New stacks receive the duration of existing stacks.
+		# Adding ignition stacks extendds duration.
 		for effect in target.status_effects:
 			if effect._type == EffectType.IGNITED:
-				effect.strength += 1
+				effect.stacks += 1
 				target.update_status_effects()
 				return true
 		target.add_status_effect(self)
-		await textbox.quick_beat("on fire")
+		if textbox_enabled:
+			await textbox.quick_beat("on fire")
 		return true
 		
 		
@@ -169,9 +174,10 @@ class Ignited extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
-		var burning_dice = min(strength, target.dice_hand.size())
+		var burning_dice = min(stacks, target.dice_hand.size())
 		if burning_dice > 0:
-			await textbox.quick_beat("ignited invoke", [burning_dice])
+			if textbox_enabled:
+				await textbox.quick_beat("ignited invoke", [burning_dice])
 		for i in range(burning_dice):
 			var roll = target.dice_hand[i].die.roll()
 			# Made it compare values instead of sides cause i think it could be more interesting. Might wanna nerf later tho.
@@ -183,8 +189,8 @@ class Ignited extends StatusEffect:
 			await target.take_damage(roll.value, "ignited")
 			target.dice_hand[i].side = roll
 			target.commit_dice()
-		remaining_turns -= 1	# NOTE: if high ignited stacks is too overpowered, can nerf it by indenting this line by one. Discovered thanks to a bug lol.
-		if remaining_turns == 0:
+		stacks -= 1	# NOTE: if high ignited stacks is too overpowered, can nerf it by indenting this line by one. Discovered thanks to a bug lol.
+		if stacks == 0:
 			target.remove_status_effect(self)
 			return true
 		return false
@@ -192,8 +198,9 @@ class Ignited extends StatusEffect:
 
 
 class Poisoned extends StatusEffect:
-	func _init(_textbox: TextboxController, _target: BattleActor, _strength):
-		super(_textbox, _target, 5, _strength)	# Default 5 turns
+	func _init(_textbox: TextboxController, _target: BattleActor, _stacks: int):
+		#TODO: Determine if this is based on roll.
+		super(_textbox, _target, _stacks)
 		_type = EffectType.POISONED
 		description_beat = "poisoned description"
 		damaging = false
@@ -205,12 +212,12 @@ class Poisoned extends StatusEffect:
 		# determined by the roll (or strength).
 		for effect in target.status_effects:
 			if effect._type == EffectType.POISONED:
-				effect.strength += strength
-				effect.remaining_turns = remaining_turns
+				effect.stacks = stacks
 				target.update_status_effects()
 				return true
 		target.add_status_effect(self)
-		await textbox.quick_beat("poisoned")
+		if textbox_enabled:
+			await textbox.quick_beat("poisoned")
 		return true
 	
 	
@@ -218,10 +225,11 @@ class Poisoned extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
-		await textbox.quick_beat("poison invoke")
-		await target.take_damage(strength, "poison")
-		remaining_turns -= 1
-		if remaining_turns == 0:
+		if textbox_enabled:
+			await textbox.quick_beat("poison invoke")
+		await target.take_damage(stacks, "poison")
+		stacks -= 1
+		if stacks == 0:
 			target.remove_status_effect(self)
 			return true
 		return false
