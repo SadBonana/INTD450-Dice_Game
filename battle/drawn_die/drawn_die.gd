@@ -78,15 +78,15 @@ func _on_toggled(toggled_on):
 	is_toggled = toggled_on
 	target = null
 	var targets = []
+	var all_entities = []
+	all_entities = data.battle.enemies.duplicate()
 	targets = data.battle.enemies.duplicate()
 	if self.side.element is Steel:
 		for enemy in targets:
 			enemy.should_dim(true)
 		targets.clear()
-	else:
-		for enemy in targets:
-			enemy.should_dim(false)
 	targets.append(data.battle.player)
+	all_entities.append(data.battle.player)
 	if toggled_on:
 		make_focused_pressed()
 		disable_untargetables(true, self)
@@ -104,7 +104,8 @@ func _on_toggled(toggled_on):
 			targets[0].grab_focus()
 		
 		target = await data.battle.target_selected
-		#print("we only just made it past the await statement")
+		for enemy in data.battle.enemies:
+			enemy.should_dim(false)
 		selected_action = data.ATTACK if target is BattleEnemy else data.DEFEND
 		
 		make_pressed()
@@ -129,7 +130,7 @@ func _on_toggled(toggled_on):
 			data.battle.ready_button.grab_focus()
 	else:
 		disable_untargetables(false)
-		for option in targets:
+		for option in all_entities:
 			option.toggle_target_mode(false, data.battle.target_selected)
 		target = null
 		target_unselected.emit(self)

@@ -121,6 +121,7 @@ func _ready():
 	# The die action menu here is just so designers can see what one looks like in engine.
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
 	# line of code
+	cover.visible = true
 	drawn_die_placeholder.hide()
 	
 	## setup for dice inventory tab
