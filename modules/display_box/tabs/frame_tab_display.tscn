@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://modules/display_box/tabs/frame_tab_display.gd" id="1_6okni"]
 
 [node name="DisplayTab" type="TabBar"]
+focus_mode = 0
 theme_override_constants/h_separation = 0
 script = ExtResource("1_6okni")
 

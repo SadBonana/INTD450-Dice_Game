@@ -72,13 +72,23 @@ func _ready():
 		target_selected.connect(parent.add_to_dice_with_targets)
 	if parent.has_method("remove_from_dice_with_targets"):
 		target_unselected.connect(parent.remove_from_dice_with_targets)
+	mouse_entered.connect(_change_info_box)
+	focus_entered.connect(_change_info_box)
 
 
 ## called when the player selects a die in their hand. allows player to target actors.
 func _on_toggled(toggled_on):
 	is_toggled = toggled_on
 	target = null
-	var targets = data.battle.enemies.duplicate()
+	var targets = []
+	targets = data.battle.enemies.duplicate()
+	if self.side.element is Steel:
+		for enemy in targets:
+			enemy.should_dim(true)
+		targets.clear()
+	else:
+		for enemy in targets:
+			enemy.should_dim(false)
 	targets.append(data.battle.player)
 	if toggled_on:
 		#get_node("/root/SoundManager/select").play()
@@ -155,6 +165,9 @@ func _input(event):
 			button_pressed = false
 			grab_focus()
 			data.battle.target_selected.emit(null)
+			
+func _change_info_box():
+	data.battle.side_info.get_current_tab_control().new_frames([side])
 			
 
 ## A function to disable menus during target selection

@@ -44,6 +44,7 @@ var defeated_enemies = []
 @onready var drawn_die_container := %"Hand of Dice"
 @onready var action_menu := %"Player Action Menu"
 @onready var inventory := %"Inventory"
+@onready var side_info := %"Side Info"
 @onready var player := %"Battle Player"
 @onready var ready_button := %Ready
 
@@ -51,6 +52,7 @@ var defeated_enemies = []
 ## Inventory
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
+@onready var info_box = preload("res://modules/infobox/info_box_frame.tscn")
 @onready var side_name = "Sides"
 
 ## Starts a battle scene with the given encounter resource
@@ -128,6 +130,8 @@ func _ready():
 	inventory.make_tab("Hand", player.dice,inv_dice_visual)
 	## setup for die sides inventory tab
 	inventory.make_tab(side_name, [], inv_side_visual)
+	## Create info tab
+	side_info.make_tab("Info", [], info_box)
 	## connect dice bag button to inventory
 	player_status.bag_button.pressed.connect(inventory.open)
 	## connect frame clicks to display sides
@@ -376,3 +380,7 @@ func _on_ready_pressed():
 	player.dice_hand.clear()
 	drawn_die_container.reset()
 	enemy_turn()
+
+
+func _on_die_action_menu_is_hovered(dieside):
+	side_info.get_current_tab_control().new_frames(dieside)
