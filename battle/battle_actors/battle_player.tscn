@@ -8,7 +8,6 @@
 [node name="Battle Player" instance=ExtResource("2_3c1fd")]
 offset_right = 105.0
 offset_bottom = 118.0
-alignment = 1
 script = ExtResource("1_udnp1")
 texture = ExtResource("3_bsgsc")
 temp_dice_bag_init = ExtResource("3_5wym8")

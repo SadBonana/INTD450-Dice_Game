@@ -113,21 +113,29 @@ size_flags_vertical = 8
 size_flags_stretch_ratio = 3.0
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
+[node name="Status Effects" parent="VBoxContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player/PanelContainer/MarginContainer" index="0"]
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
+alignment = 0
+
 [node name="Battle Enemy" parent="VBoxContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
 size_flags_vertical = 0
+alignment = 0
 res = ExtResource("2_yokuy")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
 [node name="Battle Enemy2" parent="VBoxContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
 size_flags_vertical = 4
+alignment = 0
 res = ExtResource("2_yokuy")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
 [node name="Battle Enemy3" parent="VBoxContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
 size_flags_vertical = 8
+alignment = 0
 res = ExtResource("2_yokuy")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 

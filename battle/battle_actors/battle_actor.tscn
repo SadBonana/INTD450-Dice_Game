@@ -40,8 +40,11 @@ _data = {
 }
 
 [node name="Battle Actor" type="VBoxContainer"]
+offset_right = 128.0
+offset_bottom = 235.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment = 1
 script = ExtResource("1_k0mx3")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -59,8 +62,9 @@ theme_override_constants/margin_bottom = 2
 [node name="Status Effects" type="HFlowContainer" parent="PanelContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/h_separation = 2
-theme_override_constants/v_separation = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+alignment = 1
 
 [node name="Shield" type="Label" parent="."]
 unique_name_in_owner = true
