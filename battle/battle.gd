@@ -222,40 +222,53 @@ func cleanup_enemies():
 
 
 func enemy_turn():
+	draw_dice()
 	if enable_textboxes:
 		await textbox_controller.quick_beat("enemy attack")
 	for enemy in enemies:
 		var attack_roll = 0
 		var defense_roll = 0
-		var die_effect = StatusEffect.BASEEFFECT
+		var def_die_effects = []
+		var atk_die_effects = []
+		
 		for die in enemy.dice_hand:
-			die_effect = die.effect
-			if die.action == DrawnDieData.ATTACK and die.effect.damaging:
+			if die.action == DrawnDieData.ATTACK and die.effect != null and die.effect.damaging:
 				#get_node("/root/SoundManager/attack").play()
 				#SoundManager.attack_sfx.play()
 				#await player.take_damage(die.side.value, enemy.actor_name)
 				attack_roll += die.side.value
+				atk_die_effects.append(die.effect)
 				
-			else:		# DEFENSE
+			#else:		# DEFENSE
+			if die.action == DrawnDieData.DEFEND:
 				#get_node("/root/SoundManager/defend").play()
 				#SoundManager.defend_sfx.play()
 				#enemy.defense += die.side.value
 				defense_roll += die.side.value
-		if attack_roll > 0:
-			SoundManager.attack_sfx.play()
-			await player.take_damage(attack_roll, enemy.actor_name)
+				def_die_effects.append(die.effect)
 		
 		if defense_roll > 0:
 			SoundManager.defend_sfx.play()
 			enemy.defense += defense_roll
-		await die_effect.apply()
+		
+		for effect in def_die_effects:
+			effect.apply()
+		
+		if attack_roll > 0:
+			SoundManager.attack_sfx.play()
+			await player.take_damage(attack_roll, enemy.actor_name)
+		
+		for effect in atk_die_effects:
+			effect.apply()
 	
 	for effect in player.status_effects.duplicate():
+		if effect._type == StatusEffect.PARALYSIS:
+			pass
 		if not effect.beneficial:
 			await effect.invoke()
 	player.update_status_effects()
 	
-	draw_dice()    # Enemy turn is over so player draws dice
+	#draw_dice()    # Enemy turn is over so player draws dice
 	
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():

@@ -43,8 +43,8 @@ func invoke():
 # This effect adds 1 stack when used on a target that already has it.
 # All this stuff is subject to change.
 class Paralysis extends StatusEffect:
-	func _init(_textbox: TextboxController, _target: BattleActor, stacks := 1):
-		super(_textbox, _target, stacks)
+	func _init(_textbox: TextboxController, _target: BattleActor):
+		super(_textbox, _target, 1)
 		_type = EffectType.PARALYSIS
 		description_beat = "paralysis description"
 	
@@ -56,18 +56,18 @@ class Paralysis extends StatusEffect:
 		for effect in target.status_effects:
 			if effect._type == EffectType.PARALYSIS:
 				SoundManager.lightning_apply.play()
-				effect.stacks += stacks
+				effect.stacks += 1
 
 				target.update_status_effects()
 				if textbox_enabled:
 					await textbox.quick_beat("paralyzed", [stacks, target.dice_draws])
-				_invoke_helper()	# We expect this one to take effect immediately
+				#_invoke_helper()	# We expect this one to take effect immediately
 				return true
 		SoundManager.lightning_apply.play()
 		target.add_status_effect(self)
 		if textbox_enabled:
 			await textbox.quick_beat("paralyzed", [stacks, target.dice_draws])
-		_invoke_helper()	# We expect this one to take effect immediately
+		#_invoke_helper()	# We expect this one to take effect immediately
 		return true
 	
 	
@@ -76,6 +76,7 @@ class Paralysis extends StatusEffect:
 	## Return whether the effect should be removed this turn
 	func invoke():
 		#get_node("/root/SoundManager/select").play()
+		SoundManager.error.play()
 		_invoke_helper()
 		if textbox_enabled:
 			await textbox.quick_beat("paralyzed invoke", [target.actor_name, target.dice_hand.size()])
@@ -90,16 +91,19 @@ class Paralysis extends StatusEffect:
 		# Functional but less juicy way to implement paralysis:
 		# target discards a die from their hand every turn.
 		#for i in range(strength):
-		if stacks > 0 and target.dice_hand.size() > 0:
+		#if stacks > 0 and target.dice_hand.size() > 0:
+		if target is BattlePlayer:
 			for i in range(stacks):
 				var max_die = argmax(target.dice_hand)
 				var die = target.dice_hand[max_die]
-				if target is BattlePlayer:
+				#if target is BattlePlayer:
 					#target.used_dice.append(die.die)
 					#die.visible = false
 					#die.roll = max(die.roll - 2 * stacks, 0)
-					target.damage = max(target.attack - 2 * stacks, 0)
-				target.commit_dice()
+					#target.damage = max(target.attack - 2 * stacks, 0)
+				die.mod = -2
+		else:
+			target.commit_dice()
 
 func argmax(dice_hand : Array) -> int:
 	var max = -1
@@ -192,7 +196,7 @@ class Ignited extends StatusEffect:
 		for effect in target.status_effects:
 			if effect._type == EffectType.IGNITED:
 				SoundManager.fire_apply.play()
-				effect.stacks += 1
+				effect.stacks += stacks
 				target.update_status_effects()
 				return true
 		SoundManager.fire_apply.play()
@@ -261,7 +265,7 @@ class Poisoned extends StatusEffect:
 		for effect in target.status_effects:
 			if effect._type == EffectType.POISONED:
 				SoundManager.poison_apply.play()
-				effect.stacks = stacks
+				effect.stacks += stacks
 				target.update_status_effects()
 				return true
 		SoundManager.poison_apply.play()
