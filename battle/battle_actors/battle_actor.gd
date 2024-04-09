@@ -1,7 +1,6 @@
 class_name BattleActor extends VBoxContainer
 
 @export_file("*.tscn") var status_effect_scene_path
-@export var enable_textboxes := false
 var textbox: TextboxController
 
 var status_effects: Array[StatusEffect] = []
@@ -22,9 +21,6 @@ var defense: int:
 var dice_draws: int:	## Number of dice to draw from bag every turn
 	set (value):
 		dice_draws = max(0, value)
-var dice_choices: int:	## Number of dice to pick from hand every turn
-	set (value):
-		dice_choices = max(0, value)
 var actor_name: String		# NOTE: we could consider uncommenting this and allowing the player to have a custom name
 
 
@@ -71,11 +67,11 @@ func update_status_effects():
 			return true
 		if (not effect1.beneficial) and effect2.beneficial:
 			return false
-		if effect1.stacks < effect2.stacks:
+		if effect1.remaining_turns < effect2.remaining_turns:
 			return true
-		if effect1.stacks > effect2.stacks:
+		if effect1.remaining_turns > effect2.remaining_turns:
 			return false
-		if effect1.stacks > effect2.stacks:
+		if effect1.strength > effect2.strength:
 			return true
 		return false
 	)
@@ -100,8 +96,8 @@ func take_damage(damage: int, beligerent_name: String) -> int:
 	
 	animation_player.play("Hurt")
 	await animation_player.animation_finished
-	if enable_textboxes:
-		await textbox.quick_beat("deal damage", [beligerent_name, damage_after_defense])
+	
+	await textbox.quick_beat("deal damage", [beligerent_name, damage_after_defense])
 	
 	if health == 0 and prev_health != 0:
 		await on_defeat.call()
@@ -184,12 +180,6 @@ func set_shield_string(value : int):
 	shield.text = "Shield: " + str(value)
 func show_shield_string(show : bool):
 	shield.visible = show
-
-func should_dim(dim : bool):
-	if dim:
-		modulate.a = _usual_alpha / 2
-	else:
-		modulate.a = _usual_alpha
 	
 func shield_manager(value: int):
 	set_shield_string(value)

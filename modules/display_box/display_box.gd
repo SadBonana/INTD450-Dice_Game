@@ -22,14 +22,13 @@ func _ready():
 ## Changes our scene accordingly
 ## Hides and unhides the Inventory using the i key
 ## Escape key returns side view to dice view or closes dice view
-func _input(event):
-	if(InputMap.has_action(event.as_text())):
-		if(not is_open and Input.is_action_just_pressed(open_action)): # if string is left empty this is false
-			open()
-			get_viewport().set_input_as_handled()
-		elif(is_open and Input.is_action_just_pressed(close_action)): # if string is left empty this is false
-			close()
-			get_viewport().set_input_as_handled()
+func _input(event):	
+	if(not is_open and Input.is_action_just_pressed(open_action)): # if string is left empty this is false
+		open()
+		get_viewport().set_input_as_handled()
+	elif(is_open and Input.is_action_just_pressed(close_action)): # if string is left empty this is false
+		close()
+		get_viewport().set_input_as_handled()
 			
 ## Use this function when you want to add a new tab to your Display box
 func add_tab_child(tab_object :  Tab):
@@ -59,3 +58,5 @@ func make_tab(tab_title : StringName,inv_frames,inv_visual : PackedScene):
 	var inv_tab : Tab = Tab.new(tab_title,inv_frames,inv_visual)
 	self.add_tab_child(inv_tab)
 		
+
+			

@@ -16,9 +16,6 @@ enum ElementType {
 ## The element's type
 var element : ElementType
 
-## True if stacks are die roll
-var stack_roll : bool
-
 ## The element's inherent value
 var value : int
 
@@ -34,10 +31,4 @@ func _to_string():
 	assert(false,
 		"UNIMPLEMENTED ERROR: _to_string()\n
 		 PLEASE IMPLEMENT THIS FUNCTION TO YOUR CLASS")
-		
-func info():
-	assert(false,
-		"UNIMPLEMENTED ERROR: info()\n
-		 PLEASE IMPLEMENT THIS FUNCTION TO YOUR CLASS")	
-	
 

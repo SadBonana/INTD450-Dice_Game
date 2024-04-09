@@ -12,23 +12,31 @@ anchor_right = 0.12
 anchor_bottom = 0.278
 offset_right = 0.199997
 offset_bottom = -0.0800095
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_u2vwq")
 res = null
 
-[node name="HealthBar" parent="." index="1" instance=ExtResource("1_pbfgf")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-
-[node name="Actor Sprite" parent="MarginContainer" index="0"]
-expand_mode = 5
-
-[node name="Roll" type="Label" parent="MarginContainer" index="2"]
+[node name="HealthBar" parent="." index="0" instance=ExtResource("1_pbfgf")]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="Actor Sprite" parent="." index="2"]
 size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_clm1s")
+expand_mode = 0
+
+[node name="Roll" type="Label" parent="Actor Sprite" index="0"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("4_4kj7r")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 40
 text = "5
 "
 horizontal_alignment = 1

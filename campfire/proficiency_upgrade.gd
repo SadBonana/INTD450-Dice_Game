@@ -34,8 +34,7 @@ func _ready():
 	display_text("Congrats! You upgraded your D%d" % die.num_sides)
 	await textbox_closed
 	
-	#get_tree().change_scene_to_file(map_path)
-	queue_free()
+	get_tree().change_scene_to_file(map_path)
 	
 	'''for die in PlayerData.dice_bag:
 		display_text(die.name)

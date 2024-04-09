@@ -17,13 +17,6 @@ signal target_selected(target)
 # If given an EncounterTable, will randomly choose a BaseEncounter based on the difficulty setting.
 @export var encounter_res: BaseEncounter
 
-@export var boss_encounter: BaseEncounter
-# CAUTION: The size of this array should not be higher than the number of rows in the map.
-# See the start_battle() function below.
-# NOTE: The array must be in the order that the player is expected to fight first.
-# e.g. early game ecounter tables go first.
-@export var encounter_tables: Resource#Array[EncounterTable]
-
 # TODO: Convert these to @onready var x = %y format.
 # Don't do this unless you plan on making encounter loading
 # better too, because making these @onready when they're being
@@ -36,7 +29,7 @@ var enemies = []
 var defeated_enemies = []
 # Textbox
 @onready var textbox_controller := %"Textbox Controller"
-@export var enable_textboxes := false
+
 # Player Panel
 @onready var bottom_container := %"Player Status and Hand"
 @onready var player_status := %"Player Status"
@@ -44,34 +37,13 @@ var defeated_enemies = []
 @onready var drawn_die_container := %"Hand of Dice"
 @onready var action_menu := %"Player Action Menu"
 @onready var inventory := %"Inventory"
-@onready var side_info := %"Side Info"
 @onready var player := %"Battle Player"
 @onready var ready_button := %Ready
-
 
 ## Inventory
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
-@onready var info_box = preload("res://modules/infobox/info_box_frame.tscn")
 @onready var side_name = "Sides"
-
-## Starts a battle scene with the given encounter resource
-##
-## Parameters:
-##         battle_scene_path:
-##             the filepath of battle.tscn
-##         encounter_res:
-##             Can be a BaseEncounter for a guaranteed encounter, or an EncounterTable to randomly
-##             select from a small set of encounters based on the game difficulty setting.
-##             Note: encounters specify what enemies, and how many of them the player will fight.
-##         tree:
-##             Usually you will put get_tree() for this argument.
-static func start(battle_scene_path: String, encounter_res: BaseEncounter, tree: SceneTree):
-	var battle_node = load(battle_scene_path).instantiate()
-	battle_node.encounter_res = encounter_res
-	var scene = PackedScene.new()
-	scene.pack(battle_node)
-	tree.change_scene_to_packed(scene)
 
 func _enter_tree():
 	# Slight HACK: The better way is probably to load and instantiate the enemies
@@ -97,22 +69,6 @@ func _enter_tree():
 		2:
 			enemy1.hide()
 
-func _setup(node_depth: int):
-	#Hard to do this here without hardcoding the value
-	var num_map_levels = 10 # Number of node rows including start and boss
-	
-	#var encounter_tables = preload("res://encounter resources/early_game_encounters.tres")
-	
-	@warning_ignore("integer_division")
-	assert(encounter_tables.size() > 0)
-	var stage_size = num_map_levels / encounter_tables.size()
-	for i in range(encounter_tables.size()):
-		if node_depth < stage_size * (i+1):
-			#Battle.start(battle_path, encounter_tables[i], get_tree())
-			if encounter_tables:
-				encounter_res = encounter_tables.get_enemies()
-			#encounter_res = encounter_tables[i]
-			break
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -126,12 +82,8 @@ func _ready():
 	inventory.make_tab("In Bag", player.dice_bag,inv_dice_visual)
 	## setup for used inventory tab
 	inventory.make_tab("Used", player.used_dice,inv_dice_visual)
-	## setup for dice hand inventory tab
-	inventory.make_tab("Hand", player.dice,inv_dice_visual)
 	## setup for die sides inventory tab
 	inventory.make_tab(side_name, [], inv_side_visual)
-	## Create info tab
-	side_info.make_tab("Info", [], info_box)
 	## connect dice bag button to inventory
 	player_status.bag_button.pressed.connect(inventory.open)
 	## connect frame clicks to display sides
@@ -155,16 +107,13 @@ func _ready():
 				if enemies.size() == 0:
 					await textbox_controller.next()
 					get_tree().change_scene_to_file(loot_screen_path)
-					queue_free()
 	player.textbox = textbox_controller
 	player.on_defeat = func ():
+### ALERT FIXME: MAKE IT RESET PROGRESS AND GO TO THE START MENU INSTEAD OF CRASHING THE GAME !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			# this code will run when the player is defeated
 			await textbox_controller.quick_beat("game over")
 			await get_tree().create_timer(0.5).timeout
-			get_tree().change_scene_to_file("res://Menus/start_menu.tscn")
-			get_node("/root/Map").visible = true
-			get_node("/root/Map").reset()
-			queue_free()
+			get_tree().quit()
 			# TODO: Might be better to have this stuff in the setter for PlayerData.hp instead
 	
 	draw_dice()
@@ -243,8 +192,7 @@ func cleanup_enemies():
 
 
 func enemy_turn():
-	if enable_textboxes:
-		await textbox_controller.quick_beat("enemy attack")
+	await textbox_controller.quick_beat("enemy attack")
 	for enemy in enemies:
 		for die in enemy.dice_hand:
 			if die.action == DrawnDieData.ATTACK and die.effect.damaging:
@@ -254,40 +202,33 @@ func enemy_turn():
 			await die.effect.apply()
 	
 	draw_dice()    # Enemy turn is over so player draws dice
-	
+
+
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
 	await textbox_controller.quick_beat("run")
-	#get_tree().change_scene_to_file(map_path)
-	queue_free()
-	get_node("/root/Map").visible = true
+	get_tree().change_scene_to_file(map_path)
 
 
 func _on_ready_pressed():
-	var one_target = false
 	for die in player.dice_hand:
-		if die.target:
-			one_target = true
-			break
-	if not one_target:
-	# NOTE: May eventually want to allow the player to intentionally discard or not use dice.
-		await textbox_controller.quick_beat("not ready")
-		player.dice_hand[0].grab_focus()
-		return
+		# NOTE: May eventually want to allow the player to intentionally discard or not use dice.
+		if (not die.target or not die.is_toggled):
+			await textbox_controller.quick_beat("not ready")
+			die.grab_focus()
+			return
 	
 	# Hide things we don't want the player to be able to mess
 	# with after they've ended their turn
 	drawn_die_container.hide()
 	action_menu.hide()
-	if enable_textboxes:
-		await textbox_controller.quick_beat("ready")
+	
+	await textbox_controller.quick_beat("ready")
 	
 	for enemy in enemies:
 		enemy.roll_label.hide()
 	
 	for die in player.dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
-		if not die.target:
-			continue
 		match die.selected_action:
 			DrawnDieData.ATTACK:
 				# Account for if a previous die killed the enemy.
@@ -298,15 +239,8 @@ func _on_ready_pressed():
 			DrawnDieData.DEFEND:
 				player.defense += die.roll
 		await die.data.effect.apply()
+		die.queue_free()	# NOTE: Freeing in an array loop would prolly normally cause issues, but I think queue_free() can somehow sometimes detect when it needs to wait to actually free it. maybe. Still, be careful when doing this kind of thing.
 		
 	cleanup_enemies()
-	player.hand_used()
-	for die in player.dice_hand:
-		die.queue_free()
 	player.dice_hand.clear()
-	drawn_die_container.reset()
 	enemy_turn()
-
-
-func _on_die_action_menu_is_hovered(dieside):
-	side_info.get_current_tab_control().new_frames(dieside)

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogueRes" load_steps=32 format=3 uid="uid://git3m0aftj0o"]
+[gd_resource type="Resource" script_class="DialogueRes" load_steps=31 format=3 uid="uid://git3m0aftj0o"]
 
 [ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="1_xi6j0"]
 [ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="2_qjl25"]
@@ -267,15 +267,6 @@ jumps = Array[String]([])
 choices = Array[String]([])
 end_conversation = true
 
-[sub_resource type="Resource" id="Resource_1lmma"]
-resource_name = "reshuffle"
-script = ExtResource("1_xi6j0")
-unique_name = "reshuffle"
-text = "Out of Dice, Reshuffling"
-jumps = Array[String]([])
-choices = Array[String]([])
-end_conversation = true
-
 [resource]
 script = ExtResource("2_qjl25")
-beats = Array[ExtResource("1_xi6j0")]([SubResource("Resource_5updw"), SubResource("Resource_c64ir"), SubResource("Resource_yvqev"), SubResource("Resource_1wwfy"), SubResource("Resource_ow0po"), SubResource("Resource_4c068"), SubResource("Resource_pw46o"), SubResource("Resource_bkyx8"), SubResource("Resource_wyjeh"), SubResource("Resource_rk4jd"), SubResource("Resource_i6u16"), SubResource("Resource_lplyl"), SubResource("Resource_1xcyg"), SubResource("Resource_qcsay"), SubResource("Resource_oyvy8"), SubResource("Resource_4bea6"), SubResource("Resource_ywjoj"), SubResource("Resource_ub1jd"), SubResource("Resource_ygxwp"), SubResource("Resource_60axw"), SubResource("Resource_hn125"), SubResource("Resource_ivh1e"), SubResource("Resource_7vv8p"), SubResource("Resource_jkuok"), SubResource("Resource_nject"), SubResource("Resource_qipc1"), SubResource("Resource_nwbc4"), SubResource("Resource_bpm4g"), SubResource("Resource_1lmma")])
+beats = Array[ExtResource("1_xi6j0")]([SubResource("Resource_5updw"), SubResource("Resource_c64ir"), SubResource("Resource_yvqev"), SubResource("Resource_1wwfy"), SubResource("Resource_ow0po"), SubResource("Resource_4c068"), SubResource("Resource_pw46o"), SubResource("Resource_bkyx8"), SubResource("Resource_wyjeh"), SubResource("Resource_rk4jd"), SubResource("Resource_i6u16"), SubResource("Resource_lplyl"), SubResource("Resource_1xcyg"), SubResource("Resource_qcsay"), SubResource("Resource_oyvy8"), SubResource("Resource_4bea6"), SubResource("Resource_ywjoj"), SubResource("Resource_ub1jd"), SubResource("Resource_ygxwp"), SubResource("Resource_60axw"), SubResource("Resource_hn125"), SubResource("Resource_ivh1e"), SubResource("Resource_7vv8p"), SubResource("Resource_jkuok"), SubResource("Resource_nject"), SubResource("Resource_qipc1"), SubResource("Resource_nwbc4"), SubResource("Resource_bpm4g")])

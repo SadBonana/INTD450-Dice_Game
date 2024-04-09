@@ -9,10 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://bgacwcqu3hk14" path="res://assets/textures/resources/battle_actors_atlas.tres" id="5_8ng7q"]
 [ext_resource type="PackedScene" uid="uid://cuaew3jle1avs" path="res://battle/drawn_die/drawn_die.tscn" id="5_co5hi"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_0lq60"]
-[ext_resource type="StyleBox" uid="uid://b53y6jtfssomx" path="res://modules/display_box/styles/die_side_info_box.tres" id="6_8d77f"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="7_iw7i2"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="8_11wq8"]
-[ext_resource type="Script" path="res://battle/hand_of_dice.gd" id="8_47wfu"]
 [ext_resource type="Resource" uid="uid://git3m0aftj0o" path="res://battle/battle_textbox_test.tres" id="9_5yvlh"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="10_sbswq"]
 
@@ -45,10 +43,10 @@ script = ExtResource("1_5jfo4")
 drawn_die_path = "res://battle/drawn_die/drawn_die.tscn"
 map_path = "res://map/map.tscn"
 loot_screen_path = "res://battle/battle_item_drop.tscn"
-encounter_res = ExtResource("2_6ad1h")
-enemy1 = NodePath("VBoxContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy")
-enemy2 = NodePath("VBoxContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy2")
-enemy3 = NodePath("VBoxContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy3")
+encounter_res = ExtResource("2_8b5lk")
+enemy1 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy")
+enemy2 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy2")
+enemy3 = NodePath("VBoxContainer/MarginContainer/HBoxContainer/Battle Enemy3")
 
 [node name="Background" type="NinePatchRect" parent="."]
 layout_mode = 1
@@ -78,25 +76,11 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="TopPanel" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/TopPanel"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-
-[node name="Side Info" parent="VBoxContainer/MarginContainer/TopPanel/MarginContainer" instance=ExtResource("10_sbswq")]
-layout_mode = 2
-theme_override_styles/panel = ExtResource("6_8d77f")
-tabs_visible = false
-is_open = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/TopPanel"]
-layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Battle Player" parent="VBoxContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_5lfpt")]
+[node name="Battle Player" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_5lfpt")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
@@ -105,19 +89,19 @@ size_flags_stretch_ratio = 3.0
 texture = ExtResource("5_8ng7q")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
-[node name="Battle Enemy" parent="VBoxContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_w871o")]
+[node name="Battle Enemy" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
 size_flags_vertical = 0
 res = ExtResource("2_yokuy")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
-[node name="Battle Enemy2" parent="VBoxContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_w871o")]
+[node name="Battle Enemy2" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
 size_flags_vertical = 4
 res = ExtResource("2_yokuy")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
-[node name="Battle Enemy3" parent="VBoxContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_w871o")]
+[node name="Battle Enemy3" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
 size_flags_vertical = 8
 res = ExtResource("2_yokuy")
@@ -142,39 +126,13 @@ theme_override_constants/separation = 10
 
 [node name="PlayerStatusMargin" type="MarginContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Player Status" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin" node_paths=PackedStringArray("dice_selected") instance=ExtResource("6_0lq60")]
+[node name="Player Status" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin" instance=ExtResource("6_0lq60")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
-dice_selected = NodePath("Bag Sprite/Dice Selected")
-
-[node name="Deck Status" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status/Bag Sprite" index="0"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.0
-offset_left = -44.0
-offset_right = 44.0
-offset_bottom = 8.0
-
-[node name="Dice Selected" type="Label" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status/Bag Sprite" index="1"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -48.0
-offset_top = -8.0
-offset_right = 48.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("7_iw7i2")
-theme_override_font_sizes/font_size = 8
-text = "Selected 0/3"
-vertical_alignment = 1
 
 [node name="Hand of Dice" type="HBoxContainer" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
 unique_name_in_owner = true
@@ -183,7 +141,6 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 theme_override_constants/separation = 20
 alignment = 1
-script = ExtResource("8_47wfu")
 
 [node name="Die Action Menu" parent="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice" instance=ExtResource("5_co5hi")]
 unique_name_in_owner = true
@@ -253,17 +210,13 @@ theme_override_constants/margin_right = 35
 theme_override_constants/margin_bottom = 35
 
 [node name="Inventory" parent="MarginContainer" instance=ExtResource("10_sbswq")]
-visible = false
 layout_mode = 2
-open_action = "I"
-close_action = "I"
+open_action = "i"
+close_action = "i"
 
-[connection signal="amount_selected" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice" to="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status" method="_on_hand_of_dice_amount_selected"]
-[connection signal="mouse_entered" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu" to="." method="_on_die_action_menu_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
 [connection signal="pressed" from="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu/Run" to="." method="_on_run_pressed"]
 
-[editable path="VBoxContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player"]
 [editable path="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status"]
 [editable path="VBoxContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu"]
 [editable path="VBoxContainer/PlayerPanel/MarginContainer/Textbox Controller"]

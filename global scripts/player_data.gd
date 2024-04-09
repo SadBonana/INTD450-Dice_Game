@@ -4,24 +4,12 @@ class_name PlayerData extends Node
 
 enum Difficulty {NOVICE, STANDARD, EXPERT}
 
-const HPSTART 		: int = 75
-const DICEDRAWS 	: int = 5
-const DICECHOICES 	: int = 3
-
 # Use signals to notify the UI when the player's health changes
 # Dunno if this is the best way to make sure health bars get updated,
 # but at least it allows PlayerData to be decoupled from the UI.
 static var _instance = PlayerData.new() # Signals can't be static
 signal _hp_changed(new_hp)
 signal _hp_max_changed(new_hp_max)
-
-static func reset():
-	_instance.hp = HPSTART
-	_instance.hp_max = HPSTART
-	_instance.dice_bag = []
-	_instance.dice_draws = DICEDRAWS
-	_instance.dice_choices = DICECHOICES
-	
 static var hp_changed: Signal:
 	get:
 		return _instance._hp_changed
@@ -33,11 +21,11 @@ static var hp_max_changed: Signal:
 
 static var difficulty := Difficulty.STANDARD
 
-static var hp = HPSTART:
+static var hp = 75:
 	set (value):
 		hp = clamp(value, 0, hp_max)
 		hp_changed.emit(hp)
-static var hp_max = HPSTART:
+static var hp_max = 75:
 	set (value):
 		hp_max = value
 		hp_max_changed.emit(value)
@@ -48,6 +36,5 @@ static var dice_bag = []
 #status_effects or whatever
 
 # How many dice to draw from bag each turn during battle
-static var dice_draws 	:= DICEDRAWS
-static var dice_choices	:= DICECHOICES
+static var dice_draws := 3
 

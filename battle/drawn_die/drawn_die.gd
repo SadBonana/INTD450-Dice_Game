@@ -8,9 +8,6 @@ var pressed_path : StyleBox = preload("res://battle/drawn_die/styles/button_batt
 var pressed_style = "pressed"
 var normal_style = "normal"
 
-signal target_selected(drawndie)
-signal target_unselected(drawndie)
-
 var data: DrawnDieData:
 		set (ddd):
 			data = ddd
@@ -60,33 +57,15 @@ static func instantiate(node_path: String, parent: Node, _die: Die, battle_conte
 	var scene = load(node_path).instantiate()
 	parent.add_child(scene)
 	scene.data = DrawnDieData.new(_die, battle_context.player, battle_context)
-	
 
 	return scene
-	
-func _ready():
-	var parent = get_parent()
-	if parent.has_method("add_to_dice_with_targets"):
-		target_selected.connect(parent.add_to_dice_with_targets)
-	if parent.has_method("remove_from_dice_with_targets"):
-		target_unselected.connect(parent.remove_from_dice_with_targets)
-	mouse_entered.connect(_change_info_box)
-	focus_entered.connect(_change_info_box)
 
 
 ## called when the player selects a die in their hand. allows player to target actors.
 func _on_toggled(toggled_on):
 	is_toggled = toggled_on
 	target = null
-	var targets = []
-	targets = data.battle.enemies.duplicate()
-	if self.side.element is Steel:
-		for enemy in targets:
-			enemy.should_dim(true)
-		targets.clear()
-	else:
-		for enemy in targets:
-			enemy.should_dim(false)
+	var targets = data.battle.enemies.duplicate()
 	targets.append(data.battle.player)
 	if toggled_on:
 		make_focused_pressed()
@@ -105,13 +84,10 @@ func _on_toggled(toggled_on):
 			targets[0].grab_focus()
 		
 		target = await data.battle.target_selected
-		#print("we only just made it past the await statement")
+		
 		selected_action = data.ATTACK if target is BattleEnemy else data.DEFEND
 		
 		make_pressed()
-		## emits a signal that we want the container to catch
-		if(target):
-			target_selected.emit(self)
 		# Clean up once targeting is finished
 		for option in targets:
 			option.toggle_target_mode(false, data.battle.target_selected)
@@ -120,12 +96,11 @@ func _on_toggled(toggled_on):
 		
 		# After targeting is finished, focus on the next thing the player is likely to want to be in focus.
 		var found_next_focus_item = false
-		if not get_parent().is_max():
-			for i in range(data.battle.player.dice_hand.size()):
-				if not data.battle.player.dice_hand[i].is_toggled:
-					found_next_focus_item = true
-					data.battle.player.dice_hand[i].grab_focus()
-					break
+		for i in range(data.battle.player.dice_hand.size()):
+			if not data.battle.player.dice_hand[i].is_toggled:
+				found_next_focus_item = true
+				data.battle.player.dice_hand[i].grab_focus()
+				break
 		if not found_next_focus_item:
 			data.battle.ready_button.grab_focus()
 	else:
@@ -133,8 +108,6 @@ func _on_toggled(toggled_on):
 		for option in targets:
 			option.toggle_target_mode(false, data.battle.target_selected)
 		target = null
-		target_unselected.emit(self)
-		get_parent().enable_all_dice()
 
 
 ## A function that changes the style box of the drawn_die
@@ -158,13 +131,8 @@ func _input(event):
 		if(is_toggled and target == null):
 			button_pressed = false
 			grab_focus()
-			data.battle.target_selected.emit(null)
-			
-func _change_info_box():
-	data.battle.side_info.get_current_tab_control().new_frames([side])
-			
 
-## A function to disable menus during target selection
+## A function to hide menus during target selection
 func disable_untargetables(disable : bool, button_clicked : Button=null):
 	for child in data.battle.action_menu.get_children():
 		child.disabled = disable
@@ -184,7 +152,6 @@ func disable_untargetables(disable : bool, button_clicked : Button=null):
 		if disable:
 			button.focus_mode = FOCUS_NONE
 		else:
-			get_parent().disable_die(button)
 			button.focus_mode = FOCUS_ALL
 		
 		
