@@ -205,6 +205,8 @@ func shield_manager(value: int):
 func spawn_damage_indicator(damage: int):
 	#damage_indication.visible = true
 	damage_indication.label.text = str(damage)
-	damage_animation.play()
+	damage_animation.play("show_damage")
+	await animation_player.animation_finished
+	damage_animation.play("RESET")
 	await animation_player.animation_finished
 	#damage_indication.visible = false

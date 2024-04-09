@@ -1,9 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cvt2ilg78br68"]
 
-[ext_resource type="Script" path="res://battle/damage_indicator/damage_indicator.gd" id="1_b82sm"]
+[ext_resource type="Script" path="res://battle/damage_indicator/damage_indicator.gd" id="1_6jhxt"]
 
 [sub_resource type="Animation" id="Animation_8nd57"]
-length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -23,10 +22,10 @@ tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 0, 0, 0)]
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_k58ux"]
@@ -64,10 +63,9 @@ _data = {
 
 [node name="damage_indicator" type="Node2D"]
 scale = Vector2(0.5, 0.5)
-script = ExtResource("1_b82sm")
+script = ExtResource("1_6jhxt")
 
 [node name="Label" type="Label" parent="."]
-anchors_preset = -1
 offset_right = 40.0
 offset_bottom = 23.0
 grow_horizontal = 2
@@ -77,5 +75,4 @@ text = "0"
 libraries = {
 "": SubResource("AnimationLibrary_k7fn2")
 }
-autoplay = "show_damage"
 next/show_damage = &"show_damage"

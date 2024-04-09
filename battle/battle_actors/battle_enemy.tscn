@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlyb2lewb1n15"]
+[gd_scene load_steps=6 format=3 uid="uid://dlyb2lewb1n15"]
 
 [ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://misc components/health_bar.tscn" id="1_pbfgf"]
 [ext_resource type="Script" path="res://battle/battle_actors/battle_enemy.gd" id="1_u2vwq"]
 [ext_resource type="PackedScene" uid="uid://bbu8nn2jqun2j" path="res://battle/battle_actors/battle_actor.tscn" id="3_vc0kg"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="4_4kj7r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_886cr"]
 
 [node name="Battle Enemy" instance=ExtResource("3_vc0kg")]
 anchors_preset = -1
@@ -16,10 +18,15 @@ size_flags_vertical = 3
 script = ExtResource("1_u2vwq")
 res = null
 drawn_die_path = "res://battle/drawn_die/drawn_die.tscn"
+mouse_out = false
+mouse_over = false
 
 [node name="HealthBar" parent="." index="0" instance=ExtResource("1_pbfgf")]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="ProgressBar" parent="HealthBar" index="1"]
+visible = false
 
 [node name="Roll" type="Label" parent="Actor Sprite" index="0"]
 unique_name_in_owner = true
@@ -44,3 +51,16 @@ theme_override_fonts/font = ExtResource("4_4kj7r")
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="." index="6"]
+position = Vector2(39, 50)
+scale = Vector2(3.9, 3.9)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("RectangleShape2D_886cr")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
+
+[editable path="HealthBar"]
+[editable path="damage_indicator"]

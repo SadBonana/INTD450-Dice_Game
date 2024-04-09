@@ -1,6 +1,9 @@
 class_name BattleEnemy extends BattleActor
 
 @onready var health_bar: HealthBar = %HealthBar
+@onready var progress_bar = $HealthBar/ProgressBar
+@onready var health_label = $HealthBar/Label
+
 @onready var roll_label: Label = %Roll  # FIXME: Displaying the enemy's roll over their sprite is prolly not what we want the final game to look like. I thought the empty top panel was where we'd show that info, but I'm running out of energy now so...
 @export var res: Resource
 
@@ -11,11 +14,16 @@ class_name BattleEnemy extends BattleActor
 
 @export var enemy_hand: HBoxContainer
 
+@export var mouse_out: bool
+@export var mouse_over: bool
+
 var battle: Battle
+
 var max_health: int:
 	set (value):
 		max_health = value
 		health_bar.max_value = value
+
 var damage: int:
 	set (value):
 		damage = value
@@ -24,6 +32,7 @@ var damage: int:
 func _set_health(value):
 	health = clamp(value, 0, max_health)
 	health_bar.value = health
+
 func _get_health():
 	return health
 
@@ -117,3 +126,16 @@ func draw_dice():
 ## AnimationPlayer can.
 func restore_sprite_color():
 	tex_rect.self_modulate = res.sprite_color
+
+
+func _on_area_2d_mouse_entered():
+	progress_bar.z_index = 2
+	print("z = 2")
+	progress_bar.visible = true
+	health_label.text = "HP: %d/%d" % [health_bar.value - damage, health_bar.max_value]
+	print("health label is:", health_label.text)
+
+
+func _on_area_2d_mouse_exited():
+	progress_bar.z_index = -1
+	progress_bar.visible = false

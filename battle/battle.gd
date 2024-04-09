@@ -284,9 +284,13 @@ func _on_run_pressed():
 func _on_ready_pressed():
 	var one_target = false
 	for die in player.dice_hand:
+		
+		#die.target.progress_bar.value = die.target.health_bar.value - die.roll
+		
 		if die.target:
 			one_target = true
 			break
+	
 	if not one_target:
 	# NOTE: May eventually want to allow the player to intentionally discard or not use dice.
 		await textbox_controller.quick_beat("not ready")

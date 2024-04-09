@@ -84,6 +84,9 @@ size_flags_stretch_ratio = 3.0
 texture = ExtResource("1_iltai")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
+[node name="PanelContainer" parent="VBoxContainer/MarginContainer/HBoxContainer/Battle Player" index="0"]
+visible = false
+
 [node name="damage_indicator" parent="VBoxContainer/MarginContainer/HBoxContainer/Battle Player" index="3"]
 visible = true
 
@@ -100,6 +103,12 @@ size_flags_vertical = 0
 res = ExtResource("2_yokuy")
 enemy_hand = NodePath("../enemy_1_hand")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
+
+[node name="PanelContainer" parent="VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/Battle Enemy" index="1"]
+visible = false
+
+[node name="damage_indicator" parent="VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/Battle Enemy" index="5"]
+visible = true
 
 [node name="Label" parent="VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/Battle Enemy/damage_indicator" index="0"]
 theme_override_font_sizes/font_size = 10
@@ -272,6 +281,7 @@ close_action = "i"
 [editable path="VBoxContainer/MarginContainer/HBoxContainer/Battle Player"]
 [editable path="VBoxContainer/MarginContainer/HBoxContainer/Battle Player/damage_indicator"]
 [editable path="VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/Battle Enemy"]
+[editable path="VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/Battle Enemy/HealthBar"]
 [editable path="VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/Battle Enemy/damage_indicator"]
 [editable path="VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/enemy_1_hand/Die Action Menu"]
 [editable path="VBoxContainer/MarginContainer/HBoxContainer/enemy_2_container/enemy_2_hand/Die Action Menu"]
