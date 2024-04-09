@@ -47,6 +47,7 @@ var defeated_enemies = []
 @onready var side_info := %"Side Info"
 @onready var player := %"Battle Player"
 @onready var ready_button := %Ready
+@onready var cover := %Cover
 
 
 ## Inventory
@@ -139,6 +140,7 @@ func _ready():
 	
 	# uh oh, yuv been jumped m8!
 	await textbox_controller.quick_beat("battle start")
+	cover.visible = false
 	
 	# Give battle actors access to the textbox and determine what happens when they die
 	for enemy in enemies:

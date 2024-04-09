@@ -62,7 +62,17 @@ layout_mode = 2
 theme_override_constants/h_separation = 2
 theme_override_constants/v_separation = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Shield" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.443137, 0.47451, 0.494118, 1)
+theme_override_fonts/font = ExtResource("3_yrg2q")
+theme_override_font_sizes/font_size = 29
+text = "Shield: 0"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="CenterContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -73,14 +83,6 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 7.0
 texture = ExtResource("1_tuuc8")
 stretch_mode = 4
-
-[node name="Shield" type="Label" parent="MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_yrg2q")
-theme_override_font_sizes/font_size = 29
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

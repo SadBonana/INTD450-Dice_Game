@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://chd8awhkxw1b7"]
+[gd_scene load_steps=20 format=3 uid="uid://chd8awhkxw1b7"]
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://dxvj75cw3wclu" path="res://enemy resources/HostileRedGodotLogo.tres" id="2_yokuy"]
 [ext_resource type="PackedScene" uid="uid://ck3aqqaxesp6p" path="res://battle/battle_actors/battle_player.tscn" id="4_5lfpt"]
 [ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle/battle_actors/battle_enemy.tscn" id="4_w871o"]
+[ext_resource type="Texture2D" uid="uid://dms5q8dg1hpnb" path="res://assets/textures/battle cover.png" id="4_xk5en"]
 [ext_resource type="PackedScene" uid="uid://cuaew3jle1avs" path="res://battle/drawn_die/drawn_die.tscn" id="5_co5hi"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_0lq60"]
 [ext_resource type="StyleBox" uid="uid://b53y6jtfssomx" path="res://modules/display_box/styles/die_side_info_box.tres" id="6_8d77f"]
@@ -56,6 +57,17 @@ grow_vertical = 2
 texture = ExtResource("1_iltai")
 stretch_mode = 1
 
+[node name="Cover" type="TextureRect" parent="."]
+unique_name_in_owner = true
+top_level = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 237.0
+grow_horizontal = 2
+texture = ExtResource("4_xk5en")
+expand_mode = 5
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -93,11 +105,11 @@ size_flags_vertical = 3
 
 [node name="Battle Player" parent="VBoxContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_5lfpt")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(105, 118)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 8
 size_flags_stretch_ratio = 3.0
-texture = ExtResource("1_iltai")
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
 [node name="Battle Enemy" parent="VBoxContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_w871o")]
