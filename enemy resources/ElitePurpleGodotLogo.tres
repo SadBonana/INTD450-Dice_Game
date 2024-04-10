@@ -3,16 +3,16 @@
 [ext_resource type="Script" path="res://enemy resources/BaseEnemy.gd" id="1_g4nds"]
 [ext_resource type="Resource" uid="uid://dinkuhl73fnn" path="res://die_resources/basic_dice/d3_basic.tres" id="1_poguh"]
 [ext_resource type="Resource" uid="uid://bt7rnnfr007c1" path="res://die_resources/fire_dice/d3_fire.tres" id="2_5wvmy"]
-[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="2_x3d36"]
 [ext_resource type="Resource" uid="uid://dase6d6ehskv0" path="res://die_resources/lightning_dice/d3_lightning.tres" id="3_wufem"]
 [ext_resource type="Resource" uid="uid://b1ggy2nkkrkxb" path="res://die_resources/poison_dice/d3_poison.tres" id="4_5rs4v"]
 [ext_resource type="Resource" uid="uid://ut6hr2ugnbh7" path="res://die_resources/steel_dice/d3_steel.tres" id="5_7nwob"]
+[ext_resource type="Texture2D" path="res://assets/textures/resources/elite enemy.tres" id="7_xh4np"]
 
 [resource]
 script = ExtResource("1_g4nds")
-name = "Elite Purple Godot Logo"
-texture = ExtResource("2_x3d36")
+name = "Corrupt Die Mage"
+texture = ExtResource("7_xh4np")
 health = 30
 dice_draws = 3
-sprite_color = Color(0.611765, 0, 0.643137, 1)
+sprite_color = Color(1, 1, 1, 1)
 dice = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_poguh"), ExtResource("2_5wvmy"), ExtResource("3_wufem"), ExtResource("4_5rs4v"), ExtResource("5_7nwob")])

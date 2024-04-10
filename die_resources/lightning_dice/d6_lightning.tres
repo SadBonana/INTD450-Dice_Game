@@ -1,16 +1,16 @@
-[gd_resource type="Resource" script_class="Die" load_steps=9 format=3 uid="uid://bcublpww8vx5o"]
+[gd_resource type="Resource" script_class="Die" load_steps=9 format=3 uid="uid://ce55yc5ecigur"]
 
-[ext_resource type="Script" path="res://global scripts/die.gd" id="1_b7rwe"]
-[ext_resource type="Resource" uid="uid://nq0o2g57d888" path="res://die_resources/lightning_dice/lightning_sides/1_lightning_side.tres" id="2_724i2"]
-[ext_resource type="Resource" uid="uid://ciflo84x5qynq" path="res://die_resources/lightning_dice/lightning_sides/2_lightning_side.tres" id="3_rpcxx"]
-[ext_resource type="Resource" uid="uid://lo84spmit74s" path="res://die_resources/lightning_dice/lightning_sides/3_lightning_side.tres" id="4_yugqe"]
-[ext_resource type="Resource" uid="uid://c3bu6njp8iokg" path="res://die_resources/lightning_dice/lightning_sides/4_lightning_side.tres" id="5_k3v6v"]
-[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="5_w30e1"]
-[ext_resource type="Resource" uid="uid://bk16fkwpytlch" path="res://die_resources/lightning_dice/lightning_sides/5_lightning_side.tres" id="6_fwh1f"]
-[ext_resource type="Resource" uid="uid://b5ws43k6p8pna" path="res://die_resources/lightning_dice/lightning_sides/6_lightning_side.tres" id="7_3lv4f"]
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_6xi2y"]
+[ext_resource type="Resource" uid="uid://nq0o2g57d888" path="res://die_resources/lightning_dice/lightning_sides/1_lightning_side.tres" id="2_qvne7"]
+[ext_resource type="Resource" uid="uid://ciflo84x5qynq" path="res://die_resources/lightning_dice/lightning_sides/2_lightning_side.tres" id="3_3lwjl"]
+[ext_resource type="Resource" uid="uid://lo84spmit74s" path="res://die_resources/lightning_dice/lightning_sides/3_lightning_side.tres" id="4_6iwa2"]
+[ext_resource type="Resource" uid="uid://xi4qv18viuet" path="res://die_resources/lightning_dice/lightning_sides/4_lightning_side.tres" id="5_2oap2"]
+[ext_resource type="Resource" uid="uid://6nfsctdbitp3" path="res://die_resources/lightning_dice/lightning_sides/5_lightning_side.tres" id="6_x1fj8"]
+[ext_resource type="Resource" uid="uid://danw0k2ovphrg" path="res://die_resources/lightning_dice/lightning_sides/6_lightning_side.tres" id="7_1ljh2"]
+[ext_resource type="Texture2D" uid="uid://daf3ysqfpw15n" path="res://assets/textures/resources/dice/d6.tres" id="8_2e055"]
 
 [resource]
-script = ExtResource("1_b7rwe")
-sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_724i2"), ExtResource("3_rpcxx"), ExtResource("4_yugqe"), ExtResource("5_k3v6v"), ExtResource("6_fwh1f"), ExtResource("7_3lv4f")])
-texture = ExtResource("5_w30e1")
+script = ExtResource("1_6xi2y")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_qvne7"), ExtResource("3_3lwjl"), ExtResource("4_6iwa2"), ExtResource("5_2oap2"), ExtResource("6_x1fj8"), ExtResource("7_1ljh2")])
+texture = ExtResource("8_2e055")
 name = "d6"
