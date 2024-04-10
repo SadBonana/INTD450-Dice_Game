@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DieSide" load_steps=4 format=3 uid="uid://6nfsctdbitp3"]
+[gd_resource type="Resource" script_class="DieSide" load_steps=4 format=3 uid="uid://d1ua2vmix8caj"]
 
 [ext_resource type="Script" path="res://modules/elements/lightning_element.gd" id="1_w8aea"]
 [ext_resource type="Script" path="res://modules/dice/die_side.gd" id="2_qwujs"]

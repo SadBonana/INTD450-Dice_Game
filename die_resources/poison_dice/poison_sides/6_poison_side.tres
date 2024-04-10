@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DieSide" load_steps=4 format=3 uid="uid://dj7fv64mcbe2f"]
+[gd_resource type="Resource" script_class="DieSide" load_steps=4 format=3 uid="uid://b5km6mgebjlya"]
 
 [ext_resource type="Script" path="res://modules/elements/poison_element.gd" id="1_h71ox"]
 [ext_resource type="Script" path="res://modules/dice/die_side.gd" id="2_nbjrq"]

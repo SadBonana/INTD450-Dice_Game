@@ -5,7 +5,6 @@
 [ext_resource type="Script" path="res://battle/temp_status_effect_icon.gd" id="2_fh3yk"]
 
 [node name="Button" type="TextureButton"]
-custom_minimum_size = Vector2(32, 32)
 offset_right = 16.0
 offset_bottom = 16.0
 size_flags_vertical = 3
@@ -20,14 +19,18 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -8.0
-offset_bottom = 8.0
+offset_left = 17.0
+offset_top = -7.0
+offset_right = 16.0
+offset_bottom = 9.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_fonts/normal_font = ExtResource("1_1kqdd")
+theme_override_font_sizes/normal_font_size = 0
+theme_override_font_sizes/mono_font_size = 0
 bbcode_enabled = true
-text = "[center]I[/center]"
+text = "[center]1[/center]"
 fit_content = true
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

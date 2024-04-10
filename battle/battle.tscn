@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dms5q8dg1hpnb" path="res://assets/textures/battle cover.png" id="4_xk5en"]
 [ext_resource type="PackedScene" uid="uid://cuaew3jle1avs" path="res://battle/drawn_die/drawn_die.tscn" id="5_co5hi"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_0lq60"]
-[ext_resource type="StyleBox" uid="uid://b53y6jtfssomx" path="res://modules/display_box/styles/die_side_info_box.tres" id="6_8d77f"]
+[ext_resource type="StyleBox" path="res://modules/display_box/styles/die_side_info_box.tres" id="6_8d77f"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="7_iw7i2"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="8_11wq8"]
 [ext_resource type="Script" path="res://battle/hand_of_dice.gd" id="8_47wfu"]
@@ -112,6 +112,12 @@ size_flags_horizontal = 2
 size_flags_vertical = 8
 size_flags_stretch_ratio = 3.0
 status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
+
+[node name="MarginContainer" parent="VBoxContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player/PanelContainer" index="0"]
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
 
 [node name="Status Effects" parent="VBoxContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player/PanelContainer/MarginContainer" index="0"]
 theme_override_constants/h_separation = 2

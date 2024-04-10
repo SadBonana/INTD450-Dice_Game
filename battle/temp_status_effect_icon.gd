@@ -12,7 +12,8 @@ var stacks: int = 0:
 	set (value):
 		stacks = value
 		#text = _fstring % [TempSEIcon._to_rom_num(strength), remaining_turns]
-		stack_text.text = _fstring % [TempSEIcon._to_rom_num(stacks)]
+		stack_text.text = _fstring % stacks#[TempSEIcon._to_rom_num(stacks)]
+
 var beneficial: bool
 var color: Color
 var effect: StatusEffect
