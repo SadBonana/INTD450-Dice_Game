@@ -1,12 +1,15 @@
 extends InvDieFrame
 class_name DrawnDie
 
+@onready var element_icon = %ElementIcon
+
 ## paths to the styleboxes we need
 var focused_press_path : StyleBox = preload("res://battle/drawn_die/styles/button_battle_focused_pressed.tres")
 var pressed_path : StyleBox = preload("res://battle/drawn_die/styles/button_battle_pressed.tres")
 ## name of the styleboxes we wish to change
 var pressed_style = "pressed"
 var normal_style = "normal"
+
 
 signal target_selected(drawndie)
 signal target_unselected(drawndie)
@@ -16,6 +19,9 @@ var data: DrawnDieData:
 			data = ddd
 			side = ddd.side
 			die_ref = ddd.die
+			die_visual.texture = ddd.die.texture
+			element_icon.texture = side.element.icon
+			
 var side : DieSide:
 		set (side):
 			data.side = side
@@ -78,15 +84,15 @@ func _on_toggled(toggled_on):
 	is_toggled = toggled_on
 	target = null
 	var targets = []
+	var all_entities = []
+	all_entities = data.battle.enemies.duplicate()
 	targets = data.battle.enemies.duplicate()
 	if self.side.element is Steel:
 		for enemy in targets:
 			enemy.should_dim(true)
 		targets.clear()
-	else:
-		for enemy in targets:
-			enemy.should_dim(false)
 	targets.append(data.battle.player)
+	all_entities.append(data.battle.player)
 	if toggled_on:
 		make_focused_pressed()
 		disable_untargetables(true, self)
@@ -104,7 +110,8 @@ func _on_toggled(toggled_on):
 			targets[0].grab_focus()
 		
 		target = await data.battle.target_selected
-		#print("we only just made it past the await statement")
+		for enemy in data.battle.enemies:
+			enemy.should_dim(false)
 		selected_action = data.ATTACK if target is BattleEnemy else data.DEFEND
 		
 		make_pressed()
@@ -129,7 +136,7 @@ func _on_toggled(toggled_on):
 			data.battle.ready_button.grab_focus()
 	else:
 		disable_untargetables(false)
-		for option in targets:
+		for option in all_entities:
 			option.toggle_target_mode(false, data.battle.target_selected)
 		target = null
 		target_unselected.emit(self)
@@ -185,7 +192,32 @@ func disable_untargetables(disable : bool, button_clicked : Button=null):
 		else:
 			get_parent().disable_die(button)
 			button.focus_mode = FOCUS_ALL
-		
-		
-	
-	
+
+
+## Set this drawn die to display on top of the others. Dice further from this die
+## in the dice hand will be beneath closer ones.
+func bring_to_front():
+	var hand = data.battle.player.dice_hand
+	var indx_in_hand = hand.find(self)
+	for index in range(hand.size()):
+		hand[index].z_index = hand.size() - abs(indx_in_hand - index)
+
+
+## After calling this, drawn dice will overlap however godot feels like making them overlap.
+## AKA, reset the drawn die overlap behavior to default.
+func reset_z_ordering():
+	for d in data.battle.player.dice_hand:
+		d.z_index = 0
+
+
+func _on_focus_entered():
+	bring_to_front()
+
+func _on_focus_exited():
+	reset_z_ordering()
+
+func _on_mouse_entered():
+	bring_to_front()
+
+func _on_mouse_exited():
+	reset_z_ordering()

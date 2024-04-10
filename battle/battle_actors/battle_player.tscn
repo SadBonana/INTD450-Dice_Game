@@ -1,12 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://ck3aqqaxesp6p"]
+[gd_scene load_steps=5 format=3 uid="uid://ck3aqqaxesp6p"]
 
 [ext_resource type="Script" path="res://battle/battle_actors/battle_player.gd" id="1_udnp1"]
 [ext_resource type="PackedScene" uid="uid://bbu8nn2jqun2j" path="res://battle/battle_actors/battle_actor.tscn" id="2_3c1fd"]
-[ext_resource type="Resource" uid="uid://bvcujelfg6iql" path="res://battle/battle_actors/temp_player_element_res.tres" id="3_5wym8"]
+[ext_resource type="Texture2D" uid="uid://bgacwcqu3hk14" path="res://assets/textures/resources/battle_actors_atlas.tres" id="3_bsgsc"]
+[ext_resource type="Resource" uid="uid://cfwcn8txtyhsv" path="res://global scripts/initial bag/elemental_d6_bag.tres" id="4_h8wpo"]
 
 [node name="Battle Player" instance=ExtResource("2_3c1fd")]
-offset_right = 128.0
-offset_bottom = 144.0
+offset_left = -36.0
+offset_top = -48.5
+offset_right = 36.0
+offset_bottom = 48.5
+size_flags_vertical = 8
 script = ExtResource("1_udnp1")
-texture = null
-temp_dice_bag_init = ExtResource("3_5wym8")
+texture = ExtResource("3_bsgsc")
+dice_bag_init = ExtResource("4_h8wpo")
+
+[node name="MarginContainer" parent="." index="2"]
+size_flags_vertical = 10
+
+[node name="Actor Sprite" parent="MarginContainer" index="0"]
+texture = ExtResource("3_bsgsc")
+stretch_mode = 2
