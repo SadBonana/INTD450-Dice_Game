@@ -252,8 +252,7 @@ func select() -> NT:
 		select = NT.CAMPFIRE
 		
 	elif random_float < treasure_prob_b: #treasure_prob*100%
-		#select = NT.TREASURE
-		select = NT.BATTLE    #TODO: REMOVE POST PLAYTEST
+		select = NT.TREASURE
 		
 	return select
 
