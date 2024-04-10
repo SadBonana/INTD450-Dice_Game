@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://chd8awhkxw1b7"]
+[gd_scene load_steps=22 format=3 uid="uid://chd8awhkxw1b7"]
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
@@ -35,9 +35,6 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_t1f7r"]
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_0gmav")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idclm"]
-bg_color = Color(0.227451, 0.0823529, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prgvx"]
 bg_color = Color(0, 0, 0, 1)
@@ -173,7 +170,7 @@ status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 [node name="PlayerPanel" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_idclm")
+theme_override_styles/panel = ExtResource("6_8d77f")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PlayerPanel"]
 layout_mode = 2
