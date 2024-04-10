@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
-[ext_resource type="Resource" uid="uid://bb1pie8rao0y7" path="res://encounter resources/mega_easy_test_encounter.tres" id="2_38ywo"]
+[ext_resource type="Resource" uid="uid://bh8sa74vyv8n7" path="res://encounter resources/mid_game_encounters.tres" id="2_vinne"]
 [ext_resource type="Resource" uid="uid://dxvj75cw3wclu" path="res://enemy resources/HostileRedGodotLogo.tres" id="2_yokuy"]
 [ext_resource type="PackedScene" uid="uid://ck3aqqaxesp6p" path="res://battle/battle_actors/battle_player.tscn" id="4_5lfpt"]
 [ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle/battle_actors/battle_enemy.tscn" id="4_w871o"]
@@ -39,7 +39,9 @@ grow_vertical = 2
 script = ExtResource("1_5jfo4")
 drawn_die_path = "res://battle/drawn_die/drawn_die.tscn"
 loot_screen_path = "res://battle/battle_item_drop.tscn"
-encounter_res = ExtResource("2_38ywo")
+encounter_res = ExtResource("2_vinne")
+boss_encounter = ExtResource("2_vinne")
+encounter_tables = ExtResource("2_vinne")
 enemy1 = NodePath("VBoxContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy")
 enemy2 = NodePath("VBoxContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy2")
 enemy3 = NodePath("VBoxContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy3")
