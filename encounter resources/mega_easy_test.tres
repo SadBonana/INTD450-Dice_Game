@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="BaseEncounter" load_steps=6 format=3 uid="uid://bhidvj4sx2002"]
+
+[ext_resource type="Resource" uid="uid://dinkuhl73fnn" path="res://die_resources/basic_dice/d3_basic.tres" id="1_xy3rt"]
+[ext_resource type="Script" path="res://encounter resources/base_encounter.gd" id="2_mb11m"]
+[ext_resource type="Script" path="res://enemy resources/BaseEnemy.gd" id="2_mucd0"]
+[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="3_nmndq"]
+
+[sub_resource type="Resource" id="Resource_6uuhp"]
+script = ExtResource("2_mucd0")
+name = "test"
+texture = ExtResource("3_nmndq")
+health = 1
+dice_draws = 1
+sprite_color = Color(1, 1, 1, 1)
+dice = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_xy3rt")])
+
+[resource]
+script = ExtResource("2_mb11m")
+enemies = Array[ExtResource("2_mucd0")]([SubResource("Resource_6uuhp")])

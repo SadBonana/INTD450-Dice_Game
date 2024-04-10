@@ -1,8 +1,19 @@
-[gd_resource type="Resource" script_class="BaseEncounter" load_steps=3 format=3 uid="uid://babyfibowwtv8"]
+[gd_resource type="Resource" script_class="BaseEncounter" load_steps=6 format=3 uid="uid://babyfibowwtv8"]
 
-[ext_resource type="Resource" uid="uid://dxvj75cw3wclu" path="res://enemy resources/HostileRedGodotLogo.tres" id="1_j04qp"]
+[ext_resource type="Resource" uid="uid://dinkuhl73fnn" path="res://die_resources/basic_dice/d3_basic.tres" id="1_ja3j6"]
+[ext_resource type="Script" path="res://enemy resources/BaseEnemy.gd" id="2_bxbdk"]
 [ext_resource type="Script" path="res://encounter resources/base_encounter.gd" id="2_wll6r"]
+[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="3_luxc8"]
+
+[sub_resource type="Resource" id="Resource_m21f6"]
+script = ExtResource("2_bxbdk")
+name = "test"
+texture = ExtResource("3_luxc8")
+health = 1
+dice_draws = 0
+sprite_color = Color(1, 1, 1, 1)
+dice = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_ja3j6")])
 
 [resource]
 script = ExtResource("2_wll6r")
-enemies = Array[Resource("res://enemy resources/BaseEnemy.gd")]([ExtResource("1_j04qp")])
+enemies = Array[ExtResource("2_bxbdk")]([SubResource("Resource_m21f6")])
