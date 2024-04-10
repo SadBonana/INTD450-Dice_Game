@@ -226,6 +226,18 @@ func draw_dice():
 	player.update_status_effects()
 	
 	if player.dice_hand.size() > 0:
+		# Set focus neighbors for the dice in the players hand. Needed since
+		# making the dice overlap messed with godot's ability to do it automatically.
+		var prev_d: DrawnDie
+		for d in player.dice_hand:
+			if not d.visible:
+				continue
+			if prev_d and prev_d is DrawnDie:
+				prev_d.focus_neighbor_right = d.get_path()
+				prev_d.focus_next = d.get_path()
+				d.focus_previous = prev_d.get_path()
+				d.focus_neighbor_left = prev_d.get_path()
+			prev_d = d
 		player.dice_hand[0].grab_focus()
 	else:
 		ready_button.grab_focus()

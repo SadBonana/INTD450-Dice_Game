@@ -7,10 +7,23 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_si3mn"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1xhy"]
-bg_color = Color(0.6, 0.6, 0.6, 0.678431)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x4xij"]
+bg_color = Color(0.196078, 0.196078, 0.196078, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.988235, 0.74902, 0.47451, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bv15m"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gec5k"]
+texture = ExtResource("4_qstec")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+modulate_color = Color(0.105882, 0.105882, 0.105882, 1)
 
 [node name="Player Status" type="VBoxContainer" node_paths=PackedStringArray("health_bar", "deck_status")]
 custom_minimum_size = Vector2(100, 0)
@@ -68,6 +81,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxEmpty_si3mn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_k1xhy")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_bv15m")
-theme_override_styles/focus = SubResource("StyleBoxFlat_k1xhy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_x4xij")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_gec5k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_x4xij")
