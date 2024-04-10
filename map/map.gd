@@ -1,4 +1,4 @@
-extends Node
+extends ScrollContainer
 
 const NT = NodeType.NodeType
 
@@ -11,7 +11,7 @@ var points = []
 #var bg_texture 	= preload("res://assets/textures/map noise paper ninepatch.png")
 var map_scene 	= preload("res://map/MapTree.tscn")
 
-@export var scroll_cont : ScrollContainer
+#@export var scroll_cont : ScrollContainer
 @export var bg 			: NinePatchRect
 
 func _ready():
@@ -28,7 +28,8 @@ func reset():
 	for child in bg.get_children():
 		bg.remove_child(child)
 		child.queue_free()
-	scroll_cont.scroll_vertical = 0
+	#scroll_cont.scroll_vertical = 0
+	scroll_vertical = 0
 	setup()
 
 ## Draws lines
