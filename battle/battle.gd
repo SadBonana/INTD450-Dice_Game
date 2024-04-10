@@ -47,7 +47,6 @@ var defeated_enemies = []
 @onready var side_info := %"Side Info"
 @onready var player := %"Battle Player"
 @onready var ready_button := %Ready
-@onready var cover := %Cover
 
 
 ## Inventory
@@ -121,7 +120,6 @@ func _ready():
 	# The die action menu here is just so designers can see what one looks like in engine.
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
 	# line of code
-	cover.visible = true
 	drawn_die_placeholder.hide()
 	
 	## setup for dice inventory tab
@@ -141,7 +139,6 @@ func _ready():
 	
 	# uh oh, yuv been jumped m8!
 	await textbox_controller.quick_beat("battle start")
-	cover.visible = false
 	
 	# Give battle actors access to the textbox and determine what happens when they die
 	for enemy in enemies:
