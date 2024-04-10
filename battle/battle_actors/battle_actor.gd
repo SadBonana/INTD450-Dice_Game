@@ -84,8 +84,8 @@ func update_status_effects():
 		status_container.move_child(effect_icon, index)
 		effect_icon.update()
 
- 
-## All logic involved with taking damage 
+
+## All logic involved with taking damage
 ##
 ## Adjusts damage based on defense, adjusts defense, plays animation,
 ## reduces health.
