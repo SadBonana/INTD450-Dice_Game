@@ -40,9 +40,12 @@ func draw():
 			if node != null:
 				for child in node.get_sons():
 					if node.type != NT.ERROR:
-						#TODO: uncomment when actual background is added
-						bg.draw_line(node.position + margins, child.position + margins, Color.DIM_GRAY, 2)
+						#bg.draw_line(node.position + margins, child.position + margins, Color.DIM_GRAY, 2)
 						#bg.draw_line(node.position + margins, child.position + margins, Color.RED, 2)
+						var start = node.position + margins + Vector2(0, margins.y)
+						var end = child.position + margins - Vector2(0, margins.y)
+						bg.draw_line(start, end, Color("#6a3c33", .8), 4)
+						bg.draw_line(start, end, Color("#b57521", .8), 2)
 					else:
 						bg.draw_line(node.position + margins, child.position + margins, Color.HOT_PINK, 2)
 		
