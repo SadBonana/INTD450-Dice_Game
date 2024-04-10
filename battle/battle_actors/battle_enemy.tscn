@@ -7,11 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://lvsj2s8e3oju" path="res://assets/textures/resources/simple enemy.tres" id="4_vjoly"]
 
 [node name="Battle Enemy" instance=ExtResource("3_vc0kg")]
-anchors_preset = -1
-anchor_right = 0.12
-anchor_bottom = 0.278
-offset_right = 0.199997
-offset_bottom = -0.0800095
+offset_left = -36.0
+offset_top = -45.5
+offset_right = 36.0
+offset_bottom = 45.5
 script = ExtResource("1_u2vwq")
 res = null
 

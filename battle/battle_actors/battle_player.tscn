@@ -6,8 +6,11 @@
 [ext_resource type="Resource" uid="uid://cfwcn8txtyhsv" path="res://global scripts/initial bag/elemental_d6_bag.tres" id="4_h8wpo"]
 
 [node name="Battle Player" instance=ExtResource("2_3c1fd")]
-offset_right = 105.0
-offset_bottom = 118.0
+offset_left = -36.0
+offset_top = -48.5
+offset_right = 36.0
+offset_bottom = 48.5
+size_flags_vertical = 8
 script = ExtResource("1_udnp1")
 texture = ExtResource("3_bsgsc")
 dice_bag_init = ExtResource("4_h8wpo")
@@ -17,3 +20,4 @@ size_flags_vertical = 10
 
 [node name="Actor Sprite" parent="MarginContainer" index="0"]
 texture = ExtResource("3_bsgsc")
+stretch_mode = 2
