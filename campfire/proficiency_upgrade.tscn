@@ -71,7 +71,7 @@ size_flags_vertical = 3
 
 [node name="dice_bag" parent="VBoxContainer/inventory_container" instance=ExtResource("2_i5kku")]
 layout_mode = 2
-size_flags_vertical = 3
+tabs_visible = false
 
 [node name="choices_container" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2

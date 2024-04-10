@@ -5,8 +5,8 @@ class_name ProficiencyUpgrade extends Node
 @onready var textbox_controller := $"VBoxContainer/choices_container/Textbox Controller"
 @onready var inventory := %dice_bag
 
+@onready var upgrade_frame = preload("res://campfire/upgrade_frame.tscn")
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
-@onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame_with_glow.tscn")
 @onready var side_name = "Preview Upgrade"
 
 @export var temp_dice_bag_init: PlayerDataInit
@@ -38,32 +38,28 @@ func _on_dialogue_transitiond(from_beat: DialogueBeat, destination_beat: String,
 func show_sides(die : Die):
 	var side_view
 	var duplicate_side
-	var duplicate_sides = []
 	
 	
 	for child in inventory.get_children():
 		if child.tabobj_ref.get_tab_title() == side_name:	 #hardcoded cause bro this shit is ass
 			side_view = child
 	
-	
+	var upgrade_frames = []
+	var arr
 	for side in die.sides:
+		arr = []
+		arr.append(side)
 		duplicate_side = side.duplicate(true)
-		#inv_side.get_material().set_shader_parameter("glow_power", 2.0)
 		duplicate_side.value += 1
-		duplicate_sides.append(duplicate_side)
+		arr.append(duplicate_side)
+		upgrade_frames.append(arr)
 	
 	
 	if side_view == null:
 		return
 	else:
-		side_view.upgrade_frames(die.sides)
-		side_view.upgrade_frames(duplicate_sides)
-		side_view.columns(duplicate_sides.size())
+		side_view.new_frames(upgrade_frames)
 		inventory.current_tab = side_view.get_index()
-	
-	
-	for side in range(die.sides.size() / 2):
-			var die_side = die.sides.pop_back()
 	
 	print("og die sides size 7:", die.sides.size())
 
@@ -120,7 +116,7 @@ func _ready():
 	## setup for dice inventory tab
 	inventory.make_tab("Upgrade Options", PlayerData.dice_bag, inv_dice_visual)
 	## setup for die sides inventory tab
-	inventory.make_tab(side_name, [], inv_side_visual)
+	inventory.make_tab(side_name, [], upgrade_frame)
 	
 	inventory.return_clicked.connect(select_die)
 	await textbox_controller.quick_beat("intro", [], _on_dialogue_transitiond)
