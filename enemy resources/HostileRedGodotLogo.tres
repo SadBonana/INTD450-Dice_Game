@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" path="res://enemy resources/BaseEnemy.gd" id="1_44fdo"]
 [ext_resource type="Resource" uid="uid://dinkuhl73fnn" path="res://die_resources/basic_dice/d3_basic.tres" id="1_amsab"]
+[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="2_lwaki"]
 [ext_resource type="Resource" uid="uid://dp2q4nnem8qg8" path="res://die_resources/basic_dice/d4_basic.tres" id="2_qou56"]
 [ext_resource type="Resource" uid="uid://cd0ef5txxdjcq" path="res://die_resources/basic_dice/d6_basic.tres" id="3_4i3wk"]
-[ext_resource type="Texture2D" path="res://assets/textures/resources/simple enemy.tres" id="5_new0s"]
 
 [resource]
 script = ExtResource("1_44fdo")
-name = "Biblically accurate d4"
-texture = ExtResource("5_new0s")
+name = "Red Godot Logo"
+texture = ExtResource("2_lwaki")
 health = 18
 dice_draws = 2
-sprite_color = Color(1, 1, 1, 1)
+sprite_color = Color(1, 0.0705882, 0.231373, 1)
 dice = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_amsab"), ExtResource("1_amsab"), ExtResource("1_amsab"), ExtResource("1_amsab"), ExtResource("1_amsab"), ExtResource("2_qou56"), ExtResource("2_qou56"), ExtResource("3_4i3wk"), ExtResource("1_amsab"), ExtResource("1_amsab")])

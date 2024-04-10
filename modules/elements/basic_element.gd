@@ -7,7 +7,6 @@ func _init():
 	value = 2
 	effect = StatusEffect.EffectType.BASEEFFECT
 	color = Color.BEIGE
-	icon = null
 	
 ## String representation of the element
 func _to_string():

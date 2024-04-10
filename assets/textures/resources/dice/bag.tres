@@ -1,8 +1,0 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dma85fmsag5cb"]
-
-[ext_resource type="Texture2D" uid="uid://cm70vc1hu7jhh" path="res://assets/textures/dice.png" id="1_07gja"]
-
-[resource]
-atlas = ExtResource("1_07gja")
-region = Rect2(7, 341, 84, 89)
-filter_clip = true

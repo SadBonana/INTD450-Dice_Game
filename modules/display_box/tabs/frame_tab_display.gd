@@ -26,7 +26,7 @@ func _show_frames() -> void:
 		slots.add_child(frame_visual)	# Adds scene as a child to slots, the HFlowContainer in Dicebag
 		frame_visual.update(frame)		# Adds frame information to scene
 		frame_visual.frame_clicked.connect(return_content)
-		#frame_visual.owner = get_tree().get_current_scene()
+		frame_visual.owner = get_tree().get_current_scene()
 		frame_visual = tabobj_ref.get_frame_visual().instantiate()
 		
 func update_frames() -> void:

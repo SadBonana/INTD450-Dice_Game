@@ -1,7 +1,5 @@
-class_name TempSEIcon extends TextureButton
+class_name TempSEIcon extends Button
 
-
-@onready var stack_text = %Stacks
 '''
 var strength: int = 1:
 	set (value):
@@ -12,14 +10,13 @@ var stacks: int = 0:
 	set (value):
 		stacks = value
 		#text = _fstring % [TempSEIcon._to_rom_num(strength), remaining_turns]
-		stack_text.text = _fstring % stacks#[TempSEIcon._to_rom_num(stacks)]
-
+		text = _fstring % [stacks]
 var beneficial: bool
 var color: Color
 var effect: StatusEffect
 
 #static var _fstring := "%s: %d"		# Strength (roman num): turns left
-static var _fstring := "[center]%s[/center]" # stacks
+static var _fstring := "%d" # stacks
 
 ## Loads, attaches to parent, and initializes required parameters all in one go.
 static func instantiate(node_path: String, parent: Node, _effect: StatusEffect):
@@ -59,16 +56,16 @@ static func _to_rom_num(number: int):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#text = _fstring % [TempSEIcon._to_rom_num(strength), stacks]
-	stack_text.text = _fstring % [TempSEIcon._to_rom_num(stacks)]
+	text = _fstring % [stacks]
 	match effect._type:
 		StatusEffect.EffectType.PARALYSIS:
-			set_texture_normal(load("res://assets/textures/resources/elements/lightning.tres"))
+			self_modulate = Color.YELLOW
 		StatusEffect.EffectType.AUTODEFENSE:
-			set_texture_normal(load("res://assets/textures/resources/elements/steel.tres"))
+			self_modulate = Color.LIGHT_STEEL_BLUE
 		StatusEffect.EffectType.IGNITED:
-			set_texture_normal(load("res://assets/textures/resources/elements/fire.tres"))
+			self_modulate = Color.DARK_RED
 		StatusEffect.EffectType.POISONED:
-			set_texture_normal(load("res://assets/textures/resources/elements/poison.tres"))
+			self_modulate = Color.WEB_PURPLE
 
 
 func update():

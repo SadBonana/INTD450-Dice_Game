@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bnkabtm5yrrp"]
-
-[ext_resource type="Texture2D" uid="uid://dfiajiovjkga3" path="res://assets/textures/player enemies flipped.png" id="1_lhrgr"]
-
-[resource]
-atlas = ExtResource("1_lhrgr")
-region = Rect2(160, 653, 62, 85)

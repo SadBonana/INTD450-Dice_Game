@@ -9,10 +9,10 @@
 [ext_resource type="Resource" uid="uid://ltn6e15ghi3j" path="res://die_resources/basic_dice/basic_sides/6_basic_side.tres" id="7_syq6e"]
 [ext_resource type="Resource" uid="uid://cono8cryv20rv" path="res://die_resources/basic_dice/basic_sides/7_basic_side.tres" id="8_m46ek"]
 [ext_resource type="Resource" uid="uid://dw1gnx742jvfe" path="res://die_resources/basic_dice/basic_sides/8_basic_side.tres" id="9_ic2el"]
-[ext_resource type="Texture2D" uid="uid://ub51vrb7awe7" path="res://assets/textures/resources/dice/d8.tres" id="10_ysqr4"]
+[ext_resource type="Texture2D" uid="uid://s0soxu5naf0f" path="res://modules/inventory/images/D8.png" id="10_scx5x"]
 
 [resource]
 script = ExtResource("1_2kfen")
 sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_sfgo3"), ExtResource("3_x8oe1"), ExtResource("4_fpcgv"), ExtResource("5_hppgq"), ExtResource("6_t06pl"), ExtResource("7_syq6e"), ExtResource("8_m46ek"), ExtResource("9_ic2el")])
-texture = ExtResource("10_ysqr4")
+texture = ExtResource("10_scx5x")
 name = "d8"
