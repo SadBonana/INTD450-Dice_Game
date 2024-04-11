@@ -99,8 +99,8 @@ func _on_toggled(toggled_on):
 	all_entities = data.battle.enemies.duplicate()
 	targets = data.battle.enemies.duplicate()
 	if self.side.element is Steel:
-		for enemy in targets:
-			enemy.should_dim(true)
+		#for enemy in targets:
+		#	enemy.should_dim(true)
 		targets.clear()
 	targets.append(data.battle.player)
 	all_entities.append(data.battle.player)
@@ -123,8 +123,8 @@ func _on_toggled(toggled_on):
 			targets[0].grab_focus()
 		
 		target = await data.battle.target_selected
-		for enemy in data.battle.enemies:
-			enemy.should_dim(false)
+		#for enemy in data.battle.enemies:
+		#	enemy.should_dim(false)
 		selected_action = data.ATTACK if target is BattleEnemy else data.DEFEND
 		
 		make_pressed()
