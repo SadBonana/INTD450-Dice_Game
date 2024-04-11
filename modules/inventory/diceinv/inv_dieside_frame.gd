@@ -1,4 +1,5 @@
 extends Panel
+class_name InvDiesideFrame
 
 ## Assigning variables when Scene is created
 @onready var element_visual : ColorRect = $Element
@@ -6,6 +7,7 @@ extends Panel
 @onready var side_value: Label = $Value
 @onready var side_ref: DieSide
 signal frame_clicked(dieside : DieSide)
+
 
 ## Changes label and inventory die texture accordingly
 func update(dieside: DieSide):

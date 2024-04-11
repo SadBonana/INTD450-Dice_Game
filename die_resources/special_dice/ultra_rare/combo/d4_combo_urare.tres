@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Die" load_steps=7 format=3 uid="uid://ixsi8osi87du"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_v7m42"]
+[ext_resource type="Resource" uid="uid://fnj6cjl02yjk" path="res://die_resources/basic_dice/basic_sides/1_basic_side.tres" id="2_rlxx1"]
+[ext_resource type="Resource" uid="uid://jhrqh5b7i4ru" path="res://die_resources/poison_dice/poison_sides/1_poison_side.tres" id="3_7o0t3"]
+[ext_resource type="Resource" uid="uid://crmk0g5628sx7" path="res://die_resources/poison_dice/poison_sides/3_poison_side.tres" id="4_cvilh"]
+[ext_resource type="Resource" uid="uid://cw5osa3jeq7a7" path="res://die_resources/poison_dice/poison_sides/8_poison_side.tres" id="5_askbd"]
+[ext_resource type="Texture2D" uid="uid://dw2fx8b8kx7uy" path="res://assets/textures/resources/dice/d4.tres" id="6_e4o0h"]
+
+[resource]
+script = ExtResource("1_v7m42")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_rlxx1"), ExtResource("3_7o0t3"), ExtResource("4_cvilh"), ExtResource("5_askbd")])
+texture = ExtResource("6_e4o0h")
+name = "d4"

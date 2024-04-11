@@ -252,8 +252,7 @@ func select() -> NT:
 		select = NT.CAMPFIRE
 		
 	elif random_float < treasure_prob_b: #treasure_prob*100%
-		#select = NT.TREASURE
-		select = NT.BATTLE    #TODO: REMOVE POST PLAYTEST
+		select = NT.TREASURE
 		
 	return select
 
@@ -280,7 +279,7 @@ func select_type(node:MapNode) -> NT:
 					prevent_double = true
 	
 	#if depth is 1 then set type to BATTLE
-	if depth == 1:
+	if depth <= 3:
 		return NT.BATTLE
 	
 	if depth == 3:           #only want this to run once, at depth=3 to increase probs
@@ -291,8 +290,8 @@ func select_type(node:MapNode) -> NT:
 	
 	#hardcode depth 4 as treasure, we dont have to do this
 	if depth == 4:
-		#return NT.TREASURE
-		return NT.CAMPFIRE #TODO: CHANGE THIS BACK
+		return NT.TREASURE
+		#return NT.CAMPFIRE #TODO: CHANGE THIS BACK
 	
 	#hardcode depth 6 as workshop
 	#if depth == 6:

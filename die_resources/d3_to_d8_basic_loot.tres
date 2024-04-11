@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LootTable" load_steps=6 format=3 uid="uid://cugg8w1sdc2xl"]
+
+[ext_resource type="Resource" uid="uid://xo41pqglhf05" path="res://die_resources/basic_dice/d8_basic.tres" id="1_6gedy"]
+[ext_resource type="Resource" uid="uid://dinkuhl73fnn" path="res://die_resources/basic_dice/d3_basic.tres" id="1_rp3pt"]
+[ext_resource type="Resource" uid="uid://dp2q4nnem8qg8" path="res://die_resources/basic_dice/d4_basic.tres" id="2_myyoa"]
+[ext_resource type="Resource" uid="uid://cd0ef5txxdjcq" path="res://die_resources/basic_dice/d6_basic.tres" id="3_7w1ae"]
+[ext_resource type="Script" path="res://die_resources/loot_table.gd" id="5_3asgw"]
+
+[resource]
+script = ExtResource("5_3asgw")
+basic_loot = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_rp3pt"), ExtResource("2_myyoa"), ExtResource("3_7w1ae"), ExtResource("1_6gedy")])

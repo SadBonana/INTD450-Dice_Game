@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EncounterTable" load_steps=3 format=3 uid="uid://bb1pie8rao0y7"]
+
+[ext_resource type="Resource" uid="uid://bhidvj4sx2002" path="res://encounter resources/mega_easy_test.tres" id="1_3sbfo"]
+[ext_resource type="Script" path="res://encounter resources/encounter_table.gd" id="1_fstjt"]
+
+[resource]
+script = ExtResource("1_fstjt")
+novice_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([ExtResource("1_3sbfo")])
+standard_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([ExtResource("1_3sbfo")])
+expert_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([ExtResource("1_3sbfo")])
+enemies = Array[Resource("res://enemy resources/BaseEnemy.gd")]([])

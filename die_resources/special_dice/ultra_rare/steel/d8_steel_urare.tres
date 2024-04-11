@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Die" load_steps=8 format=3 uid="uid://d04g7gheyxvgs"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_eqbds"]
+[ext_resource type="Resource" uid="uid://bpgh4yu5ytbf6" path="res://die_resources/steel_dice/steel_sides/4_steel_side.tres" id="2_1x68k"]
+[ext_resource type="Resource" uid="uid://qeeome5drtma" path="res://die_resources/basic_dice/basic_sides/4_basic_side.tres" id="3_ygt3a"]
+[ext_resource type="Resource" uid="uid://c7djdp4l3n80u" path="res://die_resources/steel_dice/steel_sides/6_steel_side.tres" id="4_vcgx3"]
+[ext_resource type="Resource" uid="uid://dqwylerg0sl12" path="res://die_resources/steel_dice/steel_sides/7_steel_side.tres" id="5_in4uy"]
+[ext_resource type="Resource" uid="uid://lkpjrgaaya6u" path="res://die_resources/steel_dice/steel_sides/8_steel_side.tres" id="6_0urts"]
+[ext_resource type="Texture2D" uid="uid://ub51vrb7awe7" path="res://assets/textures/resources/dice/d8.tres" id="7_qpqi1"]
+
+[resource]
+script = ExtResource("1_eqbds")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_1x68k"), ExtResource("2_1x68k"), ExtResource("2_1x68k"), ExtResource("3_ygt3a"), ExtResource("4_vcgx3"), ExtResource("5_in4uy"), ExtResource("6_0urts"), ExtResource("6_0urts")])
+texture = ExtResource("7_qpqi1")
+name = "d8"
