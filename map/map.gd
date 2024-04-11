@@ -22,6 +22,12 @@ func setup():
 	map.set_textures()
 	add_nodes()
 	draw()
+	# Press the start node for the player for QoL reasons
+	for child in bg.get_children():
+		if child.type == NT.START:
+			child._pressed()
+			break
+
 
 func reset():
 	map.queue_free()
@@ -48,7 +54,6 @@ func draw():
 						bg.draw_line(start, end, Color("#b57521", .8), 2)
 					else:
 						bg.draw_line(node.position + margins, child.position + margins, Color.HOT_PINK, 2)
-		
 		)
 		
 func add_nodes():
@@ -83,3 +88,10 @@ func add_nodes():
 			#node.text = text
 			bg.add_child(node)
 
+
+func _on_visibility_changed():
+	if visible:
+		for map_node in bg.get_children():
+			if not map_node.disabled:
+				map_node.grab_focus()
+				break
