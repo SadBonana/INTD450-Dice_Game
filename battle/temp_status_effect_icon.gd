@@ -12,14 +12,14 @@ var stacks: int = 0:
 	set (value):
 		stacks = value
 		#text = _fstring % [TempSEIcon._to_rom_num(strength), remaining_turns]
-		stack_text.text = _fstring % stacks#[TempSEIcon._to_rom_num(stacks)]
+		stack_text.text = _fstring % [color,stacks]#[TempSEIcon._to_rom_num(stacks)]
 
 var beneficial: bool
-var color: Color
+var color : String = "WHITE"
 var effect: StatusEffect
 
 #static var _fstring := "%s: %d"		# Strength (roman num): turns left
-static var _fstring := "[left]%s[/left]" # stacks
+static var _fstring := "[left][color=%s]%s[/color][/left]" # stacks
 
 ## Loads, attaches to parent, and initializes required parameters all in one go.
 static func instantiate(node_path: String, parent: Node, _effect: StatusEffect):
@@ -60,6 +60,7 @@ static func _to_rom_num(number: int):
 func _ready():
 	#text = _fstring % [TempSEIcon._to_rom_num(strength), stacks]
 	stack_text.text = _fstring % [TempSEIcon._to_rom_num(stacks)]
+	color = effect.color
 	match effect._type:
 		StatusEffect.EffectType.PARALYSIS:
 			set_texture_normal(load("res://assets/textures/resources/elements/lightning.tres"))
