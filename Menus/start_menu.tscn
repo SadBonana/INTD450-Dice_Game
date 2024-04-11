@@ -1,11 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddvb8gwrblohv"]
+[gd_scene load_steps=10 format=3 uid="uid://ddvb8gwrblohv"]
 
+[ext_resource type="Texture2D" uid="uid://cwhexgrm5wnio" path="res://assets/textures/player enemies.png" id="1_jtesq"]
 [ext_resource type="Script" path="res://Menus/start_button.gd" id="2_ffffd"]
 [ext_resource type="PackedScene" uid="uid://dmaf74odgy7v6" path="res://Menus/start_button.tscn" id="2_v1kad"]
+[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="3_1w326"]
 [ext_resource type="PackedScene" uid="uid://djhlg0x1wvmi" path="res://Menus/controls_button.tscn" id="3_abhdu"]
 [ext_resource type="PackedScene" uid="uid://c3ardwyvsttr1" path="res://Menus/fps_label.tscn" id="3_smo4h"]
 [ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://Menus/settings_button.tscn" id="4_b5kma"]
 [ext_resource type="PackedScene" uid="uid://c8y350efda5hk" path="res://Menus/quit_button.tscn" id="5_k2kcg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqxo6"]
+atlas = ExtResource("1_jtesq")
+region = Rect2(0, 253, 222, 251)
 
 [node name="start_menu2" type="Control"]
 layout_mode = 3
@@ -28,7 +34,26 @@ grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="start_menu_panel"]
 layout_mode = 2
-color = Color(0.772549, 0.129412, 0.67451, 1)
+color = Color(0, 0, 0, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="start_menu_panel"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="start_menu_panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_aqxo6")
+stretch_mode = 3
+flip_h = true
+
+[node name="TextureRect2" type="TextureRect" parent="start_menu_panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_aqxo6")
+stretch_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="start_menu_panel"]
 layout_mode = 2
@@ -39,34 +64,68 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="start_menu_panel/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="game_name_label" type="Label" parent="start_menu_panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Dice the Dice"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_constants/separation = 10
 
 [node name="start_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("2_v1kad")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+size_flags_stretch_ratio = 7.0
+theme_override_colors/font_pressed_color = Color(0.380392, 0, 0.0588235, 1)
+theme_override_colors/font_hover_color = Color(0, 0.301961, 0.792157, 1)
+theme_override_fonts/font = ExtResource("3_1w326")
+theme_override_font_sizes/font_size = 14
+flat = true
 script = ExtResource("2_ffffd")
 map_scene_path = null
 
 [node name="controls_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("3_abhdu")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_pressed_color = Color(0.380392, 0, 0.0588235, 1)
+theme_override_colors/font_hover_color = Color(0, 0.301961, 0.792157, 1)
+theme_override_fonts/font = ExtResource("3_1w326")
+theme_override_font_sizes/font_size = 14
+text = "Controls"
+flat = true
 
 [node name="settings_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("4_b5kma")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_pressed_color = Color(0.380392, 0, 0.0588235, 1)
+theme_override_colors/font_hover_color = Color(0, 0.301961, 0.792157, 1)
+theme_override_fonts/font = ExtResource("3_1w326")
+theme_override_font_sizes/font_size = 14
+flat = true
 
 [node name="quit_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("5_k2kcg")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_pressed_color = Color(0.380392, 0, 0.0588235, 1)
+theme_override_colors/font_hover_color = Color(0, 0.301961, 0.792157, 1)
+theme_override_fonts/font = ExtResource("3_1w326")
+theme_override_font_sizes/font_size = 14
+flat = true
+
+[node name="game_name_label" type="Label" parent="start_menu_panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("3_1w326")
+theme_override_font_sizes/font_size = 24
+text = "D i c e  O d y s s e y"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="team_name_label" type="Label" parent="start_menu_panel/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_1w326")
+theme_override_font_sizes/font_size = 8
 text = "Dicey Devs"
 horizontal_alignment = 1
 vertical_alignment = 1
