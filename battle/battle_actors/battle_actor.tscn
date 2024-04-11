@@ -55,6 +55,7 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 alignment = 1
 script = ExtResource("1_k0mx3")
+status_effect_scene_path = "res://battle/temp_status_effect_icon.tscn"
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 unique_name_in_owner = true
