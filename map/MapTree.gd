@@ -279,7 +279,7 @@ func select_type(node:MapNode) -> NT:
 					prevent_double = true
 	
 	#if depth is 1 then set type to BATTLE
-	if depth == 1:
+	if depth <= 3:
 		return NT.BATTLE
 	
 	if depth == 3:           #only want this to run once, at depth=3 to increase probs
