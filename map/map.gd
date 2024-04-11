@@ -93,5 +93,5 @@ func _on_visibility_changed():
 	if visible:
 		for map_node in bg.get_children():
 			if not map_node.disabled:
-				map_node.grab_focus()
+				get_tree().create_timer(0.5).timeout.connect(func (): map_node.grab_focus())
 				break
