@@ -15,10 +15,6 @@ follow_focus = true
 script = ExtResource("1_vgmaq")
 bg = NodePath("Nodes")
 
-[node name="BattleMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_esnf3")
-script = ExtResource("3_3wd8c")
-
 [node name="Nodes" type="NinePatchRect" parent="."]
 custom_minimum_size = Vector2(640, 1080)
 layout_mode = 2
