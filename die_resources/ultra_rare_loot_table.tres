@@ -1,11 +1,17 @@
-[gd_resource type="Resource" script_class="LootTable" load_steps=6 format=3 uid="uid://cohodfukkebl2"]
+[gd_resource type="Resource" script_class="LootTable" load_steps=12 format=3 uid="uid://cohodfukkebl2"]
 
-[ext_resource type="Resource" uid="uid://viqrhvmx3ke6" path="res://die_resources/fire_dice/d8_fire.tres" id="1_j5ka5"]
+[ext_resource type="Resource" uid="uid://d04g7gheyxvgs" path="res://die_resources/special_dice/ultra_rare/steel/d8_steel_urare.tres" id="1_58f5a"]
 [ext_resource type="Script" path="res://die_resources/loot_table.gd" id="1_otnmt"]
-[ext_resource type="Resource" uid="uid://ba2trv2uom1p1" path="res://die_resources/lightning_dice/d8_lightning.tres" id="2_jynr7"]
-[ext_resource type="Resource" uid="uid://710q2pu1v2w5" path="res://die_resources/poison_dice/d8_poison.tres" id="3_gan1g"]
-[ext_resource type="Resource" uid="uid://cpmgegja10m5u" path="res://die_resources/steel_dice/d8_steel.tres" id="4_o8tsq"]
+[ext_resource type="Resource" uid="uid://r15nwmcne10k" path="res://die_resources/special_dice/ultra_rare/poison/d8_poison_urare.tres" id="2_5bjhd"]
+[ext_resource type="Resource" uid="uid://7v8ymkve4sg" path="res://die_resources/special_dice/ultra_rare/lightning/d8_lightning_urare.tres" id="3_jcgsq"]
+[ext_resource type="Resource" uid="uid://dhfho7q7facrc" path="res://die_resources/special_dice/ultra_rare/fire/d8_fire_urare.tres" id="4_rytla"]
+[ext_resource type="Resource" uid="uid://nbr47moxx3pw" path="res://die_resources/special_dice/ultra_rare/combo/d4_rainbow_urare.tres" id="5_wtm3r"]
+[ext_resource type="Resource" uid="uid://b5yiwbv6en7tj" path="res://die_resources/special_dice/ultra_rare/combo/d8_combo_urare.tres" id="6_ygt1v"]
+[ext_resource type="Resource" uid="uid://bpln8u8pacceh" path="res://die_resources/special_dice/ultra_rare/combo/d8_rainbow_urare.tres" id="7_thn8v"]
+[ext_resource type="Resource" uid="uid://2omxr1kb725l" path="res://die_resources/special_dice/ultra_rare/combo/d6_combo_urare.tres" id="8_38oyv"]
+[ext_resource type="Resource" uid="uid://ixsi8osi87du" path="res://die_resources/special_dice/ultra_rare/combo/d4_combo_urare.tres" id="9_fa5hm"]
+[ext_resource type="Resource" uid="uid://cnoas5t1s81j8" path="res://die_resources/special_dice/ultra_rare/combo/d6_combo_urare2.tres" id="10_d4ipj"]
 
 [resource]
 script = ExtResource("1_otnmt")
-basic_loot = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_j5ka5"), ExtResource("2_jynr7"), ExtResource("3_gan1g"), ExtResource("4_o8tsq")])
+basic_loot = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_58f5a"), ExtResource("2_5bjhd"), ExtResource("3_jcgsq"), ExtResource("4_rytla"), ExtResource("5_wtm3r"), ExtResource("6_ygt1v"), ExtResource("7_thn8v"), ExtResource("8_38oyv"), ExtResource("9_fa5hm"), ExtResource("10_d4ipj")])
