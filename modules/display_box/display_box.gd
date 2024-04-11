@@ -23,11 +23,11 @@ func _ready():
 ## Hides and unhides the Inventory using the i key
 ## Escape key returns side view to dice view or closes dice view
 func _input(event):
-	if(InputMap.has_action(event.as_text())):
-		if(not is_open and Input.is_action_just_pressed(open_action)): # if string is left empty this is false
+	if event is InputEventKey and event.pressed:
+		if(not is_open and event.keycode == OS.find_keycode_from_string(open_action)): # if string is left empty this is false
 			open()
 			get_viewport().set_input_as_handled()
-		elif(is_open and Input.is_action_just_pressed(close_action)): # if string is left empty this is false
+		elif(is_open and event.keycode == OS.find_keycode_from_string(close_action)): # if string is left empty this is false
 			close()
 			get_viewport().set_input_as_handled()
 			

@@ -22,6 +22,9 @@ var stack_roll : bool
 ## The element's inherent value
 var value : int
 
+## The element's icon
+var icon : Texture2D
+
 ## The color associated with the die element
 var color : Color
 

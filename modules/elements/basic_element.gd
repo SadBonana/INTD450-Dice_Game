@@ -8,6 +8,7 @@ func _init():
 	stack_roll = false
 	effect = StatusEffect.EffectType.BASEEFFECT
 	color = Color.BEIGE
+	icon = null
 	
 ## String representation of the element
 func _to_string():
