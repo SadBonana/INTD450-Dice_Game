@@ -287,8 +287,6 @@ func enemy_turn():
 			effect.apply()
 	
 	for effect in player.status_effects.duplicate():
-		if effect._type == StatusEffect.PARALYSIS:
-			pass
 		if not effect.beneficial:
 			await effect.invoke()
 	player.update_status_effects()
@@ -352,7 +350,9 @@ func _on_ready_pressed():
 			player.defense += die.roll
 			await die.data.effect.apply()
 	
-	await get_tree().create_timer(0.5).timeout #delaying so the player can see the effects apply
+			await get_tree().create_timer(0.5).timeout #delaying so the player can see the effects apply
+
+	await get_tree().create_timer(0.2).timeout
 	
 	#applying buffs before attacking
 	for effect in player.status_effects.duplicate():
@@ -379,6 +379,7 @@ func _on_ready_pressed():
 				if die.data.effect.damaging:
 					SoundManager.attack_sfx.play()
 					await die.target.take_damage(die.roll, player.actor_name)
+					await get_tree().create_timer(0.2).timeout
 				await die.data.effect.apply()
 				
 			#applying buffs after attacking
@@ -393,8 +394,9 @@ func _on_ready_pressed():
 		for effect in enemy.status_effects.duplicate():
 			if enemy != null and enemy.health != 0:
 				#await effect.invoke()
-				if effect._type != StatusEffect.PARALYSIS:
-					await effect.invoke()
+				#if effect._type != StatusEffect.PARALYSIS:
+				await effect.invoke()
+				await get_tree().create_timer(0.5).timeout
 		if enemy != null and enemy.health != 0:
 			enemy.update_status_effects()
 	
