@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="LootTable" load_steps=6 format=3 uid="uid://cohodfukkebl2"]
 
-[ext_resource type="Resource" uid="uid://bhoogonejbwfo" path="res://die_resources/fire_dice/d8_fire.tres" id="1_j5ka5"]
+[ext_resource type="Resource" uid="uid://viqrhvmx3ke6" path="res://die_resources/fire_dice/d8_fire.tres" id="1_j5ka5"]
 [ext_resource type="Script" path="res://die_resources/loot_table.gd" id="1_otnmt"]
-[ext_resource type="Resource" uid="uid://cuj4w15yqeioc" path="res://die_resources/lightning_dice/d8_lightning.tres" id="2_jynr7"]
-[ext_resource type="Resource" uid="uid://b2pedg853kmko" path="res://die_resources/poison_dice/d8_poison.tres" id="3_gan1g"]
-[ext_resource type="Resource" uid="uid://fd6rj4cjxtot" path="res://die_resources/steel_dice/d8_steel.tres" id="4_o8tsq"]
+[ext_resource type="Resource" uid="uid://ba2trv2uom1p1" path="res://die_resources/lightning_dice/d8_lightning.tres" id="2_jynr7"]
+[ext_resource type="Resource" uid="uid://710q2pu1v2w5" path="res://die_resources/poison_dice/d8_poison.tres" id="3_gan1g"]
+[ext_resource type="Resource" uid="uid://cpmgegja10m5u" path="res://die_resources/steel_dice/d8_steel.tres" id="4_o8tsq"]
 
 [resource]
 script = ExtResource("1_otnmt")
