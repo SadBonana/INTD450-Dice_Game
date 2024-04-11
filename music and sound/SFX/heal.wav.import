@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ce4hreeeepqb2"
+path="res://.godot/imported/heal.wav-84ebcb6245c4313d7f48454b76e99139.sample"
+
+[deps]
+
+source_file="res://music and sound/SFX/heal.wav"
+dest_files=["res://.godot/imported/heal.wav-84ebcb6245c4313d7f48454b76e99139.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

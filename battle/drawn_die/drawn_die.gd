@@ -26,7 +26,7 @@ var data: DrawnDieData:
 var side : DieSide:
 		set (side):
 			data.side = side
-			die_type.text = "%d" % side.value
+			die_type.text = "%d" % (max(side.value + mod,0))
 			# Set the color based on the effect of the side.
 			var new_stylebox_normal = get_theme_stylebox(normal_style).duplicate()
 			new_stylebox_normal.bg_color = side.element.color
@@ -37,7 +37,7 @@ var roll: int:
 		set (value):
 			assert(false, "attempt to directly set roll of a DrawnDie object. Set the dieside instead")
 		get:
-			return side.value
+			return max(side.value + mod, 0)
 var effect: StatusEffect.EffectType:
 		set (value):
 			assert(false, "attempt to directly set roll of a DrawnDie object. Set the dieside instead")
@@ -59,6 +59,9 @@ var die: Die:
 		get:
 			return die_ref
 var is_toggled: bool
+var mod : int = 0:
+	set (value):
+		die_type.text = "%d" % (max(side.value + mod,0))
 
 
 ## Loads, attaches to parent, and initializes required parameters all in one go.
@@ -104,6 +107,8 @@ func _on_toggled(toggled_on):
 	targets.append(data.battle.player)
 	all_entities.append(data.battle.player)
 	if toggled_on:
+		#get_node("/root/SoundManager/select").play()
+		SoundManager.select_sfx.play()
 		make_focused_pressed()
 		disable_untargetables(true, self)
 
@@ -145,6 +150,8 @@ func _on_toggled(toggled_on):
 		if not found_next_focus_item:
 			data.battle.ready_button.grab_focus()
 	else:
+		#get_node("/root/SoundManager/alt_select").play()
+		SoundManager.alt_select_sfx.play()
 		disable_untargetables(false)
 		for option in all_entities:
 			option.toggle_target_mode(false, data.battle.target_selected)

@@ -43,7 +43,7 @@ func show_sides(die : Die):
 	for child in inventory.get_children():
 		if child.tabobj_ref.get_tab_title() == side_name:	 #hardcoded cause bro this shit is ass
 			side_view = child
-	
+	SoundManager.select_3.play()
 	var upgrade_frames = []
 	var arr
 	for side in die.sides:
