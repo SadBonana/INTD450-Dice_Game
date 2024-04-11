@@ -204,6 +204,11 @@ func draw_dice():
 		player.dice_hand.append(die)
 	player_status.dice_remaining = player.dice_bag.size()
 	
+	for effect in player.status_effects.duplicate():
+		if effect._type == StatusEffect.PARALYSIS: 
+			await effect.invoke()
+			#await get_tree().create_timer(0.5).timeout
+	
 	# Reset any defense given in the previous turn
 	player.defense = 0
 	for enemy in enemies:
@@ -366,10 +371,14 @@ func _on_ready_pressed():
 			# Account for if a previous die killed the enemy.
 			if not die.target in enemies:
 				await textbox_controller.quick_beat("missed")
-			elif die.data.effect.damaging:
+			#elif die.data.effect.damaging:
+			else:
 				#get_node("/root/SoundManager/attack").play()
-				SoundManager.attack_sfx.play()
-				await die.target.take_damage(die.roll, player.actor_name)
+				#SoundManager.attack_sfx.play()
+				#await die.target.take_damage(die.roll, player.actor_name)
+				if die.data.effect.damaging:
+					SoundManager.attack_sfx.play()
+					await die.target.take_damage(die.roll, player.actor_name)
 				await die.data.effect.apply()
 				
 			#applying buffs after attacking
@@ -383,7 +392,9 @@ func _on_ready_pressed():
 	for enemy in enemies.duplicate():	# Shallow copy, so we don't get rekked when an enemy is removed from enemies on death
 		for effect in enemy.status_effects.duplicate():
 			if enemy != null and enemy.health != 0:
-				await effect.invoke()
+				#await effect.invoke()
+				if effect._type != StatusEffect.PARALYSIS:
+					await effect.invoke()
 		if enemy != null and enemy.health != 0:
 			enemy.update_status_effects()
 	

@@ -59,9 +59,9 @@ var die: Die:
 		get:
 			return die_ref
 var is_toggled: bool
-var mod : int = 0:
+var mod : int :
 	set (value):
-		die_type.text = "%d" % (max(side.value + mod,0))
+		die_type.text = "%d" % (max(side.value + value,0))
 
 
 ## Loads, attaches to parent, and initializes required parameters all in one go.

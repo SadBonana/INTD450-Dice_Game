@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://tnw71h266hvk"]
+[gd_scene load_steps=24 format=3 uid="uid://xhg7bbbe5x0g"]
 
 [ext_resource type="AudioStream" uid="uid://c3gy1rd4js2cm" path="res://music and sound/SFX/attack.wav" id="1_j3ehu"]
 [ext_resource type="Script" path="res://music and sound/scripts/sound_manager.gd" id="1_lw03a"]
