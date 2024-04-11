@@ -82,8 +82,10 @@ func item_generation():
 
 	if rarity_roll >= 0 and rarity_roll <= 60:
 		chosen_loot_table = rare_loot_table
+		print("rare table chosen")
 	else:
 		chosen_loot_table = ultra_rare_loot_table
+		print("ultra rare table chosen")
 
 	# <= does not work, you get 4 die objects
 	while index_of_dropped_die.size() < 3:
@@ -99,7 +101,8 @@ func item_generation():
 			dropped_die_array.append(drop)
 
 		print("index of dropped die array:", index_of_dropped_die)
-	
+		print(drop.name)
+		
 func exit_drop_screen():
 	queue_free()
 	get_node("/root/Map").show()

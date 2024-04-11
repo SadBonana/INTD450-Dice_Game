@@ -1,16 +1,15 @@
-[gd_resource type="Resource" script_class="Die" load_steps=9 format=3 uid="uid://2omxr1kb725l"]
+[gd_resource type="Resource" script_class="Die" load_steps=8 format=3 uid="uid://2omxr1kb725l"]
 
 [ext_resource type="Script" path="res://global scripts/die.gd" id="1_3avpm"]
-[ext_resource type="Resource" uid="uid://fnj6cjl02yjk" path="res://die_resources/basic_dice/basic_sides/1_basic_side.tres" id="2_4xpf8"]
-[ext_resource type="Resource" uid="uid://bqx5d8v76pabp" path="res://die_resources/basic_dice/basic_sides/2_basic_side.tres" id="3_0ne4v"]
-[ext_resource type="Resource" uid="uid://dcukumvqqyc2x" path="res://die_resources/basic_dice/basic_sides/3_basic_side.tres" id="4_6kky4"]
+[ext_resource type="Resource" uid="uid://lo84spmit74s" path="res://die_resources/lightning_dice/lightning_sides/3_lightning_side.tres" id="3_sj82w"]
+[ext_resource type="Resource" uid="uid://1k5gwulcyper" path="res://die_resources/lightning_dice/lightning_sides/4_lightning_side.tres" id="4_imoo8"]
+[ext_resource type="Resource" uid="uid://b1o04r0c8pu5g" path="res://die_resources/poison_dice/poison_sides/5_poison_side.tres" id="5_gvuo2"]
 [ext_resource type="Resource" uid="uid://qeeome5drtma" path="res://die_resources/basic_dice/basic_sides/4_basic_side.tres" id="5_hf1ja"]
-[ext_resource type="Resource" uid="uid://bv8ogi6g6lcwb" path="res://die_resources/basic_dice/basic_sides/5_basic_side.tres" id="6_7lk0h"]
-[ext_resource type="Resource" uid="uid://ltn6e15ghi3j" path="res://die_resources/basic_dice/basic_sides/6_basic_side.tres" id="7_etdey"]
+[ext_resource type="Resource" uid="uid://b5km6mgebjlya" path="res://die_resources/poison_dice/poison_sides/6_poison_side.tres" id="6_jeolq"]
 [ext_resource type="Texture2D" uid="uid://daf3ysqfpw15n" path="res://assets/textures/resources/dice/d6.tres" id="8_ktuon"]
 
 [resource]
 script = ExtResource("1_3avpm")
-sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_4xpf8"), ExtResource("3_0ne4v"), ExtResource("4_6kky4"), ExtResource("5_hf1ja"), ExtResource("6_7lk0h"), ExtResource("7_etdey")])
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("5_hf1ja"), ExtResource("5_hf1ja"), ExtResource("3_sj82w"), ExtResource("4_imoo8"), ExtResource("5_gvuo2"), ExtResource("6_jeolq")])
 texture = ExtResource("8_ktuon")
 name = "d6"
