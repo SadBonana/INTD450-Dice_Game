@@ -16,5 +16,5 @@ func _to_string():
 	
 func info():
 	var fire = "[color=red]Fire[/color]"
-	var text = "%s causes enemies to roll 1 of their dice and take that number as damage. %s also has a chance to spread to enemies." % [fire, fire]
+	var text = "%s does 2 damage per stack. %s also has a chance to reignite and add a stack or to spread to enemies." % [fire, fire]
 	return text

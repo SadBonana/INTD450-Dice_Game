@@ -31,3 +31,13 @@ func fade_out(sound1,sound2):
 		await get_tree().create_timer(0.5).timeout #delaying so the player can see the effects apply
 	sound2.play()
 	sound1.stop()
+
+
+func _on_battle_music_finished():
+	battle_music.play()
+
+func _on_boss_music_finished():
+	boss_music.play()
+
+func _on_boss_intro_finished():
+	boss_music.play()

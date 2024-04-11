@@ -1,15 +1,12 @@
-[gd_scene load_steps=24 format=3 uid="uid://xhg7bbbe5x0g"]
+[gd_scene load_steps=21 format=3 uid="uid://tnw71h266hvk"]
 
 [ext_resource type="AudioStream" uid="uid://c3gy1rd4js2cm" path="res://music and sound/SFX/attack.wav" id="1_j3ehu"]
 [ext_resource type="Script" path="res://music and sound/scripts/sound_manager.gd" id="1_lw03a"]
 [ext_resource type="AudioStream" uid="uid://d3iv3umrviehb" path="res://music and sound/music/battle.wav" id="2_5rthe"]
 [ext_resource type="AudioStream" uid="uid://cby7ghnkyhxhh" path="res://music and sound/SFX/poison_effect.wav" id="3_1y760"]
-[ext_resource type="Script" path="res://music and sound/scripts/BattleMusic.gd" id="3_rjgjc"]
 [ext_resource type="AudioStream" uid="uid://7710i31vponl" path="res://music and sound/SFX/defend_sound.wav" id="3_yj1ch"]
-[ext_resource type="Script" path="res://music and sound/scripts/BossMusic.gd" id="4_5conr"]
 [ext_resource type="AudioStream" uid="uid://bygtyqfkjn0v8" path="res://music and sound/music/boss_loop.wav" id="4_ipihj"]
 [ext_resource type="AudioStream" uid="uid://ccylba0ef5hc3" path="res://music and sound/SFX/fire_effect.wav" id="4_mv5dq"]
-[ext_resource type="Script" path="res://music and sound/BossIntro.gd" id="5_nejl6"]
 [ext_resource type="AudioStream" uid="uid://bgv6xey0ov0tm" path="res://music and sound/SFX/alt_select.wav" id="5_qk0sx"]
 [ext_resource type="AudioStream" uid="uid://b677tiv7dfltf" path="res://music and sound/SFX/select_button.wav" id="6_4jn0i"]
 [ext_resource type="AudioStream" uid="uid://rurke71wogcx" path="res://music and sound/music/boss_intro.wav" id="6_cb1fd"]
@@ -32,15 +29,12 @@ script = ExtResource("1_lw03a")
 
 [node name="BattleMusic" type="AudioStreamPlayer" parent="music"]
 stream = ExtResource("2_5rthe")
-script = ExtResource("3_rjgjc")
 
 [node name="BossMusic" type="AudioStreamPlayer" parent="music"]
 stream = ExtResource("4_ipihj")
-script = ExtResource("4_5conr")
 
 [node name="BossIntro" type="AudioStreamPlayer" parent="music"]
 stream = ExtResource("6_cb1fd")
-script = ExtResource("5_nejl6")
 
 [node name="SFX" type="Node2D" parent="."]
 
@@ -91,3 +85,7 @@ stream = ExtResource("19_nc2eo")
 
 [node name="poison_apply" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("20_5uq12")
+
+[connection signal="finished" from="music/BattleMusic" to="." method="_on_battle_music_finished"]
+[connection signal="finished" from="music/BossMusic" to="." method="_on_boss_music_finished"]
+[connection signal="finished" from="music/BossIntro" to="." method="_on_boss_intro_finished"]

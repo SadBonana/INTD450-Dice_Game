@@ -227,11 +227,12 @@ class Ignited extends StatusEffect:
 		#	await target.take_damage(roll.value, "ignited")
 		#	target.dice_hand[i].side = roll
 		#	target.commit_dice()
-		await target.take_damage(stacks,"fire")
+		await target.take_damage(2 * stacks,"fire")
 		
 		var rng = randf()
 		var limit = min(stacks, 20)
 		var reignite_chance = 0.25 + limit / 50 #every stack increases chance by 2% to a max of 65% total 
+		#var reignite_chance = 1
 		var spread_chance = 0.15 + limit / 50
 		var do_nothing = 1 - (reignite_chance + spread_chance)
 
