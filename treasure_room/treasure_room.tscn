@@ -98,6 +98,7 @@ rare_loot_table = ExtResource("2_4ccpn")
 ultra_rare_loot_table = ExtResource("3_lp0op")
 
 [node name="Nodes" type="NinePatchRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -145,6 +146,7 @@ text = "Skip Reward"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.6
 dialogue_res = SubResource("Resource_08gah")
 
 [node name="Background" type="PanelContainer" parent="VBoxContainer/Textbox Controller"]

@@ -9,6 +9,7 @@ var pressed_path : StyleBox = preload("res://battle/drawn_die/styles/button_batt
 ## name of the styleboxes we wish to change
 var pressed_style = "pressed"
 var normal_style = "normal"
+var is_paused : bool = false
 
 
 signal target_selected(drawndie)
@@ -69,6 +70,15 @@ static func instantiate(node_path: String, parent: Node, _die: Die, battle_conte
 
 	return scene
 	
+func _notification(what):
+	match what:
+		NOTIFICATION_PAUSED:
+			reset_z_ordering()
+			is_paused = true
+		NOTIFICATION_UNPAUSED:
+			is_paused = false
+			
+
 func _ready():
 	var parent = get_parent()
 	if parent.has_method("add_to_dice_with_targets"):
@@ -167,7 +177,8 @@ func _input(event):
 			data.battle.target_selected.emit(null)
 			
 func _change_info_box():
-	data.battle.side_info.get_current_tab_control().new_frames([side])
+	if not is_paused:
+		data.battle.side_info.get_current_tab_control().new_frames([side])
 			
 
 ## A function to disable menus during target selection
@@ -206,18 +217,23 @@ func bring_to_front():
 ## After calling this, drawn dice will overlap however godot feels like making them overlap.
 ## AKA, reset the drawn die overlap behavior to default.
 func reset_z_ordering():
-	for d in data.battle.player.dice_hand:
-		d.z_index = 0
+	if data != null: #check that its not null
+		for d in data.battle.player.dice_hand:
+			d.z_index = 0
 
 
 func _on_focus_entered():
-	bring_to_front()
+	if not is_paused:
+		bring_to_front()
 
 func _on_focus_exited():
-	reset_z_ordering()
+	if not is_paused:
+		reset_z_ordering()
 
 func _on_mouse_entered():
-	bring_to_front()
+	if not is_paused:
+		bring_to_front()
 
 func _on_mouse_exited():
-	reset_z_ordering()
+	if not is_paused:
+		reset_z_ordering()

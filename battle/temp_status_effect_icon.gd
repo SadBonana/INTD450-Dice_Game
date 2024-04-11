@@ -19,7 +19,7 @@ var color: Color
 var effect: StatusEffect
 
 #static var _fstring := "%s: %d"		# Strength (roman num): turns left
-static var _fstring := "[center]%s[/center]" # stacks
+static var _fstring := "[left]%s[/left]" # stacks
 
 ## Loads, attaches to parent, and initializes required parameters all in one go.
 static func instantiate(node_path: String, parent: Node, _effect: StatusEffect):
