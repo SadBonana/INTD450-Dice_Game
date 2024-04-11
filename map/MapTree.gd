@@ -553,6 +553,7 @@ func set_textures() -> void:
 			#var unvisited = start_unvisited
 			var unvisited = start_disabled
 			var focused = start_focused
+			var hovered = start_hovered
 			
 			print(node.type)
 			
@@ -566,13 +567,15 @@ func set_textures() -> void:
 					#unvisited = start_unvisited
 					unvisited = start_disabled
 					focused = start_focused
+					hovered = start_hovered
 					
 				NT.BATTLE: 
 					normal = battle_texture
 					visited = battle_disabled
 					#unvisited = battle_unvisited
 					unvisited = battle_disabled
-					focused = battle_focused        
+					focused = battle_focused
+					hovered = battle_hovered    
 
 				NT.CAMPFIRE:
 					normal = camp_texture
@@ -580,20 +583,23 @@ func set_textures() -> void:
 					#unvisited = camp_unvisited
 					unvisited = camp_disabled
 					focused = camp_focused
+					hovered = camp_hovered
 
 				NT.WORKSHOP:  
 					normal = workshop_texture
 					visited = workshop_disabled
 					#unvisited = workshop_unvisited
 					unvisited = workshop_disabled
-					focused = workshop_focused                  
+					focused = workshop_focused   
+					hovered = workshop_hovered               
 
 				NT.TREASURE:   
 					normal = treasure_texture
 					visited = treasure_disabled
 					#unvisited = treasure_unvisited
 					unvisited = treasure_disabled
-					focused = treasure_focused                  
+					focused = treasure_focused
+					hovered = treasure_hovered                 
 				
 				NT.BOSS:
 					normal = boss_texture
@@ -601,8 +607,9 @@ func set_textures() -> void:
 					#unvisited = boss_unvisited
 					unvisited = boss_disabled
 					focused = boss_focused
+					hovered = boss_hovered
 					
-			node.set_textures(normal, visited, unvisited, focused)
+			node.set_textures(normal, visited, unvisited, focused, hovered)
 	return
 
 func centre_points() -> void:

@@ -34,3 +34,11 @@ class_name BaseMapTree
 @export var start_focused: AtlasTexture
 @export var workshop_focused: AtlasTexture
 @export var boss_focused: AtlasTexture
+
+@export_subgroup("Hovered")
+@export var camp_hovered: AtlasTexture
+@export var treasure_hovered: AtlasTexture
+@export var battle_hovered: AtlasTexture
+@export var start_hovered: AtlasTexture
+@export var workshop_hovered: AtlasTexture
+@export var boss_hovered: AtlasTexture

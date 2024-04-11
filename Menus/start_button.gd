@@ -21,6 +21,10 @@ func _on_pressed():
 	get_node("/root/Map/BattleMusic").play()
 	PlayerData.reset()
 	start_menu.get_parent_control().visible = false
+	for map_node in get_node("/root/Map/Nodes").get_children():
+		if not map_node.disabled:
+			map_node.grab_focus()
+			break
 
 #func _pressed():
 	#get_node("/root/start_menu").visible = false
