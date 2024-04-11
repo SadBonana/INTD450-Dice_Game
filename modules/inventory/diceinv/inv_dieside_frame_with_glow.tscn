@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfymsbtolism2"]
+
+[ext_resource type="Shader" path="res://modules/inventory/diceinv/inv_dieside_frame_glow.gdshader" id="1_0s7f8"]
+[ext_resource type="Script" path="res://modules/inventory/diceinv/inv_dieside_frame_with_glow.gd" id="2_qy4ig"]
+[ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="2_r4fyo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_15qpw"]
+shader = ExtResource("1_0s7f8")
+shader_parameter/glow_color = Color(0.2, 0.6, 0.3, 1)
+shader_parameter/glow_power = 2.0
+shader_parameter/glow_shift = 1.0
+shader_parameter/glow_radius = 1.0
+
+[node name="DieSideGlow" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_15qpw")
+custom_minimum_size = Vector2(75, 75)
+offset_right = 75.0
+offset_bottom = 75.0
+script = ExtResource("2_qy4ig")
+
+[node name="Element" type="ColorRect" parent="."]
+show_behind_parent = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Type" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_r4fyo")
+text = "Basic"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_r4fyo")
+theme_override_font_sizes/font_size = 44
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1

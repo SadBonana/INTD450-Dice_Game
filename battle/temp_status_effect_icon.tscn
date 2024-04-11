@@ -1,12 +1,41 @@
-[gd_scene load_steps=3 format=3 uid="uid://d27yg3qgsbwxp"]
+[gd_scene load_steps=4 format=3 uid="uid://d27yg3qgsbwxp"]
 
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="1_1kqdd"]
+[ext_resource type="Texture2D" uid="uid://cswe1gnj4fufy" path="res://assets/textures/resources/elements/steel.tres" id="1_k1jov"]
 [ext_resource type="Script" path="res://battle/temp_status_effect_icon.gd" id="2_fh3yk"]
 
-[node name="Button" type="Button"]
-theme_override_fonts/font = ExtResource("1_1kqdd")
-theme_override_font_sizes/font_size = 8
-text = "IV: 9"
+[node name="Icon" type="TextureButton"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("1_k1jov")
 script = ExtResource("2_fh3yk")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 18.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 1
+
+[node name="Stacks" type="RichTextLabel" parent="MarginContainer"]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("1_1kqdd")
+theme_override_font_sizes/normal_font_size = 0
+theme_override_font_sizes/mono_font_size = 0
+bbcode_enabled = true
+text = "[left]3[/left]"
+fit_content = true
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

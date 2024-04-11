@@ -10,7 +10,6 @@ signal target_selected(target)
 
 # File paths for scene changes and sub-scene instantiations.
 @export_file("*.tscn") var drawn_die_path
-@export_file("*.tscn") var map_path
 @export_file("*.tscn") var loot_screen_path
 
 # Enemy
@@ -46,6 +45,7 @@ var defeated_enemies = []
 @onready var inventory := %"Inventory"
 @onready var player := %"Battle Player"
 @onready var ready_button := %Ready
+@onready var battle_container := %BattleContainer
 
 
 ## Inventory
@@ -119,7 +119,7 @@ func _ready():
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
 	# line of code
 	drawn_die_placeholder.hide()
-	
+	inventory.just_opened.connect(pause_battle)
 	## setup for dice inventory tab
 	inventory.make_tab("In Bag", player.dice_bag,inv_dice_visual)
 	## setup for used inventory tab
@@ -176,6 +176,10 @@ func show_sides(die : Die):
 	else:
 		side_view.new_frames(die.sides)
 		inventory.current_tab = side_view.get_index()
+		
+func pause_battle(should_pause : bool):
+		get_tree().paused = should_pause
+		
 ## Starts a turn.
 ##
 ## First, enemies draw dice from their bags, then players do, then reset everyone's defense, then
@@ -207,6 +211,18 @@ func draw_dice():
 		enemy.defense = 0
 	
 	if player.dice_hand.size() > 0:
+		# Set focus neighbors for the dice in the players hand. Needed since
+		# making the dice overlap messed with godot's ability to do it automatically.
+		var prev_d: DrawnDie
+		for d in player.dice_hand:
+			if not d.visible:
+				continue
+			if prev_d and prev_d is DrawnDie:
+				prev_d.focus_neighbor_right = d.get_path()
+				prev_d.focus_next = d.get_path()
+				d.focus_previous = prev_d.get_path()
+				d.focus_neighbor_left = prev_d.get_path()
+			prev_d = d
 		player.dice_hand[0].grab_focus()
 	else:
 		ready_button.grab_focus()

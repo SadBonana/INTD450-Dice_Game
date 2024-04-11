@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="LootTable" load_steps=17 format=3 uid="uid://cqxhmeluf1nvj"]
+
+[ext_resource type="Script" path="res://die_resources/loot_table.gd" id="1_4rtxk"]
+[ext_resource type="Resource" uid="uid://cs0vlolagt8st" path="res://die_resources/special_dice/uncommon/poison/d4_poison_unbalanced.tres" id="1_4054k"]
+[ext_resource type="Resource" uid="uid://cuva1akx8dv1n" path="res://die_resources/poison_dice/d6_poison.tres" id="2_108u7"]
+[ext_resource type="Resource" uid="uid://3jnf5uvnsqag" path="res://die_resources/special_dice/uncommon/poison/d4_poison_unbalanced2.tres" id="3_kufw5"]
+[ext_resource type="Resource" uid="uid://b0gcitx4165ps" path="res://die_resources/steel_dice/d6_steel.tres" id="4_jatvq"]
+[ext_resource type="Resource" uid="uid://dxisnsddg7vwu" path="res://die_resources/special_dice/uncommon/steel/d4_steel_unbalanced2.tres" id="5_ewbvk"]
+[ext_resource type="Resource" uid="uid://ctss5vjaf3ts1" path="res://die_resources/special_dice/uncommon/steel/d4_steel_unbalanced.tres" id="6_rwkk5"]
+[ext_resource type="Resource" uid="uid://t817chf7mp53" path="res://die_resources/fire_dice/d6_fire.tres" id="7_07jo5"]
+[ext_resource type="Resource" uid="uid://c1gldggsvmalq" path="res://die_resources/special_dice/uncommon/fire/d6_fire_gamble.tres" id="8_up1jk"]
+[ext_resource type="Resource" uid="uid://cj3ucfoxhihd" path="res://die_resources/special_dice/uncommon/fire/d4_fire_uncommon.tres" id="9_idwd0"]
+[ext_resource type="Resource" uid="uid://ce55yc5ecigur" path="res://die_resources/lightning_dice/d6_lightning.tres" id="10_8ex8u"]
+[ext_resource type="Resource" uid="uid://k60l4mbcmtao" path="res://die_resources/special_dice/uncommon/lightning/d4_lightning_uncommon.tres" id="11_kgp6a"]
+[ext_resource type="Resource" uid="uid://bn1x1caxis8oi" path="res://die_resources/special_dice/uncommon/lightning/d6_lightning_gamble.tres" id="12_4r1uc"]
+[ext_resource type="Resource" uid="uid://d14ogtfldppye" path="res://die_resources/special_dice/uncommon/combo/d4_rainbow_uncommon.tres" id="13_kjngf"]
+[ext_resource type="Resource" uid="uid://bkmwefl1qh8to" path="res://die_resources/special_dice/uncommon/combo/d6_combo2_uncommon.tres" id="14_gcdof"]
+[ext_resource type="Resource" uid="uid://d1nmmo2cd5l1u" path="res://die_resources/special_dice/uncommon/combo/d6_combo_uncommon.tres" id="15_pcn4o"]
+
+[resource]
+script = ExtResource("1_4rtxk")
+basic_loot = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_4054k"), ExtResource("2_108u7"), ExtResource("3_kufw5"), ExtResource("4_jatvq"), ExtResource("5_ewbvk"), ExtResource("6_rwkk5"), ExtResource("7_07jo5"), ExtResource("8_up1jk"), ExtResource("9_idwd0"), ExtResource("10_8ex8u"), ExtResource("11_kgp6a"), ExtResource("12_4r1uc"), ExtResource("13_kjngf"), ExtResource("14_gcdof"), ExtResource("15_pcn4o")])

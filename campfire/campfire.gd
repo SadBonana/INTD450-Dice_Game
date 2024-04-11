@@ -1,10 +1,14 @@
 extends Control
 
-@export_file("*.tscn") var map_path
-#@export_file("*.tscn") var upgrade_path
-var upgrade_path = "res://campfire/proficiency_upgrade.tscn"
+@export_file("*.tscn") var upgrade_path
+@onready var heal_button = $MarginContainer/VBoxContainer/HBocContainer/HealButton
+@onready var campfire_scene = $"."
 
-var recover_health_by = 15
+var recover_health_by = int(ceil(PlayerData.hp / 2))
+
+func _ready():
+	heal_button.text = "Recover %d Health" % recover_health_by
+	print("recover by:", recover_health_by)
 
 
 func _on_heal_button_pressed():
@@ -24,7 +28,5 @@ func _on_heal_button_pressed():
 
 
 func _on_upgrade_die_button_pressed():
+	campfire_scene.hide()
 	get_tree().change_scene_to_file(upgrade_path)
-	queue_free()  
-	get_node("/root/Map").visible = true        #TODO fix this jank code
-	#get_tree().change_scene_to_file("res://campfire/proficiency_upgrade.tscn")

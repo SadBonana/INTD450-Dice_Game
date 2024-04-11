@@ -1,16 +1,60 @@
-[gd_scene load_steps=4 format=3 uid="uid://biq23c5tqviqm"]
+[gd_scene load_steps=13 format=3 uid="uid://biq23c5tqviqm"]
 
 [ext_resource type="Script" path="res://campfire/proficiency_upgrade.gd" id="1_iw31s"]
-[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_8tmam"]
+[ext_resource type="Resource" uid="uid://cfwcn8txtyhsv" path="res://global scripts/initial bag/elemental_d6_bag.tres" id="2_fpyou"]
+[ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="2_i5kku"]
+[ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="2_qnwa2"]
+[ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="3_ju3x2"]
+[ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="4_etjvx"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3f6up"]
+[sub_resource type="Resource" id="Resource_822hc"]
+resource_name = "intro"
+script = ExtResource("3_ju3x2")
+unique_name = "intro"
+text = "You have selected the proficiency upgrade option. Select a die for upgrade!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_wxl40"]
+resource_name = "directions"
+script = ExtResource("3_ju3x2")
+unique_name = "directions"
+text = "Select a die to preview its upgrade!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_0rp4l"]
+resource_name = "confirm"
+script = ExtResource("3_ju3x2")
+unique_name = "confirm"
+text = "Do you want to select this die for upgrade?"
+jumps = Array[String]([])
+choices = Array[String](["Yes", "No"])
+end_conversation = true
+
+[sub_resource type="Resource" id="Resource_6e130"]
+resource_name = "congrats"
+script = ExtResource("3_ju3x2")
+unique_name = "congrats"
+text = "Congrats! You upgraded your die!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_aposx"]
+script = ExtResource("4_etjvx")
+beats = Array[ExtResource("3_ju3x2")]([SubResource("Resource_822hc"), SubResource("Resource_wxl40"), SubResource("Resource_0rp4l"), SubResource("Resource_6e130")])
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4af6"]
 bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 
-[node name="ProficiencyUpgrade" type="Control" node_paths=PackedStringArray("textbox", "textboxLabel")]
+[node name="ProficiencyUpgrade" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,55 +62,56 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iw31s")
-map_path = "res://map/map.tscn"
-textbox = NodePath("Textbox")
-textboxLabel = NodePath("Textbox/MarginContainer/Label")
+temp_dice_bag_init = ExtResource("2_fpyou")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.984314, 0.184314, 0.109804, 1)
 
-[node name="Textbox" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = 91.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3f6up")
+[node name="inventory_container" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="Textbox"]
+[node name="dice_bag" parent="VBoxContainer/inventory_container" instance=ExtResource("2_i5kku")]
+layout_mode = 2
+tabs_visible = false
+
+[node name="choices_container" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.6
+
+[node name="Textbox Controller" parent="VBoxContainer/choices_container" instance=ExtResource("2_qnwa2")]
+layout_mode = 2
+size_flags_horizontal = 3
+dialogue_res = SubResource("Resource_aposx")
+
+[node name="Text" parent="VBoxContainer/choices_container/Textbox Controller/Textbox/MarginContainer/VBoxContainer" index="0"]
+size_flags_stretch_ratio = 1.0
+
+[node name="Choices" parent="VBoxContainer/choices_container/Textbox Controller/Textbox/MarginContainer/VBoxContainer" index="1"]
+size_flags_vertical = 3
+
+[node name="Background" type="PanelContainer" parent="VBoxContainer/choices_container/Textbox Controller"]
+unique_name_in_owner = true
+show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v4af6")
 
-[node name="Label" type="Label" parent="Textbox/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("2_8tmam")
-theme_override_font_sizes/font_size = 8
-text = "A GODOT LOGO Appears"
-
-[node name="Ticker" type="Label" parent="Textbox/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("2_8tmam")
-theme_override_font_sizes/font_size = 8
-text = ">"
+[editable path="VBoxContainer/choices_container/Textbox Controller"]
