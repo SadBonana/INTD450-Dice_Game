@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbhr5ye2on3mo"]
 
 [ext_resource type="Script" path="res://menus/settings_button.gd" id="1_415ir"]
-[ext_resource type="PackedScene" uid="uid://b0rmrjb71troy" path="res://menus/settings_menu.tscn" id="2_mgncs"]
+[ext_resource type="PackedScene" uid="uid://b0rmrjb71troy" path="res://Menus/settings_menu.tscn" id="2_mgncs"]
 
 [node name="settings_button" type="Button"]
 focus_neighbor_top = NodePath("../controls_button")

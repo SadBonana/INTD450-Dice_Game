@@ -14,4 +14,6 @@ func _process(delta):
 
 
 func _on_pressed():
-	settings_menu.popup_centered()
+	SoundManager.select_2.play()
+	#settings_menu.popup_centered()
+	settings_menu.show()

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bygtyqfkjn0v8"
+path="res://.godot/imported/boss_loop.wav-df9eed5d720dc6eb19fdb3479fbabccf.sample"
+
+[deps]
+
+source_file="res://music and sound/music/boss_loop.wav"
+dest_files=["res://.godot/imported/boss_loop.wav-df9eed5d720dc6eb19fdb3479fbabccf.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

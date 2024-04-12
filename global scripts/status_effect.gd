@@ -1,3 +1,5 @@
+extends Node
+
 class_name StatusEffect
 
 enum EffectType {BASEEFFECT, PARALYSIS, AUTODEFENSE, IGNITED, POISONED}
@@ -41,8 +43,8 @@ func invoke():
 # This effect adds 1 stack when used on a target that already has it.
 # All this stuff is subject to change.
 class Paralysis extends StatusEffect:
-	func _init(_textbox: TextboxController, _target: BattleActor, stacks := 1):
-		super(_textbox, _target, stacks)
+	func _init(_textbox: TextboxController, _target: BattleActor):
+		super(_textbox, _target, 1)
 		_type = EffectType.PARALYSIS
 		color="REBECCA_PURPLE"
 		description_beat = "paralysis description"
@@ -54,18 +56,19 @@ class Paralysis extends StatusEffect:
 		# We could alternatively have it refresh the duration as well.
 		for effect in target.status_effects:
 			if effect._type == EffectType.PARALYSIS:
-
-				effect.stacks += stacks
+				SoundManager.lightning_apply.play()
+				effect.stacks += 1
 
 				target.update_status_effects()
 				if textbox_enabled:
 					await textbox.quick_beat("paralyzed", [stacks, target.dice_draws])
-				_invoke_helper()	# We expect this one to take effect immediately
+				#_invoke_helper()	# We expect this one to take effect immediately
 				return true
+		SoundManager.lightning_apply.play()
 		target.add_status_effect(self)
 		if textbox_enabled:
 			await textbox.quick_beat("paralyzed", [stacks, target.dice_draws])
-		_invoke_helper()	# We expect this one to take effect immediately
+		#_invoke_helper()	# We expect this one to take effect immediately
 		return true
 	
 	
@@ -73,6 +76,8 @@ class Paralysis extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
+		#get_node("/root/SoundManager/select").play()
+		SoundManager.error.play()
 		_invoke_helper()
 		if textbox_enabled:
 			await textbox.quick_beat("paralyzed invoke", [target.actor_name, target.dice_hand.size()])
@@ -87,14 +92,34 @@ class Paralysis extends StatusEffect:
 		# Functional but less juicy way to implement paralysis:
 		# target discards a die from their hand every turn.
 		#for i in range(strength):
-		if stacks > 0 and target.dice_hand.size() > 0:
-			var die = target.dice_hand.back()
-			if target is BattlePlayer:
-				#target.used_dice.append(die.die)
-				die.visible = false
+		#if stacks > 0 and target.dice_hand.size() > 0:
+		if target is BattlePlayer:
+			for i in range(stacks):
+				var max_die = argmax(target.dice_hand)
+				var die = target.dice_hand[max_die]
+				#if target is BattlePlayer:
+					#target.used_dice.append(die.die)
+					#die.visible = false
+					#die.roll = max(die.roll - 2 * stacks, 0)
+					#target.damage = max(target.attack - 2 * stacks, 0)
+				die.mod = -2
+		else:
 			target.commit_dice()
 
-
+func argmax(dice_hand : Array) -> int:
+	var max = -1
+	var index = -1
+	for i in range(dice_hand.size()):
+		if dice_hand[i].side.value > max:
+			max = dice_hand[i].side.value
+			index = i
+		
+		if dice_hand[i].side.value == max:
+			
+			var rand_f = randf() 
+			if rand_f < 0.5:     #breaking ties randomly
+				index = i
+	return index
 
 class Autodefense extends StatusEffect:
 	func _init(_textbox: TextboxController, _target: BattleActor, _stacks: int):
@@ -113,10 +138,17 @@ class Autodefense extends StatusEffect:
 		# added defence based on the total number of stacks
 		for effect in target.status_effects:
 			if effect._type == AUTODEFENSE:
+
+				SoundManager.autodefense_2.play()
 				effect.stacks += stacks
+				
+				#await get_tree().create_timer(0.5).timeout
+				
+				#SoundManager.defend_2.play()
 				target.defense += effect.stacks# We expect buffs to activate the turn they are used.
 				target.update_status_effects()
 				return true
+		SoundManager.autodefense_2.play()
 		target.add_status_effect(self)
 		if textbox_enabled:
 			await textbox.quick_beat("autodefense")
@@ -128,6 +160,8 @@ class Autodefense extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
+		#get_node("/root/SoundManager/defend").play()
+		SoundManager.defend_2.play()
 		target.defense += stacks
 		stacks -= 1
 		if stacks == 0:
@@ -164,9 +198,11 @@ class Ignited extends StatusEffect:
 		# Adding ignition stacks extendds duration.
 		for effect in target.status_effects:
 			if effect._type == EffectType.IGNITED:
-				effect.stacks += 1
+				SoundManager.fire_apply.play()
+				effect.stacks += stacks
 				target.update_status_effects()
 				return true
+		SoundManager.fire_apply.play()
 		target.add_status_effect(self)
 		if textbox_enabled:
 			await textbox.quick_beat("on fire")
@@ -177,21 +213,38 @@ class Ignited extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
-		var burning_dice = min(stacks, target.dice_hand.size())
-		if burning_dice > 0:
-			if textbox_enabled:
-				await textbox.quick_beat("ignited invoke", [burning_dice])
-		for i in range(burning_dice):
-			var roll = target.dice_hand[i].die.roll()
-			# Made it compare values instead of sides cause i think it could be more interesting. Might wanna nerf later tho.
-			if roll.value == target.dice_hand[i].die.sides[0].value:
-				# FIXME: If we ever teach enemies shadow clone jutsu, old fire won't spread to the clones this way:
-				var new_ignition = Ignited.new(textbox, spread_targets.pick_random(), spread_targets)
-				await new_ignition.apply()
+		SoundManager.fire_sfx.play()
+		
+		#var burning_dice = min(stacks, target.dice_hand.size())
+		#if burning_dice > 0:
+		#	if textbox_enabled:
+		#		await textbox.quick_beat("ignited invoke", [burning_dice])
+		#for i in range(burning_dice):
+		#	var roll = target.dice_hand[i].die.roll()
+		#	# Made it compare values instead of sides cause i think it could be more interesting. Might wanna nerf later tho.
+		#	if roll.value == target.dice_hand[i].die.sides[0].value:
+		#		# FIXME: If we ever teach enemies shadow clone jutsu, old fire won't spread to the clones this way:
+		#		var new_ignition = Ignited.new(textbox, spread_targets.pick_random(), spread_targets)
+		#		await new_ignition.apply()
 
-			await target.take_damage(roll.value, "ignited")
-			target.dice_hand[i].side = roll
-			target.commit_dice()
+		#	await target.take_damage(roll.value, "ignited")
+		#	target.dice_hand[i].side = roll
+		#	target.commit_dice()
+		await target.take_damage(2 * stacks,"fire")
+		
+		var rng = randf()
+		var limit = min(stacks, 20)
+		var reignite_chance = 0.25 + limit / 50 #every stack increases chance by 2% to a max of 65% total 
+		#var reignite_chance = 1
+		var spread_chance = 0.15 + limit / 50
+		var do_nothing = 1 - (reignite_chance + spread_chance)
+
+		if rng < reignite_chance:
+			stacks += 2 #extends duration by 2 stacks
+		elif rng < reignite_chance + spread_chance:
+			var new_ignition = Ignited.new(textbox, spread_targets.pick_random(), spread_targets)
+			await new_ignition.apply()
+			
 		stacks -= 1	# NOTE: if high ignited stacks is too overpowered, can nerf it by indenting this line by one. Discovered thanks to a bug lol.
 		if stacks == 0:
 			target.remove_status_effect(self)
@@ -216,9 +269,11 @@ class Poisoned extends StatusEffect:
 		# determined by the roll (or strength).
 		for effect in target.status_effects:
 			if effect._type == EffectType.POISONED:
-				effect.stacks = stacks
+				SoundManager.poison_apply.play()
+				effect.stacks += stacks
 				target.update_status_effects()
 				return true
+		SoundManager.poison_apply.play()
 		target.add_status_effect(self)
 		if textbox_enabled:
 			await textbox.quick_beat("poisoned")
@@ -229,6 +284,8 @@ class Poisoned extends StatusEffect:
 	## status effect.
 	## Return whether the effect should be removed this turn
 	func invoke():
+		#get_node("/root/SoundManager/poison_effect").play()
+		SoundManager.poison_sfx.play()
 		if textbox_enabled:
 			await textbox.quick_beat("poison invoke")
 		await target.take_damage(stacks, "poison")
