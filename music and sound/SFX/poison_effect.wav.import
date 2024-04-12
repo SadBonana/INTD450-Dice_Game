@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cby7ghnkyhxhh"
+path="res://.godot/imported/poison_effect.wav-44311f77e444c2b705fe456171f689ce.sample"
+
+[deps]
+
+source_file="res://music and sound/SFX/poison_effect.wav"
+dest_files=["res://.godot/imported/poison_effect.wav-44311f77e444c2b705fe456171f689ce.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

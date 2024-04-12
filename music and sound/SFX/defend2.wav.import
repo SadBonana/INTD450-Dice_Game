@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://btv6oapfrymec"
+path="res://.godot/imported/defend2.wav-2f67f87974f4772a28303c01a7b0247b.sample"
+
+[deps]
+
+source_file="res://music and sound/SFX/defend2.wav"
+dest_files=["res://.godot/imported/defend2.wav-2f67f87974f4772a28303c01a7b0247b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

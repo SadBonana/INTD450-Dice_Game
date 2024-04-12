@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+SoundManager="*res://music and sound/sound_manager.tscn"
 SaveSettings="*res://Menus/save_settings.gd"
 GlobalSettings="*res://Menus/global_settings.gd"
 NodeType="*res://map/NodeType.gd"

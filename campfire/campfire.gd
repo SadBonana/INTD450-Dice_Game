@@ -13,6 +13,7 @@ func _ready():
 
 func _on_heal_button_pressed():
 	# TODO: Should prolly be text box rather than a print statement
+	SoundManager.heal.play()
 	print("I currently have %d health" % PlayerData.hp)
 	
 	PlayerData.hp += recover_health_by
