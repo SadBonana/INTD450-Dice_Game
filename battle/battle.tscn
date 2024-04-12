@@ -124,6 +124,12 @@ layout_mode = 2
 size_flags_horizontal = 2
 size_flags_stretch_ratio = 3.0
 
+[node name="PanelContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player" index="0"]
+visible = false
+
+[node name="Status Effects" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player/PanelContainer/MarginContainer" index="0"]
+size_flags_horizontal = 1
+
 [node name="Shield" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player" index="1"]
 size_flags_vertical = 0
 
