@@ -1,15 +1,14 @@
-[ext_resource type="Script" path="res://menus/start_menu.gd" id="1_xqds2"]
-[gd_scene load_steps=10 format=3 uid="uid://ddvb8gwrblohv"]
+[gd_scene load_steps=11 format=3 uid="uid://ddvb8gwrblohv"]
 
+[ext_resource type="Script" path="res://menus/start_menu.gd" id="1_fal63"]
 [ext_resource type="Texture2D" uid="uid://cwhexgrm5wnio" path="res://assets/textures/player enemies.png" id="1_jtesq"]
 [ext_resource type="Script" path="res://Menus/start_button.gd" id="2_ffffd"]
-[ext_resource type="PackedScene" uid="uid://dmaf74odgy7v6" path="res://Menus/start_button.tscn" id="2_v1kad"]
-
-
+[ext_resource type="PackedScene" path="res://Menus/start_button.tscn" id="2_v1kad"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="3_1w326"]
-[ext_resource type="PackedScene" uid="uid://c3ardwyvsttr1" path="res://Menus/fps_label.tscn" id="3_smo4h"]
-[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://Menus/settings_button.tscn" id="4_b5kma"]
-[ext_resource type="PackedScene" uid="uid://c8y350efda5hk" path="res://Menus/quit_button.tscn" id="5_k2kcg"]
+[ext_resource type="PackedScene" path="res://Menus/controls_button.tscn" id="3_abhdu"]
+[ext_resource type="PackedScene" path="res://Menus/fps_label.tscn" id="3_smo4h"]
+[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://menus/settings_button.tscn" id="4_b5kma"]
+[ext_resource type="PackedScene" path="res://Menus/quit_button.tscn" id="5_k2kcg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aqxo6"]
 atlas = ExtResource("1_jtesq")
@@ -24,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("1_xqds2")
+script = ExtResource("1_fal63")
 
 [node name="start_menu_panel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
@@ -35,7 +34,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NinePatchRect" type="NinePatchRect" parent="start_menu_panel"]
+[node name="ColorRect" type="ColorRect" parent="start_menu_panel"]
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
@@ -69,10 +68,8 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="start_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("1_c6ght")]
+[node name="start_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("2_v1kad")]
 layout_mode = 2
-focus_neighbor_top = NodePath("../quit_button")
-focus_neighbor_bottom = NodePath("../settings_button")
 size_flags_horizontal = 4
 size_flags_vertical = 10
 size_flags_stretch_ratio = 7.0
@@ -84,15 +81,8 @@ flat = true
 script = ExtResource("2_ffffd")
 map_scene_path = null
 
-[node name="settings_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("3_wr0pd")]
+[node name="controls_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("3_abhdu")]
 layout_mode = 2
-focus_neighbor_top = NodePath("../start_button")
-focus_neighbor_bottom = NodePath("../quit_button")
-
-[node name="quit_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("4_inngh")]
-layout_mode = 2
-focus_neighbor_top = NodePath("../settings_button")
-focus_neighbor_bottom = NodePath("../start_button")
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/font_pressed_color = Color(0.380392, 0, 0.0588235, 1)
@@ -142,7 +132,8 @@ text = "Dicey Devs"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="fps_label" parent="start_menu_panel/MarginContainer" instance=ExtResource("5_fjfjf")]
+[node name="fps_label" parent="start_menu_panel/MarginContainer" instance=ExtResource("3_smo4h")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0

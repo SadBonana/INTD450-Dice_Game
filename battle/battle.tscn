@@ -174,10 +174,11 @@ theme_override_constants/separation = 10
 [node name="PlayerStatusMargin" type="MarginContainer" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
 layout_mode = 2
 
-[node name="Player Status" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin" instance=ExtResource("6_0lq60")]
+[node name="Player Status" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin" node_paths=PackedStringArray("dice_selected") instance=ExtResource("6_0lq60")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
+dice_selected = NodePath("Bag Sprite/Dice Selected")
 
 [node name="Bag Sprite" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status" index="1"]
 stretch_mode = 3
@@ -191,7 +192,7 @@ offset_left = -44.0
 offset_right = 44.0
 offset_bottom = 8.0
 
-[node name="Dice Selected2" type="Label" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status/Bag Sprite" index="1"]
+[node name="Dice Selected" type="Label" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status/Bag Sprite" index="1"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -293,8 +294,13 @@ close_action = "I"
 [connection signal="pressed" from="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu/Ready" to="." method="_on_ready_pressed"]
 [connection signal="pressed" from="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu/Run" to="." method="_on_run_pressed"]
 
+[editable path="BattleContainer/MarginContainer/TopPanel/MarginContainer/Side Info"]
 [editable path="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player"]
 [editable path="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player/damage_indicator"]
+[editable path="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy"]
+[editable path="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy/HealthBar"]
+[editable path="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy/damage_indicator"]
 [editable path="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status"]
+[editable path="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status/Player Health and Name/Health Bar"]
 [editable path="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu"]
 [editable path="BattleContainer/PlayerPanel/MarginContainer/Textbox Controller"]

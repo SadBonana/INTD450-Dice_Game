@@ -18,15 +18,19 @@ var map_scene 	= preload("res://map/MapTree.tscn")
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
 @onready var side_name = "Sides"
-@onready var inventory = %"Display Box"
+
+@onready var canvas_layer = $CanvasLayer
 @onready var player_status = $"CanvasLayer/Player Status"
+@onready var inventory = %"Display Box"
 @export var temp_dice_bag_init: PlayerDataInit
 var inventory_open = false
 
 func _ready():
 	
-	if PlayerData.dice_bag.size() == 0:
-		PlayerData.dice_bag = temp_dice_bag_init.dice.duplicate(true)
+	'''if PlayerData.dice_bag.size() == 0:
+		PlayerData.dice_bag = temp_dice_bag_init.dice.duplicate(true)'''
+	
+	player_status.dice_remaining = PlayerData.dice_bag.size()
 	
 	## setup for dice inventory tab
 	inventory.make_tab("In Bag", PlayerData.dice_bag, inv_dice_visual)
@@ -38,7 +42,6 @@ func _ready():
 	## connect frame clicks to display sides
 	inventory.return_clicked.connect(show_sides)
 	
-	player_status.dice_remaining = PlayerData.dice_bag.size()
 	
 	setup()
 	
@@ -141,6 +144,7 @@ func track_inventory():
 	elif inventory.visible == true:
 		inventory.close()
 		inventory_open = false
+
 func _on_visibility_changed():
 	if visible:
 		for map_node in bg.get_children():

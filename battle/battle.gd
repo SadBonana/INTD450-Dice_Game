@@ -203,7 +203,6 @@ func pause_battle(should_pause : bool):
 func draw_dice():
 	# Enemy draws their dice and displays their rolls first so the player has more info.
 	for enemy in enemies:
-		enemy.enemy_hand.show()
 		await enemy.draw_dice()
 	
 	# It's the player's turn so show the things they'll need

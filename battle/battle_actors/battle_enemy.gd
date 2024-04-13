@@ -12,8 +12,6 @@ class_name BattleEnemy extends BattleActor
 
 @export_file("*.tscn") var drawn_die_path
 
-@export var enemy_hand: HBoxContainer
-
 @export var mouse_out: bool
 @export var mouse_over: bool
 
@@ -90,13 +88,6 @@ func commit_dice():
 func draw_dice():
 	#individual_die_rolls.show()
 	
-	'''if battle.enemies[0]:
-		enemy_hand = battle.enemy_1_dice_hand
-	if battle.enemies[1]:
-		enemy_hand = battle.enemy_2_dice_hand
-	if battle.enemies[2]:
-		enemy_hand = battle.enemy_3_dice_hand'''
-	
 	
 	dice_hand = []	# Reset the hand so we don't use the values from last turn
 	for i in range(dice_draws):
@@ -115,7 +106,6 @@ func draw_dice():
 		var d = dice_bag.pop_back()
 		used_dice.append(d)		# TODO: make this happen after the die actually gets used
 		var die = DrawnDieData.new(d, self, battle)
-		#var die = DrawnDie.instantiate(drawn_die_path, enemy_hand, d, battle)
 		dice_hand.append(die)
 		
 	commit_dice()
