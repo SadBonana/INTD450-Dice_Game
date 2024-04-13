@@ -257,7 +257,7 @@ func enemy_turn():
 		var atk_die_effects = []
 		
 		for die in enemy.dice_hand:
-			if die.action == DrawnDieData.ATTACK and die.effect != null and die.effect.damaging:
+			if die.action == DrawnDieData.ATTACK and die.effect != null:
 				#get_node("/root/SoundManager/attack").play()
 				#SoundManager.attack_sfx.play()
 				#await player.take_damage(die.side.value, enemy.actor_name)
