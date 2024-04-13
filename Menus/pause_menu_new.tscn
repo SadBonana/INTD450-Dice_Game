@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cw5hjh480fcbg"]
 
-[ext_resource type="PackedScene" uid="uid://c1qfpvc0icjsy" path="res://menus/settings_button.tscn" id="1_j2pkm"]
+[ext_resource type="PackedScene" path="res://menus/settings_button.tscn" id="1_j2pkm"]
 [ext_resource type="Script" path="res://menus/pause_menu.gd" id="1_p3cog"]
-[ext_resource type="PackedScene" uid="uid://bgp0uigvyvkrj" path="res://menus/quit_button.tscn" id="2_j0q45"]
+[ext_resource type="PackedScene" uid="uid://bgp0uigvyvkrj" path="res://Menus/quit_button.tscn" id="2_j0q45"]
 
 [node name="pause_menu_new" type="Control"]
 process_mode = 3
@@ -48,7 +48,6 @@ text = "Resume"
 [node name="settings_button" parent="pause_menu_panel/VBoxContainer" instance=ExtResource("1_j2pkm")]
 layout_mode = 2
 focus_neighbor_top = NodePath("../resume")
-focus_neighbor_bottom = NodePath("../quit_button")
 
 [node name="quit_button" parent="pause_menu_panel/VBoxContainer" instance=ExtResource("2_j0q45")]
 layout_mode = 2

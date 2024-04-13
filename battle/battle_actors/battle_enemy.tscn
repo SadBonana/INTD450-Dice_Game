@@ -59,4 +59,3 @@ shape = SubResource("RectangleShape2D_886cr")
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
 
 [editable path="HealthBar"]
-[editable path="damage_indicator"]
