@@ -20,7 +20,7 @@ var map_scene 	= preload("res://map/MapTree.tscn")
 @onready var side_name = "Sides"
 
 @onready var canvas_layer = $CanvasLayer
-@onready var player_status = $"CanvasLayer/Player Status"
+@onready var player_status = %"Player Status"
 @onready var inventory = %"Display Box"
 @export var temp_dice_bag_init: PlayerDataInit
 var inventory_open = false
