@@ -278,6 +278,7 @@ func enemy_turn():
 		
 		for effect in def_die_effects:
 			effect.apply()
+			await get_tree().create_timer(0.5).timeout
 		
 		if attack_roll > 0:
 			SoundManager.attack_sfx.play()
@@ -285,10 +286,14 @@ func enemy_turn():
 		
 		for effect in atk_die_effects:
 			effect.apply()
+			await get_tree().create_timer(0.5).timeout
+			
+	await get_tree().create_timer(0.5).timeout
 	
 	for effect in player.status_effects.duplicate():
 		if not effect.beneficial:
 			await effect.invoke()
+			await get_tree().create_timer(0.5).timeout
 	player.update_status_effects()
 	
 	#draw_dice()    # Enemy turn is over so player draws dice
