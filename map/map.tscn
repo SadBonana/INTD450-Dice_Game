@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dobeg8c3tqmme"]
+[gd_scene load_steps=10 format=3 uid="uid://dobeg8c3tqmme"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
 [ext_resource type="Resource" uid="uid://cfwcn8txtyhsv" path="res://global scripts/initial bag/elemental_d6_bag.tres" id="2_q8lfo"]
+[ext_resource type="Script" path="res://map/overlay.gd" id="3_boucf"]
 [ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="4_sqmrd"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_k670k"]
 [ext_resource type="StyleBox" uid="uid://b53y6jtfssomx" path="res://modules/display_box/styles/die_side_info_box.tres" id="7_ca5sp"]
@@ -20,7 +21,6 @@ size_flags_vertical = 6
 follow_focus = true
 script = ExtResource("1_vgmaq")
 bg = NodePath("Nodes")
-temp_dice_bag_init = ExtResource("2_q8lfo")
 
 [node name="Nodes" type="NinePatchRect" parent="."]
 custom_minimum_size = Vector2(640, 1080)
@@ -36,11 +36,15 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_boucf")
+temp_dice_bag_init = ExtResource("2_q8lfo")
 
 [node name="pause_menu" parent="CanvasLayer" instance=ExtResource("7_dd1q5")]
 visible = false
 
 [node name="FPSContainer" type="MarginContainer" parent="CanvasLayer"]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -104,6 +108,8 @@ visible = false
 custom_minimum_size = Vector2(500, 220)
 layout_mode = 2
 size_flags_stretch_ratio = 2.0
+open_action = "I"
+close_action = "I"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 
