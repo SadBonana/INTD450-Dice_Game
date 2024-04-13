@@ -27,8 +27,8 @@ var inventory_open = false
 
 func _ready():
 	
-	'''if PlayerData.dice_bag.size() == 0:
-		PlayerData.dice_bag = temp_dice_bag_init.dice.duplicate(true)'''
+	if PlayerData.dice_bag.size() == 0:
+		PlayerData.dice_bag = temp_dice_bag_init.dice.duplicate(true)
 	
 	player_status.dice_remaining = PlayerData.dice_bag.size()
 	
@@ -130,10 +130,10 @@ func show_sides(die : Die):
 		inventory.current_tab = side_view.get_index()
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("i") and inventory_open == false:
+	if event.is_action_pressed("I") and inventory_open == false:
 		inventory.open()
 		inventory_open = true
-	elif event.is_action_pressed("i") and inventory_open == true:
+	elif event.is_action_pressed("I") and inventory_open == true:
 		inventory.hide()
 		inventory_open = false
 

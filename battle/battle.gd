@@ -124,13 +124,9 @@ func _ready():
 	# The die action menu here is just so designers can see what one looks like in engine.
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
 	# line of code
+	get_node("/root/Map").canvas_layer.visible = false
 	
 	player_status.dice_selected.visible = true
-	
-	'''player.damage_indication.visible = false
-	enemy1.damage_indication.visible = false
-	enemy2.damage_indication.visible = false
-	enemy3.damage_indication.visible = false'''
 	
 	drawn_die_placeholder.hide()
 	inventory.just_opened.connect(pause_battle)
@@ -272,14 +268,11 @@ func enemy_turn():
 		for die in enemy.dice_hand:
 			
 			'''if die.action == DrawnDieData.ATTACK and die.effect.damaging:
-				player.damage_indication.visible = true
 				await player.take_damage(die.side.value, enemy.actor_name)
-				#player.damage_indication.visible = false
 			else:		# DEFENSE
 				enemy.defense += die.side.value
 			
-			await die.effect.apply()
-			player.damage_indication.visible = false'''
+			await die.effect.apply()'''
 
 			if die.action == DrawnDieData.ATTACK and die.effect != null and die.effect.damaging:
 				#get_node("/root/SoundManager/attack").play()
@@ -365,12 +358,7 @@ func _on_ready_pressed():
 				if not die.target in enemies:
 					await textbox_controller.quick_beat("missed")
 				elif die.data.effect.damaging:
-						
-						# The 1st and 3rd line are used for damage animation
-						die.target.damage_indication.visible = true
 						await die.target.take_damage(die.roll, player.actor_name)
-						#die.target.damage_indication.visible = false''
-						
 					#get_node("/root/SoundManager/attack").play()
 					SoundManager.attack_sfx.play()
 					await die.target.take_damage(die.roll, player.actor_name)
@@ -381,8 +369,6 @@ func _on_ready_pressed():
 		
 		await die.data.effect.apply()
 		# Used for damage animation
-		die.target.damage_indication.visible = false
-		
 		'''
 		if die.selected_action == DrawnDieData.DEFEND:
 			SoundManager.defend_2.play() #TODO: Make sure this plays at the proper time
