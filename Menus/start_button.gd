@@ -16,9 +16,16 @@ func _process(delta):
 
 
 func _on_pressed():
-	# Change to map scene
-	get_node("/root/Map/BattleMusic").play()
+	# Change to map scene once done
+	#get_tree().change_scene_to_file(map_scene_path)
+	#get_node("/root/Map/BattleMusic").play()
+	SoundManager.select_2.play()
+	SoundManager.battle_music.play()
 	PlayerData.reset()
 	start_menu.get_parent_control().visible = false
-	queue_free()
-	get_node("/root/Map").visible = true
+	#queue_free()
+	#get_node("/root/Map").visible = true
+	for map_node in get_node("/root/Map/Nodes").get_children():
+		if not map_node.disabled:
+			map_node.grab_focus()
+			break

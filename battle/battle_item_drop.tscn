@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cglfsj48akwp2"]
+[gd_scene load_steps=19 format=3 uid="uid://cglfsj48akwp2"]
 
 [ext_resource type="Script" path="res://battle/battle_item_drop.gd" id="1_e8830"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="3_cd6bx"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="4_05img"]
 [ext_resource type="Resource" uid="uid://cqxhmeluf1nvj" path="res://die_resources/uncommon_loot_table.tres" id="4_8ddl5"]
 [ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="5_bdc6d"]
+[ext_resource type="StyleBox" uid="uid://duu0i3mki6gt4" path="res://battle/styles/skip_reward_normal.tres" id="5_r0a7v"]
+[ext_resource type="StyleBox" uid="uid://cncyidhgwlawo" path="res://battle/styles/skip_reward_pressed.tres" id="6_cheo5"]
 
 [sub_resource type="Resource" id="Resource_0o1qc"]
 resource_name = "congrats"
@@ -77,6 +79,13 @@ end_conversation = false
 script = ExtResource("5_bdc6d")
 beats = Array[ExtResource("4_05img")]([SubResource("Resource_0o1qc"), SubResource("Resource_5o87b"), SubResource("Resource_uti2s"), SubResource("Resource_q0twr"), SubResource("Resource_ttg8l"), SubResource("Resource_bp11e"), SubResource("Resource_a3kqi")])
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bsvrk"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
 [node name="battle_item_drop" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -96,23 +105,51 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="LootDropContainer" type="MarginContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="item_drop_display" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_dly5t")]
+[node name="item_drop_display" parent="VBoxContainer/LootDropContainer" instance=ExtResource("3_dly5t")]
 visible = false
 layout_mode = 2
-size_flags_horizontal = 3
+tabs_visible = false
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="skip_reward" type="Button" parent="VBoxContainer/LootDropContainer"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/normal = ExtResource("5_r0a7v")
+theme_override_styles/hover = ExtResource("5_r0a7v")
+theme_override_styles/pressed = ExtResource("6_cheo5")
+text = "Skip Reward"
+
+[node name="Textbox Controller" parent="VBoxContainer" instance=ExtResource("3_cd6bx")]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="Textbox Controller" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_cd6bx")]
-layout_mode = 2
-size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
 dialogue_res = SubResource("Resource_umkng")
 
-[editable path="VBoxContainer/HBoxContainer/item_drop_display"]
-[editable path="VBoxContainer/HBoxContainer2/Textbox Controller"]
+[node name="Background" type="PanelContainer" parent="VBoxContainer/Textbox Controller"]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bsvrk")
+
+[editable path="VBoxContainer/LootDropContainer/item_drop_display"]
+[editable path="VBoxContainer/Textbox Controller"]

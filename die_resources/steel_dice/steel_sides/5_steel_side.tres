@@ -1,13 +1,13 @@
-[gd_resource type="Resource" script_class="DieSide" load_steps=4 format=3 uid="uid://0ksq5k3h28x8"]
+[gd_resource type="Resource" script_class="DieSide" load_steps=4 format=3 uid="uid://dtlgu64i6ed58"]
 
-[ext_resource type="Script" path="res://modules/elements/steel_element.gd" id="1_p85sc"]
-[ext_resource type="Script" path="res://modules/dice/die_side.gd" id="2_nug8v"]
+[ext_resource type="Script" path="res://modules/elements/steel_element.gd" id="1_gu1ob"]
+[ext_resource type="Script" path="res://modules/dice/die_side.gd" id="2_l2ol1"]
 
 [sub_resource type="Resource" id="Resource_r2rgq"]
-script = ExtResource("1_p85sc")
+script = ExtResource("1_gu1ob")
 
 [resource]
-script = ExtResource("2_nug8v")
+script = ExtResource("2_l2ol1")
 power = 0
 custom_power = false
 element = SubResource("Resource_r2rgq")

@@ -1,18 +1,18 @@
-[gd_resource type="Resource" script_class="Die" load_steps=11 format=3 uid="uid://b2pedg853kmko"]
+[gd_resource type="Resource" script_class="Die" load_steps=11 format=3 uid="uid://710q2pu1v2w5"]
 
-[ext_resource type="Script" path="res://global scripts/die.gd" id="1_j6joj"]
-[ext_resource type="Resource" uid="uid://jhrqh5b7i4ru" path="res://die_resources/poison_dice/poison_sides/1_poison_side.tres" id="2_ldgry"]
-[ext_resource type="Resource" uid="uid://c4vfilhk021lp" path="res://die_resources/poison_dice/poison_sides/2_poison_side.tres" id="3_vl131"]
-[ext_resource type="Resource" uid="uid://crmk0g5628sx7" path="res://die_resources/poison_dice/poison_sides/3_poison_side.tres" id="4_0q8a0"]
-[ext_resource type="Resource" uid="uid://du72es70kqqyx" path="res://die_resources/poison_dice/poison_sides/4_poison_side.tres" id="5_44uqg"]
-[ext_resource type="Resource" uid="uid://ddcd6k31tbiv8" path="res://die_resources/poison_dice/poison_sides/5_poison_side.tres" id="6_xy3ed"]
-[ext_resource type="Resource" uid="uid://dgr008v0jfarp" path="res://die_resources/poison_dice/poison_sides/6_poison_side.tres" id="7_3nury"]
-[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="8_7i70j"]
-[ext_resource type="Resource" uid="uid://dmkuy8xpxegiu" path="res://die_resources/poison_dice/poison_sides/7_poison_side.tres" id="8_bnr7q"]
-[ext_resource type="Resource" uid="uid://di5er04bffec0" path="res://die_resources/poison_dice/poison_sides/8_poison_side.tres" id="9_16gk0"]
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_6ho00"]
+[ext_resource type="Resource" uid="uid://jhrqh5b7i4ru" path="res://die_resources/poison_dice/poison_sides/1_poison_side.tres" id="2_56lda"]
+[ext_resource type="Resource" uid="uid://c4vfilhk021lp" path="res://die_resources/poison_dice/poison_sides/2_poison_side.tres" id="3_2mgr5"]
+[ext_resource type="Resource" uid="uid://crmk0g5628sx7" path="res://die_resources/poison_dice/poison_sides/3_poison_side.tres" id="4_w5b46"]
+[ext_resource type="Resource" uid="uid://drhc5u70fpnbr" path="res://die_resources/poison_dice/poison_sides/4_poison_side.tres" id="5_gvo0i"]
+[ext_resource type="Resource" uid="uid://b1o04r0c8pu5g" path="res://die_resources/poison_dice/poison_sides/5_poison_side.tres" id="6_npw3o"]
+[ext_resource type="Resource" uid="uid://b5km6mgebjlya" path="res://die_resources/poison_dice/poison_sides/6_poison_side.tres" id="7_1xptu"]
+[ext_resource type="Resource" uid="uid://8yag5ju40j71" path="res://die_resources/poison_dice/poison_sides/7_poison_side.tres" id="8_x8opc"]
+[ext_resource type="Resource" uid="uid://cw5osa3jeq7a7" path="res://die_resources/poison_dice/poison_sides/8_poison_side.tres" id="9_3bhuw"]
+[ext_resource type="Texture2D" uid="uid://ub51vrb7awe7" path="res://assets/textures/resources/dice/d8.tres" id="10_ujnqh"]
 
 [resource]
-script = ExtResource("1_j6joj")
-sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_ldgry"), ExtResource("3_vl131"), ExtResource("4_0q8a0"), ExtResource("5_44uqg"), ExtResource("6_xy3ed"), ExtResource("7_3nury"), ExtResource("8_bnr7q"), ExtResource("9_16gk0")])
-texture = ExtResource("8_7i70j")
+script = ExtResource("1_6ho00")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_56lda"), ExtResource("3_2mgr5"), ExtResource("4_w5b46"), ExtResource("5_gvo0i"), ExtResource("6_npw3o"), ExtResource("7_1xptu"), ExtResource("8_x8opc"), ExtResource("9_3bhuw")])
+texture = ExtResource("10_ujnqh")
 name = "d8"

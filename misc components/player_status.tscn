@@ -1,23 +1,34 @@
 [gd_scene load_steps=8 format=3 uid="uid://bgag7rr64v1m7"]
 
 [ext_resource type="Script" path="res://misc components/player_status.gd" id="1_kpf4t"]
-[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="2_f10bn"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_wrn3c"]
 [ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://misc components/health_bar.tscn" id="3_5jrpy"]
+[ext_resource type="Texture2D" uid="uid://dma85fmsag5cb" path="res://assets/textures/resources/dice/bag.tres" id="4_qstec"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_si3mn"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1xhy"]
-bg_color = Color(0.6, 0.6, 0.6, 0.678431)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x4xij"]
+bg_color = Color(0.196078, 0.196078, 0.196078, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.988235, 0.74902, 0.47451, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bv15m"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gec5k"]
+texture = ExtResource("4_qstec")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+modulate_color = Color(0.105882, 0.105882, 0.105882, 1)
 
-[node name="Player Status" type="VBoxContainer" node_paths=PackedStringArray("health_bar", "deck_status", "dice_selected")]
-anchors_preset = -1
-anchor_right = 0.192
-anchor_bottom = 0.375
-offset_right = 0.119995
-offset_bottom = -1.52588e-05
+[node name="Player Status" type="VBoxContainer" node_paths=PackedStringArray("health_bar", "deck_status")]
+custom_minimum_size = Vector2(100, 0)
+offset_right = 84.0
+offset_bottom = 101.0
 size_flags_vertical = 8
 script = ExtResource("1_kpf4t")
 health_bar = NodePath("Player Health and Name/Health Bar")
@@ -42,13 +53,11 @@ layout_mode = 2
 size_flags_vertical = 1
 
 [node name="Bag Sprite" type="TextureRect" parent="."]
-self_modulate = Color(0.113725, 0.0588235, 0, 1)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
-texture = ExtResource("2_f10bn")
-expand_mode = 3
-stretch_mode = 4
+texture = ExtResource("4_qstec")
+stretch_mode = 5
 
 [node name="Deck Status" type="Label" parent="Bag Sprite"]
 layout_mode = 1
@@ -89,6 +98,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxEmpty_si3mn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_k1xhy")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_bv15m")
-theme_override_styles/focus = SubResource("StyleBoxFlat_k1xhy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_x4xij")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_gec5k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_x4xij")

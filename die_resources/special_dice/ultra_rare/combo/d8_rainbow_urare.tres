@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Die" load_steps=10 format=3 uid="uid://bpln8u8pacceh"]
+
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_4582k"]
+[ext_resource type="Resource" uid="uid://fnj6cjl02yjk" path="res://die_resources/basic_dice/basic_sides/1_basic_side.tres" id="2_0q350"]
+[ext_resource type="Resource" uid="uid://bqx5d8v76pabp" path="res://die_resources/basic_dice/basic_sides/2_basic_side.tres" id="3_u66t0"]
+[ext_resource type="Resource" uid="uid://qeeome5drtma" path="res://die_resources/basic_dice/basic_sides/4_basic_side.tres" id="5_h6et6"]
+[ext_resource type="Resource" uid="uid://wgtcgan5ix3k" path="res://die_resources/lightning_dice/lightning_sides/8_lightning_side.tres" id="5_mhokd"]
+[ext_resource type="Resource" uid="uid://duk5rqrvh2i1o" path="res://die_resources/fire_dice/fire_sides/8_fire_side.tres" id="6_ty845"]
+[ext_resource type="Resource" uid="uid://cw5osa3jeq7a7" path="res://die_resources/poison_dice/poison_sides/8_poison_side.tres" id="7_e7rtx"]
+[ext_resource type="Resource" uid="uid://lkpjrgaaya6u" path="res://die_resources/steel_dice/steel_sides/8_steel_side.tres" id="8_jwgdv"]
+[ext_resource type="Texture2D" uid="uid://ub51vrb7awe7" path="res://assets/textures/resources/dice/d8.tres" id="10_nxr0s"]
+
+[resource]
+script = ExtResource("1_4582k")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_0q350"), ExtResource("3_u66t0"), ExtResource("3_u66t0"), ExtResource("5_h6et6"), ExtResource("5_mhokd"), ExtResource("6_ty845"), ExtResource("7_e7rtx"), ExtResource("8_jwgdv")])
+texture = ExtResource("10_nxr0s")
+name = "d8"

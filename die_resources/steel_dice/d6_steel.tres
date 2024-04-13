@@ -1,16 +1,16 @@
-[gd_resource type="Resource" script_class="Die" load_steps=9 format=3 uid="uid://cjm4q5525pggf"]
+[gd_resource type="Resource" script_class="Die" load_steps=9 format=3 uid="uid://b0gcitx4165ps"]
 
-[ext_resource type="Script" path="res://global scripts/die.gd" id="1_m57x2"]
-[ext_resource type="Resource" uid="uid://dnayah5ug1oya" path="res://die_resources/steel_dice/steel_sides/1_steel_side.tres" id="2_e3iak"]
-[ext_resource type="Resource" uid="uid://des6eb7bnrlj3" path="res://die_resources/steel_dice/steel_sides/2_steel_side.tres" id="3_1jv5d"]
-[ext_resource type="Resource" uid="uid://cm40u45m3xc64" path="res://die_resources/steel_dice/steel_sides/3_steel_side.tres" id="4_ni3w1"]
-[ext_resource type="Resource" uid="uid://bxn77xhcfqr4c" path="res://die_resources/steel_dice/steel_sides/4_steel_side.tres" id="5_souqh"]
-[ext_resource type="Resource" uid="uid://0ksq5k3h28x8" path="res://die_resources/steel_dice/steel_sides/5_steel_side.tres" id="6_q3dtt"]
-[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="6_w7ucl"]
-[ext_resource type="Resource" uid="uid://cqjixvsg76yqj" path="res://die_resources/steel_dice/steel_sides/6_steel_side.tres" id="7_lu183"]
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_io7s5"]
+[ext_resource type="Resource" uid="uid://dnayah5ug1oya" path="res://die_resources/steel_dice/steel_sides/1_steel_side.tres" id="2_ec2n5"]
+[ext_resource type="Resource" uid="uid://des6eb7bnrlj3" path="res://die_resources/steel_dice/steel_sides/2_steel_side.tres" id="3_jhulf"]
+[ext_resource type="Resource" uid="uid://cm40u45m3xc64" path="res://die_resources/steel_dice/steel_sides/3_steel_side.tres" id="4_danm5"]
+[ext_resource type="Resource" uid="uid://bk8224kwj7bjt" path="res://die_resources/steel_dice/steel_sides/4_steel_side.tres" id="5_vp4fa"]
+[ext_resource type="Resource" uid="uid://bsdkthabopu6d" path="res://die_resources/steel_dice/steel_sides/5_steel_side.tres" id="6_qpodi"]
+[ext_resource type="Resource" uid="uid://dnefpk3gdf07y" path="res://die_resources/steel_dice/steel_sides/6_steel_side.tres" id="7_76gps"]
+[ext_resource type="Texture2D" uid="uid://daf3ysqfpw15n" path="res://assets/textures/resources/dice/d6.tres" id="8_3vybv"]
 
 [resource]
-script = ExtResource("1_m57x2")
-sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_e3iak"), ExtResource("3_1jv5d"), ExtResource("4_ni3w1"), ExtResource("5_souqh"), ExtResource("6_q3dtt"), ExtResource("7_lu183")])
-texture = ExtResource("6_w7ucl")
+script = ExtResource("1_io7s5")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_ec2n5"), ExtResource("3_jhulf"), ExtResource("4_danm5"), ExtResource("5_vp4fa"), ExtResource("6_qpodi"), ExtResource("7_76gps")])
+texture = ExtResource("8_3vybv")
 name = "d6"

@@ -1,14 +1,14 @@
-[gd_resource type="Resource" script_class="Die" load_steps=7 format=3 uid="uid://d1yrsapu6gbry"]
+[gd_resource type="Resource" script_class="Die" load_steps=7 format=3 uid="uid://bxtuxypooi1p7"]
 
-[ext_resource type="Script" path="res://global scripts/die.gd" id="1_5p5gb"]
-[ext_resource type="Resource" uid="uid://jhrqh5b7i4ru" path="res://die_resources/poison_dice/poison_sides/1_poison_side.tres" id="2_nnlhm"]
-[ext_resource type="Resource" uid="uid://c4vfilhk021lp" path="res://die_resources/poison_dice/poison_sides/2_poison_side.tres" id="3_mu1wo"]
-[ext_resource type="Resource" uid="uid://crmk0g5628sx7" path="res://die_resources/poison_dice/poison_sides/3_poison_side.tres" id="4_4rylx"]
-[ext_resource type="Resource" uid="uid://du72es70kqqyx" path="res://die_resources/poison_dice/poison_sides/4_poison_side.tres" id="5_1f3yd"]
-[ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="5_fkeny"]
+[ext_resource type="Script" path="res://global scripts/die.gd" id="1_jo8w5"]
+[ext_resource type="Resource" uid="uid://jhrqh5b7i4ru" path="res://die_resources/poison_dice/poison_sides/1_poison_side.tres" id="2_ff21h"]
+[ext_resource type="Resource" uid="uid://c4vfilhk021lp" path="res://die_resources/poison_dice/poison_sides/2_poison_side.tres" id="3_ff1qd"]
+[ext_resource type="Resource" uid="uid://crmk0g5628sx7" path="res://die_resources/poison_dice/poison_sides/3_poison_side.tres" id="4_5wvyd"]
+[ext_resource type="Resource" uid="uid://drhc5u70fpnbr" path="res://die_resources/poison_dice/poison_sides/4_poison_side.tres" id="5_kutwv"]
+[ext_resource type="Texture2D" uid="uid://dw2fx8b8kx7uy" path="res://assets/textures/resources/dice/d4.tres" id="6_ukle3"]
 
 [resource]
-script = ExtResource("1_5p5gb")
-sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_nnlhm"), ExtResource("3_mu1wo"), ExtResource("4_4rylx"), ExtResource("5_1f3yd")])
-texture = ExtResource("5_fkeny")
+script = ExtResource("1_jo8w5")
+sides = Array[Resource("res://modules/dice/die_side.gd")]([ExtResource("2_ff21h"), ExtResource("3_ff1qd"), ExtResource("4_5wvyd"), ExtResource("5_kutwv")])
+texture = ExtResource("6_ukle3")
 name = "d4"

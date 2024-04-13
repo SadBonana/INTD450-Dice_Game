@@ -3,37 +3,24 @@
 [ext_resource type="Script" path="res://modules/display_box/tabs/frame_tab_display.gd" id="1_6okni"]
 
 [node name="DisplayTab" type="TabBar"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+focus_mode = 0
 theme_override_constants/h_separation = 0
 script = ExtResource("1_6okni")
 
 [node name="DisplayScroll" type="ScrollContainer" parent="."]
 unique_name_in_owner = true
 layout_direction = 2
-layout_mode = 1
-anchors_preset = 15
+layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_top = 3.0
 horizontal_scroll_mode = 0
 
 [node name="FrameSlots" type="HFlowContainer" parent="DisplayScroll"]
 unique_name_in_owner = true
-clip_contents = true
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/h_separation = 11
 theme_override_constants/v_separation = 11
 alignment = 1
-
-[node name="GridContainer" type="GridContainer" parent="DisplayScroll/FrameSlots"]
-clip_contents = true
-layout_mode = 2

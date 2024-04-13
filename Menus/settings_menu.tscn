@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" path="res://menus/settings_menu.gd" id="1_wgoa1"]
 
-[node name="settings_menu" type="Popup"]
-size = Vector2i(640, 360)
-visible = true
+[node name="settings_menu" type="Window"]
+title = "Settings"
+position = Vector2i(0, 30)
+size = Vector2i(640, 340)
 content_scale_mode = 2
 content_scale_aspect = 4
 content_scale_stretch = 1
@@ -100,14 +101,6 @@ min_value = 30.0
 max_value = 500.0
 value = 500.0
 
-[node name="bloom_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
-layout_mode = 2
-text = "Bloom"
-
-[node name="bloom_button" type="CheckButton" parent="settings_tabs/Video/video_margin_container/video_settings"]
-layout_mode = 2
-size_flags_horizontal = 10
-
 [node name="brightness_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
 layout_mode = 2
 text = "Brightness"
@@ -120,6 +113,14 @@ size_flags_vertical = 1
 max_value = 2.0
 step = 0.1
 value = 1.0
+
+[node name="bloom_label" type="Label" parent="settings_tabs/Video/video_margin_container/video_settings"]
+layout_mode = 2
+text = "Bloom"
+
+[node name="bloom_button" type="CheckButton" parent="settings_tabs/Video/video_margin_container/video_settings"]
+layout_mode = 2
+size_flags_horizontal = 10
 
 [node name="Audio" type="TabBar" parent="settings_tabs"]
 visible = false
@@ -245,12 +246,13 @@ max_value = 3.0
 step = 0.01
 value = 0.1
 
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="item_selected" from="settings_tabs/Video/video_margin_container/video_settings/display_options_button" to="." method="_on_display_options_button_item_selected"]
 [connection signal="toggled" from="settings_tabs/Video/video_margin_container/video_settings/vsync_button" to="." method="_on_vsync_button_toggled"]
 [connection signal="toggled" from="settings_tabs/Video/video_margin_container/video_settings/display_fps_button" to="." method="_on_display_fps_button_toggled"]
 [connection signal="value_changed" from="settings_tabs/Video/video_margin_container/video_settings/max_fps_box_container/max_fps_slider" to="." method="_on_max_fps_slider_value_changed"]
-[connection signal="toggled" from="settings_tabs/Video/video_margin_container/video_settings/bloom_button" to="." method="_on_bloom_button_toggled"]
 [connection signal="value_changed" from="settings_tabs/Video/video_margin_container/video_settings/brightness_slider" to="." method="_on_brightness_slider_value_changed"]
+[connection signal="toggled" from="settings_tabs/Video/video_margin_container/video_settings/bloom_button" to="." method="_on_bloom_button_toggled"]
 [connection signal="value_changed" from="settings_tabs/Audio/audio_margin_container/audio_settings/master_volume_slider" to="." method="_on_master_volume_slider_value_changed"]
 [connection signal="value_changed" from="settings_tabs/Audio/audio_margin_container/audio_settings/music_volume_slider" to="." method="_on_music_volume_slider_value_changed"]
 [connection signal="value_changed" from="settings_tabs/Audio/audio_margin_container/audio_settings/sfx_volume_slider" to="." method="_on_sfx_volume_slider_value_changed"]

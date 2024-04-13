@@ -1,4 +1,4 @@
-extends Node
+extends ScrollContainer
 
 const NT = NodeType.NodeType
 
@@ -11,7 +11,7 @@ var points = []
 #var bg_texture 	= preload("res://assets/textures/map noise paper ninepatch.png")
 var map_scene 	= preload("res://map/MapTree.tscn")
 
-@export var scroll_cont : ScrollContainer
+#@export var scroll_cont : ScrollContainer
 @export var bg 			: NinePatchRect
 
 ## Inventory
@@ -47,13 +47,20 @@ func setup():
 	map.set_textures()
 	add_nodes()
 	draw()
+	# Press the start node for the player for QoL reasons
+	for child in bg.get_children():
+		if child.type == NT.START:
+			child._pressed()
+			break
+
 
 func reset():
 	map.queue_free()
 	for child in bg.get_children():
 		bg.remove_child(child)
 		child.queue_free()
-	scroll_cont.scroll_vertical = 0
+	#scroll_cont.scroll_vertical = 0
+	scroll_vertical = 0
 	setup()
 
 ## Draws lines
@@ -64,12 +71,14 @@ func draw():
 			if node != null:
 				for child in node.get_sons():
 					if node.type != NT.ERROR:
-						#TODO: uncomment when actual background is added
-						bg.draw_line(node.position + margins, child.position + margins, Color.DIM_GRAY, 2)
+						#bg.draw_line(node.position + margins, child.position + margins, Color.DIM_GRAY, 2)
 						#bg.draw_line(node.position + margins, child.position + margins, Color.RED, 2)
+						var start = node.position + margins + Vector2(0, margins.y)
+						var end = child.position + margins - Vector2(0, margins.y)
+						bg.draw_line(start, end, Color("#6a3c33", .8), 4)
+						bg.draw_line(start, end, Color("#b57521", .8), 2)
 					else:
 						bg.draw_line(node.position + margins, child.position + margins, Color.HOT_PINK, 2)
-		
 		)
 		
 func add_nodes():
@@ -132,3 +141,9 @@ func track_inventory():
 	elif inventory.visible == true:
 		inventory.close()
 		inventory_open = false
+func _on_visibility_changed():
+	if visible:
+		for map_node in bg.get_children():
+			if not map_node.disabled:
+				get_tree().create_timer(0.5).timeout.connect(func (): map_node.grab_focus())
+				break

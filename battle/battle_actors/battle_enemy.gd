@@ -65,17 +65,26 @@ func commit_dice():
 		die.target = battle.player
 		die.action = DrawnDieData.ATTACK
 		
-		print("die roll text before:", die_roll_text)
+		'''print("die roll text before:", die_roll_text)
 		die_roll_text = die_roll_text + "%d" % die.side.value + " "
 		die_roll_1.text = die_roll_text
-		print("die roll text after:", die_roll_text)
+		print("die roll text after:", die_roll_text)'''
 		
 	#die_roll_1.text = die_roll_text + "%d" % dice_hand[0].side.value
 	#die_roll_2.text = "%d" % dice_hand[1].side.value
 	#die_roll_3.text = "%d" % dice_hand[2].side.value
 	
+	var paralyzed = false
+	var stacks = 0
+	for effect in status_effects:
+		if effect._type == StatusEffect.PARALYSIS:
+			paralyzed = true
+			stacks = effect.stacks
+			
 	damage = dice_hand.reduce(func (accum, die): return accum + die.side.value, 0)	# damage = sum of rolls in dice hand
-
+	if paralyzed:
+		for stack in stacks:
+			damage =  max(0, damage-2)
 
 # Will likely need to be rewritten once effect die and enemies defending become a thing.
 func draw_dice():

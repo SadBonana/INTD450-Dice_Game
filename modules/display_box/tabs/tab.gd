@@ -5,9 +5,9 @@ extends Resource
 ## and display each frame using the scene held in frame_visual
 class_name Tab
 
-var tab_title : StringName
-var frames : Array
-var frame_visual : PackedScene
+@export var tab_title : StringName
+@export var frames : Array
+@export var frame_visual : PackedScene
 
 ## Constructor
 func _init(_title : StringName, 

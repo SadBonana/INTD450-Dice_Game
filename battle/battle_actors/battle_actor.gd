@@ -192,6 +192,12 @@ func set_shield_string(value : int):
 	shield.text = "Shield: " + str(value)
 func show_shield_string(show : bool):
 	shield.visible = show
+
+func should_dim(dim : bool):
+	if dim:
+		modulate.a = _usual_alpha / 2
+	else:
+		modulate.a = _usual_alpha
 	
 func shield_manager(value: int):
 	set_shield_string(value)

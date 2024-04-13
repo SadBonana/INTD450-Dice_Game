@@ -43,8 +43,10 @@ var defeated_enemies = []
 @onready var drawn_die_container := %"Hand of Dice"
 @onready var action_menu := %"Player Action Menu"
 @onready var inventory := %"Inventory"
+@onready var side_info := %"Side Info"
 @onready var player := %"Battle Player"
 @onready var ready_button := %Ready
+@onready var battle_container := %BattleContainer
 
 @onready var enemy_1_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/enemy_1_hand
 @onready var enemy_2_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_2_container/enemy_2_hand
@@ -53,6 +55,7 @@ var defeated_enemies = []
 ## Inventory
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
+@onready var info_box = preload("res://modules/infobox/info_box_frame.tscn")
 @onready var side_name = "Sides"
 
 
@@ -130,11 +133,7 @@ func _ready():
 	enemy3.damage_indication.visible = false'''
 	
 	drawn_die_placeholder.hide()
-	
-	#enemy_1_dice_hand.hide()
-	#enemy_2_dice_hand.hide()
-	#enemy_3_dice_hand.hide()
-	
+	inventory.just_opened.connect(pause_battle)
 	## setup for dice inventory tab
 	inventory.make_tab("In Bag", player.dice_bag,inv_dice_visual)
 	## setup for used inventory tab
@@ -143,6 +142,8 @@ func _ready():
 	inventory.make_tab("Hand", player.dice,inv_dice_visual)
 	## setup for die sides inventory tab
 	inventory.make_tab(side_name, [], inv_side_visual)
+	## Create info tab
+	side_info.make_tab("Info", [], info_box)
 	## connect dice bag button to inventory
 	player_status.bag_button.pressed.connect(inventory.open)
 	## connect frame clicks to display sides
@@ -191,7 +192,10 @@ func show_sides(die : Die):
 	else:
 		side_view.new_frames(die.sides)
 		inventory.current_tab = side_view.get_index()
-
+		
+func pause_battle(should_pause : bool):
+		get_tree().paused = should_pause
+		
 ## Starts a turn.
 ##
 ## First, enemies draw dice from their bags, then players do, then reset everyone's defense, then
@@ -213,29 +217,29 @@ func draw_dice():
 		player.dice_hand.append(die)
 	player_status.dice_remaining = player.dice_bag.size()
 	
+	for effect in player.status_effects.duplicate():
+		if effect._type == StatusEffect.PARALYSIS: 
+			await effect.invoke()
+			#await get_tree().create_timer(0.5).timeout
+	
 	# Reset any defense given in the previous turn
 	player.defense = 0
 	for enemy in enemies:
 		enemy.defense = 0
 	
-	# Invoke status effects on enemies and player
-	# NOTE: order of effect invocation matters a lot.
-		# buffs before debuffs -> poison and such get mitigated by autodefense, makes debuff immunity effects easy to implement
-		# order of application
-	for enemy in enemies.duplicate():	# Shallow copy, so we don't get rekked when an enemy is removed from enemies on death
-		for effect in enemy.status_effects.duplicate():
-			if enemy != null and enemy.health != 0:
-				await effect.invoke()
-		if enemy != null and enemy.health != 0:
-			enemy.update_status_effects()
-	
-	cleanup_enemies()	# Enemies need to die when they are killed
-	
-	for effect in player.status_effects.duplicate():
-		await effect.invoke()
-	player.update_status_effects()
-	
 	if player.dice_hand.size() > 0:
+		# Set focus neighbors for the dice in the players hand. Needed since
+		# making the dice overlap messed with godot's ability to do it automatically.
+		var prev_d: DrawnDie
+		for d in player.dice_hand:
+			if not d.visible:
+				continue
+			if prev_d and prev_d is DrawnDie:
+				prev_d.focus_neighbor_right = d.get_path()
+				prev_d.focus_next = d.get_path()
+				d.focus_previous = prev_d.get_path()
+				d.focus_neighbor_left = prev_d.get_path()
+			prev_d = d
 		player.dice_hand[0].grab_focus()
 	else:
 		ready_button.grab_focus()
@@ -256,12 +260,19 @@ func cleanup_enemies():
 
 
 func enemy_turn():
+	draw_dice()
 	if enable_textboxes:
 		await textbox_controller.quick_beat("enemy attack")
 	
 	for enemy in enemies:
+		var attack_roll = 0
+		var defense_roll = 0
+		var def_die_effects = []
+		var atk_die_effects = []
+		
 		for die in enemy.dice_hand:
-			if die.action == DrawnDieData.ATTACK and die.effect.damaging:
+			
+			'''if die.action == DrawnDieData.ATTACK and die.effect.damaging:
 				player.damage_indication.visible = true
 				await player.take_damage(die.side.value, enemy.actor_name)
 				#player.damage_indication.visible = false
@@ -269,12 +280,48 @@ func enemy_turn():
 				enemy.defense += die.side.value
 			
 			await die.effect.apply()
-			player.damage_indication.visible = false
+			player.damage_indication.visible = false'''
+
+			if die.action == DrawnDieData.ATTACK and die.effect != null and die.effect.damaging:
+				#get_node("/root/SoundManager/attack").play()
+				#SoundManager.attack_sfx.play()
+				#await player.take_damage(die.side.value, enemy.actor_name)
+				attack_roll += die.side.value
+				atk_die_effects.append(die.effect)
+				
+			#else:		# DEFENSE
+			if die.action == DrawnDieData.DEFEND:
+				#get_node("/root/SoundManager/defend").play()
+				#SoundManager.defend_sfx.play()
+				#enemy.defense += die.side.value
+				defense_roll += die.side.value
+				def_die_effects.append(die.effect)
+		
+		if defense_roll > 0:
+			SoundManager.defend_sfx.play()
+			enemy.defense += defense_roll
+		
+		for effect in def_die_effects:
+			effect.apply()
+		
+		if attack_roll > 0:
+			SoundManager.attack_sfx.play()
+			await player.take_damage(attack_roll, enemy.actor_name)
+		
+		for effect in atk_die_effects:
+			effect.apply()
 	
-	draw_dice()    # Enemy turn is over so player draws dice
+	for effect in player.status_effects.duplicate():
+		if not effect.beneficial:
+			await effect.invoke()
+	player.update_status_effects()
+	
+	#draw_dice()    # Enemy turn is over so player draws dice
 	
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
+	#get_node("/root/SoundManager/select").play()
+	SoundManager.select_2.play()
 	await textbox_controller.quick_beat("run")
 	#get_tree().change_scene_to_file(map_path)
 	queue_free()
@@ -282,6 +329,8 @@ func _on_run_pressed():
 
 
 func _on_ready_pressed():
+	#get_node("/root/SoundManager/select").play()
+	SoundManager.select_2.play()
 	var one_target = false
 	for die in player.dice_hand:
 		
@@ -304,12 +353,13 @@ func _on_ready_pressed():
 	if enable_textboxes:
 		await textbox_controller.quick_beat("ready")
 	
-	for enemy in enemies:
-		enemy.roll_label.hide()
+	#for enemy in enemies:
+		#enemy.roll_label.hide()
 	
 	for die in player.dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
 		if not die.target:
 			continue
+		'''
 		match die.selected_action:
 			DrawnDieData.ATTACK:
 				# Account for if a previous die killed the enemy.
@@ -317,18 +367,81 @@ func _on_ready_pressed():
 					await textbox_controller.quick_beat("missed")
 				elif die.data.effect.damaging:
 						
+						# The 1st and 3rd line are used for damage animation
 						die.target.damage_indication.visible = true
-						
 						await die.target.take_damage(die.roll, player.actor_name)
+						#die.target.damage_indication.visible = false''
 						
-						#die.target.damage_indication.visible = false
-						
+					#get_node("/root/SoundManager/attack").play()
+					SoundManager.attack_sfx.play()
+					await die.target.take_damage(die.roll, player.actor_name)
 			DrawnDieData.DEFEND:
+				#get_node("/root/SoundManager/defend").play()
+				SoundManager.defend_2.play() #TODO: Make sure this plays at the proper time
 				player.defense += die.roll
 		
 		await die.data.effect.apply()
+		# Used for damage animation
 		die.target.damage_indication.visible = false
 		
+		'''
+		if die.selected_action == DrawnDieData.DEFEND:
+			SoundManager.defend_2.play() #TODO: Make sure this plays at the proper time
+			player.defense += die.roll
+			await die.data.effect.apply()
+	
+			await get_tree().create_timer(0.5).timeout #delaying so the player can see the effects apply
+
+	await get_tree().create_timer(0.2).timeout
+	
+	#applying buffs before attacking
+	for effect in player.status_effects.duplicate():
+		if effect.beneficial: 
+			await effect.invoke()
+			await get_tree().create_timer(0.5).timeout
+	
+	await get_tree().create_timer(0.2).timeout #delaying so the player can see the effects apply
+	
+	for die in player.dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
+		if not die.target:
+			continue
+			
+		if die.selected_action == DrawnDieData.ATTACK:
+			
+			# Account for if a previous die killed the enemy.
+			if not die.target in enemies:
+				await textbox_controller.quick_beat("missed")
+			#elif die.data.effect.damaging:
+			else:
+				#get_node("/root/SoundManager/attack").play()
+				#SoundManager.attack_sfx.play()
+				#await die.target.take_damage(die.roll, player.actor_name)
+				if die.data.effect.damaging:
+					SoundManager.attack_sfx.play()
+					await die.target.take_damage(die.roll, player.actor_name)
+					await get_tree().create_timer(0.2).timeout
+				await die.data.effect.apply()
+				
+			#applying buffs after attacking
+			
+	await get_tree().create_timer(0.5).timeout #delaying so the player can see the effects apply
+	
+	# Invoke status effects on enemies and player
+	# NOTE: order of effect invocation matters a lot.
+		# buffs before debuffs -> poison and such get mitigated by autodefense, makes debuff immunity effects easy to implement
+		# order of application
+	for enemy in enemies.duplicate():	# Shallow copy, so we don't get rekked when an enemy is removed from enemies on death
+		for effect in enemy.status_effects.duplicate():
+			if enemy != null and enemy.health != 0:
+				#await effect.invoke()
+				#if effect._type != StatusEffect.PARALYSIS:
+				await effect.invoke()
+				await get_tree().create_timer(0.5).timeout
+		if enemy != null and enemy.health != 0:
+			enemy.update_status_effects()
+	
+	await get_tree().create_timer(0.5).timeout
+	
 	cleanup_enemies()
 	player.hand_used()
 	for die in player.dice_hand:
@@ -336,3 +449,7 @@ func _on_ready_pressed():
 	player.dice_hand.clear()
 	drawn_die_container.reset()
 	enemy_turn()
+
+
+func _on_die_action_menu_is_hovered(dieside):
+	side_info.get_current_tab_control().new_frames(dieside)

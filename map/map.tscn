@@ -1,45 +1,31 @@
-[gd_scene load_steps=10 format=3 uid="uid://df2jc3pw5xfhy"]
+[gd_scene load_steps=3 format=3 uid="uid://dobeg8c3tqmme"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
 [ext_resource type="Resource" uid="uid://bvcujelfg6iql" path="res://battle/battle_actors/temp_player_element_res.tres" id="2_doe6k"]
-[ext_resource type="AudioStream" uid="uid://d3iv3umrviehb" path="res://music and sound/battle.wav" id="2_esnf3"]
-[ext_resource type="Script" path="res://music and sound/BattleMusic.gd" id="3_3wd8c"]
 [ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="4_sqmrd"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_k670k"]
 [ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://menus/fps_label.tscn" id="7_ccdas"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="8_8cnei"]
 [ext_resource type="PackedScene" uid="uid://dke0j6k6yhhl3" path="res://menus/pause_menu.tscn" id="9_f126o"]
 
-[node name="Map" type="Control" node_paths=PackedStringArray("scroll_cont", "bg")]
-layout_mode = 3
+[node name="Map" type="ScrollContainer" node_paths=PackedStringArray("bg")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("1_vgmaq")
-scroll_cont = NodePath("ScrollContainer")
-bg = NodePath("ScrollContainer/Nodes")
 temp_dice_bag_init = ExtResource("2_doe6k")
+size_flags_horizontal = 6
+size_flags_vertical = 6
+follow_focus = true
+script = ExtResource("1_vgmaq")
+bg = NodePath("Nodes")
 
-[node name="BattleMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_esnf3")
-script = ExtResource("3_3wd8c")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-custom_minimum_size = Vector2(640, 360)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Nodes" type="NinePatchRect" parent="ScrollContainer"]
+[node name="Nodes" type="NinePatchRect" parent="."]
 custom_minimum_size = Vector2(640, 1080)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = ExtResource("4_sqmrd")
 patch_margin_left = 32
 patch_margin_top = 32
@@ -73,3 +59,4 @@ size_flags_stretch_ratio = 2.0
 visible = false
 
 [editable path="CanvasLayer/Player Status"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
