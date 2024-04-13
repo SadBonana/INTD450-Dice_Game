@@ -114,6 +114,7 @@ func upgrade_die():
 func _ready():
 	#get_node("/root/Map").hide()
 	get_node("/root/Map").visible = false
+	get_node("/root/Map").player_status.visible = false
 	
 	if PlayerData.dice_bag.size() == 0:
 		PlayerData.dice_bag = temp_dice_bag_init.dice.duplicate(true)

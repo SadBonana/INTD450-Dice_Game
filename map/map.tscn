@@ -1,7 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://df2jc3pw5xfhy"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
-[ext_resource type="PackedScene" uid="uid://dhgtx82xq4w7k" path="res://menus/pause_menu.tscn" id="2_744sy"]
 [ext_resource type="Resource" uid="uid://bvcujelfg6iql" path="res://battle/battle_actors/temp_player_element_res.tres" id="2_doe6k"]
 [ext_resource type="AudioStream" uid="uid://d3iv3umrviehb" path="res://music and sound/battle.wav" id="2_esnf3"]
 [ext_resource type="Script" path="res://music and sound/BattleMusic.gd" id="3_3wd8c"]
@@ -9,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_k670k"]
 [ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://menus/fps_label.tscn" id="7_ccdas"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="8_8cnei"]
+[ext_resource type="PackedScene" uid="uid://dke0j6k6yhhl3" path="res://menus/pause_menu.tscn" id="9_f126o"]
 
 [node name="Map" type="Control" node_paths=PackedStringArray("scroll_cont", "bg")]
 layout_mode = 3
@@ -52,16 +52,12 @@ axis_stretch_vertical = 1
 visible = false
 layout_mode = 0
 
-[node name="pause_menu" parent="." instance=ExtResource("2_744sy")]
-visible = false
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Player Status" parent="." instance=ExtResource("6_k670k")]
-layout_mode = 1
+[node name="Player Status" parent="CanvasLayer" instance=ExtResource("6_k670k")]
 
-[node name="Display Box" parent="." instance=ExtResource("8_8cnei")]
+[node name="Display Box" parent="CanvasLayer" instance=ExtResource("8_8cnei")]
 visible = false
-layout_mode = 2
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -73,4 +69,7 @@ grow_vertical = 1
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[editable path="Player Status"]
+[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("9_f126o")]
+visible = false
+
+[editable path="CanvasLayer/Player Status"]

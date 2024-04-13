@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c1qfpvc0icjsy"]
 
 [ext_resource type="Script" path="res://menus/settings_button.gd" id="1_elpbh"]
-[ext_resource type="PackedScene" uid="uid://b0rmrjb71troy" path="res://menus/settings_menu.tscn" id="2_pjgqe"]
+[ext_resource type="PackedScene" uid="uid://b1ubikyc0m012" path="res://menus/settings_menu.tscn" id="2_pjgqe"]
 
 [node name="settings_button" type="Button"]
 theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)

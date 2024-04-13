@@ -19,7 +19,7 @@ var map_scene 	= preload("res://map/MapTree.tscn")
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
 @onready var side_name = "Sides"
 @onready var inventory = %"Display Box"
-@onready var player_status = $"Player Status"
+@onready var player_status = $"CanvasLayer/Player Status"
 @export var temp_dice_bag_init: PlayerDataInit
 var inventory_open = false
 
@@ -98,10 +98,10 @@ func add_nodes():
 					
 				NT.BOSS:
 					text = "Boss"
-
-			
+				
 			#node.text = str(node.type)
 			#node.text = text
+			
 			bg.add_child(node)
 
 

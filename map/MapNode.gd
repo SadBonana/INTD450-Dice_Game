@@ -135,7 +135,6 @@ func _pressed():
 			
 		NT.CAMPFIRE:
 			scene = preload("res://campfire/campfire.tscn")
-			pass
 			
 		NT.WORKSHOP:
 			#scene = preload("TODO:insert workshop path here.tscn")

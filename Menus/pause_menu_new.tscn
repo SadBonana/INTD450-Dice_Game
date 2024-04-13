@@ -1,43 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dke0j6k6yhhl3"]
+[gd_scene load_steps=4 format=3 uid="uid://cw5hjh480fcbg"]
 
-[ext_resource type="PackedScene" uid="uid://c1qfpvc0icjsy" path="res://menus/settings_button.tscn" id="3_j362h"]
-[ext_resource type="PackedScene" uid="uid://bgp0uigvyvkrj" path="res://menus/quit_button.tscn" id="4_mo4qs"]
+[ext_resource type="PackedScene" uid="uid://c1qfpvc0icjsy" path="res://menus/settings_button.tscn" id="1_j2pkm"]
+[ext_resource type="Script" path="res://menus/pause_menu.gd" id="1_p3cog"]
+[ext_resource type="PackedScene" uid="uid://bgp0uigvyvkrj" path="res://menus/quit_button.tscn" id="2_j0q45"]
 
-[sub_resource type="GDScript" id="GDScript_e1jph"]
-script/source = "extends Control
-#extends CanvasLayer
-#extends Popup
-#extends Node2D
-
-@onready var pause_menu = $\".\"
-
-var _is_paused:bool = false:
-	set = set_paused
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	#grab_focus()
-	hide()
-
-
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed(\"pause\"):
-		_is_paused = !_is_paused
-		#pause_menu.popup_centered()
-
-
-func set_paused(value:bool) -> void:
-	_is_paused = value
-	get_tree().paused = _is_paused
-	visible = _is_paused
-
-
-func _on_resume_pressed():
-	set_paused(false)
-"
-
-[node name="pause_menu" type="Control"]
+[node name="pause_menu_new" type="Control"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -45,9 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = SubResource("GDScript_e1jph")
+script = ExtResource("1_p3cog")
 
 [node name="pause_menu_panel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
@@ -80,12 +45,12 @@ theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
 text = "Resume"
 
-[node name="settings_button" parent="pause_menu_panel/VBoxContainer" instance=ExtResource("3_j362h")]
+[node name="settings_button" parent="pause_menu_panel/VBoxContainer" instance=ExtResource("1_j2pkm")]
 layout_mode = 2
 focus_neighbor_top = NodePath("../resume")
 focus_neighbor_bottom = NodePath("../quit_button")
 
-[node name="quit_button" parent="pause_menu_panel/VBoxContainer" instance=ExtResource("4_mo4qs")]
+[node name="quit_button" parent="pause_menu_panel/VBoxContainer" instance=ExtResource("2_j0q45")]
 layout_mode = 2
 focus_neighbor_top = NodePath("../settings_button")
 focus_neighbor_bottom = NodePath(".")

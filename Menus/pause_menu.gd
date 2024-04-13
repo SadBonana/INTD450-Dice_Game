@@ -20,6 +20,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func set_paused(value:bool) -> void:
 	_is_paused = value
 	get_tree().paused = _is_paused
+	#get_node("/root/PauseMenu")
 	visible = _is_paused
 
 
