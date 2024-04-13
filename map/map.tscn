@@ -4,9 +4,9 @@
 [ext_resource type="Resource" uid="uid://cfwcn8txtyhsv" path="res://global scripts/initial bag/elemental_d6_bag.tres" id="2_q8lfo"]
 [ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="4_sqmrd"]
 [ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_k670k"]
-[ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://menus/fps_label.tscn" id="7_ccdas"]
+[ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://Menus/fps_label.tscn" id="7_ccdas"]
+[ext_resource type="PackedScene" uid="uid://dke0j6k6yhhl3" path="res://Menus/pause_menu.tscn" id="7_dd1q5"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="8_8cnei"]
-[ext_resource type="PackedScene" uid="uid://cw5hjh480fcbg" path="res://menus/pause_menu_new.tscn" id="9_f126o"]
 
 [node name="Map" type="ScrollContainer" node_paths=PackedStringArray("bg")]
 anchors_preset = 15
@@ -54,7 +54,7 @@ grow_horizontal = 1
 grow_vertical = 1
 size_flags_stretch_ratio = 2.0
 
-[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("9_f126o")]
+[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("7_dd1q5")]
 visible = false
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
