@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dh8djh65x4wfj"]
 
+[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="1_w4a5x"]
 [ext_resource type="Script" path="res://modules/display_box/display_box.gd" id="1_wqckx"]
-[ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="3_5innm"]
 [ext_resource type="StyleBox" uid="uid://bjgb7uajeki8y" path="res://modules/display_box/styles/tab_selected.tres" id="3_r7vbc"]
 [ext_resource type="StyleBox" uid="uid://brgndhav25fw2" path="res://modules/display_box/styles/tab_hovered.tres" id="4_6b4pv"]
 [ext_resource type="StyleBox" uid="uid://cy44octlcoag8" path="res://modules/display_box/styles/tab_unselected.tres" id="4_418ug"]
@@ -17,8 +17,8 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/side_margin = 32
-theme_override_fonts/font = ExtResource("3_5innm")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("1_w4a5x")
+theme_override_font_sizes/font_size = 8
 theme_override_styles/tab_selected = ExtResource("3_r7vbc")
 theme_override_styles/tab_hovered = ExtResource("4_6b4pv")
 theme_override_styles/tab_unselected = ExtResource("4_418ug")
