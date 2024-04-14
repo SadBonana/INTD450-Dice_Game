@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cuaew3jle1avs"]
+[gd_scene load_steps=10 format=3 uid="uid://cuaew3jle1avs"]
 
 [ext_resource type="PackedScene" uid="uid://bg2qp6qtt275u" path="res://modules/inventory/diceinv/inv_die_frame.tscn" id="1_sd3bl"]
 [ext_resource type="StyleBox" uid="uid://mx7pb2iqumt5" path="res://battle/drawn_die/styles/button_battle_normal.tres" id="2_l5xp6"]
@@ -8,6 +8,7 @@
 [ext_resource type="StyleBox" uid="uid://ctvgbwyx6ygdt" path="res://battle/drawn_die/styles/button_battle_disabled.tres" id="5_ss3iu"]
 [ext_resource type="Texture2D" uid="uid://dw2fx8b8kx7uy" path="res://assets/textures/resources/dice/d4.tres" id="7_ytgmn"]
 [ext_resource type="Texture2D" uid="uid://cswe1gnj4fufy" path="res://assets/textures/resources/elements/steel.tres" id="8_r8g3o"]
+[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="9_8r2ot"]
 
 [node name="Button" instance=ExtResource("1_sd3bl")]
 custom_minimum_size = Vector2(96, 96)
@@ -30,6 +31,8 @@ theme_override_styles/pressed = ExtResource("4_j6333")
 theme_override_styles/disabled = ExtResource("5_ss3iu")
 toggle_mode = true
 script = ExtResource("2_xa0sa")
+metadata/_edit_vertical_guides_ = [308.0, 332.0]
+metadata/_edit_horizontal_guides_ = [164.0, 196.0]
 
 [node name="DisplayContainer" parent="." index="0"]
 anchors_preset = 8
@@ -49,44 +52,38 @@ texture = ExtResource("7_ytgmn")
 expand_mode = 0
 stretch_mode = 2
 
-[node name="IconContainer" type="MarginContainer" parent="." index="1"]
-custom_minimum_size = Vector2(32, 32)
+[node name="MarginContainer" type="MarginContainer" parent="." index="1"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_bottom = 15
 
-[node name="ElementIcon" type="TextureRect" parent="IconContainer" index="0"]
+[node name="IconContainer" type="MarginContainer" parent="MarginContainer" index="0"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="ElementIcon" type="TextureRect" parent="MarginContainer/IconContainer" index="0"]
 unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("8_r8g3o")
 stretch_mode = 5
 
 [node name="LabelContainer" parent="." index="2"]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_right = 20.0
-offset_bottom = 37.0
-grow_horizontal = 1
-grow_vertical = 1
-theme_override_constants/margin_left = 6
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 20
 
 [node name="Label" parent="LabelContainer" index="0"]
 size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 36
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.45098, 0.407843, 0.34902, 1)
+theme_override_fonts/font = ExtResource("9_8r2ot")
+theme_override_font_sizes/font_size = 24
 text = "4"
-horizontal_alignment = 0
-vertical_alignment = 0
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]

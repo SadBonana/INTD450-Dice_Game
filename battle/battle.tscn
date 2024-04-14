@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://chd8awhkxw1b7"]
+[gd_scene load_steps=19 format=3 uid="uid://chd8awhkxw1b7"]
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://battle/hand_of_dice.gd" id="8_47wfu"]
 [ext_resource type="Resource" uid="uid://git3m0aftj0o" path="res://battle/battle_textbox_test.tres" id="9_5yvlh"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="10_sbswq"]
+[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="14_awnqw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0gmav"]
 texture = ExtResource("4_kit2x")
@@ -34,17 +35,6 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_t1f7r"]
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_0gmav")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prgvx"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lira"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0c1a"]
 
 [node name="Battle" type="Control" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3")]
 layout_mode = 3
@@ -243,23 +233,15 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
-theme_override_fonts/font = ExtResource("7_iw7i2")
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_prgvx")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
-text = "TO BATTLE! "
+theme = ExtResource("14_awnqw")
+text = "TO BATTLE!"
 
 [node name="Run" type="Button" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
-theme_override_fonts/font = ExtResource("7_iw7i2")
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_prgvx")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
+theme = ExtResource("14_awnqw")
 text = "RUN"
 
 [node name="Textbox Controller" parent="BattleContainer/PlayerPanel/MarginContainer" instance=ExtResource("8_11wq8")]
