@@ -69,8 +69,8 @@ func draw_dice():
 			dice_bag = used_dice
 			used_dice = []
 			dice_bag.shuffle()
-			dice_hand.clear()
-			break
+			#dice_hand.clear()
+			#break
 		
 		# Draw the actual die from the bag, roll it, add it to hand, and consider
 		# it a used die (aka discard it but not really)
