@@ -29,6 +29,7 @@ custom_minimum_size = Vector2(640, 1080)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+focus_mode = 2
 texture = ExtResource("4_sqmrd")
 patch_margin_left = 32
 patch_margin_top = 32
