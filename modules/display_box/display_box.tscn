@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://modules/display_box/display_box.gd" id="1_wqckx"]
 [ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="3_5innm"]
-[ext_resource type="StyleBox" uid="uid://ds7whts5qhh8c" path="res://modules/display_box/styles/display_box.tres" id="3_hx48s"]
 [ext_resource type="StyleBox" uid="uid://bjgb7uajeki8y" path="res://modules/display_box/styles/tab_selected.tres" id="3_r7vbc"]
 [ext_resource type="StyleBox" uid="uid://brgndhav25fw2" path="res://modules/display_box/styles/tab_hovered.tres" id="4_6b4pv"]
 [ext_resource type="StyleBox" uid="uid://cy44octlcoag8" path="res://modules/display_box/styles/tab_unselected.tres" id="4_418ug"]
+[ext_resource type="StyleBox" uid="uid://b53y6jtfssomx" path="res://modules/display_box/styles/die_side_info_box.tres" id="5_p0afj"]
 
 [node name="Display Box" type="TabContainer"]
 unique_name_in_owner = true
@@ -22,6 +22,6 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/tab_selected = ExtResource("3_r7vbc")
 theme_override_styles/tab_hovered = ExtResource("4_6b4pv")
 theme_override_styles/tab_unselected = ExtResource("4_418ug")
-theme_override_styles/panel = ExtResource("3_hx48s")
+theme_override_styles/panel = ExtResource("5_p0afj")
 tab_focus_mode = 0
 script = ExtResource("1_wqckx")

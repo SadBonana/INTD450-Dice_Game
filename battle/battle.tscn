@@ -109,7 +109,6 @@ layout_mode = 2
 
 [node name="Side Info" parent="BattleContainer/MarginContainer/TopPanel/MarginContainer" instance=ExtResource("10_sbswq")]
 layout_mode = 2
-theme_override_styles/panel = ExtResource("6_8d77f")
 tabs_visible = false
 is_open = true
 

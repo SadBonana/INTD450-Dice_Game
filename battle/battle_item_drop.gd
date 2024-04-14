@@ -112,5 +112,5 @@ func item_generation():
 
 func exit_drop_screen():
 	queue_free()
-	get_node("/root/Map").canvas_layer = true
+	get_node("/root/Map").canvas_layer.visible = true
 	get_node("/root/Map").show()
