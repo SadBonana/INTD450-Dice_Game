@@ -7,9 +7,6 @@ class_name BattleEnemy extends BattleActor
 @onready var roll_label: Label = %Roll  # FIXME: Displaying the enemy's roll over their sprite is prolly not what we want the final game to look like. I thought the empty top panel was where we'd show that info, but I'm running out of energy now so...
 @export var res: Resource
 
-@onready var die_roll_1 = $die_roll_1
-#@onready var individual_die_rolls = $individual_die_roll_container
-
 @export_file("*.tscn") var drawn_die_path
 
 @export var mouse_out: bool
@@ -55,22 +52,12 @@ func _ready():
 # Can be used later for fancier enemy decision making
 ## Commit dice in dice hand to a particular action. For now, just uses all dice for attacking.
 func commit_dice():
-	var die_roll_text = " "
 	
 	print("dice hand size is:", dice_hand.size())
 	
 	for die in dice_hand:
 		die.target = battle.player
 		die.action = DrawnDieData.ATTACK
-		
-		'''print("die roll text before:", die_roll_text)
-		die_roll_text = die_roll_text + "%d" % die.side.value + " "
-		die_roll_1.text = die_roll_text
-		print("die roll text after:", die_roll_text)'''
-		
-	#die_roll_1.text = die_roll_text + "%d" % dice_hand[0].side.value
-	#die_roll_2.text = "%d" % dice_hand[1].side.value
-	#die_roll_3.text = "%d" % dice_hand[2].side.value
 	
 	var paralyzed = false
 	var stacks = 0
