@@ -33,9 +33,11 @@ signal target_selected(target)
 
 var enemies = []
 var defeated_enemies = []
+
 # Textbox
 @onready var textbox_controller := %"Textbox Controller"
 @export var enable_textboxes := false
+
 # Player Panel
 @onready var bottom_container := %"Player Status and Hand"
 @onready var player_status := %"Player Status"
@@ -250,7 +252,7 @@ func cleanup_enemies():
 
 
 func enemy_turn():
-	#draw_dice()
+	draw_dice()
 	if enable_textboxes:
 		await textbox_controller.quick_beat("enemy attack")
 	
@@ -298,21 +300,19 @@ func enemy_turn():
 		
 		if attack_roll > 0:
 			SoundManager.attack_sfx.play()
-			player.damage_indication.visible = true
+			#player.damage_indication.visible = true
 			await player.take_damage(attack_roll, enemy.actor_name)
-			player.damage_indication.visible = false
+			#player.damage_indication.visible = false
 		
 		for effect in atk_die_effects:
 			effect.apply()
-		
-		#player.damage_indication.visible = false
 	
 	for effect in player.status_effects.duplicate():
 		if not effect.beneficial:
 			await effect.invoke()
 	
 	player.update_status_effects()
-	draw_dice()    # Enemy turn is over so player draws dice
+	#draw_dice()    # Enemy turn is over so player draws dice
 	
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
@@ -331,9 +331,6 @@ func _on_ready_pressed():
 	SoundManager.select_2.play()
 	var one_target = false
 	for die in player.dice_hand:
-		
-		#die.target.progress_bar.value = die.target.health_bar.value - die.roll
-		
 		if die.target:
 			one_target = true
 			break
@@ -355,6 +352,9 @@ func _on_ready_pressed():
 		#enemy.roll_label.hide()
 	
 	for die in player.dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
+		
+		'''die.target.damage_for_preview = die.roll'''
+		
 		if not die.target:
 			continue
 		'''
@@ -416,14 +416,11 @@ func _on_ready_pressed():
 				#await die.target.take_damage(die.roll, player.actor_name)
 				if die.data.effect.damaging:
 					SoundManager.attack_sfx.play()
-					die.target.damage_indication.visible = true
+					#die.target.damage_indication.visible = true
 					await die.target.take_damage(die.roll, player.actor_name)
-					die.target.damage_indication.visible = false
+					#die.target.damage_indication.visible = false
 					await get_tree().create_timer(0.2).timeout
 				await die.data.effect.apply()
-				#die.target.damage_indication.visible = false
-				# Used for damage animation
-				#die.target.damage_indication.visible = false
 				
 			#applying buffs after attacking
 			
@@ -456,6 +453,7 @@ func _on_ready_pressed():
 
 func _on_die_action_menu_is_hovered(dieside):
 	side_info.get_current_tab_control().new_frames(dieside)
+
 
 func track_inventory():
 	if inventory.visible == false:

@@ -2,7 +2,9 @@ class_name BattleEnemy extends BattleActor
 
 @onready var health_bar: HealthBar = %HealthBar
 @onready var progress_bar = $HealthBar/ProgressBar
-@onready var health_label = $HealthBar/Label
+
+@onready var health_label = $HealthBar/original_label
+@onready var preview_damage_label = $HealthBar/ProgressBar/preview_label
 
 @onready var roll_label: Label = %Roll  # FIXME: Displaying the enemy's roll over their sprite is prolly not what we want the final game to look like. I thought the empty top panel was where we'd show that info, but I'm running out of energy now so...
 @export var res: Resource
@@ -15,12 +17,16 @@ class_name BattleEnemy extends BattleActor
 @export var mouse_out: bool
 @export var mouse_over: bool
 
+@export var damage_for_preview: int
+@export var player_targeting_check: bool
+
 var battle: Battle
 
 var max_health: int:
 	set (value):
 		max_health = value
 		health_bar.max_value = value
+		progress_bar.max_value = value
 
 var damage: int:
 	set (value):
@@ -127,14 +133,41 @@ func restore_sprite_color():
 	tex_rect.self_modulate = res.sprite_color
 
 
-func _on_area_2d_mouse_entered():
-	progress_bar.z_index = 2
-	print("z = 2")
+'''func _on_area_2d_mouse_entered():
+	#progress_bar.z_index = 2
+	#print("z = 2")
+	
 	progress_bar.visible = true
 	health_label.text = "HP: %d/%d" % [health_bar.value - damage, health_bar.max_value]
 	print("health label is:", health_label.text)
 
 
 func _on_area_2d_mouse_exited():
-	progress_bar.z_index = -1
+	#progress_bar.z_index = -1
+	progress_bar.visible = false'''
+
+
+
+func _on_mouse_entered():
+	#progress_bar.visible = true
+	#health_label.text = "HP: %d/%d" % [health_bar.value - damage_for_preview, health_bar.max_value]
+	
+	#var current_health = _get_health()
+	#battle.player
+	
+	health_label.visible = false
+	
+	progress_bar.value = health - damage_for_preview
+	
+	progress_bar.visible = true
+	preview_damage_label.visible = true
+	
+	preview_damage_label.text = "HP: %d/%d" % [health - damage_for_preview, max_health]
+	
+	print("health label is:", preview_damage_label.text)
+
+
+func _on_mouse_exited():
+	health_label.visible = true
 	progress_bar.visible = false
+	preview_damage_label.visible = false

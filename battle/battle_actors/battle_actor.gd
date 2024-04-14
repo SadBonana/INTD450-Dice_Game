@@ -96,6 +96,9 @@ func update_status_effects():
 ##
 ## Return the damage taken after accounting for defense
 func take_damage(damage: int, beligerent_name: String) -> int:
+	
+	damage_indication.visible = true
+	
 	var damage_after_defense = Helpers.clamp_damage(damage, defense)
 	defense -= damage
 	shield_manager(defense)
@@ -106,6 +109,8 @@ func take_damage(damage: int, beligerent_name: String) -> int:
 	
 	animation_player.play("Hurt")
 	await animation_player.animation_finished
+	
+	damage_indication.visible = false
 	
 	if enable_textboxes:
 		await textbox.quick_beat("deal damage", [beligerent_name, damage_after_defense])
@@ -145,6 +150,8 @@ func restore_sprite_color():
 func toggle_target_mode(player_is_targeting: bool, target_selected: Signal):
 	# Init logic for player to target enemies
 	if player_is_targeting:
+		#target_selected.target.progress_bar.value = die.target.health_bar.value - die.roll
+		
 		modulate.a = _usual_alpha / 2	# Set unfocused alpha
 		set_focus_mode(FOCUS_ALL)	# Enable focus
 		
@@ -208,10 +215,12 @@ func shield_manager(value: int):
 
 
 func spawn_damage_indicator(damage: int):
-	#damage_indication.visible = true
 	damage_indication.label.text = str(damage)
+	
 	damage_animation.play("show_damage")
 	await animation_player.animation_finished
+	#await damage_animation.animation_finished
+	
 	damage_animation.play("RESET")
 	await animation_player.animation_finished
-	#damage_indication.visible = false
+	#await damage_animation.animation_finished

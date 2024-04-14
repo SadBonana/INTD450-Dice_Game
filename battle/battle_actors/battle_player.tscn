@@ -15,13 +15,11 @@ script = ExtResource("1_udnp1")
 texture = ExtResource("3_bsgsc")
 dice_bag_init = ExtResource("4_h8wpo")
 
-[node name="damage_indicator" parent="." index="3"]
-visible = false
-
-[editable path="damage_indicator"]
 [node name="MarginContainer" parent="." index="2"]
 size_flags_vertical = 10
 
 [node name="Actor Sprite" parent="MarginContainer" index="0"]
 texture = ExtResource("3_bsgsc")
 stretch_mode = 2
+
+[editable path="damage_indicator"]
