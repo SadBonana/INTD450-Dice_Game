@@ -2,15 +2,23 @@ class_name BattleEnemy extends BattleActor
 
 @onready var health_bar: HealthBar = %HealthBar
 @onready var roll_label: Label = %Roll  # FIXME: Displaying the enemy's roll over their sprite is prolly not what we want the final game to look like. I thought the empty top panel was where we'd show that info, but I'm running out of energy now so...
-
 @export var res: Resource
 
+@onready var die_roll_1 = $die_roll_1
+#@onready var individual_die_rolls = $individual_die_roll_container
+
+@export_file("*.tscn") var drawn_die_path
+
+@export var mouse_out: bool
+@export var mouse_over: bool
 
 var battle: Battle
+
 var max_health: int:
 	set (value):
 		max_health = value
 		health_bar.max_value = value
+
 var damage: int:
 	set (value):
 		damage = value
@@ -19,6 +27,7 @@ var damage: int:
 func _set_health(value):
 	health = clamp(value, 0, max_health)
 	health_bar.value = health
+
 func _get_health():
 	return health
 
@@ -43,9 +52,23 @@ func _ready():
 # Can be used later for fancier enemy decision making
 ## Commit dice in dice hand to a particular action. For now, just uses all dice for attacking.
 func commit_dice():
+	var die_roll_text = " "
+	
+	print("dice hand size is:", dice_hand.size())
+	
 	for die in dice_hand:
 		die.target = battle.player
 		die.action = DrawnDieData.ATTACK
+		
+		'''print("die roll text before:", die_roll_text)
+		die_roll_text = die_roll_text + "%d" % die.side.value + " "
+		die_roll_1.text = die_roll_text
+		print("die roll text after:", die_roll_text)'''
+		
+	#die_roll_1.text = die_roll_text + "%d" % dice_hand[0].side.value
+	#die_roll_2.text = "%d" % dice_hand[1].side.value
+	#die_roll_3.text = "%d" % dice_hand[2].side.value
+	
 	var paralyzed = false
 	var stacks = 0
 	for effect in status_effects:
@@ -60,6 +83,9 @@ func commit_dice():
 
 # Will likely need to be rewritten once effect die and enemies defending become a thing.
 func draw_dice():
+	#individual_die_rolls.show()
+	
+	
 	dice_hand = []	# Reset the hand so we don't use the values from last turn
 	for i in range(dice_draws):
 		# Whatever we decide to do when the enemy runs out of dice, it'll be here

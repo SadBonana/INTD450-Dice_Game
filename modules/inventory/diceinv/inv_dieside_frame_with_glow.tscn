@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfymsbtolism2"]
+[gd_scene load_steps=5 format=3 uid="uid://dna6mbwvewc22"]
 
 [ext_resource type="Shader" path="res://modules/inventory/diceinv/inv_dieside_frame_glow.gdshader" id="1_0s7f8"]
 [ext_resource type="Script" path="res://modules/inventory/diceinv/inv_dieside_frame_with_glow.gd" id="2_qy4ig"]

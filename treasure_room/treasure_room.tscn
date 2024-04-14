@@ -124,9 +124,9 @@ theme_override_constants/separation = 0
 [node name="LootDropContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/margin_top = 105
 
 [node name="item_drop_display" parent="VBoxContainer/LootDropContainer" instance=ExtResource("4_g7mp6")]
-visible = false
 layout_mode = 2
 tabs_visible = false
 
@@ -145,6 +145,7 @@ text = "Skip Reward"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.55
 dialogue_res = SubResource("Resource_08gah")
 
 [node name="Background" type="PanelContainer" parent="VBoxContainer/Textbox Controller"]

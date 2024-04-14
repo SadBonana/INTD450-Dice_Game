@@ -109,9 +109,9 @@ grow_vertical = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/margin_top = 105
 
 [node name="item_drop_display" parent="VBoxContainer/LootDropContainer" instance=ExtResource("3_dly5t")]
-visible = false
 layout_mode = 2
 tabs_visible = false
 
@@ -130,7 +130,7 @@ text = "Skip Reward"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.6
+size_flags_stretch_ratio = 0.55
 dialogue_res = SubResource("Resource_umkng")
 
 [node name="Background" type="PanelContainer" parent="VBoxContainer/Textbox Controller"]

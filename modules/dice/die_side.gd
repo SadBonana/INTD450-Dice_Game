@@ -20,6 +20,10 @@ var extra_effects : Array[StatusEffect]
 # TODO: USE THIS IF YOU WANT EXTRA EFFECTS:
 #@export var extra_effects : Array[StatusEffect.EffectType]
 
+#var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
+#var inv_side = inv_side_visual.instantiate()
+#var glow_toggle: bool
+
 ## Constructor
 ## has default values:
 ## custom_power is false, make it true if you want to bypass the power_calc function
@@ -42,6 +46,7 @@ func _init(_custom_power:bool=false,
 	self.element = _element
 	self.value = _value
 	self.extra_effects = _effects
+	#self.glow_toggle = _glow_toggle
 	
 
 ## calculates the power of a side
@@ -81,3 +86,7 @@ func info() -> String:
 	
 
 
+'''func glow(frame, power:float):
+	#inv_side.enable_glow(self, glow_toggle)
+	frame = inv_side
+	frame.get_material().set_shader_parameter("glow_power", power)'''

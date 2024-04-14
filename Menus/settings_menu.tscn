@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0rmrjb71troy"]
+[gd_scene load_steps=2 format=3 uid="uid://b1ubikyc0m012"]
 
-[ext_resource type="Script" path="res://menus/settings_menu.gd" id="1_nfjqp"]
+[ext_resource type="Script" path="res://menus/settings_menu.gd" id="1_wgoa1"]
 
 [node name="settings_menu" type="Window"]
 title = "Settings"
@@ -9,7 +9,7 @@ size = Vector2i(640, 340)
 content_scale_mode = 2
 content_scale_aspect = 4
 content_scale_stretch = 1
-script = ExtResource("1_nfjqp")
+script = ExtResource("1_wgoa1")
 
 [node name="Background" type="ColorRect" parent="."]
 anchors_preset = 15

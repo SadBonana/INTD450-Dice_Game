@@ -50,30 +50,40 @@ func select_die(frame):
 	# Open side preview
 	show_sides(frame)
 	# Display prompt
-	textbox_controller.visible=true
+	textbox_controller.visible = true
 	await textbox_controller.quick_beat("confirm", [], _on_dialogue_transitiond)
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("/root/Map").hide()
+	get_node("/root/Map").player_status_container.visible = false
+	
 	# Generate 3 random battle drop items from a randomly selected loot table
 	item_generation()
+	
 	## setup for dice inventory tab
 	inventory.make_tab("Dropped Items", dropped_die_array, inv_dice_visual)
 	## setup for die sides inventory tab
 	inventory.make_tab(side_name, [], inv_side_visual)
+	
 	skip_rewards.pressed.connect(skip_reward)
 	inventory.return_clicked.connect(select_die)
+	
 	await textbox_controller.quick_beat("congrats", [], _on_dialogue_transitiond)
-	await textbox_controller.quick_beat("directions", [], _on_dialogue_transitiond)
+	
 	inventory.open()
 	skip_rewards.visible = true
+	get_node("/root/Map").player_status_container.visible = true
 	
+	await textbox_controller.quick_beat("directions", [], _on_dialogue_transitiond)
+
 
 func skip_reward():
+	inventory.hide()
 	await textbox_controller.quick_beat("no_die", [], _on_dialogue_transitiond)
 	exit_drop_screen()
+
 
 func item_generation():
 	# Use probability to determine only ONE loot table 
@@ -99,7 +109,9 @@ func item_generation():
 			dropped_die_array.append(drop)
 		
 		print("index of dropped die array:", index_of_dropped_die)
-		
+
+
 func exit_drop_screen():
 	queue_free()
+	get_node("/root/Map").canvas_layer.visible = true
 	get_node("/root/Map").show()
