@@ -59,7 +59,7 @@ func set_type(_type:NT) -> void:
 		NT.TREASURE:
 			dest_path = "res://treasure_room/treasure_room.tscn" #set path to treasure scene
 		NT.BOSS:
-			pass
+			dest_path = "res://battle/boss_battle/boss_battle.tscn"
 
 #return the type of the node
 func get_type() -> NT:
@@ -154,6 +154,7 @@ func _pressed():
 			
 		NT.BOSS:
 			#scene = preload("TODO:insert boss path here.tscn")
+			scene = preload("res://battle/boss_battle/boss_battle.tscn")
 			#SoundManager.battle_music.fade_out()
 			#await get_tree().create_timer(0.5).timeout 
 			#SoundManager.boss_intro.play()

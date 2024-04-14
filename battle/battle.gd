@@ -30,6 +30,7 @@ signal target_selected(target)
 @export var enemy1: BattleEnemy
 @export var enemy2: BattleEnemy
 @export var enemy3: BattleEnemy
+@export var in_battle_scene = false
 
 var enemies = []
 var defeated_enemies = []
@@ -77,7 +78,13 @@ func _enter_tree():
 	# Slight HACK: The better way is probably to load and instantiate the enemies
 	# similar to how it is done for the DrawnDie.
 	# Initilize enemy data and hide enemies that shouldn't show up in teh encounter
-	var enemy_resources = encounter_res.enemies
+	var enemy_resources
+	
+	if in_battle_scene == true:
+		enemy_resources = boss_encounter.enemies
+	else:
+		enemy_resources = encounter_res.enemies
+	
 	if enemy_resources.size() >= 1:
 		enemy3.res = enemy_resources[0]
 		enemy3.battle = self
