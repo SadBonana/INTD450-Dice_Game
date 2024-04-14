@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://nq0o2g57d888" path="res://die_resources/lightning_dice/lightning_sides/1_lightning_side.tres" id="2_a4abc"]
 [ext_resource type="Resource" uid="uid://ciflo84x5qynq" path="res://die_resources/lightning_dice/lightning_sides/2_lightning_side.tres" id="3_dt1f3"]
 [ext_resource type="Resource" uid="uid://lo84spmit74s" path="res://die_resources/lightning_dice/lightning_sides/3_lightning_side.tres" id="4_5ijnr"]
-[ext_resource type="Resource" uid="uid://xi4qv18viuet" path="res://die_resources/lightning_dice/lightning_sides/4_lightning_side.tres" id="5_jx2u1"]
+[ext_resource type="Resource" uid="uid://1k5gwulcyper" path="res://die_resources/lightning_dice/lightning_sides/4_lightning_side.tres" id="5_jx2u1"]
 [ext_resource type="Texture2D" uid="uid://dw2fx8b8kx7uy" path="res://assets/textures/resources/dice/d4.tres" id="6_s2j7g"]
 
 [resource]

@@ -4,11 +4,12 @@ extends Control
 @onready var heal_button = $MarginContainer/VBoxContainer/HBocContainer/HealButton
 @onready var campfire_scene = $"."
 
-var recover_health_by = int(ceil(PlayerData.hp / 2))
+var recover_health_by = int(ceil(PlayerData.hp_max / 2))
 
 func _ready():
 	heal_button.text = "Recover %d Health" % recover_health_by
 	print("recover by:", recover_health_by)
+	get_node("/root/Map").canvas_layer.visible = true
 
 
 func _on_heal_button_pressed():

@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://b1d3iug3kqfhh" path="res://die_resources/fire_dice/fire_sides/1_fire_side.tres" id="2_5bv0m"]
 [ext_resource type="Resource" uid="uid://drgkyjw5xk6a1" path="res://die_resources/fire_dice/fire_sides/2_fire_side.tres" id="3_5k2ii"]
 [ext_resource type="Resource" uid="uid://dfhidsyg2llgs" path="res://die_resources/fire_dice/fire_sides/3_fire_side.tres" id="4_3gmgq"]
-[ext_resource type="Resource" uid="uid://dmsi3pva4mt54" path="res://die_resources/fire_dice/fire_sides/4_fire_side.tres" id="5_c7675"]
+[ext_resource type="Resource" uid="uid://djbqrh2byks1u" path="res://die_resources/fire_dice/fire_sides/4_fire_side.tres" id="5_c7675"]
 [ext_resource type="Texture2D" uid="uid://dw2fx8b8kx7uy" path="res://assets/textures/resources/dice/d4.tres" id="6_7xalk"]
 
 [resource]

@@ -48,12 +48,16 @@ var defeated_enemies = []
 @onready var ready_button := %Ready
 @onready var battle_container := %BattleContainer
 
+@onready var enemy_1_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/enemy_1_hand
+@onready var enemy_2_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_2_container/enemy_2_hand
+@onready var enemy_3_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_3_container/enemy_3_hand
 
 ## Inventory
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
 @onready var info_box = preload("res://modules/infobox/info_box_frame.tscn")
 @onready var side_name = "Sides"
+
 
 ## Starts a battle scene with the given encounter resource
 ##
@@ -120,6 +124,10 @@ func _ready():
 	# The die action menu here is just so designers can see what one looks like in engine.
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
 	# line of code
+	get_node("/root/Map").canvas_layer.visible = false
+	
+	player_status.dice_selected.visible = true
+	
 	drawn_die_placeholder.hide()
 	inventory.just_opened.connect(pause_battle)
 	## setup for dice inventory tab
@@ -250,6 +258,7 @@ func enemy_turn():
 	draw_dice()
 	if enable_textboxes:
 		await textbox_controller.quick_beat("enemy attack")
+	
 	for enemy in enemies:
 		var attack_roll = 0
 		var defense_roll = 0
@@ -257,6 +266,14 @@ func enemy_turn():
 		var atk_die_effects = []
 		
 		for die in enemy.dice_hand:
+			
+			'''if die.action == DrawnDieData.ATTACK and die.effect.damaging:
+				await player.take_damage(die.side.value, enemy.actor_name)
+			else:		# DEFENSE
+				enemy.defense += die.side.value
+			
+			await die.effect.apply()'''
+
 			if die.action == DrawnDieData.ATTACK and die.effect != null and die.effect.damaging:
 				#get_node("/root/SoundManager/attack").play()
 				#SoundManager.attack_sfx.play()
@@ -301,6 +318,7 @@ func _on_run_pressed():
 	#get_tree().change_scene_to_file(map_path)
 	queue_free()
 	get_node("/root/Map").visible = true
+	get_node("/root/Map").canvas_layer.visible = true
 
 
 func _on_ready_pressed():
@@ -308,9 +326,13 @@ func _on_ready_pressed():
 	SoundManager.select_2.play()
 	var one_target = false
 	for die in player.dice_hand:
+		
+		#die.target.progress_bar.value = die.target.health_bar.value - die.roll
+		
 		if die.target:
 			one_target = true
 			break
+	
 	if not one_target:
 	# NOTE: May eventually want to allow the player to intentionally discard or not use dice.
 		await textbox_controller.quick_beat("not ready")
@@ -337,6 +359,7 @@ func _on_ready_pressed():
 				if not die.target in enemies:
 					await textbox_controller.quick_beat("missed")
 				elif die.data.effect.damaging:
+						await die.target.take_damage(die.roll, player.actor_name)
 					#get_node("/root/SoundManager/attack").play()
 					SoundManager.attack_sfx.play()
 					await die.target.take_damage(die.roll, player.actor_name)
@@ -344,6 +367,9 @@ func _on_ready_pressed():
 				#get_node("/root/SoundManager/defend").play()
 				SoundManager.defend_2.play() #TODO: Make sure this plays at the proper time
 				player.defense += die.roll
+		
+		await die.data.effect.apply()
+		# Used for damage animation
 		'''
 		if die.selected_action == DrawnDieData.DEFEND:
 			SoundManager.defend_2.play() #TODO: Make sure this plays at the proper time

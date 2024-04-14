@@ -33,6 +33,7 @@ size_flags_vertical = 8
 script = ExtResource("1_kpf4t")
 health_bar = NodePath("Player Health and Name/Health Bar")
 deck_status = NodePath("Bag Sprite/Deck Status")
+dice_selected = NodePath("")
 
 [node name="Player Health and Name" type="HBoxContainer" parent="."]
 layout_mode = 2

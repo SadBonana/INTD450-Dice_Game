@@ -9,8 +9,6 @@ class_name ProficiencyUpgrade extends Node
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
 @onready var side_name = "Preview Upgrade"
 
-@export var temp_dice_bag_init: PlayerDataInit
-
 var selected_die
 
 
@@ -22,7 +20,7 @@ func _on_dialogue_transitiond(from_beat: DialogueBeat, destination_beat: String,
 				upgrade_die()
 				await textbox_controller.quick_beat("congrats", [], _on_dialogue_transitiond)
 				queue_free()
-				#get_node("/root/Map").show()
+				get_node("/root/Map").canvas_layer.bag_container.visible = true
 				get_node("/root/Map").visible = true
 			else:
 				print("player said no")
@@ -43,7 +41,9 @@ func show_sides(die : Die):
 	for child in inventory.get_children():
 		if child.tabobj_ref.get_tab_title() == side_name:	 #hardcoded cause bro this shit is ass
 			side_view = child
+	
 	SoundManager.select_3.play()
+	
 	var upgrade_frames = []
 	var arr
 	for side in die.sides:
@@ -53,7 +53,6 @@ func show_sides(die : Die):
 		duplicate_side.value += 1
 		arr.append(duplicate_side)
 		upgrade_frames.append(arr)
-	
 	
 	if side_view == null:
 		return
@@ -108,10 +107,10 @@ func upgrade_die():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_node("/root/Map").hide()
+	get_node("/root/Map").visible = false
 	
-	if PlayerData.dice_bag.size() == 0:
-		PlayerData.dice_bag = temp_dice_bag_init.dice.duplicate(true)
+	# This still allows the player to use pause menu
+	get_node("/root/Map").canvas_layer.bag_container.visible = false
 	
 	## setup for dice inventory tab
 	inventory.make_tab("Upgrade Options", PlayerData.dice_bag, inv_dice_visual)
