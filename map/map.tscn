@@ -121,6 +121,15 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
+[node name="Bag Button" parent="CanvasLayer/VBoxContainer/BagContainer/Panel/StatusBagMarginContainer/Player Status/Bag Sprite" index="1"]
+focus_neighbor_left = NodePath("../../../../../../../../Nodes")
+focus_neighbor_top = NodePath("../../../../../../../../Nodes")
+focus_neighbor_right = NodePath("../../../../../../../../Nodes")
+focus_neighbor_bottom = NodePath("../../../../../../../../Nodes")
+focus_next = NodePath("../../../../../../../../Nodes")
+focus_previous = NodePath("../../../../../../../../Nodes")
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="focus_entered" from="Nodes" to="." method="_on_nodes_focus_entered"]
 
 [editable path="CanvasLayer/VBoxContainer/BagContainer/Panel/StatusBagMarginContainer/Player Status"]
