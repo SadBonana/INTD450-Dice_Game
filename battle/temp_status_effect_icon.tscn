@@ -1,40 +1,74 @@
-[gd_scene load_steps=4 format=3 uid="uid://d27yg3qgsbwxp"]
+[gd_scene load_steps=11 format=3 uid="uid://d27yg3qgsbwxp"]
 
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="1_1kqdd"]
 [ext_resource type="Texture2D" uid="uid://cswe1gnj4fufy" path="res://assets/textures/resources/elements/steel.tres" id="1_k1jov"]
 [ext_resource type="Script" path="res://battle/temp_status_effect_icon.gd" id="2_fh3yk"]
+[ext_resource type="Texture2D" uid="uid://c62toiiws1vha" path="res://assets/textures/resources/elements/lightning.tres" id="4_2r4fb"]
+[ext_resource type="Texture2D" uid="uid://cc1eipf6rn2a0" path="res://assets/textures/resources/elements/fire.tres" id="5_766dx"]
+[ext_resource type="Texture2D" uid="uid://bykjuorqxjbkg" path="res://assets/textures/resources/elements/poison.tres" id="6_uke3b"]
 
-[node name="Icon" type="TextureButton"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rr3tw"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0, 0, 0, 0.380392)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d264u"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.317647, 0.317647, 0.317647, 0.380392)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nmeaf"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0, 0, 0, 0.745098)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2awos"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.317647, 0.317647, 0.317647, 0.380392)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+anti_aliasing = false
+
+[node name="Icon" type="Button"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(60, 0)
-offset_right = 16.0
-offset_bottom = 16.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource("1_k1jov")
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -18.0
+offset_right = 38.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("1_1kqdd")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_rr3tw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_d264u")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nmeaf")
+theme_override_styles/focus = SubResource("StyleBoxFlat_2awos")
+text = "10"
+icon = ExtResource("1_k1jov")
 script = ExtResource("2_fh3yk")
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(60, 0)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 17.0
-grow_horizontal = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 1
-
-[node name="Stacks" type="RichTextLabel" parent="MarginContainer"]
-unique_name_in_owner = true
-clip_contents = false
-layout_mode = 2
-theme_override_colors/default_color = Color(1, 1, 1, 1)
-theme_override_fonts/normal_font = ExtResource("1_1kqdd")
-theme_override_font_sizes/normal_font_size = 0
-theme_override_font_sizes/mono_font_size = 0
-bbcode_enabled = true
-text = "[left]30[/left]"
-fit_content = true
+def_icon = ExtResource("1_k1jov")
+par_icon = ExtResource("4_2r4fb")
+ign_icon = ExtResource("5_766dx")
+poi_icon = ExtResource("6_uke3b")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

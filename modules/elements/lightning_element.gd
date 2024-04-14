@@ -7,7 +7,7 @@ func _init():
 	value = 2
 	stack_roll = false
 	effect = StatusEffect.EffectType.PARALYSIS
-	color = Color.REBECCA_PURPLE
+	color = Color("#8c3cee") # purple color from art palette #Color.REBECCA_PURPLE
 	icon = preload("res://assets/textures/resources/elements/lightning.tres")
 	
 ## String representation of the element

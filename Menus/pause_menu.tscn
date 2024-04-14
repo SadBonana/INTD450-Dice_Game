@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dke0j6k6yhhl3"]
+[gd_scene load_steps=5 format=3 uid="uid://dke0j6k6yhhl3"]
 
+[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="1_i2aqf"]
 [ext_resource type="Script" path="res://Menus/pause_menu.gd" id="1_pytq7"]
-[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://menus/settings_button.tscn" id="3_j362h"]
-[ext_resource type="PackedScene" uid="uid://bgp0uigvyvkrj" path="res://menus/quit_button.tscn" id="4_mo4qs"]
+[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://Menus/settings_button.tscn" id="3_j362h"]
+[ext_resource type="PackedScene" uid="uid://bgp0uigvyvkrj" path="res://Menus/quit_button.tscn" id="4_mo4qs"]
 
 [node name="pause_menu" type="Control"]
 process_mode = 3
@@ -14,6 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("1_i2aqf")
 script = ExtResource("1_pytq7")
 
 [node name="pause_menu_panel" type="PanelContainer" parent="."]
