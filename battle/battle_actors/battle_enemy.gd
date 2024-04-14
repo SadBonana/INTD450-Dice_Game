@@ -133,26 +133,8 @@ func restore_sprite_color():
 	tex_rect.self_modulate = res.sprite_color
 
 
-'''func _on_area_2d_mouse_entered():
-	#progress_bar.z_index = 2
-	#print("z = 2")
-	
-	progress_bar.visible = true
-	health_label.text = "HP: %d/%d" % [health_bar.value - damage, health_bar.max_value]
-	print("health label is:", health_label.text)
 
-
-func _on_area_2d_mouse_exited():
-	#progress_bar.z_index = -1
-	progress_bar.visible = false'''
-
-
-
-func _on_mouse_entered():
-	#progress_bar.visible = true
-	#health_label.text = "HP: %d/%d" % [health_bar.value - damage_for_preview, health_bar.max_value]
-	
-	#var current_health = _get_health()
+'''func _on_mouse_entered():
 	#battle.player
 	
 	health_label.visible = false
@@ -170,4 +152,4 @@ func _on_mouse_entered():
 func _on_mouse_exited():
 	health_label.visible = true
 	progress_bar.visible = false
-	preview_damage_label.visible = false
+	preview_damage_label.visible = false'''

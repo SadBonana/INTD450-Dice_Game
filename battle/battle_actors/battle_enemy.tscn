@@ -1,12 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlyb2lewb1n15"]
+[gd_scene load_steps=6 format=3 uid="uid://dlyb2lewb1n15"]
 
 [ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://misc components/health_bar.tscn" id="1_pbfgf"]
 [ext_resource type="Script" path="res://battle/battle_actors/battle_enemy.gd" id="1_u2vwq"]
 [ext_resource type="PackedScene" uid="uid://bbu8nn2jqun2j" path="res://battle/battle_actors/battle_actor.tscn" id="3_vc0kg"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="4_4kj7r"]
 [ext_resource type="Texture2D" uid="uid://lvsj2s8e3oju" path="res://assets/textures/resources/simple enemy.tres" id="4_vjoly"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_886cr"]
 
 [node name="Battle Enemy" instance=ExtResource("3_vc0kg")]
 offset_left = -36.0
@@ -50,17 +48,8 @@ text = "5
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="." index="6"]
-position = Vector2(39, 81)
-scale = Vector2(3.9, 3.9)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
-shape = SubResource("RectangleShape2D_886cr")
-
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
 
 [editable path="HealthBar"]
 [editable path="damage_indicator"]
