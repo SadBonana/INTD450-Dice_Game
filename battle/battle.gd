@@ -47,6 +47,7 @@ var defeated_enemies = []
 @onready var player := %"Battle Player"
 @onready var ready_button := %Ready
 @onready var battle_container := %BattleContainer
+@onready var inventory_container := %InventoryContainer
 
 @onready var enemy_1_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/enemy_1_hand
 @onready var enemy_2_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_2_container/enemy_2_hand
@@ -57,7 +58,6 @@ var defeated_enemies = []
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
 @onready var info_box = preload("res://modules/infobox/info_box_frame.tscn")
 @onready var side_name = "Sides"
-var inventory_open = false
 
 
 ## Starts a battle scene with the given encounter resource
@@ -126,7 +126,7 @@ func _ready():
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
 	# line of code
 	
-	get_node("/root/Map").player_status_container.visible = false
+	get_node("/root/Map").canvas_layer.visible = false
 	
 	player_status.dice_selected.visible = true
 	
@@ -143,7 +143,7 @@ func _ready():
 	## Create info tab
 	side_info.make_tab("Info", [], info_box)
 	## connect dice bag button to inventory
-	player_status.bag_button.pressed.connect(track_inventory)
+	player_status.bag_button.pressed.connect(inventory_container.toggle)
 	## connect frame clicks to display sides
 	inventory.return_clicked.connect(show_sides)
 	
@@ -174,6 +174,7 @@ func _ready():
 			await get_tree().create_timer(0.5).timeout
 			get_tree().change_scene_to_file("res://Menus/start_menu.tscn")
 			get_node("/root/Map").reset()
+			get_node("/root/Map").canvas_layer.visible = true
 			get_node("/root/Map").visible = true
 			queue_free()
 			# TODO: Might be better to have this stuff in the setter for PlayerData.hp instead
@@ -319,7 +320,6 @@ func _on_run_pressed():
 	queue_free()
 	get_node("/root/Map").visible = true
 	get_node("/root/Map").canvas_layer.visible = true
-	get_node("/root/Map").player_status_container.visible = true
 
 
 func _on_ready_pressed():
@@ -440,11 +440,3 @@ func _on_ready_pressed():
 
 func _on_die_action_menu_is_hovered(dieside):
 	side_info.get_current_tab_control().new_frames(dieside)
-
-func track_inventory():
-	if inventory.visible == false:
-		inventory.open()
-		inventory_open = true
-	elif inventory.visible == true:
-		inventory.close()
-		inventory_open = false

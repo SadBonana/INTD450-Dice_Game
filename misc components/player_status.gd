@@ -58,16 +58,3 @@ func _on_hp_max_changed(value):
 
 func _on_hand_of_dice_amount_selected(num):
 	dice_selected.text = selected_f_string % [num,PlayerData.dice_choices]
-
-
-## simple function that changes what is displayed on the sides tab
-'''func show_sides(die : Die):
-	var side_view
-	for child in inventory.get_children():
-		if child.tabobj_ref.get_tab_title() == side_name:	 #hardcoded cause bro this shit is ass
-			side_view = child
-	if side_view == null:
-		return
-	else:
-		side_view.new_frames(die.sides)
-		inventory.current_tab = side_view.get_index()'''
