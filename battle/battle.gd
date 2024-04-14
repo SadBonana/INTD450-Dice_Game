@@ -132,8 +132,6 @@ func _ready():
 	
 	drawn_die_placeholder.hide()
 	
-	#inventory.just_opened.connect(pause_battle)
-	
 	## setup for dice inventory tab
 	inventory.make_tab("In Bag", player.dice_bag,inv_dice_visual)
 	## setup for used inventory tab
@@ -192,9 +190,6 @@ func show_sides(die : Die):
 	else:
 		side_view.new_frames(die.sides)
 		inventory.current_tab = side_view.get_index()
-		
-func pause_battle(should_pause : bool):
-	get_tree().paused = should_pause
 		
 ## Starts a turn.
 ##
