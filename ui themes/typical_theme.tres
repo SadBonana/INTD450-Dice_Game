@@ -24,7 +24,11 @@ expand_margin_bottom = 2.0
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_623st"]
-bg_color = Color(0, 0, 0, 0.917647)
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.870588)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -83,6 +87,7 @@ anti_aliasing = false
 anti_aliasing = false
 
 [resource]
+BoxContainer/constants/separation = 20
 Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
 Button/colors/font_focus_color = Color(0.94902, 0.94902, 0.94902, 1)

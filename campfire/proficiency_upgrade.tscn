@@ -63,7 +63,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iw31s")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
+[node name="Background" type="NinePatchRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
