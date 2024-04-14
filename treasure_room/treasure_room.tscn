@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://chpqcqadrstm5"]
+[gd_scene load_steps=22 format=3 uid="uid://chpqcqadrstm5"]
 
 [ext_resource type="Script" path="res://treasure_room/treasure_room.gd" id="1_e235p"]
 [ext_resource type="Resource" uid="uid://dcfrcd73qhrsb" path="res://die_resources/rare_loot_table.tres" id="2_4ccpn"]
@@ -14,6 +14,8 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_4nqvb"]
 atlas = ExtResource("5_wsiv2")
 region = Rect2(57, 111, 32, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rgtrf"]
 
 [sub_resource type="Resource" id="Resource_0o1qc"]
 resource_name = "congrats"
@@ -130,16 +132,16 @@ modulate = Color(0.376471, 0.376471, 0.376471, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
+size_flags_stretch_ratio = 5.0
 texture = SubResource("AtlasTexture_4nqvb")
 stretch_mode = 5
 
 [node name="LootDropContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 10.0
 
 [node name="item_drop_display" parent="VBoxContainer/LootDropContainer" instance=ExtResource("4_g7mp6")]
-visible = false
 layout_mode = 2
 tabs_visible = false
 
@@ -152,14 +154,28 @@ size_flags_vertical = 8
 theme = ExtResource("7_ccs20")
 text = "Skip Reward"
 
-[node name="Textbox Controller" parent="VBoxContainer" instance=ExtResource("5_5elu5")]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+size_flags_stretch_ratio = 1.35
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+size_flags_stretch_ratio = 0.2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rgtrf")
+
+[node name="Textbox Controller" parent="VBoxContainer/HBoxContainer" instance=ExtResource("5_5elu5")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.35
 dialogue_res = SubResource("Resource_08gah")
 
-[node name="Background" type="PanelContainer" parent="VBoxContainer/Textbox Controller"]
+[node name="Background" type="PanelContainer" parent="VBoxContainer/HBoxContainer/Textbox Controller"]
 unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 1
@@ -178,4 +194,4 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_la1hk")
 
 [editable path="VBoxContainer/LootDropContainer/item_drop_display"]
-[editable path="VBoxContainer/Textbox Controller"]
+[editable path="VBoxContainer/HBoxContainer/Textbox Controller"]

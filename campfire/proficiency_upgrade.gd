@@ -19,9 +19,7 @@ func _on_dialogue_transitiond(from_beat: DialogueBeat, destination_beat: String,
 				print("player said yes")
 				upgrade_die()
 				await textbox_controller.quick_beat("congrats", [], _on_dialogue_transitiond)
-				queue_free()
-				get_node("/root/Map").canvas_layer.bag_container.visible = true
-				get_node("/root/Map").visible = true
+				exit_upgrade_scene()
 			else:
 				print("player said no")
 				
@@ -108,9 +106,8 @@ func upgrade_die():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("/root/Map").visible = false
-	
 	# This still allows the player to use pause menu
-	get_node("/root/Map").canvas_layer.bag_container.visible = false
+	get_node("/root/Map").player_status_container.visible = false
 	
 	## setup for dice inventory tab
 	inventory.make_tab("Upgrade Options", PlayerData.dice_bag, inv_dice_visual)
@@ -119,5 +116,13 @@ func _ready():
 	
 	inventory.return_clicked.connect(select_die)
 	await textbox_controller.quick_beat("intro", [], _on_dialogue_transitiond)
+	
 	inventory.open()
+	
 	await textbox_controller.quick_beat("directions", [], _on_dialogue_transitiond)
+
+func exit_upgrade_scene():
+	queue_free()
+	get_node("/root/Map").canvas_layer.visible = true
+	get_node("/root/Map").player_status_container.visible = true
+	get_node("/root/Map").show()

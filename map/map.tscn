@@ -79,9 +79,6 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 10.0
 mouse_filter = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 20
 
 [node name="Display Box" parent="CanvasLayer/VBoxContainer/DisplayBoxContainer" instance=ExtResource("8_8cnei")]
 visible = false
@@ -97,8 +94,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 10
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_bottom = 6
+size_flags_stretch_ratio = 1.35
 
 [node name="Panel" type="Panel" parent="CanvasLayer/VBoxContainer/BagContainer"]
 custom_minimum_size = Vector2(120, 120)

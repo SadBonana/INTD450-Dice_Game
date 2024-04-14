@@ -12,6 +12,8 @@ var points = []
 var map_scene 	= preload("res://map/MapTree.tscn")
 
 @onready var canvas_layer = %CanvasLayer
+@onready var player_status_container = %BagContainer
+@onready var inventory_container = $CanvasLayer/DisplayBoxContainer
 
 #@export var scroll_cont : ScrollContainer
 @export var bg 			: NinePatchRect
