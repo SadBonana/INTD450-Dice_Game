@@ -1,9 +1,6 @@
 class_name BattleEnemy extends BattleActor
 
 @onready var health_bar: HealthBar = %HealthBar
-@onready var progress_bar = $HealthBar/ProgressBar
-@onready var health_label = $HealthBar/Label
-
 @onready var roll_label: Label = %Roll  # FIXME: Displaying the enemy's roll over their sprite is prolly not what we want the final game to look like. I thought the empty top panel was where we'd show that info, but I'm running out of energy now so...
 @export var res: Resource
 
@@ -125,16 +122,3 @@ func draw_dice():
 ## AnimationPlayer can.
 func restore_sprite_color():
 	tex_rect.self_modulate = res.sprite_color
-
-
-func _on_area_2d_mouse_entered():
-	progress_bar.z_index = 2
-	print("z = 2")
-	progress_bar.visible = true
-	health_label.text = "HP: %d/%d" % [health_bar.value - damage, health_bar.max_value]
-	print("health label is:", health_label.text)
-
-
-func _on_area_2d_mouse_exited():
-	progress_bar.z_index = -1
-	progress_bar.visible = false
