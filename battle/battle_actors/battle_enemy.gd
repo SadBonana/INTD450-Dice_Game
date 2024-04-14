@@ -43,9 +43,15 @@ func _ready():
 # Can be used later for fancier enemy decision making
 ## Commit dice in dice hand to a particular action. For now, just uses all dice for attacking.
 func commit_dice():
+	var accum = 0
 	for die in dice_hand:
 		die.target = battle.player
-		die.action = DrawnDieData.ATTACK
+		if die.effect and die.effect._type != StatusEffect.AUTODEFENSE:
+			die.action = DrawnDieData.ATTACK
+			accum += die.side.value
+		else:
+			die.target = self
+			die.action = DrawnDieData.DEFEND
 	var paralyzed = false
 	var stacks = 0
 	for effect in status_effects:
@@ -53,7 +59,9 @@ func commit_dice():
 			paralyzed = true
 			stacks = effect.stacks
 			
-	damage = dice_hand.reduce(func (accum, die): return accum + die.side.value, 0)	# damage = sum of rolls in dice hand
+	#damage = dice_hand.reduce(func (accum, die): return accum + die.side.value, 0)	# damage = sum of rolls in dice hand
+	#for die in dice_hand:
+	damage = accum
 	if paralyzed:
 		for stack in stacks:
 			damage =  max(0, damage-2)
@@ -64,7 +72,7 @@ func draw_dice():
 	for i in range(dice_draws):
 		# Whatever we decide to do when the enemy runs out of dice, it'll be here
 		if not dice_bag.size() > 0:
-			await textbox.quick_beat('enemy out of dice', [actor_name])
+			#await textbox.quick_beat('enemy out of dice', [actor_name])
 			# Reshuffle dice into bag
 			dice_bag = used_dice
 			used_dice = []
