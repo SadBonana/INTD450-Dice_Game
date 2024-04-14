@@ -11,10 +11,14 @@ var points = []
 #var bg_texture 	= preload("res://assets/textures/map noise paper ninepatch.png")
 var map_scene 	= preload("res://map/MapTree.tscn")
 
+@onready var canvas_layer = %CanvasLayer
+@onready var player_status_container = %BagContainer
+@onready var inventory_container = $CanvasLayer/DisplayBoxContainer
+
 #@export var scroll_cont : ScrollContainer
 @export var bg 			: NinePatchRect
 
-func _ready():
+func _ready():	
 	setup()
 	
 func setup():
@@ -87,7 +91,7 @@ func add_nodes():
 			#node.text = text
 			
 			bg.add_child(node)
-
+		
 func _on_visibility_changed():
 	if visible:
 		for map_node in bg.get_children():
