@@ -145,7 +145,6 @@ class Autodefense extends StatusEffect:
 				#await get_tree().create_timer(0.5).timeout
 				
 				#SoundManager.defend_2.play()
-				target.defense += effect.stacks# We expect buffs to activate the turn they are used.
 				target.update_status_effects()
 				return true
 		SoundManager.autodefense_2.play()
