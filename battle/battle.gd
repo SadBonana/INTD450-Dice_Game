@@ -205,10 +205,11 @@ func draw_dice():
 	player_status.dice_remaining = player.dice_bag.size()
 	
 	for effect in player.status_effects.duplicate():
-		if effect._type == StatusEffect.PARALYSIS: 
+		if not effect.beneficial: 
 			await effect.invoke()
-			#await get_tree().create_timer(0.5).timeout
-	
+			await get_tree().create_timer(0.5).timeout
+			
+	player.update_status_effects()
 	# Reset any defense given in the previous turn
 	player.defense = 0
 	for enemy in enemies:
@@ -247,14 +248,27 @@ func cleanup_enemies():
 
 
 func enemy_turn():
-	draw_dice()
+	#draw_dice()
 	if enable_textboxes:
 		await textbox_controller.quick_beat("enemy attack")
+	
+	for enemy in enemies.duplicate():
+		for effect in enemy.status_effects.duplicate():
+			if enemy != null and enemy.health != 0:
+				#await effect.invoke()
+				#if effect._type != StatusEffect.PARALYSIS:
+				await effect.invoke()
+				await get_tree().create_timer(0.5).timeout
+		if enemy != null and enemy.health != 0:
+			enemy.update_status_effects()	
+	
 	for enemy in enemies:
 		var attack_roll = 0
 		var defense_roll = 0
 		var def_die_effects = []
 		var atk_die_effects = []
+	
+		#await get_tree().create_timer(0.5).timeout
 		
 		for die in enemy.dice_hand:
 			if die.action == DrawnDieData.ATTACK and die.effect != null:
@@ -288,15 +302,14 @@ func enemy_turn():
 			effect.apply()
 			await get_tree().create_timer(0.5).timeout
 			
-	await get_tree().create_timer(0.5).timeout
+	#await get_tree().create_timer(0.5).timeout
 	
-	for effect in player.status_effects.duplicate():
-		if not effect.beneficial:
-			await effect.invoke()
-			await get_tree().create_timer(0.5).timeout
-	player.update_status_effects()
+	#for effect in player.status_effects.duplicate():
+#		if not effect.beneficial:
+#			await effect.invoke()
+#			await get_tree().create_timer(0.5).timeout
 	
-	#draw_dice()    # Enemy turn is over so player draws dice
+	draw_dice()    # Enemy turn is over so player draws dice
 	
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
@@ -331,7 +344,7 @@ func _on_ready_pressed():
 	
 	#for enemy in enemies:
 		#enemy.roll_label.hide()
-	
+	#applying debuffs before player takes their turn
 	for die in player.dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
 		if not die.target:
 			continue
@@ -390,22 +403,6 @@ func _on_ready_pressed():
 			#applying buffs after attacking
 			
 	await get_tree().create_timer(0.5).timeout #delaying so the player can see the effects apply
-	
-	# Invoke status effects on enemies and player
-	# NOTE: order of effect invocation matters a lot.
-		# buffs before debuffs -> poison and such get mitigated by autodefense, makes debuff immunity effects easy to implement
-		# order of application
-	for enemy in enemies.duplicate():	# Shallow copy, so we don't get rekked when an enemy is removed from enemies on death
-		for effect in enemy.status_effects.duplicate():
-			if enemy != null and enemy.health != 0:
-				#await effect.invoke()
-				#if effect._type != StatusEffect.PARALYSIS:
-				await effect.invoke()
-				await get_tree().create_timer(0.5).timeout
-		if enemy != null and enemy.health != 0:
-			enemy.update_status_effects()
-	
-	await get_tree().create_timer(0.5).timeout
 	
 	cleanup_enemies()
 	player.hand_used()
