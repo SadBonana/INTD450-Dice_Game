@@ -20,6 +20,7 @@ func _on_dialogue_transitiond(from_beat: DialogueBeat, destination_beat: String,
 				upgrade_die()
 				await textbox_controller.quick_beat("congrats", [], _on_dialogue_transitiond)
 				queue_free()
+				get_node("/root/Map").canvas_layer.bag_container.visible = true
 				get_node("/root/Map").visible = true
 			else:
 				print("player said no")

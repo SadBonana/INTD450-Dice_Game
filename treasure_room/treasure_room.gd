@@ -57,7 +57,7 @@ func select_die(frame):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("/root/Map").hide()
-	get_node("/root/Map").canvas_layer.player_status.visible = false
+	get_node("/root/Map").canvas_layer.visible = false
 	
 	# Generate 3 random battle drop items from a randomly selected loot table
 	item_generation()
@@ -74,7 +74,6 @@ func _ready():
 	
 	inventory.open()
 	skip_rewards.visible = true
-	get_node("/root/Map").canvas_layer.player_status.visible = true
 	
 	await textbox_controller.quick_beat("directions", [], _on_dialogue_transitiond)
 
@@ -116,4 +115,5 @@ func item_generation():
 
 func exit_drop_screen():
 	queue_free()
+	get_node("/root/Map").canvas_layer.visible = true
 	get_node("/root/Map").show()

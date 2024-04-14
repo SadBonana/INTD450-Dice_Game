@@ -318,6 +318,7 @@ func _on_run_pressed():
 	#get_tree().change_scene_to_file(map_path)
 	queue_free()
 	get_node("/root/Map").visible = true
+	get_node("/root/Map").canvas_layer.visible = true
 
 
 func _on_ready_pressed():
