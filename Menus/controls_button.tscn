@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://djhlg0x1wvmi"]
+[gd_scene load_steps=2 format=3 uid="uid://dkc4f2l61ttpr"]
 
-[ext_resource type="Script" path="res://menus/controls_button.gd" id="1_i2kk1"]
+[ext_resource type="Script" path="res://menus/controls_button.gd" id="1_bbx12"]
 
 [node name="controls_button" type="Button"]
 focus_neighbor_top = NodePath("../start_button")
@@ -8,7 +8,7 @@ focus_neighbor_bottom = NodePath("../settings_button")
 theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
 text = "Game Controls"
-script = ExtResource("1_i2kk1")
+script = ExtResource("1_bbx12")
 controls_menu_scene_path = "res://menus/controls_menu.tscn"
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

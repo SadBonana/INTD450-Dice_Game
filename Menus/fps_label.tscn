@@ -1,14 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3ardwyvsttr1"]
+[gd_scene load_steps=3 format=3 uid="uid://dt0k5w1vnqunx"]
 
-[ext_resource type="Script" path="res://menus/fps_label.gd" id="1_lkssw"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrxug"]
-bg_color = Color(1, 0.886275, 0.137255, 1)
+[ext_resource type="Script" path="res://menus/fps_label.gd" id="1_4blsr"]
+[ext_resource type="StyleBox" uid="uid://b53y6jtfssomx" path="res://modules/display_box/styles/die_side_info_box.tres" id="1_sf4ec"]
 
 [node name="fps_label" type="Label"]
 offset_right = 40.0
 offset_bottom = 23.0
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_lrxug")
+theme_override_styles/normal = ExtResource("1_sf4ec")
 text = " FPS: 60 "
-script = ExtResource("1_lkssw")
+script = ExtResource("1_4blsr")

@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwroqm35wwu7n"]
+[gd_scene load_steps=4 format=3 uid="uid://dke0j6k6yhhl3"]
 
-[ext_resource type="Script" path="res://menus/pause_menu.gd" id="1_jr8ao"]
-[ext_resource type="PackedScene" uid="uid://c82d0db21hh53" path="res://menus/resume_button.tscn" id="2_npblr"]
-[ext_resource type="PackedScene" uid="uid://djhlg0x1wvmi" path="res://menus/controls_button.tscn" id="3_1n1b1"]
-[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://menus/settings_button.tscn" id="4_3fbm4"]
-[ext_resource type="PackedScene" uid="uid://c8y350efda5hk" path="res://menus/quit_button.tscn" id="5_2uw2u"]
+[ext_resource type="Script" path="res://Menus/pause_menu.gd" id="1_pytq7"]
+[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://menus/settings_button.tscn" id="3_j362h"]
+[ext_resource type="PackedScene" uid="uid://bgp0uigvyvkrj" path="res://menus/quit_button.tscn" id="4_mo4qs"]
 
 [node name="pause_menu" type="Control"]
 process_mode = 3
@@ -14,52 +12,48 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_jr8ao")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_pytq7")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="pause_menu_panel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.309804, 1, 1, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -72.5
-offset_top = -104.5
-offset_right = 72.5
-offset_bottom = 104.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="pause_menu_panel"]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.964706, 0, 0, 1)
-theme_override_font_sizes/font_size = 50
-text = "Pause
-"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="game_name_label" type="Label" parent="pause_menu_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Pause Menu"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="resume_button" parent="VBoxContainer" instance=ExtResource("2_npblr")]
+[node name="resume" type="Button" parent="pause_menu_panel/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("")
-focus_neighbor_bottom = NodePath("")
+focus_neighbor_top = NodePath("../quit_button")
+focus_neighbor_bottom = NodePath("../settings_button")
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
+text = "Resume"
 
-[node name="controls_button" parent="VBoxContainer" instance=ExtResource("3_1n1b1")]
+[node name="settings_button" parent="pause_menu_panel/VBoxContainer" instance=ExtResource("3_j362h")]
 layout_mode = 2
+focus_neighbor_top = NodePath("../resume")
 
-[node name="settings_button" parent="VBoxContainer" instance=ExtResource("4_3fbm4")]
+[node name="quit_button" parent="pause_menu_panel/VBoxContainer" instance=ExtResource("4_mo4qs")]
 layout_mode = 2
+focus_neighbor_top = NodePath("../settings_button")
+focus_neighbor_bottom = NodePath(".")
 
-[node name="quit_button" parent="VBoxContainer" instance=ExtResource("5_2uw2u")]
-layout_mode = 2
-
-[connection signal="pressed" from="VBoxContainer/resume_button" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="pause_menu_panel/VBoxContainer/resume" to="." method="_on_resume_pressed"]

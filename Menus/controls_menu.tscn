@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dby8hjc3eqgkj"]
+[gd_scene load_steps=3 format=3 uid="uid://c6mfwf3njihr4"]
 
-[ext_resource type="PackedScene" uid="uid://c8y350efda5hk" path="res://menus/quit_button.tscn" id="2_7kese"]
-[ext_resource type="PackedScene" uid="uid://dw45jdegirn73" path="res://menus/back_to_start_menu_button.tscn" id="2_ret1g"]
+[ext_resource type="PackedScene" uid="uid://dw45jdegirn73" path="res://menus/back_to_start_menu_button.tscn" id="1_rslqi"]
+[ext_resource type="PackedScene" uid="uid://c8y350efda5hk" path="res://menus/quit_button.tscn" id="2_t1kk3"]
 
 [node name="controls_menu" type="Control"]
 layout_mode = 3
@@ -44,8 +44,8 @@ text = "Controls"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="back_to_start_menu_button" parent="VBoxContainer" instance=ExtResource("2_ret1g")]
+[node name="back_to_start_menu_button" parent="VBoxContainer" instance=ExtResource("1_rslqi")]
 layout_mode = 2
 
-[node name="quit_button" parent="VBoxContainer" instance=ExtResource("2_7kese")]
+[node name="quit_button" parent="VBoxContainer" instance=ExtResource("2_t1kk3")]
 layout_mode = 2
