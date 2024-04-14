@@ -16,6 +16,7 @@ var stacks: int:
 var beneficial: bool = false	# Whether the effect is a buff or a debuff
 var damaging: bool = true	# Should a die with this effect also do damage narmally.
 var color: String
+var colour : Color
 var textbox: TextboxController
 var textbox_enabled := false
 var description_beat: String
@@ -28,6 +29,7 @@ func _init(_textbox: TextboxController, _target: BattleActor, _stacks: int):
 	#strength = _strength
 	target = _target
 	textbox = _textbox
+	colour = Color.WHITE
 
 
 func apply():
@@ -47,6 +49,7 @@ class Paralysis extends StatusEffect:
 		super(_textbox, _target, 1)
 		_type = EffectType.PARALYSIS
 		color="REBECCA_PURPLE"
+		colour = Color.REBECCA_PURPLE
 		description_beat = "paralysis description"
 	
 	## Attempt to apply the status effect on the target.
@@ -126,6 +129,7 @@ class Autodefense extends StatusEffect:
 		super(_textbox, _target, _stacks)
 		_type = EffectType.AUTODEFENSE
 		color="LIGHT_STEEL_BLUE"
+		colour = Color.LIGHT_STEEL_BLUE
 		beneficial = true
 		damaging = false
 		description_beat = "autodefense description"
@@ -189,6 +193,7 @@ class Ignited extends StatusEffect:
 		spread_targets = all_targets
 		_type = EffectType.IGNITED
 		color = "DARK_RED"
+		colour = Color.DARK_RED
 		description_beat = "ignited description"
 	
 	
@@ -259,6 +264,7 @@ class Poisoned extends StatusEffect:
 		super(_textbox, _target, _stacks)
 		_type = EffectType.POISONED
 		color = "WEB_GREEN"
+		colour = Color.WEB_GREEN
 		description_beat = "poisoned description"
 		damaging = false
 	

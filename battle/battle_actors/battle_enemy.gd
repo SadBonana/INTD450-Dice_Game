@@ -11,11 +11,14 @@ var max_health: int:
 	set (value):
 		max_health = value
 		health_bar.max_value = value
+#var effect: StatusEffect.EffectType
 var damage: int:
 	set (value):
 		damage = value
 		roll_label.text = "%d" % damage
-
+		roll_label.set("theme_override_colors/font_color", color)
+		
+var color : Color = Color.RED
 func _set_health(value):
 	health = clamp(value, 0, max_health)
 	health_bar.value = health
@@ -49,9 +52,14 @@ func commit_dice():
 		if die.effect and die.effect._type != StatusEffect.AUTODEFENSE:
 			die.action = DrawnDieData.ATTACK
 			accum += die.side.value
+			#effect = die.effect._type #NOTE: THIS LINE WILL BREAK WITH MULTIPLE DICE ATTACKS
+			color = die.effect.colour
 		else:
 			die.target = self
 			die.action = DrawnDieData.DEFEND
+			accum += die.side.value
+			#effect = die.effect._type #NOTE: SAME AS ABOVE
+			color = die.effect.colour
 	var paralyzed = false
 	var stacks = 0
 	for effect in status_effects:
