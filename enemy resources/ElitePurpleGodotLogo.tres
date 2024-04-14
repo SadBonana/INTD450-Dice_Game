@@ -12,7 +12,7 @@
 script = ExtResource("1_g4nds")
 name = "Corrupt Die Mage"
 texture = ExtResource("7_xh4np")
-health = 100
+health = 30
 dice_draws = 3
 sprite_color = Color(1, 1, 1, 1)
 dice = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_poguh"), ExtResource("2_5wvmy"), ExtResource("3_wufem"), ExtResource("4_5rs4v"), ExtResource("5_7nwob")])

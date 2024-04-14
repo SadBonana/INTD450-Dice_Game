@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="BaseEncounter" load_steps=3 format=3 uid="uid://ndol3e5iiqy5"]
+[gd_resource type="Resource" script_class="EncounterTable" load_steps=2 format=3 uid="uid://c7t7581dj7pdj"]
 
-[ext_resource type="Resource" uid="uid://bwqrtqlv7t7ln" path="res://enemy resources/ElitePurpleGodotLogo.tres" id="1_3tbug"]
-[ext_resource type="Script" path="res://encounter resources/base_encounter.gd" id="2_reb8j"]
+[ext_resource type="Script" path="res://encounter resources/encounter_table.gd" id="2_4upit"]
 
 [resource]
-script = ExtResource("2_reb8j")
-enemies = Array[Resource("res://enemy resources/BaseEnemy.gd")]([ExtResource("1_3tbug")])
+script = ExtResource("2_4upit")
+novice_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([null])
+standard_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([null])
+expert_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([null])
+enemies = Array[Resource("res://enemy resources/BaseEnemy.gd")]([])

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BaseEnemy" load_steps=7 format=3 uid="uid://dja77foqf4xxb"]
+
+[ext_resource type="Resource" uid="uid://ixsi8osi87du" path="res://die_resources/special_dice/ultra_rare/combo/d4_combo_urare.tres" id="1_mg15p"]
+[ext_resource type="Resource" uid="uid://cnoas5t1s81j8" path="res://die_resources/special_dice/ultra_rare/combo/d6_combo_urare2.tres" id="2_5ywjq"]
+[ext_resource type="Resource" uid="uid://nbr47moxx3pw" path="res://die_resources/special_dice/ultra_rare/combo/d4_rainbow_urare.tres" id="3_cix7d"]
+[ext_resource type="Resource" uid="uid://bpln8u8pacceh" path="res://die_resources/special_dice/ultra_rare/combo/d8_rainbow_urare.tres" id="4_td7x8"]
+[ext_resource type="Script" path="res://enemy resources/BaseEnemy.gd" id="5_c3tgs"]
+[ext_resource type="Texture2D" uid="uid://bcf46mn8a6r2k" path="res://assets/textures/resources/boss.tres" id="6_1g366"]
+
+[resource]
+script = ExtResource("5_c3tgs")
+name = "Boss"
+texture = ExtResource("6_1g366")
+health = 100
+dice_draws = 4
+sprite_color = Color(1, 1, 1, 1)
+dice = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_mg15p"), ExtResource("2_5ywjq"), ExtResource("3_cix7d"), ExtResource("4_td7x8")])
