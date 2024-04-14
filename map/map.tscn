@@ -1,11 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dobeg8c3tqmme"]
+[gd_scene load_steps=4 format=3 uid="uid://dobeg8c3tqmme"]
 
 [ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
 [ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="4_sqmrd"]
-[ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_k670k"]
 [ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://menus/fps_label.tscn" id="7_ccdas"]
-[ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="8_8cnei"]
-[ext_resource type="PackedScene" uid="uid://cw5hjh480fcbg" path="res://menus/pause_menu_new.tscn" id="9_f126o"]
 
 [node name="Map" type="ScrollContainer" node_paths=PackedStringArray("bg")]
 anchors_preset = 15
@@ -38,23 +35,4 @@ layout_mode = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Player Status" parent="CanvasLayer" instance=ExtResource("6_k670k")]
-
-[node name="Display Box" parent="CanvasLayer" instance=ExtResource("8_8cnei")]
-visible = false
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_top = 137.0
-offset_right = 640.0
-offset_bottom = 357.0
-grow_horizontal = 1
-grow_vertical = 1
-size_flags_stretch_ratio = 2.0
-
-[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("9_f126o")]
-visible = false
-
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-
-[editable path="CanvasLayer/Player Status"]

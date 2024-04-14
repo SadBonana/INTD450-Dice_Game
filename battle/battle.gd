@@ -48,10 +48,6 @@ var defeated_enemies = []
 @onready var ready_button := %Ready
 @onready var battle_container := %BattleContainer
 
-@onready var enemy_1_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/enemy_1_hand
-@onready var enemy_2_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_2_container/enemy_2_hand
-@onready var enemy_3_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_3_container/enemy_3_hand
-
 ## Inventory
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
@@ -126,11 +122,6 @@ func _ready():
 	# line of code
 	
 	player_status.dice_selected.visible = true
-	
-	'''player.damage_indication.visible = false
-	enemy1.damage_indication.visible = false
-	enemy2.damage_indication.visible = false
-	enemy3.damage_indication.visible = false'''
 	
 	drawn_die_placeholder.hide()
 	inventory.just_opened.connect(pause_battle)
@@ -259,7 +250,7 @@ func cleanup_enemies():
 
 
 func enemy_turn():
-	draw_dice()
+	#draw_dice()
 	if enable_textboxes:
 		await textbox_controller.quick_beat("enemy attack")
 	
@@ -272,9 +263,11 @@ func enemy_turn():
 		for die in enemy.dice_hand:
 			
 			'''if die.action == DrawnDieData.ATTACK and die.effect.damaging:
+				
 				player.damage_indication.visible = true
 				await player.take_damage(die.side.value, enemy.actor_name)
 				#player.damage_indication.visible = false
+				
 			else:		# DEFENSE
 				enemy.defense += die.side.value
 			
@@ -305,17 +298,21 @@ func enemy_turn():
 		
 		if attack_roll > 0:
 			SoundManager.attack_sfx.play()
+			player.damage_indication.visible = true
 			await player.take_damage(attack_roll, enemy.actor_name)
+			player.damage_indication.visible = false
 		
 		for effect in atk_die_effects:
 			effect.apply()
+		
+		#player.damage_indication.visible = false
 	
 	for effect in player.status_effects.duplicate():
 		if not effect.beneficial:
 			await effect.invoke()
-	player.update_status_effects()
 	
-	#draw_dice()    # Enemy turn is over so player draws dice
+	player.update_status_effects()
+	draw_dice()    # Enemy turn is over so player draws dice
 	
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
@@ -417,9 +414,14 @@ func _on_ready_pressed():
 				#await die.target.take_damage(die.roll, player.actor_name)
 				if die.data.effect.damaging:
 					SoundManager.attack_sfx.play()
+					die.target.damage_indication.visible = true
 					await die.target.take_damage(die.roll, player.actor_name)
+					die.target.damage_indication.visible = false
 					await get_tree().create_timer(0.2).timeout
 				await die.data.effect.apply()
+				#die.target.damage_indication.visible = false
+				# Used for damage animation
+				#die.target.damage_indication.visible = false
 				
 			#applying buffs after attacking
 			

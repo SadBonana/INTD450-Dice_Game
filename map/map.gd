@@ -14,35 +14,7 @@ var map_scene 	= preload("res://map/MapTree.tscn")
 #@export var scroll_cont : ScrollContainer
 @export var bg 			: NinePatchRect
 
-## Inventory
-@onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
-@onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
-@onready var side_name = "Sides"
-
-@onready var canvas_layer = $CanvasLayer
-@onready var player_status = $"CanvasLayer/Player Status"
-@onready var inventory = %"Display Box"
-@export var temp_dice_bag_init: PlayerDataInit
-var inventory_open = false
-
 func _ready():
-	
-	'''if PlayerData.dice_bag.size() == 0:
-		PlayerData.dice_bag = temp_dice_bag_init.dice.duplicate(true)'''
-	
-	player_status.dice_remaining = PlayerData.dice_bag.size()
-	
-	## setup for dice inventory tab
-	inventory.make_tab("In Bag", PlayerData.dice_bag, inv_dice_visual)
-	## setup for die sides inventory tab
-	inventory.make_tab(side_name, [], inv_side_visual)
-	
-	## connect dice bag button to inventory
-	player_status.bag_button.pressed.connect(track_inventory)
-	## connect frame clicks to display sides
-	inventory.return_clicked.connect(show_sides)
-	
-	
 	setup()
 	
 func setup():
@@ -115,35 +87,6 @@ func add_nodes():
 			#node.text = text
 			
 			bg.add_child(node)
-
-
-## simple function that changes what is displayed on the sides tab
-func show_sides(die : Die):
-	var side_view
-	for child in inventory.get_children():
-		if child.tabobj_ref.get_tab_title() == side_name:	 #hardcoded cause bro this shit is ass
-			side_view = child
-	if side_view == null:
-		return
-	else:
-		side_view.new_frames(die.sides)
-		inventory.current_tab = side_view.get_index()
-
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("i") and inventory_open == false:
-		inventory.open()
-		inventory_open = true
-	elif event.is_action_pressed("i") and inventory_open == true:
-		inventory.hide()
-		inventory_open = false
-
-func track_inventory():
-	if inventory.visible == false:
-		inventory.open()
-		inventory_open = true
-	elif inventory.visible == true:
-		inventory.close()
-		inventory_open = false
 
 func _on_visibility_changed():
 	if visible:

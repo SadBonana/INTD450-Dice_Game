@@ -107,7 +107,6 @@ func take_damage(damage: int, beligerent_name: String) -> int:
 	animation_player.play("Hurt")
 	await animation_player.animation_finished
 	
-	
 	if enable_textboxes:
 		await textbox.quick_beat("deal damage", [beligerent_name, damage_after_defense])
 	
