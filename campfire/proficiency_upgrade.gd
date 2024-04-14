@@ -109,7 +109,7 @@ func _ready():
 	get_node("/root/Map").visible = false
 	
 	# This still allows the player to use pause menu
-	get_node("/root/Map").player_status.visible = false
+	get_node("/root/Map").canvas_layer.bag_container.visible = false
 	
 	## setup for dice inventory tab
 	inventory.make_tab("Upgrade Options", PlayerData.dice_bag, inv_dice_visual)

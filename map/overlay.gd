@@ -6,6 +6,7 @@ extends CanvasLayer
 
 @onready var player_status = %"Player Status"
 @onready var inventory = %"Display Box"
+@onready var bag_container = %BagContainer
 @export var temp_dice_bag_init: PlayerDataInit
 
 var inventory_open = false
