@@ -17,7 +17,7 @@ class_name BattleEnemy extends BattleActor
 @export var mouse_out: bool
 @export var mouse_over: bool
 
-@export var damage_for_preview: int
+var damage_for_preview: int
 @export var player_targeting_check: bool
 
 var battle: Battle
@@ -134,7 +134,7 @@ func restore_sprite_color():
 
 
 
-'''func _on_mouse_entered():
+func _on_mouse_entered():
 	#battle.player
 	
 	health_label.visible = false
@@ -152,4 +152,4 @@ func restore_sprite_color():
 func _on_mouse_exited():
 	health_label.visible = true
 	progress_bar.visible = false
-	preview_damage_label.visible = false'''
+	preview_damage_label.visible = false

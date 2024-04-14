@@ -16,7 +16,6 @@ res = null
 drawn_die_path = "res://battle/drawn_die/drawn_die.tscn"
 mouse_out = false
 mouse_over = false
-damage_for_preview = 0
 player_targeting_check = false
 
 [node name="HealthBar" parent="." index="2" instance=ExtResource("1_pbfgf")]

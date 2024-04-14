@@ -15,6 +15,10 @@ var is_paused : bool = false
 signal target_selected(drawndie)
 signal target_unselected(drawndie)
 
+#var battle_enemy: BattleEnemy
+var battle_enemy = preload("res://battle/battle_actors/battle_enemy.tscn").instantiate()
+@onready var die_damage_label = %Label
+
 var data: DrawnDieData:
 		set (ddd):
 			data = ddd
@@ -113,6 +117,8 @@ func _on_toggled(toggled_on):
 		disable_untargetables(true, self)
 
 		#await data.battle.textbox_controller.quick_beat("targeting instructions")
+		
+		#battle_enemy.damage_for_preview = side.value
 
 		# Set targeting callback and give the player visual queues for targeting
 		for option in targets:
@@ -168,6 +174,7 @@ func make_focused_pressed():
 	button.add_theme_stylebox_override(pressed_style, focused_press_path)
 	var new_stylebox_pressed = get_theme_stylebox(pressed_style)
 	new_stylebox_pressed.bg_color = side.element.color
+	battle_enemy.damage_for_preview = int(die_damage_label.text)
 
 ## A function that changes the style box of the drawn_die
 ## once it is no longer the selected die
