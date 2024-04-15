@@ -11,6 +11,7 @@ signal target_selected(target)
 # File paths for scene changes and sub-scene instantiations.
 @export_file("*.tscn") var drawn_die_path
 @export_file("*.tscn") var loot_screen_path
+@export_file("*.tscn") var game_win_scene_path
 
 # Enemy
 # If given an EncounterTable, will randomly choose a BaseEncounter based on the difficulty setting.
@@ -176,7 +177,10 @@ func _ready():
 					enemies.erase(enemy)
 				if enemies.size() == 0:
 					await textbox_controller.next()
-					get_tree().change_scene_to_file(loot_screen_path)
+					if in_battle_scene == true:
+						get_tree().change_scene_to_file(game_win_scene_path)
+					else:
+						get_tree().change_scene_to_file(loot_screen_path)
 					queue_free()
 	player.textbox = textbox_controller
 	player.on_defeat = func ():
