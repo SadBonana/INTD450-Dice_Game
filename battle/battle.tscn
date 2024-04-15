@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://chd8awhkxw1b7"]
+[gd_scene load_steps=23 format=3 uid="uid://chd8awhkxw1b7"]
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_5jfo4"]
 [ext_resource type="Texture2D" uid="uid://dg3xvakvhen5k" path="res://icon.svg" id="1_iltai"]
@@ -16,10 +16,10 @@
 [ext_resource type="Resource" uid="uid://k2011psyxec6" path="res://global scripts/initial bag/start_bag.tres" id="8_so7d7"]
 [ext_resource type="Resource" uid="uid://git3m0aftj0o" path="res://battle/battle_textbox_test.tres" id="9_5yvlh"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="10_sbswq"]
+[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="14_awnqw"]
 [ext_resource type="Script" path="res://battle/InventoryContainer.gd" id="16_e7iik"]
 [ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="16_wwdy5"]
 [ext_resource type="StyleBox" uid="uid://dk0wnmlm8phm5" path="res://modules/display_box/styles/button_box.tres" id="17_bjt1t"]
-[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="14_awnqw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0gmav"]
 texture = ExtResource("4_kit2x")
@@ -123,19 +123,8 @@ dice_bag_init = ExtResource("8_so7d7")
 visible = false
 size_flags_vertical = 1
 
-[node name="MarginContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player/PanelContainer" index="0"]
-layout_mode = 2
-
-[node name="Status Effects" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player/PanelContainer/MarginContainer" index="0"]
-unique_name_in_owner = true
-layout_mode = 2
-
 [node name="Shield" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player" index="1"]
 size_flags_vertical = 0
-
-[node name="MarginContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player" index="2"]
-unique_name_in_owner = false
-size_flags_stretch_ratio = 1.0
 
 [node name="Battle Enemy" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
@@ -146,14 +135,6 @@ res = ExtResource("2_yokuy")
 
 [node name="PanelContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy" index="0"]
 size_flags_vertical = 1
-
-[node name="MarginContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy/PanelContainer" index="0"]
-layout_mode = 2
-
-[node name="Status Effects" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy/PanelContainer/MarginContainer" index="0"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="Battle Enemy2" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
