@@ -4,7 +4,7 @@ class_name MapTree
 
 #constants
 const NT = NodeType.NodeType #defining NT so that we can shortcut nodetypes
-const d = 8       #depth limit on tree generation
+const d = 9       #depth limit on tree generation
 const b_lower = 0 #lower limit on number of branches
 const b_upper = 3 #upper limit on number of branches
 const num_paths = 4 #number of complete paths in the game
@@ -23,7 +23,7 @@ var end            #"boss" room
 
 #map data
 var map_width = 6  #how many columns in the map grid
-var map_height = 8 #how many rows in the map grid
+var map_height = 9 #how many rows in the map grid
 var map_array = range(map_width*map_height) #initializing an array to hold the map positions
 var connections = [] #array for connections
 var positions = []   #binary array showing which positions are "active"
@@ -32,10 +32,16 @@ var map_nodes = []   #array of MapNodes
 
 #front-end probabilities
 #these are the expected chances of getting a room of this type
+'''
 var camp_prob     = 0.0 #initialized at 0 until depth = 3
 var wshop_prob    = 0.0
 var battle_prob   = 1.0 #70% chance of selecting battle as first room
 var treasure_prob = 0.0 #initialized at 0 until depth = 3
+'''
+var camp_prob = 0.25     #% of campfire
+var wshop_prob = 0.0    # % chance of workshop
+var battle_prob = 0.60   # % chance of battle
+var treasure_prob = 0.15 # % chance of treasure
 #var elite_prob
 #var rand_enc_prob 
 
@@ -246,7 +252,7 @@ func select() -> NT:
 		
 	elif random_float < wshop_prob_b:# chance of float < wshop_prob_b is wshop_prob*100%
 		#select = NT.WORKSHOP
-		select = NT.TREASURE #FAILSAFE TO PREVENT CREATING WORKSHOPS
+		select = NT.CAMPFIRE #FAILSAFE TO PREVENT CREATING WORKSHOPS
 		
 	elif random_float < camp_prob_b: # camp_prob*100%
 		select = NT.CAMPFIRE
@@ -306,6 +312,8 @@ func select_type(node:MapNode) -> NT:
 
 	while !fin:                #preventing selecting campfires and workshops multiple times in a row
 		#randomly select a type
+		if depth > 4:
+			pass
 		selection = select()
 		
 		#match = switch-case in other languages
