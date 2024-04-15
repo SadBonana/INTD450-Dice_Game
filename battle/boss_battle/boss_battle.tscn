@@ -13,8 +13,12 @@ grow_vertical = 2
 
 [node name="Battle" parent="." node_paths=PackedStringArray("boss") instance=ExtResource("1_yrolj")]
 layout_mode = 1
+game_win_scene_path = "res://battle/game_over.tscn"
 boss = NodePath("Battle Enemy")
 in_battle_scene = true
+
+[node name="HBoxContainer" parent="Battle/BattleContainer/MarginContainer/TopPanel" index="1"]
+clip_contents = true
 
 [node name="Battle Enemy" parent="Battle" instance=ExtResource("2_vaovp")]
 layout_mode = 1
@@ -32,14 +36,13 @@ grow_vertical = 1
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="HBoxContainer" parent="Battle/BattleContainer/MarginContainer/TopPanel" index="1"]
-clip_contents = true
-
 [editable path="Battle"]
 [editable path="Battle/BattleContainer/MarginContainer/TopPanel/MarginContainer/Side Info"]
 [editable path="Battle/BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player"]
+[editable path="Battle/BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player/damage_indicator"]
 [editable path="Battle/BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy"]
 [editable path="Battle/BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy/HealthBar"]
+[editable path="Battle/BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy/damage_indicator"]
 [editable path="Battle/BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status"]
 [editable path="Battle/BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status/Player Health and Name/Health Bar"]
 [editable path="Battle/BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu"]
