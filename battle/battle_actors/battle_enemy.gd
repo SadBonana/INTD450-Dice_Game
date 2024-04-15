@@ -20,7 +20,9 @@ var damage: int:
 	set (value):
 		damage = value
 		roll_label.text = "%d" % damage
-
+		roll_label.set("theme_override_colors/font_color", color)
+		
+var color : Color = Color.RED
 func _set_health(value):
 	health = clamp(value, 0, max_health)
 	health_bar.value = health
@@ -52,10 +54,20 @@ func commit_dice():
 	
 	print("dice hand size is:", dice_hand.size())
 	
+	var accum = 0
 	for die in dice_hand:
 		die.target = battle.player
-		die.action = DrawnDieData.ATTACK
-	
+		if die.effect and die.effect._type != StatusEffect.AUTODEFENSE:
+			die.action = DrawnDieData.ATTACK
+			accum += die.side.value
+			#effect = die.effect._type #NOTE: THIS LINE WILL BREAK WITH MULTIPLE DICE ATTACKS
+			color = die.effect.colour
+		else:
+			die.target = self
+			die.action = DrawnDieData.DEFEND
+			accum += die.side.value
+			#effect = die.effect._type #NOTE: SAME AS ABOVE
+			color = die.effect.colour
 	var paralyzed = false
 	var stacks = 0
 	for effect in status_effects:
@@ -63,7 +75,9 @@ func commit_dice():
 			paralyzed = true
 			stacks = effect.stacks
 			
-	damage = dice_hand.reduce(func (accum, die): return accum + die.side.value, 0)	# damage = sum of rolls in dice hand
+	#damage = dice_hand.reduce(func (accum, die): return accum + die.side.value, 0)	# damage = sum of rolls in dice hand
+	#for die in dice_hand:
+	damage = accum
 	if paralyzed:
 		for stack in stacks:
 			damage =  max(0, damage-2)
@@ -77,13 +91,13 @@ func draw_dice():
 	for i in range(dice_draws):
 		# Whatever we decide to do when the enemy runs out of dice, it'll be here
 		if not dice_bag.size() > 0:
-			await textbox.quick_beat('enemy out of dice', [actor_name])
+			#await textbox.quick_beat('enemy out of dice', [actor_name])
 			# Reshuffle dice into bag
 			dice_bag = used_dice
 			used_dice = []
 			dice_bag.shuffle()
-			dice_hand.clear()
-			break
+			#dice_hand.clear()
+			#break
 		
 		# Draw the actual die from the bag, roll it, add it to hand, and consider
 		# it a used die (aka discard it but not really)

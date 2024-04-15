@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PlayerDataInit" load_steps=4 format=3 uid="uid://k2011psyxec6"]
+
+[ext_resource type="Resource" uid="uid://dp2q4nnem8qg8" path="res://die_resources/basic_dice/d4_basic.tres" id="1_fa3wk"]
+[ext_resource type="Resource" uid="uid://mknef5ybikmc" path="res://die_resources/steel_dice/d4_steel.tres" id="5_1xlhe"]
+[ext_resource type="Script" path="res://global scripts/player_data_init.gd" id="6_xnvmr"]
+
+[resource]
+script = ExtResource("6_xnvmr")
+dice = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_fa3wk"), ExtResource("1_fa3wk"), ExtResource("1_fa3wk"), ExtResource("5_1xlhe"), ExtResource("1_fa3wk"), ExtResource("1_fa3wk"), ExtResource("1_fa3wk")])

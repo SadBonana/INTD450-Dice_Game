@@ -13,6 +13,7 @@
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="7_iw7i2"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="8_11wq8"]
 [ext_resource type="Script" path="res://battle/hand_of_dice.gd" id="8_47wfu"]
+[ext_resource type="Resource" uid="uid://k2011psyxec6" path="res://global scripts/initial bag/start_bag.tres" id="8_so7d7"]
 [ext_resource type="Resource" uid="uid://git3m0aftj0o" path="res://battle/battle_textbox_test.tres" id="9_5yvlh"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="10_sbswq"]
 [ext_resource type="Script" path="res://battle/InventoryContainer.gd" id="16_e7iik"]
@@ -116,6 +117,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_stretch_ratio = 3.0
+dice_bag_init = ExtResource("8_so7d7")
 
 [node name="PanelContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player" index="0"]
 visible = false
