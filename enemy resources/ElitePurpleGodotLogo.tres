@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://enemy resources/BaseEnemy.gd" id="1_g4nds"]
 [ext_resource type="Resource" uid="uid://bv6l8gvwvw7wb" path="res://die_resources/enemy_dice/d8_eliteEnemy.tres" id="1_y6r3n"]
-[ext_resource type="Resource" uid="uid://beh71q7xdubms" path="res://die_resources/enemy_dice/d4_eliteEnemy.tres" id="2_tbsfg"]
+[ext_resource type="Resource" uid="uid://bao3uyymcni2d" path="res://die_resources/enemy_dice/d4_eliteEnemy_noDef.tres" id="2_mbij6"]
 [ext_resource type="Texture2D" uid="uid://bnkabtm5yrrp" path="res://assets/textures/resources/elite enemy.tres" id="7_xh4np"]
 
 [resource]
@@ -12,4 +12,4 @@ texture = ExtResource("7_xh4np")
 health = 30
 dice_draws = 1
 sprite_color = Color(1, 1, 1, 1)
-dice = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_y6r3n"), ExtResource("2_tbsfg")])
+dice = Array[Resource("res://global scripts/die.gd")]([ExtResource("1_y6r3n"), ExtResource("2_mbij6")])
