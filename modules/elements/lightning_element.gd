@@ -16,5 +16,5 @@ func _to_string():
 
 func info():
 	var lightning = "[color=rebecca_purple]Lightning[/color]"
-	var text = "%s decreases the damage of an enemy's attacks by 2 per stack." % [lightning]
+	var text = "%s decreases the roll of the target's highest rolled die by 2 per stack." % [lightning]
 	return text

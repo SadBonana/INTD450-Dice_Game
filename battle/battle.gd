@@ -211,8 +211,9 @@ func draw_dice():
 	for d in await player.draw_dice():
 		var die = DrawnDie.instantiate(drawn_die_path, drawn_die_container, d, self)
 		player.dice_hand.append(die)
+		await get_tree().create_timer(0.35).timeout
 	player_status.dice_remaining = player.dice_bag.size()
-	
+
 	for effect in player.status_effects.duplicate():
 		if not effect.beneficial: 
 			await effect.invoke()
