@@ -236,7 +236,8 @@ class Ignited extends StatusEffect:
 		#	await target.take_damage(roll.value, "ignited")
 		#	target.dice_hand[i].side = roll
 		#	target.commit_dice()
-		await target.take_damage(2 * stacks,"fire")
+		#await target.take_damage(2 * stacks,"fire")
+		await target.take_damage(2 * stacks, EffectType.find_key(IGNITED))
 		
 		var rng = randf()
 		var limit = min(stacks, 20)
@@ -295,7 +296,8 @@ class Poisoned extends StatusEffect:
 		SoundManager.poison_sfx.play()
 		if textbox_enabled:
 			await textbox.quick_beat("poison invoke")
-		await target.take_damage(stacks, "poison")
+		#await target.take_damage(stacks, "poison")
+		await target.take_damage(stacks, EffectType.find_key(POISONED))
 		stacks -= 1
 		if stacks == 0:
 			target.remove_status_effect(self)

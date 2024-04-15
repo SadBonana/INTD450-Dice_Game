@@ -1,13 +1,21 @@
 class_name BattleEnemy extends BattleActor
 
 @onready var health_bar: HealthBar = %HealthBar
+@onready var progress_bar = $HealthBar/ProgressBar
+
+@onready var health_label = $HealthBar/original_label
+@onready var preview_damage_label = $HealthBar/ProgressBar/preview_label
+
 @onready var roll_label: Label = %Roll  # FIXME: Displaying the enemy's roll over their sprite is prolly not what we want the final game to look like. I thought the empty top panel was where we'd show that info, but I'm running out of energy now so...
 @export var res: Resource
 
 @export_file("*.tscn") var drawn_die_path
 
-@export var mouse_out: bool
-@export var mouse_over: bool
+#@export var damage_for_preview: int
+#@export var player_targeting_check: bool
+#@onready var die_clicked = $Button
+#var drawn_die_scene: DrawnDie
+var drawn_die_scene = preload("res://battle/drawn_die/drawn_die.tscn").instantiate()
 
 var battle: Battle
 
@@ -15,6 +23,7 @@ var max_health: int:
 	set (value):
 		max_health = value
 		health_bar.max_value = value
+		progress_bar.max_value = value
 
 var damage: int:
 	set (value):
@@ -85,8 +94,6 @@ func commit_dice():
 # Will likely need to be rewritten once effect die and enemies defending become a thing.
 func draw_dice():
 	#individual_die_rolls.show()
-	
-	
 	dice_hand = []	# Reset the hand so we don't use the values from last turn
 	for i in range(dice_draws):
 		# Whatever we decide to do when the enemy runs out of dice, it'll be here
@@ -123,3 +130,28 @@ func draw_dice():
 ## AnimationPlayer can.
 func restore_sprite_color():
 	tex_rect.self_modulate = res.sprite_color
+
+
+func _on_mouse_entered():
+	#progress_bar.visible = true
+	#health_label.text = "HP: %d/%d" % [health_bar.value - damage_for_preview, health_bar.max_value]
+	
+	#var current_health = _get_health
+	#battle.player
+	
+	health_label.visible = false
+	
+	progress_bar.value = health - drawn_die_scene.damage_preview
+	
+	progress_bar.visible = true
+	preview_damage_label.visible = true
+	
+	preview_damage_label.text = "HP: %d/%d" % [health - drawn_die_scene.damage_preview, max_health]
+	
+	print("health label is:", preview_damage_label.text)
+
+
+func _on_mouse_exited():
+	health_label.visible = true
+	progress_bar.visible = false
+	preview_damage_label.visible = false

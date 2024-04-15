@@ -53,6 +53,7 @@ text = "Resume"
 [node name="settings_button" parent="pause_menu_panel/VBoxContainer" instance=ExtResource("3_j362h")]
 layout_mode = 2
 focus_neighbor_top = NodePath("../resume")
+focus_neighbor_bottom = NodePath("../quit_button")
 
 [node name="quit_button" parent="pause_menu_panel/VBoxContainer" instance=ExtResource("4_mo4qs")]
 layout_mode = 2

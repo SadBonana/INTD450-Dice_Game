@@ -1,5 +1,9 @@
 class_name BattleActor extends VBoxContainer
 
+#const damage_indication = preload("res://battle/damage_indicator/damage_indicator.tscn")
+@onready var damage_indication := $damage_indicator
+@onready var damage_animation := $damage_indicator/damage_animation
+
 @export_file("*.tscn") var status_effect_scene_path
 @export var enable_textboxes := false
 var textbox: TextboxController
@@ -92,16 +96,21 @@ func update_status_effects():
 ##
 ## Return the damage taken after accounting for defense
 func take_damage(damage: int, beligerent_name: String) -> int:
+	
+	damage_indication.visible = true
+	
 	var damage_after_defense = Helpers.clamp_damage(damage, defense)
 	defense -= damage
 	shield_manager(defense)
 	var prev_health = health
 	
+	spawn_damage_indicator(damage_after_defense, beligerent_name)
 	health -= damage_after_defense
 	
 	animation_player.play("Hurt")
 	await animation_player.animation_finished
 	
+	damage_indication.visible = false
 	
 	if enable_textboxes:
 		await textbox.quick_beat("deal damage", [beligerent_name, damage_after_defense])
@@ -139,8 +148,11 @@ func restore_sprite_color():
 # NOTE: with the way this works, we could easily uncomment this and have the player capable of targeting
 # their self, though a few places elsewhere would need to be modified, it wouldn't be much.
 func toggle_target_mode(player_is_targeting: bool, target_selected: Signal):
+	
 	# Init logic for player to target enemies
 	if player_is_targeting:
+		#target_selected.target.progress_bar.value = die.target.health_bar.value - die.roll
+		
 		modulate.a = _usual_alpha / 2	# Set unfocused alpha
 		set_focus_mode(FOCUS_ALL)	# Enable focus
 		
@@ -150,7 +162,6 @@ func toggle_target_mode(player_is_targeting: bool, target_selected: Signal):
 		# Connect callbacks
 		focus_entered.connect(_on_focus_entered)
 		focus_exited.connect(_on_focus_exited)
-		
 	# Cleanup now that targeting is finished
 	else:
 		set_focus_mode(FOCUS_NONE)	# Disable focusing
@@ -200,3 +211,33 @@ func shield_manager(value: int):
 		show_shield_string(false)
 	else:
 		show_shield_string(true)
+
+
+
+func spawn_damage_indicator(damage: int, beligerent_name: String):
+	#damage_indication.label.text = str(damage)
+	var color: String
+	var extra_text := ""
+	match beligerent_name:
+		# This is dumb. This is what i get for trying to be smart...
+		"POISONED":
+			color = "#239063"
+			extra_text = "Poison"
+		"IGNITED":
+			color = "#a90909"
+			extra_text = "Ignite"
+		_:
+			color = "#61000f" # looks kinda blood red, might be too similar to ignited's color though
+	if damage == 0:
+		color = "#9db3bf" # autodefence color
+		extra_text = "Block"
+	damage_indication.label.text = "[color=%s]%d[/color]" % [color, damage]
+	damage_indication.label2.text = "[color=%s]%s[/color]" % [color, extra_text]
+	
+	damage_animation.play("show_damage")
+	await animation_player.animation_finished
+	#await damage_animation.animation_finished
+	
+	damage_animation.play("RESET")
+	await animation_player.animation_finished
+	#await damage_animation.animation_finished
