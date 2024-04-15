@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EncounterTable" load_steps=2 format=3 uid="uid://c7t7581dj7pdj"]
+
+[ext_resource type="Script" path="res://encounter resources/encounter_table.gd" id="2_4upit"]
+
+[resource]
+script = ExtResource("2_4upit")
+novice_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([null])
+standard_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([null])
+expert_encounters = Array[Resource("res://encounter resources/base_encounter.gd")]([null])
+enemies = Array[Resource("res://enemy resources/BaseEnemy.gd")]([])
