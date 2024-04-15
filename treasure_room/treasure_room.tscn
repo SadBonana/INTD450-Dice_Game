@@ -1,15 +1,21 @@
-[gd_scene load_steps=20 format=3 uid="uid://chpqcqadrstm5"]
+[gd_scene load_steps=22 format=3 uid="uid://chpqcqadrstm5"]
 
 [ext_resource type="Script" path="res://treasure_room/treasure_room.gd" id="1_e235p"]
 [ext_resource type="Resource" uid="uid://dcfrcd73qhrsb" path="res://die_resources/rare_loot_table.tres" id="2_4ccpn"]
 [ext_resource type="Resource" uid="uid://cohodfukkebl2" path="res://die_resources/ultra_rare_loot_table.tres" id="3_lp0op"]
-[ext_resource type="Texture2D" uid="uid://bwingv7c3h1po" path="res://assets/textures/resources/map_icon_atlas.tres" id="4_g5bbf"]
 [ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="4_g7mp6"]
+[ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="4_h80x8"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="5_5elu5"]
+[ext_resource type="Texture2D" uid="uid://d863lidc5dtg" path="res://assets/textures/map_icons.png" id="5_wsiv2"]
 [ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="6_1ub7j"]
-[ext_resource type="StyleBox" uid="uid://duu0i3mki6gt4" path="res://battle/styles/skip_reward_normal.tres" id="6_nh2um"]
 [ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="7_2785s"]
-[ext_resource type="StyleBox" uid="uid://cncyidhgwlawo" path="res://battle/styles/skip_reward_pressed.tres" id="7_qn8qr"]
+[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="7_ccs20"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4nqvb"]
+atlas = ExtResource("5_wsiv2")
+region = Rect2(57, 111, 32, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rgtrf"]
 
 [sub_resource type="Resource" id="Resource_0o1qc"]
 resource_name = "congrats"
@@ -97,14 +103,15 @@ script = ExtResource("1_e235p")
 rare_loot_table = ExtResource("2_4ccpn")
 ultra_rare_loot_table = ExtResource("3_lp0op")
 
-[node name="Nodes" type="NinePatchRect" parent="."]
+[node name="Background" type="NinePatchRect" parent="."]
+modulate = Color(0.376471, 0.376471, 0.376471, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_g5bbf")
+texture = ExtResource("4_h80x8")
 patch_margin_left = 32
 patch_margin_top = 32
 patch_margin_right = 32
@@ -119,12 +126,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 0
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer"]
+modulate = Color(0.376471, 0.376471, 0.376471, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+size_flags_stretch_ratio = 5.0
+texture = SubResource("AtlasTexture_4nqvb")
+stretch_mode = 5
 
 [node name="LootDropContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_top = 105
+size_flags_stretch_ratio = 10.0
 
 [node name="item_drop_display" parent="VBoxContainer/LootDropContainer" instance=ExtResource("4_g7mp6")]
 layout_mode = 2
@@ -136,19 +151,31 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-theme_override_styles/normal = ExtResource("6_nh2um")
-theme_override_styles/hover = ExtResource("6_nh2um")
-theme_override_styles/pressed = ExtResource("7_qn8qr")
+theme = ExtResource("7_ccs20")
 text = "Skip Reward"
 
-[node name="Textbox Controller" parent="VBoxContainer" instance=ExtResource("5_5elu5")]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+size_flags_stretch_ratio = 1.35
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+size_flags_stretch_ratio = 0.35
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rgtrf")
+
+[node name="Textbox Controller" parent="VBoxContainer/HBoxContainer" instance=ExtResource("5_5elu5")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.55
+size_flags_stretch_ratio = 1.35
 dialogue_res = SubResource("Resource_08gah")
 
-[node name="Background" type="PanelContainer" parent="VBoxContainer/Textbox Controller"]
+[node name="Background" type="PanelContainer" parent="VBoxContainer/HBoxContainer/Textbox Controller"]
 unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 1
@@ -167,4 +194,4 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_la1hk")
 
 [editable path="VBoxContainer/LootDropContainer/item_drop_display"]
-[editable path="VBoxContainer/Textbox Controller"]
+[editable path="VBoxContainer/HBoxContainer/Textbox Controller"]

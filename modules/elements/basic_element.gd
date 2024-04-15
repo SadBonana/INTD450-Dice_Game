@@ -7,7 +7,7 @@ func _init():
 	value = 2
 	stack_roll = false
 	effect = StatusEffect.EffectType.BASEEFFECT
-	color = Color.BEIGE
+	color = Color.BEIGE #Color("#c3b6a9") # beige ish color from art palette
 	icon = null
 	
 ## String representation of the element

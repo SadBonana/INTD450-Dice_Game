@@ -7,7 +7,7 @@ func _init():
 	value = 2
 	stack_roll = true
 	effect = StatusEffect.EffectType.POISONED
-	color = Color.WEB_GREEN
+	color = Color("#239063") # Greenish color from the same palette as artwork. #Color.WEB_GREEN
 	icon = preload("res://assets/textures/resources/elements/poison.tres")
 	
 ## String representation of the element

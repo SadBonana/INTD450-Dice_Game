@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://2y61mh58og5d"]
+
+[ext_resource type="Texture2D" uid="uid://dvk16e063idm2" path="res://assets/textures/slider graber.png" id="1_wtbov"]
+
+[resource]
+atlas = ExtResource("1_wtbov")
+region = Rect2(0, 22, 14, 14)

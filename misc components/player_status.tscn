@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgag7rr64v1m7"]
+[gd_scene load_steps=9 format=3 uid="uid://bgag7rr64v1m7"]
 
 [ext_resource type="Script" path="res://misc components/player_status.gd" id="1_kpf4t"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_wrn3c"]
@@ -7,23 +7,29 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_si3mn"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x4xij"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ao52l"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.988235, 0.74902, 0.47451, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+border_color = Color(1, 0.682353, 0.168627, 1)
+anti_aliasing = false
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gec5k"]
 texture = ExtResource("4_qstec")
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 modulate_color = Color(0.105882, 0.105882, 0.105882, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j7plv"]
+bg_color = Color(0.196078, 0.196078, 0.196078, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.682353, 0.168627, 1)
+anti_aliasing = false
 
 [node name="Player Status" type="VBoxContainer" node_paths=PackedStringArray("health_bar", "deck_status")]
 custom_minimum_size = Vector2(100, 0)
@@ -82,6 +88,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxEmpty_si3mn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_x4xij")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ao52l")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_gec5k")
-theme_override_styles/focus = SubResource("StyleBoxFlat_x4xij")
+theme_override_styles/focus = SubResource("StyleBoxFlat_j7plv")

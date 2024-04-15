@@ -7,5 +7,3 @@ size = Vector2i(600, 300)
 visible = true
 
 [node name="Display Box" parent="." instance=ExtResource("1_piht8")]
-size_flags_horizontal = 3
-size_flags_vertical = 3

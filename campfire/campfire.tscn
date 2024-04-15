@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvyca2p1xw30e"]
+[gd_scene load_steps=6 format=3 uid="uid://cvyca2p1xw30e"]
 
 [ext_resource type="Script" path="res://campfire/campfire.gd" id="1_r4xlk"]
-[ext_resource type="Texture2D" uid="uid://bwingv7c3h1po" path="res://assets/textures/resources/map_icon_atlas.tres" id="2_nrq00"]
+[ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="2_e7p36"]
+[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="3_sqp0e"]
+[ext_resource type="Texture2D" uid="uid://d863lidc5dtg" path="res://assets/textures/map_icons.png" id="4_05aku"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3mb2"]
+atlas = ExtResource("4_05aku")
+region = Rect2(111, 111, 32, 32)
 
 [node name="Campfire" type="Control"]
 layout_mode = 3
@@ -13,14 +19,15 @@ grow_vertical = 2
 script = ExtResource("1_r4xlk")
 upgrade_path = "res://campfire/proficiency_upgrade.tscn"
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
+[node name="Background" type="NinePatchRect" parent="."]
+modulate = Color(0.376471, 0.376471, 0.376471, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_nrq00")
+texture = ExtResource("2_e7p36")
 patch_margin_left = 32
 patch_margin_top = 32
 patch_margin_right = 32
@@ -35,17 +42,27 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_sqp0e")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
+[node name="Icon" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+modulate = Color(0.376471, 0.376471, 0.376471, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_g3mb2")
+stretch_mode = 5
+
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_font_sizes/font_size = 50
+theme = ExtResource("3_sqp0e")
+theme_override_font_sizes/font_size = 24
 text = "You May Only Choose 1"
 horizontal_alignment = 1
 
@@ -56,14 +73,16 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 10
-theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme = ExtResource("3_sqp0e")
+theme_override_colors/font_color = Color(0.662745, 0.0352941, 0.0352941, 1)
 text = "Recover 15 Health"
 
 [node name="UpgradeDieButton" type="Button" parent="MarginContainer/VBoxContainer/HBocContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 10
-theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme = ExtResource("3_sqp0e")
+theme_override_colors/font_color = Color(0, 0.301961, 0.792157, 1)
 text = "Upgrade A Die"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBocContainer/HealButton" to="." method="_on_heal_button_pressed"]

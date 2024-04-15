@@ -9,9 +9,6 @@ class_name BattleEnemy extends BattleActor
 @onready var roll_label: Label = %Roll  # FIXME: Displaying the enemy's roll over their sprite is prolly not what we want the final game to look like. I thought the empty top panel was where we'd show that info, but I'm running out of energy now so...
 @export var res: Resource
 
-@onready var die_roll_1 = $die_roll_1
-#@onready var individual_die_rolls = $individual_die_roll_container
-
 @export_file("*.tscn") var drawn_die_path
 
 #@export var damage_for_preview: int
@@ -32,7 +29,9 @@ var damage: int:
 	set (value):
 		damage = value
 		roll_label.text = "%d" % damage
-
+		roll_label.set("theme_override_colors/font_color", color)
+		
+var color : Color = Color.RED
 func _set_health(value):
 	health = clamp(value, 0, max_health)
 	health_bar.value = health
@@ -61,23 +60,23 @@ func _ready():
 # Can be used later for fancier enemy decision making
 ## Commit dice in dice hand to a particular action. For now, just uses all dice for attacking.
 func commit_dice():
-	var die_roll_text = " "
 	
 	print("dice hand size is:", dice_hand.size())
 	
+	var accum = 0
 	for die in dice_hand:
 		die.target = battle.player
-		die.action = DrawnDieData.ATTACK
-		
-		'''print("die roll text before:", die_roll_text)
-		die_roll_text = die_roll_text + "%d" % die.side.value + " "
-		die_roll_1.text = die_roll_text
-		print("die roll text after:", die_roll_text)'''
-		
-	#die_roll_1.text = die_roll_text + "%d" % dice_hand[0].side.value
-	#die_roll_2.text = "%d" % dice_hand[1].side.value
-	#die_roll_3.text = "%d" % dice_hand[2].side.value
-	
+		if die.effect and die.effect._type != StatusEffect.AUTODEFENSE:
+			die.action = DrawnDieData.ATTACK
+			accum += die.side.value
+			#effect = die.effect._type #NOTE: THIS LINE WILL BREAK WITH MULTIPLE DICE ATTACKS
+			color = die.effect.colour
+		else:
+			die.target = self
+			die.action = DrawnDieData.DEFEND
+			accum += die.side.value
+			#effect = die.effect._type #NOTE: SAME AS ABOVE
+			color = die.effect.colour
 	var paralyzed = false
 	var stacks = 0
 	for effect in status_effects:
@@ -85,7 +84,9 @@ func commit_dice():
 			paralyzed = true
 			stacks = effect.stacks
 			
-	damage = dice_hand.reduce(func (accum, die): return accum + die.side.value, 0)	# damage = sum of rolls in dice hand
+	#damage = dice_hand.reduce(func (accum, die): return accum + die.side.value, 0)	# damage = sum of rolls in dice hand
+	#for die in dice_hand:
+	damage = accum
 	if paralyzed:
 		for stack in stacks:
 			damage =  max(0, damage-2)
@@ -97,13 +98,13 @@ func draw_dice():
 	for i in range(dice_draws):
 		# Whatever we decide to do when the enemy runs out of dice, it'll be here
 		if not dice_bag.size() > 0:
-			await textbox.quick_beat('enemy out of dice', [actor_name])
+			#await textbox.quick_beat('enemy out of dice', [actor_name])
 			# Reshuffle dice into bag
 			dice_bag = used_dice
 			used_dice = []
 			dice_bag.shuffle()
-			dice_hand.clear()
-			break
+			#dice_hand.clear()
+			#break
 		
 		# Draw the actual die from the bag, roll it, add it to hand, and consider
 		# it a used die (aka discard it but not really)
