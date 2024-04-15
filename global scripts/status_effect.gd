@@ -105,8 +105,8 @@ class Paralysis extends StatusEffect:
 					#die.visible = false
 					#die.roll = max(die.roll - 2 * stacks, 0)
 					#target.damage = max(target.attack - 2 * stacks, 0)
-				
 				die.mod = -2
+				die.redo_effects(die.roll)
 		else:
 			target.commit_dice()
 
