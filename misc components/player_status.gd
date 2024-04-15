@@ -14,14 +14,6 @@ static var deck_f_string = "Dice: %d/%d"
 static var selected_f_string = "Selected: %d/%d"
 
 
-## Inventory
-'''@onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
-@onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
-@onready var side_name = "Sides"
-@onready var inventory = %"Display Box"'''
-
-
-
 # I wonder if it would be better to have a class for the in-battle dice bag so we can just do .size() for dice remaining as well and then use callbacks for when dice are added or removed...
 var dice_remaining: int:
 	set (value):
@@ -35,17 +27,6 @@ func _ready():
 	health_bar.max_value = PlayerData.hp_max
 	PlayerData.hp_changed.connect(_on_hp_changed)
 	PlayerData.hp_max_changed.connect(_on_hp_max_changed)
-	
-	
-	## setup for dice inventory tab
-	'''inventory.make_tab("In Bag", PlayerData.dice_bag, inv_dice_visual)
-	## setup for die sides inventory tab
-	inventory.make_tab(side_name, [], inv_side_visual)
-	
-	## connect dice bag button to inventory
-	self.bag_button.pressed.connect(inventory.popup_centered())
-	## connect frame clicks to display sides
-	inventory.return_clicked.connect(show_sides)'''
 
 
 func _on_hp_changed(value):

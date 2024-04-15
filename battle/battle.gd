@@ -30,6 +30,8 @@ signal target_selected(target)
 @export var enemy1: BattleEnemy
 @export var enemy2: BattleEnemy
 @export var enemy3: BattleEnemy
+@export var boss: BattleEnemy
+@export var in_battle_scene = false
 
 var enemies = []
 var defeated_enemies = []
@@ -56,7 +58,6 @@ var defeated_enemies = []
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
 @onready var info_box = preload("res://modules/infobox/info_box_frame.tscn")
 @onready var side_name = "Sides"
-var inventory_open = false
 
 
 ## Starts a battle scene with the given encounter resource
@@ -81,25 +82,36 @@ func _enter_tree():
 	# Slight HACK: The better way is probably to load and instantiate the enemies
 	# similar to how it is done for the DrawnDie.
 	# Initilize enemy data and hide enemies that shouldn't show up in teh encounter
-	var enemy_resources = encounter_res.enemies
-	if enemy_resources.size() >= 1:
-		enemy3.res = enemy_resources[0]
-		enemy3.battle = self
-		enemies.append(enemy3)
-	if enemy_resources.size() >= 2:
-		enemy2.res = enemy_resources[1]
-		enemy2.battle = self
-		enemies.append(enemy2)
-	if enemy_resources.size() >= 3:
-		enemy1.res = enemy_resources[2]
-		enemy1.battle = self
-		enemies.append(enemy1)
-	match enemy_resources.size():
-		1:
-			enemy1.hide()
-			enemy2.hide()
-		2:
-			enemy1.hide()
+	var enemy_resources
+	
+	if in_battle_scene == true:
+		enemy_resources = boss_encounter.enemies
+		boss.res = enemy_resources[0]
+		boss.battle = self
+		enemies.append(boss)
+		enemy1.hide()
+		enemy2.hide()
+		enemy3.hide()
+	else:
+		enemy_resources = encounter_res.enemies
+		if enemy_resources.size() >= 1:
+			enemy3.res = enemy_resources[0]
+			enemy3.battle = self
+			enemies.append(enemy3)
+		if enemy_resources.size() >= 2:
+			enemy2.res = enemy_resources[1]
+			enemy2.battle = self
+			enemies.append(enemy2)
+		if enemy_resources.size() >= 3:
+			enemy1.res = enemy_resources[2]
+			enemy1.battle = self
+			enemies.append(enemy1)
+		match enemy_resources.size():
+			1:
+				enemy1.hide()
+				enemy2.hide()
+			2:
+				enemy1.hide()
 
 func _setup(node_depth: int):
 	#Hard to do this here without hardcoding the value
@@ -142,7 +154,7 @@ func _ready():
 	## Create info tab
 	side_info.make_tab("Info", [], info_box)
 	## connect dice bag button to inventory
-	player_status.bag_button.pressed.connect(track_inventory)
+	player_status.bag_button.pressed.connect(inventory_container.toggle)
 	## connect frame clicks to display sides
 	inventory.return_clicked.connect(show_sides)
 	
@@ -444,12 +456,3 @@ func _on_ready_pressed():
 
 func _on_die_action_menu_is_hovered(dieside):
 	side_info.get_current_tab_control().new_frames(dieside)
-
-
-func track_inventory():
-	if inventory.visible == false:
-		inventory.open()
-		#inventory_open = true
-	elif inventory.visible == true:
-		inventory.close()
-		#inventory_open = false
