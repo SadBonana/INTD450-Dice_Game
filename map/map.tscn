@@ -44,6 +44,7 @@ script = ExtResource("3_boucf")
 temp_dice_bag_init = ExtResource("2_q8lfo")
 
 [node name="pause_menu" parent="CanvasLayer" instance=ExtResource("7_dd1q5")]
+visible = false
 top_level = false
 z_index = 1
 
