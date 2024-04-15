@@ -148,6 +148,7 @@ func restore_sprite_color():
 # NOTE: with the way this works, we could easily uncomment this and have the player capable of targeting
 # their self, though a few places elsewhere would need to be modified, it wouldn't be much.
 func toggle_target_mode(player_is_targeting: bool, target_selected: Signal):
+	
 	# Init logic for player to target enemies
 	if player_is_targeting:
 		#target_selected.target.progress_bar.value = die.target.health_bar.value - die.roll
@@ -161,7 +162,6 @@ func toggle_target_mode(player_is_targeting: bool, target_selected: Signal):
 		# Connect callbacks
 		focus_entered.connect(_on_focus_entered)
 		focus_exited.connect(_on_focus_exited)
-		
 	# Cleanup now that targeting is finished
 	else:
 		set_focus_mode(FOCUS_NONE)	# Disable focusing
@@ -211,7 +211,6 @@ func shield_manager(value: int):
 		show_shield_string(false)
 	else:
 		show_shield_string(true)
-
 
 
 func spawn_damage_indicator(damage: int):
