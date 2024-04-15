@@ -107,6 +107,7 @@ class Paralysis extends StatusEffect:
 					#target.damage = max(target.attack - 2 * stacks, 0)
 				
 				die.mod = -2
+				die.data.redo_effects(die.roll)
 		else:
 			target.commit_dice()
 
@@ -115,11 +116,11 @@ func argmax(dice_hand : Array) -> int:
 	var max = -1
 	var index = -1
 	for i in range(dice_hand.size()):
-		if dice_hand[i].side.value > max:
-			max = dice_hand[i].side.value
+		if dice_hand[i].roll > max:
+			max = dice_hand[i].roll
 			index = i
 		
-		if dice_hand[i].side.value == max:
+		if dice_hand[i].roll == max:
 			
 			var rand_f = randf() 
 			if rand_f < 0.5:     #breaking ties randomly
