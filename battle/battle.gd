@@ -33,9 +33,11 @@ signal target_selected(target)
 
 var enemies = []
 var defeated_enemies = []
+
 # Textbox
 @onready var textbox_controller := %"Textbox Controller"
 @export var enable_textboxes := false
+
 # Player Panel
 @onready var bottom_container := %"Player Status and Hand"
 @onready var player_status := %"Player Status"
@@ -49,15 +51,12 @@ var defeated_enemies = []
 @onready var battle_container := %BattleContainer
 @onready var inventory_container := %InventoryContainer
 
-@onready var enemy_1_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/enemy_1_hand
-@onready var enemy_2_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_2_container/enemy_2_hand
-@onready var enemy_3_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_3_container/enemy_3_hand
-
 ## Inventory
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
 @onready var info_box = preload("res://modules/infobox/info_box_frame.tscn")
 @onready var side_name = "Sides"
+var inventory_open = false
 
 
 ## Starts a battle scene with the given encounter resource
@@ -143,7 +142,7 @@ func _ready():
 	## Create info tab
 	side_info.make_tab("Info", [], info_box)
 	## connect dice bag button to inventory
-	player_status.bag_button.pressed.connect(inventory_container.toggle)
+	player_status.bag_button.pressed.connect(track_inventory)
 	## connect frame clicks to display sides
 	inventory.return_clicked.connect(show_sides)
 	
@@ -306,7 +305,9 @@ func enemy_turn():
 		
 		if attack_roll > 0:
 			SoundManager.attack_sfx.play()
+			#player.damage_indication.visible = true
 			await player.take_damage(attack_roll, enemy.actor_name)
+			#player.damage_indication.visible = false
 		
 		for effect in atk_die_effects:
 			effect.apply()
@@ -337,9 +338,6 @@ func _on_ready_pressed():
 	SoundManager.select_2.play()
 	var one_target = false
 	for die in player.dice_hand:
-		
-		#die.target.progress_bar.value = die.target.health_bar.value - die.roll
-		
 		if die.target:
 			one_target = true
 			break
@@ -361,6 +359,9 @@ func _on_ready_pressed():
 		#enemy.roll_label.hide()
 	#applying debuffs before player takes their turn
 	for die in player.dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
+		
+		'''die.target.damage_for_preview = die.roll'''
+		
 		if not die.target:
 			continue
 		'''
@@ -370,7 +371,12 @@ func _on_ready_pressed():
 				if not die.target in enemies:
 					await textbox_controller.quick_beat("missed")
 				elif die.data.effect.damaging:
+						
+						# The 1st and 3rd line are used for damage animation
+						die.target.damage_indication.visible = true
 						await die.target.take_damage(die.roll, player.actor_name)
+						#die.target.damage_indication.visible = false''
+						
 					#get_node("/root/SoundManager/attack").play()
 					SoundManager.attack_sfx.play()
 					await die.target.take_damage(die.roll, player.actor_name)
@@ -381,6 +387,8 @@ func _on_ready_pressed():
 		
 		await die.data.effect.apply()
 		# Used for damage animation
+		die.target.damage_indication.visible = false
+		
 		'''
 		if die.selected_action == DrawnDieData.DEFEND:
 			SoundManager.defend_2.play() #TODO: Make sure this plays at the proper time
@@ -415,7 +423,9 @@ func _on_ready_pressed():
 				#await die.target.take_damage(die.roll, player.actor_name)
 				if die.data.effect.damaging:
 					SoundManager.attack_sfx.play()
+					#die.target.damage_indication.visible = true
 					await die.target.take_damage(die.roll, player.actor_name)
+					#die.target.damage_indication.visible = false
 					await get_tree().create_timer(0.2).timeout
 				await die.data.effect.apply()
 				
@@ -434,3 +444,12 @@ func _on_ready_pressed():
 
 func _on_die_action_menu_is_hovered(dieside):
 	side_info.get_current_tab_control().new_frames(dieside)
+
+
+func track_inventory():
+	if inventory.visible == false:
+		inventory.open()
+		#inventory_open = true
+	elif inventory.visible == true:
+		inventory.close()
+		#inventory_open = false

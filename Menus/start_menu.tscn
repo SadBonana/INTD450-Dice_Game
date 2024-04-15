@@ -1,14 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddvb8gwrblohv"]
+[gd_scene load_steps=10 format=3 uid="uid://ddvb8gwrblohv"]
 
 [ext_resource type="Script" path="res://menus/start_menu.gd" id="1_fal63"]
 [ext_resource type="Texture2D" uid="uid://cwhexgrm5wnio" path="res://assets/textures/player enemies.png" id="1_jtesq"]
 [ext_resource type="Script" path="res://Menus/start_button.gd" id="2_ffffd"]
-[ext_resource type="PackedScene" uid="uid://boyouw0dt2gmk" path="res://Menus/start_button.tscn" id="2_v1kad"]
+[ext_resource type="PackedScene" uid="uid://boyouw0dt2gmk" path="res://menus/start_button.tscn" id="2_v1kad"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="3_1w326"]
-[ext_resource type="PackedScene" uid="uid://dkc4f2l61ttpr" path="res://Menus/controls_button.tscn" id="3_abhdu"]
-[ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://Menus/fps_label.tscn" id="3_smo4h"]
-[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://Menus/settings_button.tscn" id="4_b5kma"]
-[ext_resource type="PackedScene" uid="uid://bgp0uigvyvkrj" path="res://Menus/quit_button.tscn" id="5_k2kcg"]
+[ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://menus/fps_label.tscn" id="3_smo4h"]
+[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://menus/settings_button.tscn" id="4_b5kma"]
+[ext_resource type="PackedScene" uid="uid://bgp0uigvyvkrj" path="res://menus/quit_button.tscn" id="5_k2kcg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aqxo6"]
 atlas = ExtResource("1_jtesq")
@@ -73,6 +72,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
 size_flags_stretch_ratio = 7.0
+focus_neighbor_top = NodePath("../quit_button")
+focus_neighbor_bottom = NodePath("../settings_button")
 theme_override_colors/font_pressed_color = Color(0.380392, 0, 0.0588235, 1)
 theme_override_colors/font_hover_color = Color(0, 0.301961, 0.792157, 1)
 theme_override_fonts/font = ExtResource("3_1w326")
@@ -81,21 +82,12 @@ flat = true
 script = ExtResource("2_ffffd")
 map_scene_path = null
 
-[node name="controls_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("3_abhdu")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_colors/font_pressed_color = Color(0.380392, 0, 0.0588235, 1)
-theme_override_colors/font_hover_color = Color(0, 0.301961, 0.792157, 1)
-theme_override_fonts/font = ExtResource("3_1w326")
-theme_override_font_sizes/font_size = 14
-text = "Controls"
-flat = true
-
 [node name="settings_button" parent="start_menu_panel/MarginContainer/VBoxContainer" instance=ExtResource("4_b5kma")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_neighbor_top = NodePath("../start_button")
+focus_neighbor_bottom = NodePath("../quit_button")
 theme_override_colors/font_pressed_color = Color(0.380392, 0, 0.0588235, 1)
 theme_override_colors/font_hover_color = Color(0, 0.301961, 0.792157, 1)
 theme_override_fonts/font = ExtResource("3_1w326")
@@ -106,6 +98,8 @@ flat = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_neighbor_top = NodePath("../settings_button")
+focus_neighbor_bottom = NodePath("../start_button")
 theme_override_colors/font_pressed_color = Color(0.380392, 0, 0.0588235, 1)
 theme_override_colors/font_hover_color = Color(0, 0.301961, 0.792157, 1)
 theme_override_fonts/font = ExtResource("3_1w326")

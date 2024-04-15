@@ -15,6 +15,11 @@ var is_paused : bool = false
 signal target_selected(drawndie)
 signal target_unselected(drawndie)
 
+#var battle_enemy: BattleEnemy
+#var battle_enemy = preload("res://battle/battle_actors/battle_enemy.tscn").instantiate()
+#@onready var die_damage_label = %Label
+var damage_preview: int = 0
+
 var data: DrawnDieData:
 		set (ddd):
 			data = ddd
@@ -155,6 +160,7 @@ func _on_toggled(toggled_on):
 			option.toggle_target_mode(false, data.battle.target_selected)
 		target = null
 		target_unselected.emit(self)
+		damage_preview = 0
 		get_parent().enable_all_dice()
 
 
@@ -166,6 +172,14 @@ func make_focused_pressed():
 	button.add_theme_stylebox_override(pressed_style, focused_press_path)
 	var new_stylebox_pressed = get_theme_stylebox(pressed_style)
 	new_stylebox_pressed.bg_color = side.element.color
+	
+	#battle_enemy.damage_for_preview = int(die_damage_label.text)
+	#battle_enemy.damage_for_preview = side.value
+	#print("damage preview is: ", battle_enemy.damage_for_preview)
+	
+	if side.element.effect != StatusEffect.AUTODEFENSE:
+		damage_preview = roll
+		print("damage preview is: ", damage_preview)
 
 ## A function that changes the style box of the drawn_die
 ## once it is no longer the selected die
