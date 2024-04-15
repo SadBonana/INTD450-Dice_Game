@@ -47,6 +47,7 @@ var defeated_enemies = []
 @onready var player := %"Battle Player"
 @onready var ready_button := %Ready
 @onready var battle_container := %BattleContainer
+@onready var inventory_container := %InventoryContainer
 
 @onready var enemy_1_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_1_container/enemy_1_hand
 @onready var enemy_2_dice_hand := $VBoxContainer/MarginContainer/HBoxContainer/enemy_2_container/enemy_2_hand
@@ -57,7 +58,6 @@ var defeated_enemies = []
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")
 @onready var info_box = preload("res://modules/infobox/info_box_frame.tscn")
 @onready var side_name = "Sides"
-var inventory_open = false
 
 
 ## Starts a battle scene with the given encounter resource
@@ -126,7 +126,7 @@ func _ready():
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
 	# line of code
 	
-	get_node("/root/Map").player_status_container.visible = false
+	get_node("/root/Map").canvas_layer.visible = false
 	
 	player_status.dice_selected.visible = true
 	
@@ -143,7 +143,7 @@ func _ready():
 	## Create info tab
 	side_info.make_tab("Info", [], info_box)
 	## connect dice bag button to inventory
-	player_status.bag_button.pressed.connect(track_inventory)
+	player_status.bag_button.pressed.connect(inventory_container.toggle)
 	## connect frame clicks to display sides
 	inventory.return_clicked.connect(show_sides)
 	
@@ -174,6 +174,7 @@ func _ready():
 			await get_tree().create_timer(0.5).timeout
 			get_tree().change_scene_to_file("res://Menus/start_menu.tscn")
 			get_node("/root/Map").reset()
+			get_node("/root/Map").canvas_layer.visible = true
 			get_node("/root/Map").visible = true
 			queue_free()
 			# TODO: Might be better to have this stuff in the setter for PlayerData.hp instead
@@ -213,10 +214,11 @@ func draw_dice():
 	player_status.dice_remaining = player.dice_bag.size()
 	
 	for effect in player.status_effects.duplicate():
-		if effect._type == StatusEffect.PARALYSIS: 
+		if not effect.beneficial: 
 			await effect.invoke()
-			#await get_tree().create_timer(0.5).timeout
-	
+			await get_tree().create_timer(0.5).timeout
+			
+	player.update_status_effects()
 	# Reset any defense given in the previous turn
 	player.defense = 0
 	for enemy in enemies:
@@ -255,26 +257,30 @@ func cleanup_enemies():
 
 
 func enemy_turn():
-	draw_dice()
+	#draw_dice()
 	if enable_textboxes:
 		await textbox_controller.quick_beat("enemy attack")
+	
+	for enemy in enemies.duplicate():
+		for effect in enemy.status_effects.duplicate():
+			if enemy != null and enemy.health != 0:
+				#await effect.invoke()
+				#if effect._type != StatusEffect.PARALYSIS:
+				await effect.invoke()
+				await get_tree().create_timer(0.5).timeout
+		if enemy != null and enemy.health != 0:
+			enemy.update_status_effects()	
 	
 	for enemy in enemies:
 		var attack_roll = 0
 		var defense_roll = 0
 		var def_die_effects = []
 		var atk_die_effects = []
+	
+		#await get_tree().create_timer(0.5).timeout
 		
 		for die in enemy.dice_hand:
-			
-			'''if die.action == DrawnDieData.ATTACK and die.effect.damaging:
-				await player.take_damage(die.side.value, enemy.actor_name)
-			else:		# DEFENSE
-				enemy.defense += die.side.value
-			
-			await die.effect.apply()'''
-
-			if die.action == DrawnDieData.ATTACK and die.effect != null and die.effect.damaging:
+			if die.action == DrawnDieData.ATTACK and die.effect != null:
 				#get_node("/root/SoundManager/attack").play()
 				#SoundManager.attack_sfx.play()
 				#await player.take_damage(die.side.value, enemy.actor_name)
@@ -295,6 +301,7 @@ func enemy_turn():
 		
 		for effect in def_die_effects:
 			effect.apply()
+			await get_tree().create_timer(0.5).timeout
 		
 		if attack_roll > 0:
 			SoundManager.attack_sfx.play()
@@ -302,13 +309,16 @@ func enemy_turn():
 		
 		for effect in atk_die_effects:
 			effect.apply()
+			await get_tree().create_timer(0.5).timeout
+			
+	#await get_tree().create_timer(0.5).timeout
 	
-	for effect in player.status_effects.duplicate():
-		if not effect.beneficial:
-			await effect.invoke()
-	player.update_status_effects()
+	#for effect in player.status_effects.duplicate():
+#		if not effect.beneficial:
+#			await effect.invoke()
+#			await get_tree().create_timer(0.5).timeout
 	
-	#draw_dice()    # Enemy turn is over so player draws dice
+	draw_dice()    # Enemy turn is over so player draws dice
 	
 # Might not have a run button, it's just here... because... for now.
 func _on_run_pressed():
@@ -319,7 +329,6 @@ func _on_run_pressed():
 	queue_free()
 	get_node("/root/Map").visible = true
 	get_node("/root/Map").canvas_layer.visible = true
-	get_node("/root/Map").player_status_container.visible = true
 
 
 func _on_ready_pressed():
@@ -349,7 +358,7 @@ func _on_ready_pressed():
 	
 	#for enemy in enemies:
 		#enemy.roll_label.hide()
-	
+	#applying debuffs before player takes their turn
 	for die in player.dice_hand:	# TODO: The order of actions should ideally be the order that the player used the die
 		if not die.target:
 			continue
@@ -413,22 +422,6 @@ func _on_ready_pressed():
 			
 	await get_tree().create_timer(0.5).timeout #delaying so the player can see the effects apply
 	
-	# Invoke status effects on enemies and player
-	# NOTE: order of effect invocation matters a lot.
-		# buffs before debuffs -> poison and such get mitigated by autodefense, makes debuff immunity effects easy to implement
-		# order of application
-	for enemy in enemies.duplicate():	# Shallow copy, so we don't get rekked when an enemy is removed from enemies on death
-		for effect in enemy.status_effects.duplicate():
-			if enemy != null and enemy.health != 0:
-				#await effect.invoke()
-				#if effect._type != StatusEffect.PARALYSIS:
-				await effect.invoke()
-				await get_tree().create_timer(0.5).timeout
-		if enemy != null and enemy.health != 0:
-			enemy.update_status_effects()
-	
-	await get_tree().create_timer(0.5).timeout
-	
 	cleanup_enemies()
 	player.hand_used()
 	for die in player.dice_hand:
@@ -440,11 +433,3 @@ func _on_ready_pressed():
 
 func _on_die_action_menu_is_hovered(dieside):
 	side_info.get_current_tab_control().new_frames(dieside)
-
-func track_inventory():
-	if inventory.visible == false:
-		inventory.open()
-		inventory_open = true
-	elif inventory.visible == true:
-		inventory.close()
-		inventory_open = false

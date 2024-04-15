@@ -16,6 +16,7 @@ theme_override_styles/normal = ExtResource("2_l5xp6")
 theme_override_styles/hover = ExtResource("3_4jxcf")
 theme_override_styles/pressed = ExtResource("4_j6333")
 theme_override_styles/disabled = ExtResource("5_ss3iu")
+theme_override_styles/focus = ExtResource("3_4jxcf")
 toggle_mode = true
 script = ExtResource("2_xa0sa")
 metadata/_edit_vertical_guides_ = [308.0, 332.0]

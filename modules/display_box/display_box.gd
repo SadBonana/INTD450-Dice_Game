@@ -58,6 +58,13 @@ func open():
 func close():
 	visible = false
 	is_open = false
+
+## toggles visibility
+func toggle():
+	if is_open:
+		close()
+	else:
+		open()
 	
 func make_tab(tab_title : StringName,inv_frames,inv_visual : PackedScene):
 	var inv_tab : Tab = Tab.new(tab_title,inv_frames,inv_visual)
