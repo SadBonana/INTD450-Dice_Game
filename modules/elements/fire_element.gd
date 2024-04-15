@@ -7,7 +7,7 @@ func _init():
 	value = 2
 	stack_roll = false
 	effect = StatusEffect.EffectType.IGNITED
-	color = Color.DARK_RED
+	color = Color("#a90909") # Red color from palette #Color.DARK_RED
 	icon = preload("res://assets/textures/resources/elements/fire.tres")
 	
 ## String representation of the element

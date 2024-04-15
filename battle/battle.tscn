@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://battle/InventoryContainer.gd" id="16_e7iik"]
 [ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="16_wwdy5"]
 [ext_resource type="StyleBox" uid="uid://dk0wnmlm8phm5" path="res://modules/display_box/styles/button_box.tres" id="17_bjt1t"]
+[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="14_awnqw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0gmav"]
 texture = ExtResource("4_kit2x")
@@ -37,17 +38,6 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_t1f7r"]
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_0gmav")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prgvx"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lira"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0c1a"]
 
 [node name="Battle" type="Control" node_paths=PackedStringArray("enemy1", "enemy2", "enemy3")]
 process_mode = 1
@@ -129,12 +119,21 @@ size_flags_stretch_ratio = 3.0
 
 [node name="PanelContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player" index="0"]
 visible = false
+size_flags_vertical = 1
+
+[node name="MarginContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player/PanelContainer" index="0"]
+layout_mode = 2
 
 [node name="Status Effects" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player/PanelContainer/MarginContainer" index="0"]
-size_flags_horizontal = 1
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="Shield" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player" index="1"]
 size_flags_vertical = 0
+
+[node name="MarginContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player" index="2"]
+unique_name_in_owner = false
+size_flags_stretch_ratio = 1.0
 
 [node name="Battle Enemy" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
@@ -142,6 +141,17 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 alignment = 0
 res = ExtResource("2_yokuy")
+
+[node name="PanelContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy" index="0"]
+size_flags_vertical = 1
+
+[node name="MarginContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy/PanelContainer" index="0"]
+layout_mode = 2
+
+[node name="Status Effects" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy/PanelContainer/MarginContainer" index="0"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Battle Enemy2" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
@@ -225,6 +235,14 @@ script = ExtResource("8_47wfu")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
+theme = null
+
+[node name="DisplayContainer" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu" index="0"]
+theme = null
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="PlayerActionMargin" type="MarginContainer" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand"]
 layout_mode = 2
@@ -247,23 +265,15 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
-theme_override_fonts/font = ExtResource("7_iw7i2")
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_prgvx")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
-text = "TO BATTLE! "
+theme = ExtResource("14_awnqw")
+text = "TO BATTLE!"
 
 [node name="Run" type="Button" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerActionMargin/Player Action Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
-theme_override_fonts/font = ExtResource("7_iw7i2")
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_prgvx")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7lira")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_h0c1a")
+theme = ExtResource("14_awnqw")
 text = "RUN"
 
 [node name="Textbox Controller" parent="BattleContainer/PlayerPanel/MarginContainer" instance=ExtResource("8_11wq8")]
