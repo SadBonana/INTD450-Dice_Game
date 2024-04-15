@@ -172,6 +172,7 @@ layout_mode = 2
 
 [node name="Player Status" parent="BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin" node_paths=PackedStringArray("dice_selected") instance=ExtResource("6_0lq60")]
 unique_name_in_owner = true
+process_mode = 3
 layout_mode = 2
 size_flags_vertical = 1
 dice_selected = NodePath("Bag Sprite/Dice Selected")
