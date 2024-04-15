@@ -49,7 +49,7 @@ class Paralysis extends StatusEffect:
 		super(_textbox, _target, 1)
 		_type = EffectType.PARALYSIS
 		color="#8c3cee" # purple from art palette #"REBECCA_PURPLE"
-		colour = Color.REBECCA_PURPLE
+		colour = Color("#8c3cee")
 		description_beat = "paralysis description"
 	
 	## Attempt to apply the status effect on the target.
@@ -130,7 +130,7 @@ class Autodefense extends StatusEffect:
 		super(_textbox, _target, _stacks)
 		_type = EffectType.AUTODEFENSE
 		color="#9db3bf" # grey from art palette #"LIGHT_STEEL_BLUE"
-		colour = Color.LIGHT_STEEL_BLUE
+		colour = Color("#9db3bf")
 		beneficial = true
 		damaging = false
 		description_beat = "autodefense description"
@@ -193,7 +193,7 @@ class Ignited extends StatusEffect:
 		spread_targets = all_targets
 		_type = EffectType.IGNITED
 		color = "#a90909" # red from art palette #"DARK_RED"
-		colour = Color.DARK_RED
+		colour = Color("#a90909")
 		description_beat = "ignited description"
 	
 	
@@ -264,7 +264,7 @@ class Poisoned extends StatusEffect:
 		super(_textbox, _target, _stacks)
 		_type = EffectType.POISONED
 		color = "#239063" # green from art palette #"WEB_GREEN"
-		colour = Color.WEB_GREEN
+		colour = Color("#239063")
 		description_beat = "poisoned description"
 		damaging = false
 	
