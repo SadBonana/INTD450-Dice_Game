@@ -44,7 +44,8 @@ script = ExtResource("3_boucf")
 temp_dice_bag_init = ExtResource("2_q8lfo")
 
 [node name="pause_menu" parent="CanvasLayer" instance=ExtResource("7_dd1q5")]
-visible = false
+top_level = false
+z_index = 1
 
 [node name="FPSContainer" type="MarginContainer" parent="CanvasLayer"]
 visible = false
@@ -64,7 +65,8 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+[node name="PlayerBagContainer" type="VBoxContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -75,14 +77,14 @@ size_flags_vertical = 3
 mouse_filter = 2
 alignment = 1
 
-[node name="DisplayBoxContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
+[node name="DisplayBoxContainer" type="MarginContainer" parent="CanvasLayer/PlayerBagContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 10.0
 mouse_filter = 2
 
-[node name="Display Box" parent="CanvasLayer/VBoxContainer/DisplayBoxContainer" instance=ExtResource("8_8cnei")]
+[node name="Display Box" parent="CanvasLayer/PlayerBagContainer/DisplayBoxContainer" instance=ExtResource("8_8cnei")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 1
@@ -91,21 +93,21 @@ size_flags_stretch_ratio = 2.0
 open_action = "I"
 close_action = "I"
 
-[node name="BagContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
+[node name="BagContainer" type="MarginContainer" parent="CanvasLayer/PlayerBagContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 10
 size_flags_stretch_ratio = 1.35
 
-[node name="Panel" type="Panel" parent="CanvasLayer/VBoxContainer/BagContainer"]
+[node name="Panel" type="Panel" parent="CanvasLayer/PlayerBagContainer/BagContainer"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 10
 theme_override_styles/panel = ExtResource("7_ca5sp")
 
-[node name="StatusBagMarginContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer/BagContainer/Panel"]
+[node name="StatusBagMarginContainer" type="MarginContainer" parent="CanvasLayer/PlayerBagContainer/BagContainer/Panel"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 15
@@ -118,12 +120,12 @@ theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 8
 
-[node name="Player Status" parent="CanvasLayer/VBoxContainer/BagContainer/Panel/StatusBagMarginContainer" instance=ExtResource("6_k670k")]
+[node name="Player Status" parent="CanvasLayer/PlayerBagContainer/BagContainer/Panel/StatusBagMarginContainer" instance=ExtResource("6_k670k")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
-[node name="Bag Button" parent="CanvasLayer/VBoxContainer/BagContainer/Panel/StatusBagMarginContainer/Player Status/Bag Sprite" index="1"]
+[node name="Bag Button" parent="CanvasLayer/PlayerBagContainer/BagContainer/Panel/StatusBagMarginContainer/Player Status/Bag Sprite" index="1"]
 focus_neighbor_left = NodePath("../../../../../../../../Nodes")
 focus_neighbor_top = NodePath("../../../../../../../../Nodes")
 focus_neighbor_right = NodePath("../../../../../../../../Nodes")
@@ -134,4 +136,4 @@ focus_previous = NodePath("../../../../../../../../Nodes")
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="focus_entered" from="Nodes" to="." method="_on_nodes_focus_entered"]
 
-[editable path="CanvasLayer/VBoxContainer/BagContainer/Panel/StatusBagMarginContainer/Player Status"]
+[editable path="CanvasLayer/PlayerBagContainer/BagContainer/Panel/StatusBagMarginContainer/Player Status"]

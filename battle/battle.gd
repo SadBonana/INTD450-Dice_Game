@@ -126,7 +126,7 @@ func _ready():
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
 	# line of code
 	
-	get_node("/root/Map").canvas_layer.visible = false
+	get_node("/root/Map").canvas_layer.player_bag_container.visible = false
 	
 	player_status.dice_selected.visible = true
 	
@@ -174,7 +174,7 @@ func _ready():
 			await get_tree().create_timer(0.5).timeout
 			get_tree().change_scene_to_file("res://Menus/start_menu.tscn")
 			get_node("/root/Map").reset()
-			get_node("/root/Map").canvas_layer.visible = true
+			get_node("/root/Map").canvas_layer.player_bag_container.visible = true
 			get_node("/root/Map").visible = true
 			queue_free()
 			# TODO: Might be better to have this stuff in the setter for PlayerData.hp instead
@@ -328,7 +328,7 @@ func _on_run_pressed():
 	
 	queue_free()
 	get_node("/root/Map").visible = true
-	get_node("/root/Map").canvas_layer.visible = true
+	get_node("/root/Map").canvas_layer.player_bag_container.visible = true
 
 
 func _on_ready_pressed():
