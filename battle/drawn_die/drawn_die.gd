@@ -37,7 +37,7 @@ var roll: int:
 		set (value):
 			assert(false, "attempt to directly set roll of a DrawnDie object. Set the dieside instead")
 		get:
-			return max(side.value + mod, 0)
+			return max(side.value + mod, 1)
 var effect: StatusEffect.EffectType:
 		set (value):
 			assert(false, "attempt to directly set roll of a DrawnDie object. Set the dieside instead")
@@ -61,7 +61,7 @@ var die: Die:
 var is_toggled: bool
 var mod : int :
 	set (value):
-		die_type.text = "%d" % (max(side.value + value,0))
+		die_type.text = "%d" % (max(side.value + value,1))
 
 
 ## Loads, attaches to parent, and initializes required parameters all in one go.
