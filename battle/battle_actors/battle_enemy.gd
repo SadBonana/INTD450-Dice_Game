@@ -11,11 +11,11 @@ class_name BattleEnemy extends BattleActor
 
 @export_file("*.tscn") var drawn_die_path
 
-@export var mouse_out: bool
-@export var mouse_over: bool
-
-var damage_for_preview: int
-@export var player_targeting_check: bool
+#@export var damage_for_preview: int
+#@export var player_targeting_check: bool
+#@onready var die_clicked = $Button
+#var drawn_die_scene: DrawnDie
+var drawn_die_scene = preload("res://battle/drawn_die/drawn_die.tscn").instantiate()
 
 var battle: Battle
 
@@ -80,8 +80,6 @@ func commit_dice():
 # Will likely need to be rewritten once effect die and enemies defending become a thing.
 func draw_dice():
 	#individual_die_rolls.show()
-	
-	
 	dice_hand = []	# Reset the hand so we don't use the values from last turn
 	for i in range(dice_draws):
 		# Whatever we decide to do when the enemy runs out of dice, it'll be here
@@ -120,7 +118,6 @@ func restore_sprite_color():
 	tex_rect.self_modulate = res.sprite_color
 
 
-
 func _on_mouse_entered():
 	#progress_bar.visible = true
 	#health_label.text = "HP: %d/%d" % [health_bar.value - damage_for_preview, health_bar.max_value]
@@ -130,12 +127,12 @@ func _on_mouse_entered():
 	
 	health_label.visible = false
 	
-	progress_bar.value = health - damage_for_preview
+	progress_bar.value = health - drawn_die_scene.damage_preview
 	
 	progress_bar.visible = true
 	preview_damage_label.visible = true
 	
-	preview_damage_label.text = "HP: %d/%d" % [health - damage_for_preview, max_health]
+	preview_damage_label.text = "HP: %d/%d" % [health - drawn_die_scene.damage_preview, max_health]
 	
 	print("health label is:", preview_damage_label.text)
 

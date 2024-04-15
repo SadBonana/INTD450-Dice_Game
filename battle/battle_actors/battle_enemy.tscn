@@ -14,9 +14,6 @@ offset_bottom = 45.5
 script = ExtResource("1_u2vwq")
 res = null
 drawn_die_path = "res://battle/drawn_die/drawn_die.tscn"
-mouse_out = false
-mouse_over = false
-player_targeting_check = false
 
 [node name="Status Effects" parent="PanelContainer" index="0"]
 size_flags_vertical = 0
