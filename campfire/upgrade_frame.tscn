@@ -1,16 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyckf0tlspt3y"]
+[gd_scene load_steps=5 format=3 uid="uid://cyckf0tlspt3y"]
 
 [ext_resource type="Script" path="res://campfire/upgrade_frame.gd" id="1_r6wsr"]
 [ext_resource type="PackedScene" uid="uid://bcd6hgeiclya6" path="res://modules/inventory/diceinv/inv_dieside_frame.tscn" id="2_6paqv"]
 [ext_resource type="Texture2D" uid="uid://833wo3fuvpj5" path="res://assets/textures/arrow.png" id="3_ud0jq"]
-[ext_resource type="Shader" path="res://modules/inventory/diceinv/inv_dieside_frame_glow.gdshader" id="4_lhrfg"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_f2v1f"]
-shader = ExtResource("4_lhrfg")
-shader_parameter/glow_color = Color(0.2, 0.6, 0.3, 1)
-shader_parameter/glow_power = 2.0
-shader_parameter/glow_shift = 1.0
-shader_parameter/glow_radius = 1.0
+[ext_resource type="PackedScene" uid="uid://dna6mbwvewc22" path="res://modules/inventory/diceinv/inv_dieside_frame_with_glow.tscn" id="4_xshjk"]
 
 [node name="UpgradeFrame" type="VBoxContainer"]
 offset_right = 75.0
@@ -27,7 +20,6 @@ layout_mode = 2
 texture = ExtResource("3_ud0jq")
 stretch_mode = 5
 
-[node name="UpgradedDieSide" parent="." instance=ExtResource("2_6paqv")]
+[node name="UpgradedDieSide" parent="." instance=ExtResource("4_xshjk")]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_f2v1f")
 layout_mode = 2
