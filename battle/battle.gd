@@ -30,6 +30,8 @@ signal target_selected(target)
 @export var enemy1: BattleEnemy
 @export var enemy2: BattleEnemy
 @export var enemy3: BattleEnemy
+@export var boss: BattleEnemy
+@export var in_battle_scene = false
 
 var enemies = []
 var defeated_enemies = []
@@ -80,25 +82,36 @@ func _enter_tree():
 	# Slight HACK: The better way is probably to load and instantiate the enemies
 	# similar to how it is done for the DrawnDie.
 	# Initilize enemy data and hide enemies that shouldn't show up in teh encounter
-	var enemy_resources = encounter_res.enemies
-	if enemy_resources.size() >= 1:
-		enemy3.res = enemy_resources[0]
-		enemy3.battle = self
-		enemies.append(enemy3)
-	if enemy_resources.size() >= 2:
-		enemy2.res = enemy_resources[1]
-		enemy2.battle = self
-		enemies.append(enemy2)
-	if enemy_resources.size() >= 3:
-		enemy1.res = enemy_resources[2]
-		enemy1.battle = self
-		enemies.append(enemy1)
-	match enemy_resources.size():
-		1:
-			enemy1.hide()
-			enemy2.hide()
-		2:
-			enemy1.hide()
+	var enemy_resources
+	
+	if in_battle_scene == true:
+		enemy_resources = boss_encounter.enemies
+		boss.res = enemy_resources[0]
+		boss.battle = self
+		enemies.append(boss)
+		enemy1.hide()
+		enemy2.hide()
+		enemy3.hide()
+	else:
+		enemy_resources = encounter_res.enemies
+		if enemy_resources.size() >= 1:
+			enemy3.res = enemy_resources[0]
+			enemy3.battle = self
+			enemies.append(enemy3)
+		if enemy_resources.size() >= 2:
+			enemy2.res = enemy_resources[1]
+			enemy2.battle = self
+			enemies.append(enemy2)
+		if enemy_resources.size() >= 3:
+			enemy1.res = enemy_resources[2]
+			enemy1.battle = self
+			enemies.append(enemy1)
+		match enemy_resources.size():
+			1:
+				enemy1.hide()
+				enemy2.hide()
+			2:
+				enemy1.hide()
 
 func _setup(node_depth: int):
 	#Hard to do this here without hardcoding the value
