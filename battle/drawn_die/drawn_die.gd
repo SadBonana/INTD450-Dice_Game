@@ -122,7 +122,13 @@ func _on_toggled(toggled_on):
 		if effect == StatusEffect.AUTODEFENSE:
 			targets[-1].grab_focus()
 		else:
-			targets[0].grab_focus()
+			var recent_targets = data.battle.drawn_die_container.return_targets()
+			if recent_targets.size() > 0:
+				for target in targets:
+					if target == recent_targets[-1]:
+						target.grab_focus()
+			else:	
+				targets[0].grab_focus()
 		
 		target = await data.battle.target_selected
 		for enemy in data.battle.enemies:
