@@ -34,17 +34,7 @@ var target: BattleActor:		# The actor being targetted by the drawn die
 			_:
 				assert(false, "Your effect won't work until you instantiate it here in drawn_die_data.gd")
 
-func redo_effects(die_roll: int):
-	var no_effect = StatusEffect.new(battle.textbox_controller, target, 0)		# dummy effect, none of the parameters mean anything.
-	no_effect.damaging = false
-	match side.element.effect:
-		StatusEffect.AUTODEFENSE:
-			effect = StatusEffect.Autodefense.new(battle.textbox_controller, target if target_is_friendly() else die_owner, die_roll)
-		StatusEffect.POISONED:
-			effect = no_effect if target_is_friendly() else StatusEffect.Poisoned.new(battle.textbox_controller, target, die_roll)
-		_:
-			return
-			
+
 func _init(die: Die, die_owner: BattleActor, battle_context: Battle):
 	self.die = die
 	self.die_owner = die_owner

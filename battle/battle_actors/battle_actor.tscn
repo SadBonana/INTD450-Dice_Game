@@ -102,4 +102,7 @@ libraries = {
 [node name="damage_indicator" parent="." instance=ExtResource("4_isne4")]
 visible = false
 
+[node name="Label" parent="damage_indicator" index="0"]
+grow_horizontal = 1
+
 [editable path="damage_indicator"]
