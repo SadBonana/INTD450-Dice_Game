@@ -139,16 +139,8 @@ func _on_toggled(toggled_on):
 		
 		disable_untargetables(false)
 		
-		# After targeting is finished, focus on the next thing the player is likely to want to be in focus.
-		var found_next_focus_item = false
-		if not get_parent().is_max():
-			for i in range(data.battle.player.dice_hand.size()):
-				if not data.battle.player.dice_hand[i].is_toggled:
-					found_next_focus_item = true
-					data.battle.player.dice_hand[i].grab_focus()
-					break
-		if not found_next_focus_item:
-			data.battle.ready_button.grab_focus()
+		# After targeting is finished, focus on die that was just used
+		self.grab_focus()
 	else:
 		#get_node("/root/SoundManager/alt_select").play()
 		SoundManager.alt_select_sfx.play()
