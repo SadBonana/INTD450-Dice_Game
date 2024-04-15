@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://dkg8wi2q2k0wl"]
+
+[ext_resource type="Script" path="res://battle/game_over.gd" id="1_fpxbw"]
+[ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="3_numor"]
+[ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="4_06743"]
+[ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="5_5rgli"]
+
+[sub_resource type="Resource" id="Resource_05xfk"]
+resource_name = "winner_1"
+script = ExtResource("4_06743")
+unique_name = "winner_1"
+text = "CONGRATS!
+YOU WIN!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_2w2ep"]
+resource_name = "winner_2"
+script = ExtResource("4_06743")
+unique_name = "winner_2"
+text = "You have worked hard! 
+Now, go out and have some fun!"
+jumps = Array[String]([])
+choices = Array[String]([])
+end_conversation = false
+
+[sub_resource type="Resource" id="Resource_on2p2"]
+script = ExtResource("5_5rgli")
+beats = Array[ExtResource("4_06743")]([SubResource("Resource_05xfk"), SubResource("Resource_2w2ep")])
+
+[node name="game_over" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fpxbw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Textbox Controller" parent="VBoxContainer" instance=ExtResource("3_numor")]
+layout_mode = 2
+size_flags_vertical = 3
+dialogue_res = SubResource("Resource_on2p2")
+
+[node name="Text" parent="VBoxContainer/Textbox Controller/Textbox/MarginContainer/VBoxContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 50
+
+[node name="Choices" parent="VBoxContainer/Textbox Controller/Textbox/MarginContainer/VBoxContainer" index="1"]
+visible = false
+
+[editable path="VBoxContainer/Textbox Controller"]
