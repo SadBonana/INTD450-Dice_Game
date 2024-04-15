@@ -125,25 +125,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
-[node name="DisplayBoxContainer" type="MarginContainer" parent="CanvasLayer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
-grow_vertical = 0
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-
-[node name="Display Box" parent="CanvasLayer/DisplayBoxContainer" instance=ExtResource("8_8cnei")]
-unique_name_in_owner = false
-visible = false
-custom_minimum_size = Vector2(500, 220)
-layout_mode = 2
-size_flags_stretch_ratio = 2.0
-open_action = "I"
-close_action = "I"
-
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 
 [editable path="CanvasLayer/VBoxContainer/BagContainer/Panel/StatusBagMarginContainer/Player Status"]

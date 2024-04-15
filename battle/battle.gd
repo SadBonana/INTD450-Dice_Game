@@ -125,7 +125,7 @@ func _ready():
 	# TODO: Might be able to set it as a placeholder in the scene hierarchy and remove this
 	# line of code
 	
-	get_node("/root/Map").canvas_layer.visible = false
+	get_node("/root/Map").player_status_container.visible = false
 	
 	player_status.dice_selected.visible = true
 	
@@ -142,7 +142,7 @@ func _ready():
 	## Create info tab
 	side_info.make_tab("Info", [], info_box)
 	## connect dice bag button to inventory
-	player_status.bag_button.pressed.connect(inventory_container.toggle)
+	player_status.bag_button.pressed.connect(track_inventory)
 	## connect frame clicks to display sides
 	inventory.return_clicked.connect(show_sides)
 	
@@ -330,6 +330,7 @@ func _on_run_pressed():
 	queue_free()
 	get_node("/root/Map").visible = true
 	get_node("/root/Map").canvas_layer.visible = true
+	get_node("/root/Map").player_status_container.visible = true
 
 
 func _on_ready_pressed():
@@ -448,7 +449,7 @@ func _on_die_action_menu_is_hovered(dieside):
 func track_inventory():
 	if inventory.visible == false:
 		inventory.open()
-		inventory_open = true
+		#inventory_open = true
 	elif inventory.visible == true:
 		inventory.close()
-		inventory_open = false
+		#inventory_open = false
