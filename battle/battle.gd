@@ -151,6 +151,7 @@ func _ready():
 	# Give battle actors access to the textbox and determine what happens when they die
 	for enemy in enemies:
 		enemy.textbox = textbox_controller
+		# TODO: Add a battle_context reference to the BattleActor class so that the on_defeat function can be completely moved to BattleEnemy and BattlePlayer.
 		enemy.on_defeat = func ():
 				# this code will run when the enemy is defeated
 				await textbox_controller.quick_beat("actor defeated", [enemy.actor_name + " was"])
@@ -170,8 +171,8 @@ func _ready():
 			await textbox_controller.quick_beat("game over")
 			await get_tree().create_timer(0.5).timeout
 			get_tree().change_scene_to_file("res://Menus/start_menu.tscn")
-			get_node("/root/Map").visible = true
 			get_node("/root/Map").reset()
+			get_node("/root/Map").visible = true
 			queue_free()
 			# TODO: Might be better to have this stuff in the setter for PlayerData.hp instead
 	

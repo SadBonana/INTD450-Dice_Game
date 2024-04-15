@@ -1,21 +1,35 @@
-[gd_scene load_steps=7 format=3 uid="uid://bg2qp6qtt275u"]
+[gd_scene load_steps=5 format=3 uid="uid://bg2qp6qtt275u"]
 
-[ext_resource type="StyleBox" uid="uid://4yw2o7hwnbad" path="res://modules/inventory/diceinv/styles/button_inv_normal.tres" id="1_7vsp5"]
-[ext_resource type="StyleBox" uid="uid://dmdsc25mx73h4" path="res://modules/inventory/diceinv/styles/button_inv_hover.tres" id="2_xocrc"]
-[ext_resource type="StyleBox" uid="uid://7oktwnv5y50g" path="res://modules/inventory/diceinv/styles/button_inv_pressed.tres" id="3_e1dpg"]
+[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="1_8avva"]
+[ext_resource type="Texture2D" uid="uid://dw2fx8b8kx7uy" path="res://assets/textures/resources/dice/d4.tres" id="3_gihu8"]
 [ext_resource type="Script" path="res://modules/inventory/diceinv/inv_die_frame.gd" id="4_icvaw"]
-[ext_resource type="Texture2D" uid="uid://dhwep34g76ta7" path="res://modules/inventory/images/D4.png" id="5_oy0a1"]
-[ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="6_nyi68"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36hm0"]
+bg_color = Color(0.168627, 0.168627, 0.290196, 0.913725)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.815686, 0.886275, 0.886275, 1)
+anti_aliasing = false
 
 [node name="Button" type="Button"]
-custom_minimum_size = Vector2(75, 75)
-offset_right = 75.0
-offset_bottom = 75.0
+custom_minimum_size = Vector2(96, 96)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
-theme_override_styles/normal = ExtResource("1_7vsp5")
-theme_override_styles/hover = ExtResource("2_xocrc")
-theme_override_styles/pressed = ExtResource("3_e1dpg")
+theme = ExtResource("1_8avva")
+theme_override_styles/normal = SubResource("StyleBoxFlat_36hm0")
 action_mode = 0
 script = ExtResource("4_icvaw")
 
@@ -26,17 +40,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme = ExtResource("1_8avva")
 
 [node name="die_display" type="TextureRect" parent="DisplayContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-texture = ExtResource("5_oy0a1")
-expand_mode = 1
+texture = ExtResource("3_gihu8")
 
 [node name="LabelContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -50,9 +60,8 @@ grow_vertical = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("6_nyi68")
-theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.345098, 0.270588, 0.270588, 1)
+theme_override_font_sizes/font_size = 20
 text = "D4"
 horizontal_alignment = 1
 vertical_alignment = 1
