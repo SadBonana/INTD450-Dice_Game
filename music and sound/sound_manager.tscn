@@ -30,62 +30,81 @@ script = ExtResource("1_lw03a")
 
 [node name="BattleMusic" type="AudioStreamPlayer" parent="music"]
 stream = ExtResource("2_5rthe")
+bus = &"Music"
 
 [node name="BossMusic" type="AudioStreamPlayer" parent="music"]
 stream = ExtResource("4_ipihj")
+bus = &"Music"
 
 [node name="BossIntro" type="AudioStreamPlayer" parent="music"]
 stream = ExtResource("6_cb1fd")
+bus = &"Music"
 
 [node name="SFX" type="Node2D" parent="."]
 
 [node name="attack" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("1_j3ehu")
+bus = &"SFX"
 
 [node name="defend" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("3_yj1ch")
+bus = &"SFX"
 
 [node name="defend2" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("7_qa888")
+bus = &"SFX"
 
 [node name="poison_effect" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("3_1y760")
+bus = &"SFX"
 
 [node name="fire_effect" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("4_mv5dq")
+bus = &"SFX"
 
 [node name="alt_select" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("5_qk0sx")
+bus = &"SFX"
 
 [node name="select" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("6_4jn0i")
+bus = &"SFX"
 
 [node name="select2" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("12_0ln0q")
+bus = &"SFX"
 
 [node name="select3" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("13_1xwa8")
+bus = &"SFX"
 
 [node name="autodefense" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("7_mbsuy")
+bus = &"SFX"
 
 [node name="autodefense2" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("15_1r8v8")
+bus = &"SFX"
 
 [node name="heal" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("16_n4dcm")
+bus = &"SFX"
 
 [node name="error" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("17_wn01n")
+bus = &"SFX"
 
 [node name="lightning_apply" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("18_q564k")
+bus = &"SFX"
 
 [node name="fire_apply" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("19_nc2eo")
+bus = &"SFX"
 
 [node name="poison_apply" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("20_5uq12")
+bus = &"SFX"
 
 [connection signal="finished" from="music/BattleMusic" to="." method="_on_battle_music_finished"]
 [connection signal="finished" from="music/BossMusic" to="." method="_on_boss_music_finished"]
