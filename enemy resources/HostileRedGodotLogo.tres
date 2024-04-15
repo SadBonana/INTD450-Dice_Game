@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://dinkuhl73fnn" path="res://die_resources/basic_dice/d3_basic.tres" id="1_amsab"]
 [ext_resource type="Resource" uid="uid://dp2q4nnem8qg8" path="res://die_resources/basic_dice/d4_basic.tres" id="2_qou56"]
 [ext_resource type="Resource" uid="uid://cd0ef5txxdjcq" path="res://die_resources/basic_dice/d6_basic.tres" id="3_4i3wk"]
-[ext_resource type="Texture2D" path="res://assets/textures/resources/simple enemy.tres" id="5_new0s"]
+[ext_resource type="Texture2D" uid="uid://lvsj2s8e3oju" path="res://assets/textures/resources/simple enemy.tres" id="5_new0s"]
 
 [resource]
 script = ExtResource("1_44fdo")

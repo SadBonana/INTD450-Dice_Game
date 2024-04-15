@@ -32,10 +32,16 @@ var map_nodes = []   #array of MapNodes
 
 #front-end probabilities
 #these are the expected chances of getting a room of this type
+'''
 var camp_prob     = 0.0 #initialized at 0 until depth = 3
 var wshop_prob    = 0.0
 var battle_prob   = 1.0 #70% chance of selecting battle as first room
 var treasure_prob = 0.0 #initialized at 0 until depth = 3
+'''
+var camp_prob = 0.25     #% of campfire
+var wshop_prob = 0.0    # % chance of workshop
+var battle_prob = 0.60   # % chance of battle
+var treasure_prob = 0.15 # % chance of treasure
 #var elite_prob
 #var rand_enc_prob 
 
@@ -306,6 +312,8 @@ func select_type(node:MapNode) -> NT:
 
 	while !fin:                #preventing selecting campfires and workshops multiple times in a row
 		#randomly select a type
+		if depth > 4:
+			pass
 		selection = select()
 		
 		#match = switch-case in other languages

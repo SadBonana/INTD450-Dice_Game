@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://dase6d6ehskv0" path="res://die_resources/lightning_dice/d3_lightning.tres" id="3_wufem"]
 [ext_resource type="Resource" uid="uid://b1ggy2nkkrkxb" path="res://die_resources/poison_dice/d3_poison.tres" id="4_5rs4v"]
 [ext_resource type="Resource" uid="uid://ut6hr2ugnbh7" path="res://die_resources/steel_dice/d3_steel.tres" id="5_7nwob"]
-[ext_resource type="Texture2D" path="res://assets/textures/resources/elite enemy.tres" id="7_xh4np"]
+[ext_resource type="Texture2D" uid="uid://bnkabtm5yrrp" path="res://assets/textures/resources/elite enemy.tres" id="7_xh4np"]
 
 [resource]
 script = ExtResource("1_g4nds")
