@@ -7,7 +7,7 @@ func _init():
 	value = 2
 	stack_roll = true
 	effect = StatusEffect.EffectType.AUTODEFENSE
-	color = Color.LIGHT_STEEL_BLUE
+	color = Color("#9db3bf") # Grey color from art palette #Color.LIGHT_STEEL_BLUE
 	icon = preload("res://assets/textures/resources/elements/steel.tres")
 	
 ## String representation of the element

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwehjycnj76hr"]
+[gd_scene load_steps=3 format=3 uid="uid://cwehjycnj76hr"]
 
 [ext_resource type="PackedScene" uid="uid://chd8awhkxw1b7" path="res://battle/battle.tscn" id="1_yrolj"]
+[ext_resource type="PackedScene" uid="uid://dlyb2lewb1n15" path="res://battle/battle_actors/battle_enemy.tscn" id="2_vaovp"]
 
 [node name="boss_battle" type="Control"]
 layout_mode = 3
@@ -10,6 +11,36 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Battle" parent="." instance=ExtResource("1_yrolj")]
+[node name="Battle" parent="." node_paths=PackedStringArray("boss") instance=ExtResource("1_yrolj")]
 layout_mode = 1
+boss = NodePath("Battle Enemy")
 in_battle_scene = true
+
+[node name="Battle Enemy" parent="Battle" instance=ExtResource("2_vaovp")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -72.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 95.0
+grow_horizontal = 0
+grow_vertical = 1
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="HBoxContainer" parent="Battle/BattleContainer/MarginContainer/TopPanel" index="1"]
+clip_contents = true
+
+[editable path="Battle"]
+[editable path="Battle/BattleContainer/MarginContainer/TopPanel/MarginContainer/Side Info"]
+[editable path="Battle/BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player"]
+[editable path="Battle/BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy"]
+[editable path="Battle/BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy/HealthBar"]
+[editable path="Battle/BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status"]
+[editable path="Battle/BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/PlayerStatusMargin/Player Status/Player Health and Name/Health Bar"]
+[editable path="Battle/BattleContainer/PlayerPanel/MarginContainer/Player Status and Hand/Hand of Dice/Die Action Menu"]
+[editable path="Battle/BattleContainer/PlayerPanel/MarginContainer/Textbox Controller"]

@@ -9,7 +9,7 @@ class_name InvDiesideFrameGlow
 signal frame_clicked(dieside : DieSide)
 
 var glow_power = 1.0
-var speed = 2.0
+var speed = 4.0
 
 ## Changes label and inventory die texture accordingly
 func update(dieside: DieSide):

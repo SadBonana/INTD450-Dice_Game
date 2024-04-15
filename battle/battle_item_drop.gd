@@ -4,7 +4,7 @@ extends Control
 @export var common_loot_table: LootTable
 @export var uncommon_loot_table: LootTable
 
-@onready var textbox_controller := $"VBoxContainer/Textbox Controller"
+@onready var textbox_controller := %"Textbox Controller"
 @onready var inventory := %item_drop_display
 @onready var loot_drop_container := %LootDropContainer
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
@@ -57,7 +57,7 @@ func select_die(frame):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("/root/Map").hide()
-	get_node("/root/Map").player_status_container.visible = false
+	get_node("/root/Map").canvas_layer.player_bag_container.visible = true
 	
 	# Generate 3 random battle drop items from a randomly selected loot table
 	item_generation()
@@ -113,5 +113,4 @@ func item_generation():
 
 func exit_drop_screen():
 	queue_free()
-	get_node("/root/Map").canvas_layer.visible = true
 	get_node("/root/Map").show()

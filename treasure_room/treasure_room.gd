@@ -4,7 +4,7 @@ extends Control
 @export var rare_loot_table: LootTable
 @export var ultra_rare_loot_table: LootTable
 
-@onready var textbox_controller := $"VBoxContainer/Textbox Controller"
+@onready var textbox_controller := %"Textbox Controller"
 @onready var inventory := %item_drop_display
 @onready var inv_dice_visual = preload("res://modules/inventory/diceinv/inv_die_frame.tscn")
 @onready var inv_side_visual = preload("res://modules/inventory/diceinv/inv_dieside_frame.tscn")

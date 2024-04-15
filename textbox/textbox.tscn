@@ -1,14 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c80it7gqiqtxv"]
+[gd_scene load_steps=3 format=3 uid="uid://c80it7gqiqtxv"]
 
 [ext_resource type="Script" path="res://textbox/textbox.gd" id="1_iu64e"]
-[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_tr7lq"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bsvrk"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="2_k2m5m"]
 
 [node name="Textbox Controller" type="Control"]
 layout_mode = 3
@@ -35,14 +28,11 @@ focus_next = NodePath(".")
 focus_previous = NodePath(".")
 focus_mode = 2
 mouse_default_cursor_shape = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_bsvrk")
+theme = ExtResource("2_k2m5m")
 
 [node name="MarginContainer" type="MarginContainer" parent="Textbox"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme = ExtResource("2_k2m5m")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Textbox/MarginContainer"]
 layout_mode = 2
@@ -53,17 +43,7 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 mouse_filter = 1
-theme_override_constants/line_separation = 10
-theme_override_fonts/normal_font = ExtResource("2_tr7lq")
-theme_override_fonts/bold_font = ExtResource("2_tr7lq")
-theme_override_fonts/italics_font = ExtResource("2_tr7lq")
-theme_override_fonts/bold_italics_font = ExtResource("2_tr7lq")
-theme_override_fonts/mono_font = ExtResource("2_tr7lq")
-theme_override_font_sizes/normal_font_size = 15
-theme_override_font_sizes/bold_font_size = 12
-theme_override_font_sizes/italics_font_size = 8
-theme_override_font_sizes/bold_italics_font_size = 12
-theme_override_font_sizes/mono_font_size = 8
+theme = ExtResource("2_k2m5m")
 bbcode_enabled = true
 text = "A GODOT LOGO Appears"
 
@@ -76,8 +56,7 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath(".")
 focus_next = NodePath(".")
 focus_previous = NodePath(".")
-theme_override_fonts/font = ExtResource("2_tr7lq")
-theme_override_font_sizes/font_size = 15
+theme = ExtResource("2_k2m5m")
 auto_height = true
 item_count = 2
 item_0/text = "test 1"
@@ -89,6 +68,5 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("2_tr7lq")
-theme_override_font_sizes/font_size = 8
+theme = ExtResource("2_k2m5m")
 text = ">"

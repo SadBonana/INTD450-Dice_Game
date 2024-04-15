@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cglfsj48akwp2"]
+[gd_scene load_steps=23 format=3 uid="uid://cglfsj48akwp2"]
 
 [ext_resource type="Script" path="res://battle/battle_item_drop.gd" id="1_e8830"]
 [ext_resource type="PackedScene" uid="uid://c80it7gqiqtxv" path="res://textbox/textbox.tscn" id="3_cd6bx"]
@@ -6,9 +6,20 @@
 [ext_resource type="Resource" uid="uid://57h8lf7cnkbn" path="res://die_resources/common_loot_table.tres" id="3_ww484"]
 [ext_resource type="Script" path="res://textbox/dialogue_beat.gd" id="4_05img"]
 [ext_resource type="Resource" uid="uid://cqxhmeluf1nvj" path="res://die_resources/uncommon_loot_table.tres" id="4_8ddl5"]
+[ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="4_jof4a"]
 [ext_resource type="Script" path="res://textbox/dialogue_res.gd" id="5_bdc6d"]
-[ext_resource type="StyleBox" uid="uid://duu0i3mki6gt4" path="res://battle/styles/skip_reward_normal.tres" id="5_r0a7v"]
-[ext_resource type="StyleBox" uid="uid://cncyidhgwlawo" path="res://battle/styles/skip_reward_pressed.tres" id="6_cheo5"]
+[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="5_dfsn3"]
+[ext_resource type="Texture2D" uid="uid://d863lidc5dtg" path="res://assets/textures/map_icons.png" id="6_ytjvb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eatx4"]
+atlas = ExtResource("6_ytjvb")
+region = Rect2(3, 111, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2d1g"]
+atlas = ExtResource("6_ytjvb")
+region = Rect2(57, 111, 32, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r1bmd"]
 
 [sub_resource type="Resource" id="Resource_0o1qc"]
 resource_name = "congrats"
@@ -97,6 +108,22 @@ script = ExtResource("1_e8830")
 common_loot_table = ExtResource("3_ww484")
 uncommon_loot_table = ExtResource("4_8ddl5")
 
+[node name="Background" type="NinePatchRect" parent="."]
+modulate = Color(0.376471, 0.376471, 0.376471, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_jof4a")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -105,11 +132,34 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+size_flags_stretch_ratio = 5.0
+theme = ExtResource("5_dfsn3")
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(0.376471, 0.376471, 0.376471, 1)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = SubResource("AtlasTexture_eatx4")
+stretch_mode = 5
+
+[node name="Icon2" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(0.376471, 0.376471, 0.376471, 1)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = SubResource("AtlasTexture_k2d1g")
+stretch_mode = 5
+
 [node name="LootDropContainer" type="MarginContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_top = 105
+size_flags_stretch_ratio = 10.0
 
 [node name="item_drop_display" parent="VBoxContainer/LootDropContainer" instance=ExtResource("3_dly5t")]
 layout_mode = 2
@@ -117,23 +167,34 @@ tabs_visible = false
 
 [node name="skip_reward" type="Button" parent="VBoxContainer/LootDropContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-theme_override_styles/normal = ExtResource("5_r0a7v")
-theme_override_styles/hover = ExtResource("5_r0a7v")
-theme_override_styles/pressed = ExtResource("6_cheo5")
+theme = ExtResource("5_dfsn3")
 text = "Skip Reward"
 
-[node name="Textbox Controller" parent="VBoxContainer" instance=ExtResource("3_cd6bx")]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+size_flags_stretch_ratio = 1.35
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+size_flags_stretch_ratio = 0.2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_r1bmd")
+
+[node name="Textbox Controller" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_cd6bx")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.55
+size_flags_stretch_ratio = 1.35
 dialogue_res = SubResource("Resource_umkng")
 
-[node name="Background" type="PanelContainer" parent="VBoxContainer/Textbox Controller"]
+[node name="Background" type="PanelContainer" parent="VBoxContainer/HBoxContainer2/Textbox Controller"]
 unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 1
@@ -152,4 +213,4 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bsvrk")
 
 [editable path="VBoxContainer/LootDropContainer/item_drop_display"]
-[editable path="VBoxContainer/Textbox Controller"]
+[editable path="VBoxContainer/HBoxContainer2/Textbox Controller"]

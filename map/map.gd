@@ -13,7 +13,8 @@ var map_scene 	= preload("res://map/MapTree.tscn")
 
 @onready var canvas_layer = %CanvasLayer
 @onready var player_status_container = %BagContainer
-@onready var inventory_container = $CanvasLayer/DisplayBoxContainer
+@onready var inventory_container = %DisplayBoxContainer
+@onready var mapnodes = $Nodes
 
 #@export var scroll_cont : ScrollContainer
 @export var bg 			: NinePatchRect
@@ -47,7 +48,9 @@ func draw():
 	var margins = Vector2(margin,margin)
 	bg.draw.connect(func ():
 		for node in map.map_nodes:
-			if node != null:
+			if node and node.type == NT.START:
+				node.hide()
+			if node != null and node.type != NT.START:
 				for child in node.get_sons():
 					if node.type != NT.ERROR:
 						#bg.draw_line(node.position + margins, child.position + margins, Color.DIM_GRAY, 2)
@@ -91,10 +94,19 @@ func add_nodes():
 			#node.text = text
 			
 			bg.add_child(node)
-		
-func _on_visibility_changed():
-	if visible:
-		for map_node in bg.get_children():
+
+
+func focus_active_node():
+	for map_node in bg.get_children():
 			if not map_node.disabled:
 				get_tree().create_timer(0.5).timeout.connect(func (): map_node.grab_focus())
 				break
+
+
+func _on_visibility_changed():
+	if visible:
+		focus_active_node()
+
+
+func _on_nodes_focus_entered():
+	focus_active_node()
