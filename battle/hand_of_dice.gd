@@ -41,9 +41,16 @@ func disable_die(drawndie):
 func enable_all_dice():
 	for child in get_children():
 		child.disabled = false
-	
+		
+func return_targets():
+	var targets : Array[BattleActor]
+	for drawndie in drawndice_with_targets:
+		targets.append(drawndie.target)
+	return targets
+		
 func send_signal(num : int):
 	amount_selected.emit(num)
+
 	
 	
 	
