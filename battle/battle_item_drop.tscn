@@ -183,7 +183,7 @@ custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 8
-size_flags_stretch_ratio = 0.2
+size_flags_stretch_ratio = 0.35
 theme_override_styles/panel = SubResource("StyleBoxEmpty_r1bmd")
 
 [node name="Textbox Controller" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_cd6bx")]

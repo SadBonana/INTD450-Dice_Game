@@ -127,7 +127,13 @@ func _on_toggled(toggled_on):
 		if effect == StatusEffect.AUTODEFENSE:
 			targets[-1].grab_focus()
 		else:
-			targets[0].grab_focus()
+			var recent_targets = data.battle.drawn_die_container.return_targets()
+			if recent_targets.size() > 0:
+				for target in targets:
+					if target == recent_targets[-1]:
+						target.grab_focus()
+			else:	
+				targets[0].grab_focus()
 		
 		target = await data.battle.target_selected
 		for enemy in data.battle.enemies:
@@ -144,16 +150,8 @@ func _on_toggled(toggled_on):
 		
 		disable_untargetables(false)
 		
-		# After targeting is finished, focus on the next thing the player is likely to want to be in focus.
-		var found_next_focus_item = false
-		if not get_parent().is_max():
-			for i in range(data.battle.player.dice_hand.size()):
-				if not data.battle.player.dice_hand[i].is_toggled:
-					found_next_focus_item = true
-					data.battle.player.dice_hand[i].grab_focus()
-					break
-		if not found_next_focus_item:
-			data.battle.ready_button.grab_focus()
+		# After targeting is finished, focus on die that was just used
+		self.grab_focus()
 	else:
 		#get_node("/root/SoundManager/alt_select").play()
 		SoundManager.alt_select_sfx.play()

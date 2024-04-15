@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://xs6m6nv7m5ly" path="res://misc components/health_bar.tscn" id="1_pbfgf"]
 [ext_resource type="Script" path="res://battle/battle_actors/battle_enemy.gd" id="1_u2vwq"]
 [ext_resource type="PackedScene" uid="uid://bbu8nn2jqun2j" path="res://battle/battle_actors/battle_actor.tscn" id="3_vc0kg"]
-[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="4_4kj7r"]
 [ext_resource type="Texture2D" uid="uid://lvsj2s8e3oju" path="res://assets/textures/resources/simple enemy.tres" id="4_vjoly"]
+[ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="5_7g2fw"]
 
 [node name="Battle Enemy" instance=ExtResource("3_vc0kg")]
 offset_left = -36.0
@@ -30,9 +30,8 @@ texture = ExtResource("4_vjoly")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 0.188235, 0.172549, 1)
-theme_override_fonts/font = ExtResource("4_4kj7r")
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("5_7g2fw")
+theme_override_font_sizes/font_size = 38
 text = "5
 "
 horizontal_alignment = 1
