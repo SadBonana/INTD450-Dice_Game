@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfymsbtolism2"]
+[gd_scene load_steps=5 format=3 uid="uid://dna6mbwvewc22"]
 
 [ext_resource type="Shader" path="res://modules/inventory/diceinv/inv_dieside_frame_glow.gdshader" id="1_0s7f8"]
+[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="2_qmutk"]
 [ext_resource type="Script" path="res://modules/inventory/diceinv/inv_dieside_frame_with_glow.gd" id="2_qy4ig"]
-[ext_resource type="FontFile" uid="uid://cft6pa3adwlda" path="res://fonts/VT323/VT323-Regular.ttf" id="2_r4fyo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_15qpw"]
 shader = ExtResource("1_0s7f8")
@@ -17,6 +17,7 @@ material = SubResource("ShaderMaterial_15qpw")
 custom_minimum_size = Vector2(75, 75)
 offset_right = 75.0
 offset_bottom = 75.0
+theme = ExtResource("2_qmutk")
 script = ExtResource("2_qy4ig")
 
 [node name="Element" type="ColorRect" parent="."]
@@ -36,7 +37,6 @@ offset_right = 20.0
 offset_bottom = 23.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_r4fyo")
 text = "Basic"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -55,8 +55,7 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_r4fyo")
-theme_override_font_sizes/font_size = 44
+theme_override_font_sizes/font_size = 24
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -8,6 +8,7 @@ func _ready():
 func _process(delta):
 	pass
 
+
 # Init signals
 signal fps_displayed(value)
 signal bloom_toggled(value)

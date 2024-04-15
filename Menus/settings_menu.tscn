@@ -1,17 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0rmrjb71troy"]
+[gd_scene load_steps=3 format=3 uid="uid://b1ubikyc0m012"]
 
-[ext_resource type="Script" path="res://menus/settings_menu.gd" id="1_nfjqp"]
+[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="1_bfjoa"]
+[ext_resource type="Script" path="res://menus/settings_menu.gd" id="1_wgoa1"]
 
 [node name="settings_menu" type="Window"]
 title = "Settings"
-position = Vector2i(0, 30)
+position = Vector2i(0, 36)
 size = Vector2i(640, 340)
 content_scale_mode = 2
 content_scale_aspect = 4
 content_scale_stretch = 1
-script = ExtResource("1_nfjqp")
+theme = ExtResource("1_bfjoa")
+script = ExtResource("1_wgoa1")
 
 [node name="Background" type="ColorRect" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -29,9 +32,11 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("1_bfjoa")
 
 [node name="Video" type="TabBar" parent="settings_tabs"]
 layout_mode = 2
+theme = ExtResource("1_bfjoa")
 
 [node name="video_margin_container" type="MarginContainer" parent="settings_tabs/Video"]
 layout_mode = 1
@@ -125,6 +130,7 @@ size_flags_horizontal = 10
 [node name="Audio" type="TabBar" parent="settings_tabs"]
 visible = false
 layout_mode = 2
+theme = ExtResource("1_bfjoa")
 
 [node name="audio_margin_container" type="MarginContainer" parent="settings_tabs/Audio"]
 layout_mode = 1
@@ -185,6 +191,7 @@ value = -10.0
 [node name="Gameplay" type="TabBar" parent="settings_tabs"]
 visible = false
 layout_mode = 2
+theme = ExtResource("1_bfjoa")
 
 [node name="gameplay_margin_container" type="MarginContainer" parent="settings_tabs/Gameplay"]
 layout_mode = 1

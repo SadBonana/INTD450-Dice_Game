@@ -1,13 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://ddvb8gwrblohv"]
+[gd_scene load_steps=11 format=3 uid="uid://ddvb8gwrblohv"]
 
+[ext_resource type="Script" path="res://menus/start_menu.gd" id="1_fal63"]
 [ext_resource type="Texture2D" uid="uid://cwhexgrm5wnio" path="res://assets/textures/player enemies.png" id="1_jtesq"]
 [ext_resource type="Script" path="res://Menus/start_button.gd" id="2_ffffd"]
-[ext_resource type="PackedScene" uid="uid://dmaf74odgy7v6" path="res://Menus/start_button.tscn" id="2_v1kad"]
+[ext_resource type="PackedScene" uid="uid://boyouw0dt2gmk" path="res://menus/start_button.tscn" id="2_v1kad"]
 [ext_resource type="FontFile" uid="uid://bp1tecc1q8qmn" path="res://fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="3_1w326"]
-[ext_resource type="PackedScene" uid="uid://djhlg0x1wvmi" path="res://Menus/controls_button.tscn" id="3_abhdu"]
-[ext_resource type="PackedScene" uid="uid://c3ardwyvsttr1" path="res://Menus/fps_label.tscn" id="3_smo4h"]
-[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://Menus/settings_button.tscn" id="4_b5kma"]
-[ext_resource type="PackedScene" uid="uid://c8y350efda5hk" path="res://Menus/quit_button.tscn" id="5_k2kcg"]
+[ext_resource type="PackedScene" uid="uid://dkc4f2l61ttpr" path="res://menus/controls_button.tscn" id="3_abhdu"]
+[ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://menus/fps_label.tscn" id="3_smo4h"]
+[ext_resource type="PackedScene" uid="uid://bbhr5ye2on3mo" path="res://menus/settings_button.tscn" id="4_b5kma"]
+[ext_resource type="PackedScene" uid="uid://bgp0uigvyvkrj" path="res://menus/quit_button.tscn" id="5_k2kcg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aqxo6"]
 atlas = ExtResource("1_jtesq")
@@ -22,6 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_fal63")
 
 [node name="start_menu_panel" type="PanelContainer" parent="."]
 unique_name_in_owner = true

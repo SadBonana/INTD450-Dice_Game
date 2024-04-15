@@ -4,9 +4,9 @@
 [ext_resource type="Resource" uid="uid://nq0o2g57d888" path="res://die_resources/lightning_dice/lightning_sides/1_lightning_side.tres" id="2_qvne7"]
 [ext_resource type="Resource" uid="uid://ciflo84x5qynq" path="res://die_resources/lightning_dice/lightning_sides/2_lightning_side.tres" id="3_3lwjl"]
 [ext_resource type="Resource" uid="uid://lo84spmit74s" path="res://die_resources/lightning_dice/lightning_sides/3_lightning_side.tres" id="4_6iwa2"]
-[ext_resource type="Resource" uid="uid://xi4qv18viuet" path="res://die_resources/lightning_dice/lightning_sides/4_lightning_side.tres" id="5_2oap2"]
-[ext_resource type="Resource" uid="uid://6nfsctdbitp3" path="res://die_resources/lightning_dice/lightning_sides/5_lightning_side.tres" id="6_x1fj8"]
-[ext_resource type="Resource" uid="uid://danw0k2ovphrg" path="res://die_resources/lightning_dice/lightning_sides/6_lightning_side.tres" id="7_1ljh2"]
+[ext_resource type="Resource" uid="uid://1k5gwulcyper" path="res://die_resources/lightning_dice/lightning_sides/4_lightning_side.tres" id="5_2oap2"]
+[ext_resource type="Resource" uid="uid://d1ua2vmix8caj" path="res://die_resources/lightning_dice/lightning_sides/5_lightning_side.tres" id="6_x1fj8"]
+[ext_resource type="Resource" uid="uid://diu23q5fgdlu5" path="res://die_resources/lightning_dice/lightning_sides/6_lightning_side.tres" id="7_1ljh2"]
 [ext_resource type="Texture2D" uid="uid://daf3ysqfpw15n" path="res://assets/textures/resources/dice/d6.tres" id="8_2e055"]
 
 [resource]

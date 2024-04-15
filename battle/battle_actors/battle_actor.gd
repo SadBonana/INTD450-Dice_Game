@@ -96,10 +96,13 @@ func take_damage(damage: int, beligerent_name: String) -> int:
 	defense -= damage
 	shield_manager(defense)
 	var prev_health = health
+	
 	health -= damage_after_defense
 	
 	animation_player.play("Hurt")
 	await animation_player.animation_finished
+	
+	
 	if enable_textboxes:
 		await textbox.quick_beat("deal damage", [beligerent_name, damage_after_defense])
 	
@@ -197,6 +200,3 @@ func shield_manager(value: int):
 		show_shield_string(false)
 	else:
 		show_shield_string(true)
-
-
-

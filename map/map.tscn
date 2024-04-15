@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://dobeg8c3tqmme"]
+[gd_scene load_steps=11 format=3 uid="uid://dobeg8c3tqmme"]
 
+[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="1_na8f1"]
 [ext_resource type="Script" path="res://map/map.gd" id="1_vgmaq"]
+[ext_resource type="Resource" uid="uid://cfwcn8txtyhsv" path="res://global scripts/initial bag/elemental_d6_bag.tres" id="2_q8lfo"]
+[ext_resource type="Script" path="res://map/overlay.gd" id="3_boucf"]
 [ext_resource type="Texture2D" uid="uid://cln7a62mjsjny" path="res://assets/textures/map noise paper ninepatch.png" id="4_sqmrd"]
+[ext_resource type="PackedScene" uid="uid://bgag7rr64v1m7" path="res://misc components/player_status.tscn" id="6_k670k"]
+[ext_resource type="StyleBox" uid="uid://b53y6jtfssomx" path="res://modules/display_box/styles/die_side_info_box.tres" id="7_ca5sp"]
+[ext_resource type="PackedScene" uid="uid://dt0k5w1vnqunx" path="res://Menus/fps_label.tscn" id="7_ccdas"]
+[ext_resource type="PackedScene" uid="uid://dke0j6k6yhhl3" path="res://Menus/pause_menu.tscn" id="7_dd1q5"]
+[ext_resource type="PackedScene" uid="uid://dh8djh65x4wfj" path="res://modules/display_box/display_box.tscn" id="8_8cnei"]
 
 [node name="Map" type="ScrollContainer" node_paths=PackedStringArray("bg")]
 anchors_preset = 15
@@ -11,6 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
+theme = ExtResource("1_na8f1")
 follow_focus = true
 script = ExtResource("1_vgmaq")
 bg = NodePath("Nodes")
@@ -20,6 +29,7 @@ custom_minimum_size = Vector2(640, 1080)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+focus_mode = 2
 texture = ExtResource("4_sqmrd")
 patch_margin_left = 32
 patch_margin_top = 32
@@ -28,4 +38,99 @@ patch_margin_bottom = 32
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_boucf")
+temp_dice_bag_init = ExtResource("2_q8lfo")
+
+[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("7_dd1q5")]
+visible = false
+
+[node name="FPSContainer" type="MarginContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -196.0
+offset_bottom = 69.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_top = 13
+theme_override_constants/margin_right = 24
+
+[node name="fps_label" parent="CanvasLayer/FPSContainer" instance=ExtResource("7_ccdas")]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+alignment = 1
+
+[node name="DisplayBoxContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 10.0
+mouse_filter = 2
+
+[node name="Display Box" parent="CanvasLayer/VBoxContainer/DisplayBoxContainer" instance=ExtResource("8_8cnei")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+open_action = "I"
+close_action = "I"
+
+[node name="BagContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+size_flags_stretch_ratio = 1.35
+
+[node name="Panel" type="Panel" parent="CanvasLayer/VBoxContainer/BagContainer"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_styles/panel = ExtResource("7_ca5sp")
+
+[node name="StatusBagMarginContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer/BagContainer/Panel"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="Player Status" parent="CanvasLayer/VBoxContainer/BagContainer/Panel/StatusBagMarginContainer" instance=ExtResource("6_k670k")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Bag Button" parent="CanvasLayer/VBoxContainer/BagContainer/Panel/StatusBagMarginContainer/Player Status/Bag Sprite" index="1"]
+focus_neighbor_left = NodePath("../../../../../../../../Nodes")
+focus_neighbor_top = NodePath("../../../../../../../../Nodes")
+focus_neighbor_right = NodePath("../../../../../../../../Nodes")
+focus_neighbor_bottom = NodePath("../../../../../../../../Nodes")
+focus_next = NodePath("../../../../../../../../Nodes")
+focus_previous = NodePath("../../../../../../../../Nodes")
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="focus_entered" from="Nodes" to="." method="_on_nodes_focus_entered"]
+
+[editable path="CanvasLayer/VBoxContainer/BagContainer/Panel/StatusBagMarginContainer/Player Status"]

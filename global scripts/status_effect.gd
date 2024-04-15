@@ -48,7 +48,7 @@ class Paralysis extends StatusEffect:
 	func _init(_textbox: TextboxController, _target: BattleActor):
 		super(_textbox, _target, 1)
 		_type = EffectType.PARALYSIS
-		color="REBECCA_PURPLE"
+		color="#8c3cee" # purple from art palette #"REBECCA_PURPLE"
 		colour = Color.REBECCA_PURPLE
 		description_beat = "paralysis description"
 	
@@ -109,6 +109,7 @@ class Paralysis extends StatusEffect:
 		else:
 			target.commit_dice()
 
+# TODO: Should really be moved to helpers.gd
 func argmax(dice_hand : Array) -> int:
 	var max = -1
 	var index = -1
@@ -128,7 +129,7 @@ class Autodefense extends StatusEffect:
 	func _init(_textbox: TextboxController, _target: BattleActor, _stacks: int):
 		super(_textbox, _target, _stacks)
 		_type = EffectType.AUTODEFENSE
-		color="LIGHT_STEEL_BLUE"
+		color="#9db3bf" # grey from art palette #"LIGHT_STEEL_BLUE"
 		colour = Color.LIGHT_STEEL_BLUE
 		beneficial = true
 		damaging = false
@@ -149,7 +150,6 @@ class Autodefense extends StatusEffect:
 				#await get_tree().create_timer(0.5).timeout
 				
 				#SoundManager.defend_2.play()
-				target.defense += effect.stacks# We expect buffs to activate the turn they are used.
 				target.update_status_effects()
 				return true
 		SoundManager.autodefense_2.play()
@@ -192,7 +192,7 @@ class Ignited extends StatusEffect:
 		super(_textbox, _target, 1)		# Default 1 stack
 		spread_targets = all_targets
 		_type = EffectType.IGNITED
-		color = "DARK_RED"
+		color = "#a90909" # red from art palette #"DARK_RED"
 		colour = Color.DARK_RED
 		description_beat = "ignited description"
 	
@@ -263,7 +263,7 @@ class Poisoned extends StatusEffect:
 		#TODO: Determine if this is based on roll.
 		super(_textbox, _target, _stacks)
 		_type = EffectType.POISONED
-		color = "WEB_GREEN"
+		color = "#239063" # green from art palette #"WEB_GREEN"
 		colour = Color.WEB_GREEN
 		description_beat = "poisoned description"
 		damaging = false
