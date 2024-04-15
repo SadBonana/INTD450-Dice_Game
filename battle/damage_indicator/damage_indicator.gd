@@ -9,6 +9,7 @@ var shift_direction: Vector2 = Vector2.ZERO
 #var shift_direction: Vector2 = Vector2.UP
 
 @onready var label = $Label
+@onready var label2 = $Label2
 
 
 

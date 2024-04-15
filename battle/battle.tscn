@@ -117,19 +117,8 @@ size_flags_stretch_ratio = 3.0
 visible = false
 size_flags_vertical = 1
 
-[node name="MarginContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player/PanelContainer" index="0"]
-layout_mode = 2
-
-[node name="Status Effects" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player/PanelContainer/MarginContainer" index="0"]
-unique_name_in_owner = true
-layout_mode = 2
-
 [node name="Shield" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player" index="1"]
 size_flags_vertical = 0
-
-[node name="MarginContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Player" index="2"]
-unique_name_in_owner = false
-size_flags_stretch_ratio = 1.0
 
 [node name="Battle Enemy" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2
@@ -140,14 +129,6 @@ res = ExtResource("2_yokuy")
 
 [node name="PanelContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy" index="0"]
 size_flags_vertical = 1
-
-[node name="MarginContainer" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy/PanelContainer" index="0"]
-layout_mode = 2
-
-[node name="Status Effects" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer/Battle Enemy/PanelContainer/MarginContainer" index="0"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="Battle Enemy2" parent="BattleContainer/MarginContainer/TopPanel/HBoxContainer" instance=ExtResource("4_w871o")]
 layout_mode = 2

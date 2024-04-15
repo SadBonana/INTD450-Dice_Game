@@ -104,7 +104,7 @@ func take_damage(damage: int, beligerent_name: String) -> int:
 	shield_manager(defense)
 	var prev_health = health
 	
-	spawn_damage_indicator(damage_after_defense)
+	spawn_damage_indicator(damage_after_defense, beligerent_name)
 	health -= damage_after_defense
 	
 	animation_player.play("Hurt")
@@ -214,8 +214,25 @@ func shield_manager(value: int):
 
 
 
-func spawn_damage_indicator(damage: int):
-	damage_indication.label.text = str(damage)
+func spawn_damage_indicator(damage: int, beligerent_name: String):
+	#damage_indication.label.text = str(damage)
+	var color: String
+	var extra_text := ""
+	match beligerent_name:
+		# This is dumb. This is what i get for trying to be smart...
+		"POISONED":
+			color = "#239063"
+			extra_text = "Poison"
+		"IGNITED":
+			color = "#a90909"
+			extra_text = "Ignite"
+		_:
+			color = "#61000f" # looks kinda blood red, might be too similar to ignited's color though
+	if damage == 0:
+		color = "#9db3bf" # autodefence color
+		extra_text = "Block"
+	damage_indication.label.text = "[color=%s]%d[/color]" % [color, damage]
+	damage_indication.label2.text = "[color=%s]%s[/color]" % [color, extra_text]
 	
 	damage_animation.play("show_damage")
 	await animation_player.animation_finished

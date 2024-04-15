@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvt2ilg78br68"]
+[gd_scene load_steps=6 format=3 uid="uid://cvt2ilg78br68"]
 
 [ext_resource type="Script" path="res://battle/damage_indicator/damage_indicator.gd" id="1_6jhxt"]
+[ext_resource type="Theme" uid="uid://ddnoygvjb66a1" path="res://ui themes/typical_theme.tres" id="2_iqviw"]
 
 [sub_resource type="Animation" id="Animation_8nd57"]
 tracks/0/type = "value"
@@ -44,7 +45,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -65,11 +66,27 @@ _data = {
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_6jhxt")
 
-[node name="Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
-grow_horizontal = 2
+[node name="Label" type="RichTextLabel" parent="."]
+offset_left = 4.0
+offset_right = 44.0
+offset_bottom = 26.0
+theme = ExtResource("2_iqviw")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
 text = "0"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Label2" type="RichTextLabel" parent="."]
+offset_top = 16.0
+offset_right = 40.0
+offset_bottom = 39.0
+theme = ExtResource("2_iqviw")
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+text = "fire"
+fit_content = true
+autowrap_mode = 0
 
 [node name="damage_animation" type="AnimationPlayer" parent="."]
 libraries = {
