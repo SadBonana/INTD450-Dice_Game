@@ -174,7 +174,7 @@ func make_focused_pressed():
 	button.add_theme_stylebox_override(pressed_style, focused_press_path)
 	var new_stylebox_pressed = get_theme_stylebox(pressed_style)
 	new_stylebox_pressed.bg_color = side.element.color
-	battle_enemy.damage_for_preview = int(die_damage_label.text)
+	#battle_enemy.damage_for_preview = int(die_damage_label.text)
 
 ## A function that changes the style box of the drawn_die
 ## once it is no longer the selected die

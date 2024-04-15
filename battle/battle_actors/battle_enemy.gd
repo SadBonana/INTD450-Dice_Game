@@ -135,6 +135,10 @@ func restore_sprite_color():
 
 
 func _on_mouse_entered():
+	#progress_bar.visible = true
+	#health_label.text = "HP: %d/%d" % [health_bar.value - damage_for_preview, health_bar.max_value]
+	
+	#var current_health = _get_health
 	#battle.player
 	
 	health_label.visible = false
